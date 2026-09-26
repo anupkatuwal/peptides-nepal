@@ -66,10 +66,16 @@ function render(p) {
   const restOfFirst = paras[0] ? paras[0].split("\n").slice(1).join(" ") : "";
   let excerpt = [restOfFirst, ...paras.slice(1)].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
   if (excerpt.length > 170) excerpt = excerpt.slice(0, 170).replace(/\s+\S*$/, "") + "…";
-  const img = p.images[0];
   const slides = p.images.length;
+  // Every slide of the carousel, in order. CSS scroll-snap makes the strip
+  // swipeable on its own; app.js adds arrows and the "2 / 7" counter.
+  const media = slides
+    ? p.images.map((src, i) => `<a class="slide" href="${esc(p.url)}" rel="noopener" tabindex="-1"><img src="${esc(src)}" alt="${i === 0 ? `First slide of the post: ${esc(title)}` : `Slide ${i + 1} of ${slides}`}" loading="lazy" width="1080" height="1350" /></a>`).join("")
+    : "";
   return `        <article class="post">
-          <a class="post-media" href="${esc(p.url)}" rel="noopener" aria-label="Open this post on Instagram (${slides} slide${slides === 1 ? "" : "s"})">${img ? `<img src="${esc(img)}" alt="First slide of the post: ${esc(title)}" loading="lazy" width="1080" height="1350" />` : ""}</a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="${slides} slide${slides === 1 ? "" : "s"}: ${esc(title)}" data-slides="${slides}">
+            <div class="slides" tabindex="0">${media}</div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="${esc(p.date)}">${fmtDate(p.date)}</time>
             <h3>${esc(title)}</h3>
@@ -82,7 +88,7 @@ function render(p) {
 
 const SHOW = 9; // latest posts shown on the page; all are kept in data/posts.json
 const block = posts.length
-  ? `\n        <div class="posts">\n${posts.slice(0, SHOW).map(render).join("\n")}\n        </div>\n        `
+  ? `\n        <div class="posts" data-total="${posts.length}">\n${posts.slice(0, SHOW).map(render).join("\n")}\n        </div>\n        `
   : `\n        <p>New posts will appear here.</p>\n        `;
 
 const html = readFileSync(INDEX, "utf8");

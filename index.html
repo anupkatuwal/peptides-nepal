@@ -35,6 +35,7 @@
       </a>
       <nav class="site-nav" aria-label="Main">
         <a href="#guide">Guide</a>
+        <a href="#quiz">Quiz</a>
         <a href="#posts">Latest posts</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -44,14 +45,41 @@
   <main id="main">
     <div class="wrap" id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">Peptide research guide · Education only</p>
-        <h1 id="hero-title">Know the peptide before you trust the hype.</h1>
-        <p class="lead">A plain-language guide to the peptides people talk about most. For each one: what it is, its legal status, how strong the evidence is, and the research you can check yourself.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#guide">Read the guide</a>
-          <a class="btn btn-secondary" href="https://instagram.com/peptidesnepal" rel="noopener">Follow @peptidesnepal</a>
+        <div class="hero-text">
+          <!-- Filled by app.js from the newest post in the "Latest from Instagram" block. -->
+          <a class="latest" id="latest-post" href="#posts" hidden>
+            <span class="latest-dot" aria-hidden="true"></span>
+            <span class="latest-label">New on Instagram</span>
+            <span class="latest-title"></span>
+            <span class="latest-when"></span>
+          </a>
+          <p class="eyebrow">Peptide research guide · Education only</p>
+          <h1 id="hero-title">Know the peptide before you trust the hype.</h1>
+          <p class="lead">A plain-language guide to the peptides people talk about most. For each one: what it is, its legal status, how strong the evidence is, and the research you can check yourself.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#guide">Read the guide</a>
+            <a class="btn btn-secondary" href="#quiz">Take the myth quiz</a>
+            <a class="btn btn-ghost" href="https://instagram.com/peptidesnepal" rel="noopener">Follow @peptidesnepal</a>
+          </div>
         </div>
+        <!-- A peptide is a chain of amino acids: each bead is one. Decorative. -->
+        <svg class="hero-chain" viewBox="0 0 320 320" aria-hidden="true">
+          <path class="chain-line" d="M40 250 C 70 180, 120 230, 140 160 S 210 90, 190 60 S 250 40, 280 90" />
+          <g class="chain-beads">
+            <circle cx="40" cy="250" r="14" /><circle cx="78" cy="206" r="12" /><circle cx="116" cy="205" r="13" />
+            <circle cx="140" cy="160" r="15" /><circle cx="176" cy="118" r="12" /><circle cx="196" cy="74" r="13" />
+            <circle cx="236" cy="52" r="12" /><circle class="bead-accent" cx="280" cy="90" r="17" />
+          </g>
+        </svg>
       </section>
+
+      <!-- Numbers are counted from the page itself by app.js; the text is the no-JS fallback. -->
+      <ul class="stats" aria-label="At a glance">
+        <li><strong data-count="guide">9</strong><span>peptides in the guide</span></li>
+        <li><strong data-count="sources">18</strong><span>sources you can check</span></li>
+        <li><strong data-count="posts">10</strong><span>Instagram posts</span></li>
+        <li><strong>0</strong><span>products sold. Ever.</span></li>
+      </ul>
 
       <section id="guide" aria-labelledby="guide-title">
         <div class="section-head">
@@ -65,12 +93,20 @@
           <li><span class="badge badge-no">Not approved</span><span>No licensed human use. Mostly animal or lab data.</span></li>
         </ul>
 
-        <div class="filters" role="group" aria-label="Filter by status">
-          <button type="button" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" data-filter="approved" aria-pressed="false">Approved</button>
-          <button type="button" data-filter="trials" aria-pressed="false">In trials</button>
-          <button type="button" data-filter="not-approved" aria-pressed="false">Not approved</button>
+        <div class="guide-tools">
+          <div class="filters" role="group" aria-label="Filter by status">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="approved" aria-pressed="false">Approved</button>
+            <button type="button" data-filter="trials" aria-pressed="false">In trials</button>
+            <button type="button" data-filter="not-approved" aria-pressed="false">Not approved</button>
+          </div>
+          <label class="search" hidden>
+            <span class="visually-hidden">Search the guide</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" id="guide-search" placeholder="Search: e.g. WADA, weight, skin" autocomplete="off" />
+          </label>
         </div>
+        <p class="guide-count" id="guide-count" aria-live="polite"></p>
 
         <div class="cards">
           <article class="card" data-status="approved">
@@ -228,6 +264,51 @@
         </div>
       </section>
 
+      <section id="quiz" aria-labelledby="quiz-title">
+        <div class="section-head">
+          <h2 id="quiz-title">Myth or fact?</h2>
+          <p>Quick check. Every answer comes from the guide above or a post on our Instagram.</p>
+        </div>
+        <p class="quiz-score" id="quiz-score" aria-live="polite" hidden></p>
+        <!-- Without JS each card is a plain "Show answer" disclosure. app.js adds
+             the Myth / Fact buttons and shows four cards at a time. -->
+        <div class="quiz">
+          <article class="q" data-answer="myth">
+            <p class="q-text">"Peptides are natural, so they're safe."</p>
+            <details><summary>Show answer</summary><p><strong>Myth.</strong> Natural doesn't mean safe. Many peptides act like strong hormone signals, and untested products can be contaminated or wrongly dosed. Insulin is natural too, and the wrong dose is dangerous.</p></details>
+          </article>
+          <article class="q" data-answer="myth">
+            <p class="q-text">"Research-grade and pharma-grade peptides are the same thing."</p>
+            <details><summary>Show answer</summary><p><strong>Myth.</strong> Pharma grade is made in certified factories, tested and approved for people. "Research use only" vials aren't approved for humans, and the label may not match what's inside.</p></details>
+          </article>
+          <article class="q" data-answer="fact">
+            <p class="q-text">"Semaglutide (Ozempic, Wegovy) is an approved medicine."</p>
+            <details><summary>Show answer</summary><p><strong>Fact.</strong> It's approved for type 2 diabetes and weight management, backed by large human trials. It's prescription only, from a licensed pharmacy.</p></details>
+          </article>
+          <article class="q" data-answer="myth">
+            <p class="q-text">"BPC-157 has been proven in large human trials."</p>
+            <details><summary>Show answer</summary><p><strong>Myth.</strong> Most BPC-157 data comes from rats and lab studies. There are no large randomised human trials, and it isn't approved as a medicine anywhere.</p></details>
+          </article>
+          <article class="q" data-answer="fact">
+            <p class="q-text">"Insulin is a peptide."</p>
+            <details><summary>Show answer</summary><p><strong>Fact.</strong> Insulin is 51 amino acids long. It has treated diabetes for over 100 years, one of many real, well-tested peptide medicines.</p></details>
+          </article>
+          <article class="q" data-answer="myth">
+            <p class="q-text">"If it worked in rats, it will work in people."</p>
+            <details><summary>Show answer</summary><p><strong>Myth.</strong> Animal studies are only a first step. About 90% of drug candidates that reach human trials fail, mostly because they don't work well enough or aren't safe enough.</p></details>
+          </article>
+          <article class="q" data-answer="fact">
+            <p class="q-text">"Many of the peptides in this guide are banned in tested sport."</p>
+            <details><summary>Show answer</summary><p><strong>Fact.</strong> BPC-157, TB-500, CJC-1295, ipamorelin and tesamorelin are all prohibited by WADA. Tested athletes should check the WADA Prohibited List.</p></details>
+          </article>
+          <article class="q" data-answer="myth">
+            <p class="q-text">"A seller's Certificate of Analysis proves the product is pure."</p>
+            <details><summary>Show answer</summary><p><strong>Myth.</strong> Ask who did the testing. A report from the seller isn't independent, and the batch number should match the product in your hand.</p></details>
+          </article>
+        </div>
+        <p class="quiz-more"><button type="button" class="btn btn-secondary" id="quiz-next" hidden>Try four more</button></p>
+      </section>
+
       <section aria-labelledby="safety-title">
         <div class="notice">
           <h2 id="safety-title">Before you buy anything online</h2>
@@ -240,12 +321,14 @@
       <section id="posts" aria-labelledby="posts-title">
         <div class="section-head">
           <h2 id="posts-title">Latest from Instagram</h2>
-          <p>The newest posts from <a href="https://instagram.com/peptidesnepal" rel="noopener">@peptidesnepal</a>. Tap a post to see all its slides on Instagram.</p>
+          <p>The newest posts from <a href="https://instagram.com/peptidesnepal" rel="noopener">@peptidesnepal</a>. Swipe through each post's slides right here, or open it on Instagram to comment.</p>
         </div>
         <!-- POSTS:START — generated by scripts/build-posts.mjs from data/posts.json; edits here are overwritten -->
-        <div class="posts">
+        <div class="posts" data-total="10">
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" aria-label="Open this post on Instagram (7 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-5507905505826641595.jpeg" alt="First slide of the post: Most of what you hear about peptides online is half true. 👀" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="7 slides: Most of what you hear about peptides online is half true. 👀" data-slides="7">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-5507905505826641595.jpeg" alt="First slide of the post: Most of what you hear about peptides online is half true. 👀" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-17653374957708311280.jpeg" alt="Slide 2 of 7" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-12163815930241623938.jpeg" alt="Slide 3 of 7" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-6453229933633425434.jpeg" alt="Slide 4 of 7" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-16900835854712396802.jpeg" alt="Slide 5 of 7" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-17537750331953603890.jpeg" alt="Slide 6 of 7" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddvf3NijS2l/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-10839196144886479748.jpeg" alt="Slide 7 of 7" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-26T13:12:00+05:45">26 Sept 2026</time>
             <h3>Most of what you hear about peptides online is half true. 👀</h3>
@@ -262,7 +345,9 @@ Education only. Not medical advice.</p></details>
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/DdkdhqBCEm3/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-11169823459536010018.png" alt="First slide of the post: Why testing matters 🧪" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: Why testing matters 🧪" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/DdkdhqBCEm3/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-11169823459536010018.png" alt="First slide of the post: Why testing matters 🧪" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkdhqBCEm3/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-8548880864475676446.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkdhqBCEm3/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-15421146486711430718.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T06:20:00+05:45">22 Sept 2026</time>
             <h3>Why testing matters 🧪</h3>
@@ -291,7 +376,9 @@ No proper testing = no way to know what you're getting.
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/Ddkc_CXChg_/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-2741045437455185478.png" alt="First slide of the post: MYTH vs FACT #1 🧐" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: MYTH vs FACT #1 🧐" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/Ddkc_CXChg_/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-2741045437455185478.png" alt="First slide of the post: MYTH vs FACT #1 🧐" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkc_CXChg_/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-321477712030240119.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkc_CXChg_/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-15208375695213027023.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T06:15:00+05:45">22 Sept 2026</time>
             <h3>MYTH vs FACT #1 🧐</h3>
@@ -316,7 +403,9 @@ Respect the science. Question the hype 🔬
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/DdkcYscCKPC/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-7714957542796257937.png" alt="First slide of the post: &quot;It worked in rats!&quot; 🐀 So why doesn't that mean it works in you?" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: &quot;It worked in rats!&quot; 🐀 So why doesn't that mean it works in you?" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/DdkcYscCKPC/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-7714957542796257937.png" alt="First slide of the post: &quot;It worked in rats!&quot; 🐀 So why doesn't that mean it works in you?" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkcYscCKPC/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-5557217641566483193.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkcYscCKPC/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-14081745008827848825.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T06:10:00+05:45">22 Sept 2026</time>
             <h3>&quot;It worked in rats!&quot; 🐀 So why doesn't that mean it works in you?</h3>
@@ -339,7 +428,9 @@ Source: Sun et al., 2022, Acta Pharmaceutica Sinica B: &quot;Why 90% of clinical
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/Ddkb0pqCOSw/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-14130629298435935201.png" alt="First slide of the post: How to read a study in 60 seconds ⏱️" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: How to read a study in 60 seconds ⏱️" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/Ddkb0pqCOSw/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-14130629298435935201.png" alt="First slide of the post: How to read a study in 60 seconds ⏱️" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkb0pqCOSw/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-15213490512792656633.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkb0pqCOSw/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-10618045159872701888.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T06:05:00+05:45">22 Sept 2026</time>
             <h3>How to read a study in 60 seconds ⏱️</h3>
@@ -362,7 +453,9 @@ Save this post and use it every time 📌
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/DdkbP2biiUL/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-14170293922130599894.png" alt="First slide of the post: Research grade vs Pharma grade: same name, very different thing ⚠️" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: Research grade vs Pharma grade: same name, very different thing ⚠️" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/DdkbP2biiUL/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-14170293922130599894.png" alt="First slide of the post: Research grade vs Pharma grade: same name, very different thing ⚠️" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkbP2biiUL/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-12474193616215056911.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkbP2biiUL/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-11194715153473901923.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T06:00:00+05:45">22 Sept 2026</time>
             <h3>Research grade vs Pharma grade: same name, very different thing ⚠️</h3>
@@ -390,7 +483,9 @@ Always ask: who made it, who tested it, and who approved it?
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/Ddkaq42CB_h/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-8343910890272650805.png" alt="First slide of the post: You've heard of these peptides already 👇" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: You've heard of these peptides already 👇" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/Ddkaq42CB_h/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-8343910890272650805.png" alt="First slide of the post: You've heard of these peptides already 👇" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkaq42CB_h/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-2469276980807265766.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/Ddkaq42CB_h/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-218675786001231922.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T05:55:00+05:45">22 Sept 2026</time>
             <h3>You've heard of these peptides already 👇</h3>
@@ -414,7 +509,9 @@ Source: US National Library of Medicine (MedlinePlus / PubChem)
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/DdkaFzziJUu/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-11726930553033315490.png" alt="First slide of the post: What are peptides? 🧬" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: What are peptides? 🧬" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/DdkaFzziJUu/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-11726930553033315490.png" alt="First slide of the post: What are peptides? 🧬" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkaFzziJUu/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-4331695566432963174.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkaFzziJUu/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-1078218508711882627.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T05:50:00+05:45">22 Sept 2026</time>
             <h3>What are peptides? 🧬</h3>
@@ -432,7 +529,9 @@ Follow for science, not hype 🔬</p></details>
           </div>
         </article>
         <article class="post">
-          <a class="post-media" href="https://www.instagram.com/p/DdkZugxiFYW/" rel="noopener" aria-label="Open this post on Instagram (3 slides)"><img src="https://static.metricool.com/planner/202609/7048982-file-9161569383668204355.png" alt="First slide of the post: ⚠️ READ BEFORE YOU FOLLOW ⚠️" loading="lazy" width="1080" height="1350" /></a>
+          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="3 slides: ⚠️ READ BEFORE YOU FOLLOW ⚠️" data-slides="3">
+            <div class="slides" tabindex="0"><a class="slide" href="https://www.instagram.com/p/DdkZugxiFYW/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-9161569383668204355.png" alt="First slide of the post: ⚠️ READ BEFORE YOU FOLLOW ⚠️" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkZugxiFYW/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-13553613739186182560.png" alt="Slide 2 of 3" loading="lazy" width="1080" height="1350" /></a><a class="slide" href="https://www.instagram.com/p/DdkZugxiFYW/" rel="noopener" tabindex="-1"><img src="https://static.metricool.com/planner/202609/7048982-file-10137982990392243995.png" alt="Slide 3 of 3" loading="lazy" width="1080" height="1350" /></a></div>
+          </div>
           <div class="post-body">
             <time class="post-date" datetime="2026-09-22T05:45:00+05:45">22 Sept 2026</time>
             <h3>⚠️ READ BEFORE YOU FOLLOW ⚠️</h3>
