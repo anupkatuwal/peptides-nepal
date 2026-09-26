@@ -221,8 +221,22 @@ section { padding: var(--spacing-8) 0; }
 .contact-link strong { font-size: 17px; word-break: break-word; }
 
 /* ── Footer ── */
-.site-footer { padding: var(--spacing-6) 0 var(--spacing-8); font-size: 14px; color: var(--color-text-secondary); }
+.site-footer { padding: var(--spacing-6) 0 var(--spacing-12); /* bottom room so the jump buttons never cover text */ font-size: 14px; color: var(--color-text-secondary); }
 .site-footer .wrap { display: flex; flex-wrap: wrap; gap: var(--spacing-2); justify-content: space-between; }
+
+/* ── Jump to top / bottom ── */
+.jump { position: fixed; right: var(--spacing-3); bottom: var(--spacing-3); z-index: 6; display: flex; flex-direction: column; gap: var(--spacing-1); }
+.jump-btn {
+  width: 48px; height: 48px; display: grid; place-items: center;
+  background: var(--color-accent); color: var(--color-on-accent);
+  border-radius: var(--radius-full); box-shadow: var(--shadow-med);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.jump-btn:hover { filter: brightness(1.12); }
+.jump-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+/* app.js hides a button when it isn't useful; without JS both stay visible */
+.jump-btn.is-hidden { opacity: 0; transform: translateY(8px); pointer-events: none; visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .jump-btn { transition: none; } }
 
 @media (max-width: 760px) {
   .wrap { padding: 0 var(--spacing-3); }
@@ -232,4 +246,5 @@ section { padding: var(--spacing-8) 0; }
   .contact { grid-template-columns: 1fr; padding: var(--spacing-6) var(--spacing-4); border-radius: var(--radius-container); }
   .filters { border-radius: var(--radius-container); }
   .filters button { padding: 8px var(--spacing-2); font-size: 14px; }
+  .site-footer .wrap { padding-right: 76px; } /* clear of the jump buttons */
 }

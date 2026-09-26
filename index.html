@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="app.js" defer></script>
 </head>
-<body>
+<body id="page-top">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -470,11 +470,20 @@ Always talk to a qualified doctor before using any medicine.</p></details>
     </div>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" id="page-end">
     <div class="wrap">
       <p>Last reviewed: September 2026 · Education only. Not medical advice.</p>
       <p>Follow <a href="https://instagram.com/peptidesnepal" rel="noopener">@peptidesnepal</a></p>
     </div>
   </footer>
+
+  <nav class="jump" aria-label="Jump to top or bottom of the page">
+    <a class="jump-btn" id="jump-top" href="#page-top" aria-label="Back to top" title="Back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </a>
+    <a class="jump-btn" id="jump-end" href="#page-end" aria-label="Jump to bottom" title="Jump to bottom">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </nav>
 </body>
 </html>
