@@ -10,6 +10,7 @@ Static site for [@peptidesnepal](https://instagram.com/peptidesnepal). No build 
 - `404.html` — shown by Vercel for any missing URL.
 - `robots.txt`, `sitemap.xml`, `og-image.png` (1200×630 share image) — for search engines and link previews.
 - `ac2bc0a7d86395eca9eff18b691bd343.txt` — IndexNow key. It proves to Bing (and other IndexNow engines) that pings for this site come from us. After a change, ping: `https://api.indexnow.org/indexnow?url=https://peptides.anup-katuwal.com.np/&key=ac2bc0a7d86395eca9eff18b691bd343`. Don't delete or rename it.
+- `googlebe5c6877a9634ad2.txt` — Google Search Console ownership proof, served at `/googlebe5c6877a9634ad2.html` by a rewrite in `vercel.json` (a real `.html` file would be redirected by `cleanUrls`, and Google needs that exact URL to answer 200). Don't delete it, or Search Console access is lost.
 - `vercel.json` — security headers (CSP, HSTS, X-Frame-Options, COOP, …), font caching, and image optimization settings.
 
 The quiz answers use only facts already on the page or in a post. Add a new card by copying a `.q` block in `index.html` and setting `data-answer` to `myth` or `fact`.
