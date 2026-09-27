@@ -9,6 +9,7 @@ Static site for [@peptidesnepal](https://instagram.com/peptidesnepal). No build 
 - `scripts/build-posts.mjs` — writes the newest 9 posts (every slide of each) into `index.html` between the `POSTS:START` / `POSTS:END` markers, plus the total post count (`data-total`). The hero strip and the post counter read from that block, so a sync only ever changes the block and `data/posts.json`.
 - `404.html` — shown by Vercel for any missing URL.
 - `robots.txt`, `sitemap.xml`, `og-image.png` (1200×630 share image) — for search engines and link previews.
+- `mobile/` — the Expo mobile app (see `mobile/README.md`). `.vercelignore` keeps it off the website.
 - `vercel.json` — security headers (CSP, HSTS, X-Frame-Options, COOP, …), font caching, and image optimization settings.
 
 The quiz answers use only facts already on the page or in a post. Add a new card by copying a `.q` block in `index.html` and setting `data-answer` to `myth` or `fact`.

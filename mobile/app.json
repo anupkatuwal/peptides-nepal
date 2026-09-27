@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Peptides Nepal",
+    "slug": "peptides-nepal",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "peptidesnepal",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "np.peptidesnepal.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "np.peptidesnepal.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F0F0E0",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F0F0E0",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76,
+          "dark": { "backgroundColor": "#12140e" }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
