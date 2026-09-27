@@ -11,6 +11,8 @@ Static site for [@peptidesnepal](https://instagram.com/peptidesnepal). No build 
 - `scripts/build-posts.mjs` — writes the newest 9 posts (every slide of each) into `index.html` between the `POSTS:START` / `POSTS:END` markers, plus the total post count (`data-total`). The hero strip and the post counter read from that block, so a sync only ever changes the block and `data/posts.json`.
 - `404.html` — shown by Vercel for any missing URL.
 - `robots.txt`, `sitemap.xml`, `og-image.png` (1200×630 share image) — for search engines and link previews.
+- `ac2bc0a7d86395eca9eff18b691bd343.txt` — IndexNow key. It proves to Bing (and other IndexNow engines) that pings for this site come from us. After a change, ping: `https://api.indexnow.org/indexnow?url=https://peptides.anup-katuwal.com.np/&key=ac2bc0a7d86395eca9eff18b691bd343`. Don't delete or rename it.
+- `googlebe5c6877a9634ad2.html` — Google Search Console ownership proof. Google needs `/googlebe5c6877a9634ad2.html` to answer 200 with no redirect, which is why `cleanUrls` is off in `vercel.json` (it redirected every `.html` URL). Don't delete it, or Search Console access is lost.
 - `vercel.json` — security headers (CSP, HSTS, X-Frame-Options, COOP, …), font caching, and image optimization settings.
 
 The quiz answers use only facts already on the page or in a post. Add a new card by copying a `.q` block in `index.html` and setting `data-answer` to `myth` or `fact`.
@@ -34,10 +36,12 @@ Posts made directly in the Instagram app (not through Metricool) don't appear in
 
 ## Domain
 
-The site lives at https://peptides.anup-katuwal.com.np (Vercel still also answers on peptides-nepal.vercel.app). If the domain changes again, replace it in `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `privacy.html`, `support.html`, `robots.txt`, `sitemap.xml`, and `SITE_URL` in the app's `src/lib/config.ts`.
+The site lives at **https://peptides.anup-katuwal.com.np** (a subdomain of anup-katuwal.com.np, whose DNS is on Vercel). `vercel.json` permanently redirects the old `peptides-nepal.vercel.app` address there; preview deployments are unaffected.
+
+To move to another domain later, replace `https://peptides.anup-katuwal.com.np` in `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `privacy.html`, `support.html`, `robots.txt`, `sitemap.xml`, the redirect in `vercel.json`, and `SITE_URL` in the app's `src/lib/config.ts`.
 
 ## The mobile app
 
-The Peptides Nepal app (separate repo, `peptides-nepal-app`) reads two files from this site: `/data/posts.json` and `/data/guide.json`. So a post synced here, or a guide card edited in `index.html` (then `node scripts/build-guide.mjs`), shows up in the app without an app update. `vercel.json` lets any origin read `/data/*` (needed by the app's web version) and caches it for 5 minutes.
+The Peptides Nepal app (separate repo, `peptides-nepal-app`) reads two files from this site: `/data/posts.json` and `/data/guide.json`. So a post synced here, or a guide card edited in `index.html` (then `node scripts/build-guide.mjs`), shows up in the app without an app update. `vercel.json` lets any origin read `/data/*` (needed by the app's web version) and caches it for 5 minutes. The app links to `/privacy.html` and `/support.html` (with `.html`, because `cleanUrls` is off).
 
 Keep the ids stable: the app uses each peptide's id (made from its name, e.g. `bpc-157`) for saved items and links. Renaming a card's `<h3>` changes its id.
