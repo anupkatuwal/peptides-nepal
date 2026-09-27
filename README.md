@@ -29,6 +29,8 @@ The script refuses to change anything, and exits with code 1 and a message, when
 
 Posts made directly in the Instagram app (not through Metricool) don't appear in Metricool, so they won't be picked up.
 
-## If the site moves to its own domain
+## Domain
 
-Replace `https://peptides-nepal.vercel.app` in `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `robots.txt` and `sitemap.xml`.
+The site lives at **https://peptides.anup-katuwal.com.np** (a subdomain of anup-katuwal.com.np, whose DNS is on Vercel). `vercel.json` permanently redirects the old `peptides-nepal.vercel.app` address there; preview deployments are unaffected.
+
+To move to another domain later, replace `https://peptides.anup-katuwal.com.np` in `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `robots.txt`, `sitemap.xml` and the redirect in `vercel.json`.
