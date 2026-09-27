@@ -18,6 +18,10 @@
     {
       "source": "/googlebe5c6877a9634ad2.html",
       "destination": "/googlebe5c6877a9634ad2.txt"
+    },
+    {
+      "source": "/googlebe5c6877a9634ad2",
+      "destination": "/googlebe5c6877a9634ad2.txt"
     }
   ],
   "images": {
