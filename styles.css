@@ -25,7 +25,7 @@
   --color-border-emphasized: #B7C29E;
   --color-shadow: #3E481D1A;
   /* status colours (Matcha success / warning / error, text-safe shades) */
-  --status-approved-bg: #4D990020;  --status-approved-fg: #3d7a00;
+  --status-approved-bg: #4D990020;  --status-approved-fg: #2f6300;  /* 5.5:1 on cream (was #3d7a00, 4.0:1) */
   --status-trials-bg:   #FFB60033;  --status-trials-fg:   #7a5600;
   --status-no-bg:       #FD000018;  --status-no-fg:       #b80000;
 
@@ -121,12 +121,13 @@ p { margin: 0; }
   border-radius: var(--radius-full); box-shadow: var(--shadow-low);
   font-size: 14px; text-decoration: none; color: var(--color-text-primary);
 }
-.latest[hidden] { display: none; }
 .latest:hover { border-color: var(--color-border-emphasized); }
-.latest-dot { width: 9px; height: 9px; border-radius: 50%; background: #DC143C; box-shadow: 0 0 0 0 #DC143C66; animation: pulse 2s infinite; }
+.latest-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-border-emphasized); flex: none; }
+.latest.is-new .latest-dot { background: #DC143C; box-shadow: 0 0 0 0 #DC143C66; animation: pulse 2s infinite; }
 .latest-label { font-weight: 700; }
 .latest-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 34ch; }
 .latest-when { color: var(--color-text-secondary); }
+.latest-when:empty { display: none; }
 .latest-when::before { content: "· "; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 #DC143C66; } 70% { box-shadow: 0 0 0 8px #DC143C00; } 100% { box-shadow: 0 0 0 0 #DC143C00; } }
 
@@ -249,6 +250,14 @@ section { padding: var(--spacing-8) 0; }
 .slides:focus-visible { outline-offset: -3px; }
 .slide { flex: 0 0 100%; scroll-snap-align: start; }
 .slide img { width: 100%; height: 100%; object-fit: cover; }
+/* app.js adds .is-missing when a slide can't load from anywhere */
+.slide { position: relative; }
+.slide.is-missing img { visibility: hidden; }
+.slide.is-missing::after {
+  content: "Image unavailable. Open on Instagram →"; position: absolute; inset: 0;
+  display: grid; place-items: center; padding: var(--spacing-4); text-align: center;
+  font-weight: 600; color: var(--color-text-secondary); background: var(--color-background-muted);
+}
 .slide-btn {
   position: absolute; top: 50%; translate: 0 -50%; width: 36px; height: 36px;
   display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer;
@@ -277,6 +286,10 @@ section { padding: var(--spacing-8) 0; }
 .post details p { white-space: pre-line; margin-top: var(--spacing-1); }
 .post-link { margin-top: auto; padding-top: var(--spacing-2); font-weight: 600; font-size: 14.5px; }
 .posts-more { margin-top: var(--spacing-5); }
+
+/* ── 404 page ── */
+.not-found { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: var(--spacing-8); padding-bottom: var(--spacing-8); }
+.not-found h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 5vw, 52px); line-height: 1.5; margin-bottom: var(--spacing-4); }
 
 /* ── Myth or fact quiz ── */
 .quiz { display: grid; gap: var(--spacing-3); grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
@@ -350,7 +363,7 @@ section { padding: var(--spacing-8) 0; }
 @media (prefers-reduced-motion: reduce) {
   .jump-btn, .card, .post, .q, .slide-btn { transition: none; }
   .card:hover, .post:hover { transform: none; }
-  .latest-dot, .chain-line, .chain-beads circle { animation: none; }
+  .latest.is-new .latest-dot, .chain-line, .chain-beads circle { animation: none; }
   .chain-line { stroke-dashoffset: 0; }
 }
 
@@ -363,10 +376,11 @@ section { padding: var(--spacing-8) 0; }
   .site-nav { display: none; }
   .hero { padding: var(--spacing-8) 0 var(--spacing-5); grid-template-columns: 1fr; }
   .hero-chain { display: none; }
-  .latest { border-radius: var(--radius-element); padding: var(--spacing-1) var(--spacing-2); }
-  .latest-title { max-width: 100%; white-space: normal; flex-basis: 100%; }
-  .latest-when { flex-basis: 100%; font-size: 13px; }
-  .latest-when::before { content: none; }
+  /* Fixed two-line layout on phones, so filling it in never changes its height */
+  .latest { display: grid; grid-template-columns: auto auto 1fr; grid-template-areas: "dot label when" "title title title"; align-items: center; column-gap: var(--spacing-1); row-gap: 2px; width: 100%; border-radius: var(--radius-element); padding: var(--spacing-1) var(--spacing-2); }
+  .latest-dot { grid-area: dot; } .latest-label { grid-area: label; } .latest-when { grid-area: when; font-size: 13px; }
+  .latest-when:empty { display: block; }
+  .latest-title { grid-area: title; max-width: 100%; }
   .stats li { padding: var(--spacing-2) var(--spacing-3); }
   .search { max-width: none; }
   .cards { grid-template-columns: 1fr; }

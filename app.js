@@ -19,6 +19,36 @@ function ago(date) {
   return weeks < 5 ? `${weeks} week${weeks === 1 ? "" : "s"} ago` : null;
 }
 
+// ── Post images: never show a broken image ─────────────────────────────────
+// 1st failure: the optimized /_vercel/image copy failed (e.g. Hobby limit
+//              reached) → load the Metricool original instead.
+// 2nd failure: the original is gone too (e.g. removed from Metricool) → show
+//              a placeholder with the post title and keep the link working.
+// Runs in the capture phase so it also catches errors that fire before
+// DOMContentLoaded.
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement) || !img.closest(".slide")) return;
+  const orig = img.dataset.orig;
+  if (orig && !img.dataset.fellBack) {
+    img.dataset.fellBack = "1";
+    img.removeAttribute("srcset");
+    img.src = orig;
+    return;
+  }
+  img.closest(".slide").classList.add("is-missing");
+}, true);
+
+// ── Email: assembled here so the address isn't plain text in the HTML ─────
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-email-user][data-email-domain]").forEach((a) => {
+    const addr = `${a.dataset.emailUser}@${a.dataset.emailDomain}`;
+    a.href = `mailto:${addr}`;
+    const label = a.querySelector("[data-email-text]");
+    if (label) label.textContent = addr;
+  });
+});
+
 // ── Guide: status filter + live search ─────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".filters button");
@@ -82,7 +112,14 @@ document.addEventListener("DOMContentLoaded", () => {
       b.type = "button";
       b.className = `slide-btn slide-${dir}`;
       b.setAttribute("aria-label", label);
-      b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
+      const NS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(NS, "svg");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("aria-hidden", "true");
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", path);
+      svg.append(p);
+      b.append(svg);
       return b;
     };
     const prev = mk("prev", "Previous slide", "M15 5l-7 7 7 7");
@@ -109,7 +146,10 @@ document.addEventListener("DOMContentLoaded", () => {
       queued = true;
       requestAnimationFrame(() => { queued = false; update(); });
     }, { passive: true });
-    update();
+    // Initial state without measuring layout (every strip starts at slide 1);
+    // reading clientWidth here forced a reflow per post during page load.
+    counter.textContent = `1 / ${total}`;
+    prev.disabled = true;
   });
 });
 
@@ -124,10 +164,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!title || !when) return;
   const rel = ago(new Date(when));
   if (!rel) return; // older than about a month: nothing "new" to announce
+  strip.querySelector(".latest-label").textContent = "New on Instagram";
   strip.querySelector(".latest-title").textContent = title;
   strip.querySelector(".latest-when").textContent = rel;
   if (link) { strip.href = link; strip.rel = "noopener"; }
-  strip.hidden = false;
+  strip.classList.add("is-new");
 });
 
 // ── Stats: count from the page, then animate up ────────────────────────────
@@ -226,13 +267,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
   }, { rootMargin: "0px 0px -8% 0px" });
-  items.forEach((el) => {
-    // Only hide things that start below the fold, so nothing on screen flickers.
-    if (el.getBoundingClientRect().top > window.innerHeight) {
-      el.classList.add("reveal");
-      io.observe(el);
-    }
-  });
+  // Only hide things that start below the fold, so nothing on screen flickers.
+  // Measure everything first, then change classes: interleaving the two
+  // forced a fresh layout for every item.
+  const fold = window.innerHeight;
+  const below = [...items].filter((el) => el.getBoundingClientRect().top > fold);
+  below.forEach((el) => { el.classList.add("reveal"); io.observe(el); });
 });
 
 // ── Jump buttons ───────────────────────────────────────────────────────────
