@@ -2,116 +2,141 @@
 
 The store is two apps in this repo, separate from the static education site at the root:
 
-- `backend/` — FastAPI + SQLAlchemy + pyodbc, talking to Microsoft SQL Server.
+- `backend/` — FastAPI + SQLAlchemy + pyodbc on Microsoft SQL Server.
 - `frontend/` — Next.js 16 (App Router) + Tailwind CSS 3.
+
+## What it does
+
+| Area | What's there |
+|---|---|
+| Shop | Categories, search, sort, product pages with HPLC purity and the COA, cart |
+| Checkout | Account required. Delivery zone (inside/outside Kathmandu Valley) with fees and a free-delivery threshold. Pay by COD, eSewa or Khalti |
+| Online payments | eSewa ePay v2 and Khalti KPG-2, confirmed server-to-server. Retry from the account page |
+| Accounts | Register, sign in, order history, forgot/reset password (signs out every session) |
+| Email | Order confirmation, payment/shipping/cancel updates, new-order and contact alerts to the shop, reset links |
+| Admin (`/admin`) | Overview, orders (change status; cancelling returns stock), products (edit price, stock, purity, upload photos and COAs), messages |
+| Content | Lab results table, guides, contact form, floating WhatsApp button |
+| SEO | Sitemap, robots.txt, product structured data |
 
 ## Folder structure
 
 ```
 backend/
   app/
-    main.py            FastAPI app: CORS, rate limiting, security headers, routers
-    config.py          Settings from environment variables
-    database.py        Engine + connection pool, get_db()
-    models.py          ORM models (mirror sql/001_schema.sql)
-    schemas.py         Pydantic request/response models (strict validation)
-    security.py        bcrypt hashing, JWT create/verify
-    deps.py            Current-user and admin dependencies
-    rate_limit.py      slowapi limiter and per-route limits
+    main.py            App setup: CORS, rate limits, body-size limit, security headers, routers
+    config.py          Settings from environment variables (see .env.example)
+    database.py        Engine + connection pool
+    models.py          ORM models (mirror sql/*.sql)
+    schemas.py         Request/response validation
+    security.py        bcrypt, JWT
+    deps.py            Current user / admin checks
+    rate_limit.py      Per-route limits
+    delivery.py        Delivery fee rules
+    email.py           SMTP sending + email templates
+    payments.py        eSewa and Khalti clients
     create_admin.py    CLI: create or promote an admin
     routers/
-      auth.py          POST /api/auth/register, POST /api/auth/login, GET /api/auth/me
-      categories.py    GET  /api/categories
-      products.py      GET  /api/products, GET /api/products/{slug}; admin POST/PATCH
-      orders.py        POST /api/orders, GET /api/orders/me, GET /api/orders/{id}; admin list + status
-      contact.py       POST /api/contact; admin inbox + mark read
+      auth.py          register, login, me, forgot-password, reset-password
+      categories.py    category list
+      products.py      product list/detail; admin create/update
+      orders.py        place order, my orders, delivery options; admin list/status
+      payments.py      start payment, eSewa/Khalti confirmation
+      contact.py       contact form; admin inbox
+      media.py         admin uploads; public file serving
+      admin.py         dashboard summary, all products
   sql/
-    001_schema.sql     T-SQL: tables, keys, constraints, indexes
-    002_seed.sql       T-SQL: categories + starter products
-  tests/               pytest suite (runs on SQLite, no SQL Server needed)
-  Dockerfile           Production image with ODBC Driver 18
-  requirements.txt
-  .env.example
+    001_schema.sql     Tables, keys, constraints, indexes
+    002_seed.sql       Categories + starter products
+    003_store_upgrades.sql  Uploads, delivery fees, payments, password resets (safe to re-run)
+  tests/               pytest (SQLite by default, SQL Server with TEST_DATABASE_URL)
+    e2e_app.py         API with fake payment gateways, for the browser tests only
+    e2e_seed.py        Creates the browser tests' admin account
+  Dockerfile
 
 frontend/
-  app/
-    layout.tsx         Fonts, navbar, footer, WhatsApp button
-    page.tsx           Home
-    shop/              Product listing with category chips, search, sort, paging
-    products/[slug]/   Product detail with purity and COA
-    lab-results/       All purity results and COAs in one table
-    guides/            Protocols & guides (+ [slug] articles)
-    contact/           Contact form
-    cart/ checkout/    Cart and checkout (checkout needs sign-in)
-    login/ register/ account/
-  components/          Navbar, Footer, WhatsAppButton, ProductCard, PurityBadge, forms, providers
-  lib/                 API client, types, site config, guide content, formatters
+  app/                 Pages: home, shop, products/[slug], lab-results, guides, contact, cart,
+                       checkout, account, login, register, forgot/reset-password,
+                       payment/esewa, payment/khalti, admin/*, sitemap.ts, robots.ts
+  components/          Navbar, Footer, WhatsAppButton, product cards, forms, admin shell
+  lib/                 API client, payments, types, site config, guide content
+  e2e/                 Playwright end-to-end tests
   public/products/     Vial illustrations
-  tailwind.config.ts
-  next.config.ts       Security headers + CSP
-  .env.example
+
+.github/workflows/store.yml   CI: backend tests on SQL Server, build, browser tests
 ```
-
-## What the schema adds to the brief
-
-- **OrderItems** — an order needs its lines (product, quantity, price paid). Prices are copied at checkout.
-- **Orders** also stores delivery name, phone, address, city and notes.
-- **Slug** on Categories and Products for readable URLs (`/products/bpc-157-5mg`).
-- **IsActive** on Products to hide a product without deleting order history.
-- **PurityPercentage** and **COA_ImageURL** allow NULL. The site shows "Lab report pending" until you add real figures.
-
-## Payments
-
-Orders record the chosen method (eSewa, Khalti or COD) with status `Pending`. There is no live eSewa or Khalti gateway. Those need merchant credentials. For now you confirm payment by hand and set the status with the admin endpoint:
-
-```
-PATCH /api/orders/{id}/status   {"status": "Paid"}
-```
-
-Cancelling an order puts its stock back.
 
 ## Local development
 
-Backend (needs Python 3.11+, SQL Server, and [ODBC Driver 18](https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server)):
+**Database.** SQL Server in Docker:
+
+```bash
+docker run -d --name mssql -e ACCEPT_EULA=Y -e 'MSSQL_SA_PASSWORD=Str0ng!Passw0rd' -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
+for f in 001_schema 002_seed 003_store_upgrades; do
+  docker exec -i mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Str0ng!Passw0rd' -C -b < backend/sql/$f.sql
+done
+```
+
+**Backend** (Python 3.11+, [ODBC Driver 18](https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server)):
 
 ```bash
 cd backend
 python -m venv .venv && . .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.example .env            # fill in DB_* and JWT_SECRET_KEY
-sqlcmd -S localhost -U sa -P '<password>' -C -i sql/001_schema.sql
-sqlcmd -S localhost -U sa -P '<password>' -C -i sql/002_seed.sql
+cp .env.example .env        # set DB_PASSWORD, JWT_SECRET_KEY
 python -m app.create_admin --email you@example.com --name "Your Name"
 uvicorn app.main:app --reload   # http://localhost:8000/docs
-pytest                          # 17 tests, no database needed
 ```
 
-SQL Server on your machine with Docker:
-
-```bash
-docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD='Str0ng!Passw0rd' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
-```
-
-Frontend (Node 20.9+):
+**Frontend** (Node 20.9+):
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env.local      # NEXT_PUBLIC_API_URL=http://localhost:8000
-npm run dev                     # http://localhost:3000
+cp .env.example .env.local
+npm run dev                  # http://localhost:3000
 ```
 
-## Adding lab results
-
-Per batch, set the HPLC purity and a link to the COA image or PDF (must start with `https://` or `/`):
+## Tests
 
 ```bash
-curl -X PATCH https://api.yourdomain.com/api/products/1 \
-  -H "Authorization: Bearer <admin token>" -H "Content-Type: application/json" \
-  -d '{"purity_percentage": "99.12", "coa_image_url": "https://.../coa-bpc157-batch42.jpg"}'
+# Backend: 37 tests. SQLite by default:
+cd backend && pytest
+# ...or against SQL Server, plus a check that the models match the T-SQL schema:
+Q='?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes'
+TEST_DATABASE_URL="mssql+pyodbc://sa:<pw>@localhost:1433/PeptidesTest$Q" \
+SCHEMA_DATABASE_URL="mssql+pyodbc://sa:<pw>@localhost:1433/PeptidesNepal$Q" pytest
+
+# Browser tests (6): start the API with fake gateways, start the site, then run Playwright.
+cd backend && python -m tests.e2e_seed && KHALTI_SECRET_KEY=fake uvicorn tests.e2e_app:app --port 8000
+cd frontend && npm run build && npm start      # in another terminal
+cd frontend && npx playwright install chromium && npm run test:e2e
 ```
 
-Get an admin token from `POST /api/auth/login`. Or run the `UPDATE` shown at the top of `sql/002_seed.sql`.
+GitHub Actions runs all of this on every push that touches `backend/` or `frontend/`.
+
+## Running the shop
+
+**Lab results.** Admin → Products & lab results → Edit. Enter the HPLC purity and upload the COA (PNG, JPEG, WebP or PDF, up to 8 MB). The product page shows "Lab report pending" until both are set. Files are stored in the database (`dbo.Media`) and served from the API.
+
+**Orders.** Admin → Orders. Online payments set an order to *Paid* on their own. For COD, move it through *Processing → Shipped → Delivered*. The customer gets an email at *Paid*, *Shipped*, *Delivered* and *Cancelled*. Cancelling returns stock. It doesn't refund an online payment: do that in the eSewa or Khalti merchant portal.
+
+**Unpaid online orders** keep their stock reserved. If a customer never pays, cancel the order to release it.
+
+## Going live with payments
+
+Payments start in test mode (`PAYMENTS_ENV=test`).
+
+- **eSewa** works in test mode with no setup: it uses eSewa's public sandbox merchant `EPAYTEST`. Test wallet logins are in eSewa's developer docs. To go live, get your merchant code and secret key from eSewa and set `ESEWA_PRODUCT_CODE` and `ESEWA_SECRET_KEY`.
+- **Khalti** needs a key even in test mode. Sign up at test-admin.khalti.com for a test secret key; your live key comes from admin.khalti.com. Set `KHALTI_SECRET_KEY`.
+- With both set, change `PAYMENTS_ENV=live` and redeploy. Place one small real order with each gateway and check it shows *Paid* in admin.
+
+A method without keys doesn't break checkout: those orders fall back to "we send payment details", and you confirm payment by hand.
+
+How confirmation works: the customer's browser comes back from the gateway, and the API asks the gateway directly (eSewa status API / Khalti lookup) before marking anything paid. It also checks that the amount paid equals the order total.
+
+## Email
+
+Any SMTP provider works: Gmail/Google Workspace (app password, `smtp.gmail.com:587`), Brevo, Mailgun, Amazon SES, Zoho. Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `MAIL_FROM`, and `SHOP_NOTIFY_EMAIL`. Without `SMTP_HOST`, email is off, and password reset can't reach anyone. Add SPF and DKIM for your sending domain (your provider shows the DNS records) so emails don't land in spam.
 
 ---
 
@@ -119,70 +144,66 @@ Get an admin token from `POST /api/auth/login`. Or run the `UPDATE` shown at the
 
 ## 1. Database — Azure SQL Database (or any SQL Server 2017+)
 
-1. In the Azure portal create a **SQL Database** named `PeptidesNepal`. The *General Purpose – Serverless* tier suits medium traffic and pauses when idle.
-2. Under the server's **Networking**, allow your backend host's outbound IPs (or "Allow Azure services" if the API runs on Azure).
-3. Open **Query editor** (or Azure Data Studio). Run `sql/001_schema.sql` **from the `USE PeptidesNepal;` line down**. Azure SQL doesn't allow `CREATE DATABASE`/`USE` inside a script. Then run `sql/002_seed.sql` the same way.
-4. Create a least-privilege login for the API (see the commented block at the end of `001_schema.sql`). Don't give the app the admin login.
+1. Create an Azure **SQL Database** named `PeptidesNepal`. *General Purpose – Serverless* suits medium traffic.
+2. Under the server's **Networking**, allow your backend host's outbound IPs.
+3. In **Query editor**, run `001_schema.sql`, `002_seed.sql`, then `003_store_upgrades.sql`, each **from the `SET`/first statement after `USE`**. Azure SQL doesn't allow `CREATE DATABASE`/`USE` inside a script.
+4. Create a least-privilege login for the API (commented block at the end of `001_schema.sql`).
+
+Future schema changes go in a new numbered script (`004_...sql`), written so it can be re-run safely, like `003`.
 
 ## 2. Backend — Render, Railway, Fly.io or Azure App Service (Docker)
 
-The `backend/Dockerfile` installs Microsoft ODBC Driver 18, so any host that runs Docker images works. Example with **Render**:
+`backend/Dockerfile` installs ODBC Driver 18. Example with **Render**:
 
-1. New → **Web Service** → connect this GitHub repo.
-2. **Root Directory**: `backend`. **Runtime**: Docker. Render finds the Dockerfile.
-3. **Environment variables**:
+1. New → **Web Service** → this repo. **Root Directory**: `backend`. **Runtime**: Docker.
+2. **Environment variables**: everything in `backend/.env.example`. At minimum:
 
    | Name | Value |
    |---|---|
    | `ENVIRONMENT` | `production` |
-   | `DB_SERVER` | `<server>.database.windows.net` |
-   | `DB_NAME` | `PeptidesNepal` |
-   | `DB_USER` / `DB_PASSWORD` | the API login from step 1.4 |
-   | `JWT_SECRET_KEY` | output of `python -c "import secrets; print(secrets.token_urlsafe(48))"` |
-   | `CORS_ORIGINS` | `https://shop.yourdomain.com` (your exact Vercel domain; comma-separate if several) |
-   | `RATE_LIMIT_STORAGE_URI` | `redis://...` from a Render Key Value / Redis instance |
-   | `WEB_CONCURRENCY` | `2`–`4` |
+   | `DB_SERVER`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | from step 1 |
+   | `JWT_SECRET_KEY` | `python -c "import secrets; print(secrets.token_urlsafe(48))"` |
+   | `CORS_ORIGINS`, `FRONTEND_URL` | `https://shop.yourdomain.com` |
+   | `PUBLIC_API_URL` | `https://api.yourdomain.com` |
+   | `RATE_LIMIT_STORAGE_URI` | `redis://...` (Render Key Value) when running more than one worker |
+   | delivery, email and payment settings | as above |
 
-4. **Health check path**: `/api/health`.
-5. Deploy. Then add a custom domain such as `api.yourdomain.com`.
-6. Create your admin: open the service **Shell** and run `python -m app.create_admin --email you@example.com --name "Your Name"`.
+3. **Health check path**: `/api/health`. Deploy, then add the custom domain `api.yourdomain.com`.
+4. In the service **Shell**: `python -m app.create_admin --email you@example.com --name "Your Name"`.
 
 Notes:
-- Each worker keeps up to `DB_POOL_SIZE + DB_MAX_OVERFLOW` (10 + 20) connections. Keep `workers × 30` under your database's connection limit.
-- With more than one worker, use Redis for `RATE_LIMIT_STORAGE_URI`. With `memory://` each worker counts separately, so the real limit multiplies.
-- The Docker command trusts `X-Forwarded-For` from any proxy (`--forwarded-allow-ips='*'`). That is right on Render/Railway/Fly/App Service, where only their proxy can reach the container. On a plain VM, put nginx in front and change it to nginx's IP.
-- API docs (`/docs`) are switched off when `ENVIRONMENT=production`.
-
-**Without Docker** (e.g. a Linux VM): install `msodbcsql18` from Microsoft's apt repo, then
-`pip install -r requirements.txt` and run
-`gunicorn app.main:app -k uvicorn_worker.UvicornWorker -w 4 -b 127.0.0.1:8000 --forwarded-allow-ips=127.0.0.1` behind nginx with HTTPS.
+- Each worker holds up to `DB_POOL_SIZE + DB_MAX_OVERFLOW` (10 + 20) connections. Keep `workers × 30` under the database's limit.
+- The Docker command trusts `X-Forwarded-For` from any proxy. That's right on Render/Railway/Fly/App Service. On a plain VM, put nginx in front and set `--forwarded-allow-ips` to nginx's IP.
+- `/docs` is off when `ENVIRONMENT=production`.
 
 ## 3. Frontend — Vercel
 
 The education site already deploys from the repo root, so the store needs its **own** Vercel project:
 
-1. Vercel → **Add New… → Project** → import this repo again.
-2. **Root Directory**: `frontend`. Framework preset: Next.js (auto-detected). Leave build settings at their defaults.
-3. **Environment variables** (Production and Preview):
+1. Vercel → **Add New… → Project** → this repo. **Root Directory**: `frontend`.
+2. **Environment variables**:
 
    | Name | Value |
    |---|---|
    | `NEXT_PUBLIC_API_URL` | `https://api.yourdomain.com` |
    | `NEXT_PUBLIC_SITE_URL` | `https://shop.yourdomain.com` |
-   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | digits only with country code, e.g. `9779812345678` |
+   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | digits with country code, e.g. `9779812345678` |
    | `NEXT_PUBLIC_CONTACT_EMAIL` | your support email |
 
-4. Deploy, then add the domain (e.g. `shop.yourdomain.com`) under **Settings → Domains**.
-5. Put that exact origin in the backend's `CORS_ORIGINS` and redeploy the backend. A mismatch here is the most common reason the browser can't reach the API.
+3. Deploy, then add `shop.yourdomain.com` under **Settings → Domains**.
+4. Make sure the backend's `CORS_ORIGINS` and `FRONTEND_URL` match that domain exactly.
 
-`NEXT_PUBLIC_*` values are baked in at build time. Redeploy the frontend after changing them.
-
-The root `.vercelignore` keeps `backend/` and `frontend/` out of the education site's deployment.
+`NEXT_PUBLIC_*` values are built in: redeploy after changing them. The root `.vercelignore` keeps `backend/` and `frontend/` out of the education site's deployment.
 
 ## Launch checklist
 
-- [ ] Real prices, stock, purity and COA links entered for each product
-- [ ] Admin account created; test order placed and moved through each status
-- [ ] `CORS_ORIGINS` matches the live frontend domain exactly
+- [ ] `003_store_upgrades.sql` run on the production database
+- [ ] Real prices and stock; purity and COA for each product
+- [ ] Delivery fees set
+- [ ] Email configured; test order and password reset emails received (check spam)
+- [ ] Admin account created
+- [ ] Payment keys set, `PAYMENTS_ENV=live`, one small real payment with each gateway shows *Paid*
+- [ ] `CORS_ORIGINS`, `FRONTEND_URL`, `PUBLIC_API_URL` match the live domains
 - [ ] Redis set for rate limits if running more than one worker
+- [ ] Submit `https://shop.yourdomain.com/sitemap.xml` in Google Search Console
 - [ ] Database backups on (Azure SQL does point-in-time restore by default)

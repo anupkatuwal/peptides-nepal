@@ -6,3 +6,7 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .vercel
+
+# Playwright
+/test-results/
+/playwright-report/
