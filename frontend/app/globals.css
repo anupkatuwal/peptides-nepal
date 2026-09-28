@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper font-sans text-ink-800;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    @apply bg-sage-200 text-ink-900;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-sage-400 ring-offset-2 ring-offset-paper;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-sage-600;
+  }
+
+  .nav-link {
+    @apply relative rounded-full px-3.5 py-2 text-[0.92rem] font-medium text-ink-600 transition-colors hover:text-ink-900;
+  }
+  .nav-link::after {
+    content: "";
+    @apply absolute inset-x-3.5 -bottom-0.5 h-px origin-left scale-x-0 bg-sage-500 transition-transform duration-300;
+  }
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    @apply scale-x-100;
+  }
+  .nav-link-active {
+    @apply text-ink-900;
+  }
+
+  .icon-btn {
+    @apply inline-grid h-10 w-10 place-items-center rounded-full text-ink-700 transition-colors hover:bg-mist hover:text-ink-900;
+  }
+  .footer-icon {
+    @apply grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-ink-100 transition-all hover:-translate-y-0.5 hover:border-sage-400/50 hover:text-white;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-ink-900 text-white shadow-soft hover:-translate-y-0.5 hover:bg-ink-800 hover:shadow-lift active:translate-y-0;
+  }
+  .btn-accent {
+    @apply btn bg-sage-500 text-white shadow-soft hover:-translate-y-0.5 hover:bg-sage-600 hover:shadow-lift active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-white text-ink-800 hover:border-ink-200 hover:bg-mist;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:border-ink-200 hover:text-ink-900;
+  }
+  .chip-active {
+    @apply border-ink-900 bg-ink-900 text-white hover:border-ink-900 hover:text-white;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-white shadow-ring;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-ink-800;
+  }
+  .field {
+    @apply block w-full rounded-xl border-line bg-white px-4 py-3 text-[0.95rem] text-ink-900 shadow-sm transition placeholder:text-ink-300 focus:border-sage-400 focus:ring-4 focus:ring-sage-100;
+  }
+  .field-error {
+    @apply mt-1.5 text-sm text-red-700;
+  }
+
+  .alert-error {
+    @apply rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800;
+  }
+  .alert-success {
+    @apply rounded-xl border border-sage-200 bg-sage-50 px-4 py-3 text-sm text-sage-800;
+  }
+
+  .prose-clinical p {
+    @apply leading-[1.75] text-ink-700;
+  }
+  .prose-clinical p + p {
+    @apply mt-4;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(19, 34, 61, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(19, 34, 61, 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
