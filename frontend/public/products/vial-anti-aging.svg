@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300" role="img" aria-label="Peptides Nepal vial — Anti-Aging">
+  <defs>
+    <linearGradient id="glass" x1="0" x2="1">
+      <stop offset="0" stop-color="#E9F0F5"/>
+      <stop offset="0.18" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#F4F8FA"/>
+      <stop offset="1" stop-color="#DCE5EC"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" x2="1">
+      <stop offset="0" stop-color="#5FAB83"/>
+      <stop offset="0.35" stop-color="#8FC8A8"/>
+      <stop offset="1" stop-color="#5FAB83"/>
+    </linearGradient>
+    <linearGradient id="crimp" x1="0" x2="1">
+      <stop offset="0" stop-color="#B8C3CC"/>
+      <stop offset="0.4" stop-color="#F2F5F7"/>
+      <stop offset="1" stop-color="#A9B5BF"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#13223D" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#13223D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="120" cy="282" rx="70" ry="9" fill="url(#shadow)"/>
+  <rect x="78" y="22" width="84" height="30" rx="7" fill="url(#cap)"/>
+  <rect x="84" y="50" width="72" height="20" rx="3" fill="url(#crimp)"/>
+  <path d="M92 70h56v10c0 6 22 12 22 26v160c0 9-7 14-16 14H86c-9 0-16-5-16-14V106c0-14 22-20 22-26Z" fill="url(#glass)" stroke="#C9D5DE" stroke-width="1.5"/>
+  <path d="M72 238h96v28c0 8-6 12-14 12H86c-8 0-14-4-14-12Z" fill="#F7F4EC"/>
+  <path d="M72 238c16-5 32 4 48 0s32-5 48 0" fill="none" stroke="#E7E1D2" stroke-width="2"/>
+  <rect x="70" y="132" width="100" height="86" fill="#FFFFFF" stroke="#E3E9EE"/>
+  <rect x="70" y="132" width="100" height="6" fill="#8FC8A8"/>
+  <g transform="translate(108 148)">
+    <path d="M3 13 12 3l9 10" stroke="#8FC8A8" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="3" cy="13" r="3" fill="#13223D"/><circle cx="12" cy="3" r="3" fill="#8FC8A8"/><circle cx="21" cy="13" r="3" fill="#13223D"/>
+  </g>
+  <text x="120" y="184" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#13223D">Peptides Nepal</text>
+  <text x="120" y="200" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="7.5" letter-spacing="1.5" fill="#43679A">ANTI-AGING</text>
+  <path d="M84 96c-3 30-3 110 0 150" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+</svg>
