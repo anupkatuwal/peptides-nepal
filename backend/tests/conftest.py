@@ -22,9 +22,21 @@ from app.rate_limit import limiter  # noqa: E402
 from app.security import hash_password  # noqa: E402
 
 
+# Set TEST_DATABASE_URL to run the suite against SQL Server instead of SQLite, e.g.
+# mssql+pyodbc://sa:<pw>@localhost:1433/PeptidesTest?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes
+TEST_DATABASE_URL = os.environ.get("TEST_DATABASE_URL")
+
+
+def _test_engine():
+    if TEST_DATABASE_URL:
+        return create_engine(TEST_DATABASE_URL)
+    return create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+
+
 @pytest.fixture()
 def db_session():
-    engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+    engine = _test_engine()
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     TestingSession = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
     with TestingSession() as s:
@@ -53,6 +65,7 @@ def db_session():
     app.dependency_overrides[get_db] = override
     yield TestingSession
     app.dependency_overrides.clear()
+    engine.dispose()
 
 
 @pytest.fixture()

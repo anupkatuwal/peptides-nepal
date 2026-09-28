@@ -31,7 +31,7 @@ function errorMessage(status: number, body: unknown): string {
 }
 
 type RequestOptions = {
-  method?: "GET" | "POST" | "PATCH";
+  method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
   token?: string | null;
   /** Server-side caching (seconds). Ignored in the browser. */
@@ -61,6 +61,20 @@ export async function apiFetch<T>(path: string, opts: RequestOptions = {}): Prom
       data = null;
     }
   }
+  if (!res.ok) throw new ApiError(res.status, errorMessage(res.status, data));
+  return data as T;
+}
+
+/** Admin file upload (multipart). The browser sets the multipart Content-Type itself. */
+export async function uploadFile<T>(file: File, token: string): Promise<T> {
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${API_URL}/api/media`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    body: form,
+  });
+  const data = await res.json().catch(() => null);
   if (!res.ok) throw new ApiError(res.status, errorMessage(res.status, data));
   return data as T;
 }

@@ -12,7 +12,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from .config import get_settings
 from .database import engine
 from .rate_limit import limiter
-from .routers import auth, categories, contact, orders, products
+from .routers import admin, auth, categories, contact, media, orders, products
 
 settings = get_settings()
 logger = logging.getLogger("peptides_nepal")
@@ -31,15 +31,23 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 
-# CORS: only the shop's own frontend may call the API from a browser.
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.cors_origin_list,
-    allow_credentials=False,  # auth uses the Authorization header, not cookies
-    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
-    allow_headers=["Authorization", "Content-Type"],
-    max_age=600,
-)
+MAX_BODY_BYTES = 1024 * 1024          # JSON requests
+MAX_UPLOAD_BYTES = 9 * 1024 * 1024    # 8 MB file + multipart overhead
+
+
+@app.middleware("http")
+async def limit_body_size(request: Request, call_next):
+    # Reject oversized bodies before they are read. Uploads are parsed before
+    # the admin check runs, so this also stops anonymous large uploads.
+    if request.method in {"POST", "PUT", "PATCH"}:
+        limit = MAX_UPLOAD_BYTES if request.url.path == "/api/media" else MAX_BODY_BYTES
+        length = request.headers.get("content-length")
+        if length is None:
+            if request.url.path == "/api/media":
+                return JSONResponse(status_code=411, content={"detail": "Content-Length required"})
+        elif not length.isdigit() or int(length) > limit:
+            return JSONResponse(status_code=413, content={"detail": "Request body too large"})
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -54,6 +62,18 @@ async def security_headers(request: Request, call_next):
     return response
 
 
+# Added last so it runs outermost: every response, including 413/429 errors, gets CORS headers.
+# CORS: only the shop's own frontend may call the API from a browser.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origin_list,
+    allow_credentials=False,  # auth uses the Authorization header, not cookies
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
+    max_age=600,
+)
+
+
 @app.exception_handler(SQLAlchemyError)
 async def database_error(request: Request, exc: SQLAlchemyError) -> JSONResponse:
     # Log the details; never send SQL or driver messages to the client.
@@ -66,6 +86,8 @@ app.include_router(categories.router)
 app.include_router(products.router)
 app.include_router(orders.router)
 app.include_router(contact.router)
+app.include_router(media.router)
+app.include_router(admin.router)
 
 
 @app.get("/api/health", tags=["health"])

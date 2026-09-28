@@ -97,6 +97,10 @@ def update_product(
     if product is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
     changes = body.model_dump(exclude_unset=True)
+    # Only these may be cleared; the rest are required columns.
+    required = {k for k, v in changes.items() if v is None} - {"purity_percentage", "coa_image_url", "image_url"}
+    if required:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, f"These fields can't be empty: {sorted(required)}")
     if "category_id" in changes and db.get(Category, changes["category_id"]) is None:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Unknown category_id")
     for field, value in changes.items():

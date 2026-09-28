@@ -1,3 +1,4 @@
+from decimal import Decimal
 from functools import lru_cache
 
 from pydantic import Field, field_validator
@@ -35,8 +36,20 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60 * 24
 
     # --- HTTP -----------------------------------------------------------
+    # Public address of this API, used to build links to uploaded files.
+    # Falls back to the address the request came in on.
+    public_api_url: str | None = None
+    # Public address of the Next.js site, used in emails and payment redirects.
+    frontend_url: str = "http://localhost:3000"
     # Comma-separated list of exact origins, e.g. "https://shop.example.com"
     cors_origins: str = "http://localhost:3000"
+
+    # --- Delivery (NPR) -------------------------------------------------
+    # Kathmandu, Lalitpur and Bhaktapur vs. the rest of Nepal. 0 = free.
+    delivery_fee_inside_valley: Decimal = Field(default=Decimal("0"), ge=0)
+    delivery_fee_outside_valley: Decimal = Field(default=Decimal("0"), ge=0)
+    # Orders whose items total at least this much ship free. 0 = no free-delivery offer.
+    free_delivery_threshold: Decimal = Field(default=Decimal("0"), ge=0)
 
     # --- Rate limiting --------------------------------------------------
     rate_limit_enabled: bool = True

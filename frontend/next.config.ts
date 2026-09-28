@@ -21,7 +21,7 @@ const securityHeaders = [
       // Next.js injects small inline scripts for hydration.
       `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"}`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https:",
+      `img-src 'self' data: https: ${apiOrigin}`,
       "font-src 'self'",
       `connect-src 'self' ${apiOrigin}`,
       "frame-ancestors 'none'",

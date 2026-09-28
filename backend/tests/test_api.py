@@ -1,9 +1,15 @@
+from decimal import Decimal
+
+import pytest
+
+from app.config import get_settings
 from app.models import Product
 from tests.conftest import auth_header
 
 CUSTOMER = {"full_name": "Sita Sharma", "email": "Sita@Example.com", "password": "strongpass1"}
 SHIPPING = {
     "payment_method": "COD",
+    "delivery_zone": "inside_valley",
     "shipping_name": "Sita Sharma",
     "phone": "98-4123 4567",
     "shipping_address": "Ward 4, Baneshwor",
@@ -170,6 +176,11 @@ def test_admin_product_crud(client):
 
     bad_url = client.patch(f"/api/products/{pid}", headers=admin, json={"coa_image_url": "javascript:alert(1)"})
     assert bad_url.status_code == 422
+    for bad in ["//evil.example/coa.png", "http://evil.example/coa.png", "https://"]:
+        assert client.patch(f"/api/products/{pid}", headers=admin, json={"coa_image_url": bad}).status_code == 422
+    assert client.patch(f"/api/products/{pid}", headers=admin, json={"name": None}).status_code == 422
+    cleared = client.patch(f"/api/products/{pid}", headers=admin, json={"purity_percentage": None})
+    assert cleared.status_code == 200 and cleared.json()["purity_percentage"] is None
 
 
 # --- Contact ------------------------------------------------------------------
@@ -224,3 +235,114 @@ def test_security_headers(client):
     r = client.get("/api/categories")
     assert r.headers["x-content-type-options"] == "nosniff"
     assert r.headers["x-frame-options"] == "DENY"
+
+
+# --- Media --------------------------------------------------------------------
+
+PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 64
+PDF = b"%PDF-1.7\n" + b"0" * 64
+
+
+def test_media_upload_and_download(client):
+    admin = auth_header(client, "admin@example.com", "adminpass1")
+    r = client.post("/api/media", headers=admin, files={"file": ("../../evil name.png", PNG, "text/html")})
+    assert r.status_code == 201, r.text
+    body = r.json()
+    assert body["content_type"] == "image/png"  # from the bytes, not the claimed type
+    assert body["file_name"] == "evil-name.png"
+    assert body["url"].endswith(f"/api/media/{body['id']}/evil-name.png")
+    assert client.get(body["url"].replace("http://testserver", "")).content == PNG
+
+    again = client.post("/api/media", headers=admin, files={"file": ("copy.png", PNG, "image/png")})
+    assert again.json()["id"] == body["id"]  # same bytes, same row
+
+    got = client.get(f"/api/media/{body['id']}")
+    assert got.status_code == 200 and got.content == PNG
+    assert got.headers["content-type"] == "image/png"
+    assert "sandbox" in got.headers["content-security-policy"]
+    assert "immutable" in got.headers["cache-control"]
+
+    pdf = client.post("/api/media", headers=admin, files={"file": ("coa.pdf", PDF, "application/pdf")})
+    assert pdf.json()["content_type"] == "application/pdf"
+    assert pdf.json()["url"].endswith("/coa.pdf")
+    disguised = client.post("/api/media", headers=admin, files={"file": ("report.png", PDF + b"x", "image/png")})
+    assert disguised.json()["url"].endswith("/report.pdf")
+
+
+def test_media_rejects_bad_files_and_non_admins(client):
+    admin = auth_header(client, "admin@example.com", "adminpass1")
+    html = client.post("/api/media", headers=admin, files={"file": ("x.png", b"<script>alert(1)</script>", "image/png")})
+    assert html.status_code == 415
+    svg = client.post("/api/media", headers=admin, files={"file": ("x.svg", b"<svg onload=alert(1)>", "image/svg+xml")})
+    assert svg.status_code == 415
+
+    customer = client.post("/api/auth/register", json={"full_name": "Ram", "email": "ram@example.com",
+                                                        "password": "strongpass1"}).json()["access_token"]
+    denied = client.post("/api/media", headers={"Authorization": f"Bearer {customer}"}, files={"file": ("a.png", PNG)})
+    assert denied.status_code == 403
+    assert client.post("/api/media", files={"file": ("a.png", PNG)}).status_code == 401
+    assert client.get("/api/media/999").status_code == 404
+
+
+def test_oversized_bodies_rejected(client):
+    big = {"sender_name": "Hari", "sender_email": "h@example.com", "subject": "Hello", "message_body": "x" * (1024 * 1024 + 10)}
+    assert client.post("/api/contact", json=big).status_code == 413
+
+
+def test_errors_still_carry_cors_headers(client):
+    big = {"sender_name": "Hari", "sender_email": "h@example.com", "subject": "Hello", "message_body": "x" * (1024 * 1024 + 10)}
+    r = client.post("/api/contact", json=big, headers={"Origin": "https://shop.example.com"})
+    assert r.status_code == 413
+    assert r.headers.get("access-control-allow-origin") == "https://shop.example.com"
+
+
+# --- Delivery & admin -----------------------------------------------------------
+
+
+@pytest.fixture()
+def delivery_fees():
+    s = get_settings()
+    old = (s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold)
+    s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold = (
+        Decimal("100"), Decimal("250"), Decimal("10000"))
+    yield
+    s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold = old
+
+
+def test_delivery_fee_added_by_zone_and_waived_over_threshold(client, delivery_fees):
+    opts = client.get("/api/orders/delivery-options").json()
+    assert {o["zone"]: o["fee"] for o in opts["options"]} == {"inside_valley": 100, "outside_valley": 250}
+    assert opts["free_delivery_threshold"] == 10000
+
+    headers = register(client)
+    one = {**SHIPPING, "delivery_zone": "outside_valley", "items": [{"product_id": 1, "quantity": 1}]}
+    r = client.post("/api/orders", headers=headers, json=one).json()
+    assert (r["delivery_fee"], r["total_price"]) == (250, 4750)
+
+    big = {**SHIPPING, "items": [{"product_id": 2, "quantity": 2}]}  # 15,000 >= 10,000
+    r = client.post("/api/orders", headers=headers, json=big).json()
+    assert (r["delivery_fee"], r["total_price"]) == (0, 15000)
+
+    assert client.post("/api/orders", headers=headers, json={**one, "delivery_zone": "moon"}).status_code == 422
+
+
+def test_admin_summary_and_product_list(client):
+    headers = register(client)
+    client.post("/api/orders", headers=headers, json={**SHIPPING, "items": [{"product_id": 1, "quantity": 1}]})
+    client.post("/api/contact", json=MESSAGE)
+
+    admin = auth_header(client, "admin@example.com", "adminpass1")
+    s = client.get("/api/admin/summary", headers=admin).json()
+    assert s["orders_by_status"] == {"Pending": 1}
+    assert s["revenue_30d"] == 4500 and s["orders_30d"] == 1
+    assert s["unread_messages"] == 1
+    assert [p["slug"] for p in s["low_stock"]] == ["bpc-157-5mg"]  # 2 left
+    assert s["missing_lab_results"] == 2
+
+    products = client.get("/api/admin/products", headers=admin).json()
+    assert {p["slug"]: p["is_active"] for p in products}["hidden"] is False
+
+    orders = client.get("/api/orders", headers=admin).json()
+    assert orders[0]["customer_email"] == "sita@example.com"
+
+    assert client.get("/api/admin/summary", headers=headers).status_code == 403

@@ -51,6 +51,12 @@ export default function AccountView() {
           <h1 className="mt-3 font-display text-display-lg text-ink-950">Namaste, {user.full_name.split(" ")[0]}</h1>
           <p className="mt-2 text-ink-600">{user.email}</p>
         </div>
+        <div className="flex gap-2">
+        {user.role === "Admin" && (
+          <Link href="/admin" className="btn-primary">
+            Admin dashboard
+          </Link>
+        )}
         <button
           type="button"
           onClick={() => {
@@ -61,6 +67,7 @@ export default function AccountView() {
         >
           Sign out
         </button>
+        </div>
       </div>
 
       {placed && (
@@ -111,6 +118,7 @@ export default function AccountView() {
             <div className="flex flex-wrap justify-between gap-2 border-t border-line px-6 py-4 text-sm">
               <span className="text-ink-500">
                 To {o.shipping_name}, {o.city}
+                {o.delivery_fee > 0 && <> · Delivery {formatPrice(o.delivery_fee)}</>}
               </span>
               <span className="font-semibold text-ink-950">{formatPrice(o.total_price)}</span>
             </div>

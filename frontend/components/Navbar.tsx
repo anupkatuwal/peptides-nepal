@@ -160,6 +160,11 @@ export default function Navbar({ categories }: { categories: Category[] }) {
           </ul>
 
           <div className="flex items-center gap-1.5">
+            {user?.role === "Admin" && (
+              <Link href="/admin" className="hidden rounded-full border border-line px-3.5 py-1.5 text-sm font-medium text-ink-700 hover:bg-mist sm:inline-flex">
+                Admin
+              </Link>
+            )}
             <Link
               href={user ? "/account" : "/login"}
               className="icon-btn hidden sm:inline-flex"

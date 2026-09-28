@@ -3,8 +3,8 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, Unicode, UnicodeText
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, LargeBinary, Numeric, String, Unicode, UnicodeText
+from sqlalchemy.orm import Mapped, deferred, mapped_column, relationship
 
 from .database import Base
 
@@ -72,11 +72,24 @@ class Order(Base):
     shipping_address: Mapped[str] = mapped_column("ShippingAddress", Unicode(300))
     city: Mapped[str] = mapped_column("City", Unicode(80))
     notes: Mapped[str | None] = mapped_column("Notes", Unicode(500))
+    # Added in sql/003_store_upgrades.sql
+    delivery_fee: Mapped[Decimal] = mapped_column("DeliveryFee", Numeric(10, 2), default=Decimal("0.00"))
+    payment_status: Mapped[str] = mapped_column("PaymentStatus", String(20), default="Unpaid")
+    payment_reference: Mapped[str | None] = mapped_column("PaymentReference", Unicode(100))
+    paid_at: Mapped[datetime | None] = mapped_column("PaidAt", DateTime)
 
     user: Mapped[User] = relationship(back_populates="orders")
     items: Mapped[list["OrderItem"]] = relationship(
         back_populates="order", cascade="all, delete-orphan", lazy="selectin"
     )
+
+    @property
+    def customer_name(self) -> str:
+        return self.user.full_name
+
+    @property
+    def customer_email(self) -> str:
+        return self.user.email
 
 
 class OrderItem(Base):
@@ -110,3 +123,29 @@ class ContactMessage(Base):
     message_body: Mapped[str] = mapped_column("MessageBody", Unicode(4000))
     submitted_at: Mapped[datetime] = mapped_column("SubmittedAt", DateTime, default=utcnow)
     is_read: Mapped[bool] = mapped_column("IsRead", Boolean, default=False)
+
+
+class Media(Base):
+    """Uploaded product photos and COA files, stored in the database."""
+
+    __tablename__ = "Media"
+
+    id: Mapped[int] = mapped_column("MediaID", Integer, primary_key=True, autoincrement=True)
+    file_name: Mapped[str] = mapped_column("FileName", Unicode(200))
+    content_type: Mapped[str] = mapped_column("ContentType", String(50))
+    size_bytes: Mapped[int] = mapped_column("SizeBytes", Integer)
+    sha256: Mapped[str] = mapped_column("Sha256", String(64), index=True)
+    data: Mapped[bytes] = deferred(mapped_column("Data", LargeBinary, nullable=False))
+    uploaded_by: Mapped[int] = mapped_column("UploadedBy", ForeignKey("Users.UserID"))
+    created_at: Mapped[datetime] = mapped_column("CreatedAt", DateTime, default=utcnow)
+
+
+class PasswordResetToken(Base):
+    __tablename__ = "PasswordResetTokens"
+
+    id: Mapped[int] = mapped_column("TokenID", Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column("UserID", ForeignKey("Users.UserID", ondelete="CASCADE"), index=True)
+    token_hash: Mapped[str] = mapped_column("TokenHash", String(64), unique=True)  # SHA-256 of the emailed token
+    expires_at: Mapped[datetime] = mapped_column("ExpiresAt", DateTime)
+    used_at: Mapped[datetime | None] = mapped_column("UsedAt", DateTime)
+    created_at: Mapped[datetime] = mapped_column("CreatedAt", DateTime, default=utcnow)

@@ -8,6 +8,8 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 PaymentMethod = Literal["eSewa", "Khalti", "COD"]
+PaymentStatus = Literal["Unpaid", "Initiated", "Paid", "Failed", "Refunded"]
+DeliveryZone = Literal["inside_valley", "outside_valley"]
 OrderStatus = Literal["Pending", "Paid", "Processing", "Shipped", "Delivered", "Cancelled"]
 
 SLUG_RE = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
@@ -116,7 +118,10 @@ class ProductPage(BaseModel):
     page_size: int
 
 
-HttpsOrPathUrl = Annotated[str, Field(max_length=500, pattern=r"^(https://|/)[^\s]*$")]
+# https:// anywhere, a site-relative path, or http://localhost for local development.
+HttpsOrPathUrl = Annotated[
+    str, Field(max_length=500, pattern=r"^((https://[^\s/]+|http://(localhost|127\.0\.0\.1)(:\d+)?)/[^\s]*|/([^\s/][^\s]*)?)$")
+]
 
 
 class ProductCreate(RequestModel):
@@ -155,6 +160,7 @@ class OrderItemIn(RequestModel):
 class OrderCreate(RequestModel):
     items: list[OrderItemIn] = Field(min_length=1, max_length=30)
     payment_method: PaymentMethod
+    delivery_zone: DeliveryZone
     shipping_name: str = Field(min_length=2, max_length=120)
     phone: str = Field(min_length=7, max_length=20)
     shipping_address: str = Field(min_length=5, max_length=300)
@@ -181,7 +187,9 @@ class OrderItemOut(ResponseModel):
 class OrderOut(ResponseModel):
     id: int
     total_price: float
+    delivery_fee: float
     payment_method: PaymentMethod
+    payment_status: PaymentStatus
     status: OrderStatus
     order_date: datetime
     shipping_name: str
@@ -194,6 +202,24 @@ class OrderOut(ResponseModel):
 
 class OrderStatusUpdate(RequestModel):
     status: OrderStatus
+
+
+class AdminOrderOut(OrderOut):
+    customer_name: str
+    customer_email: str
+    payment_reference: str | None
+    paid_at: datetime | None
+
+
+class DeliveryOption(BaseModel):
+    zone: DeliveryZone
+    label: str
+    fee: float
+
+
+class DeliveryOptions(BaseModel):
+    options: list[DeliveryOption]
+    free_delivery_threshold: float | None
 
 
 # --- Contact ----------------------------------------------------------------

@@ -48,12 +48,21 @@ export type TokenResponse = {
 };
 
 export type PaymentMethod = "eSewa" | "Khalti" | "COD";
+export type PaymentStatus = "Unpaid" | "Initiated" | "Paid" | "Failed" | "Refunded";
+export type DeliveryZone = "inside_valley" | "outside_valley";
+
+export type DeliveryOptions = {
+  options: { zone: DeliveryZone; label: string; fee: number }[];
+  free_delivery_threshold: number | null;
+};
 export type OrderStatus = "Pending" | "Paid" | "Processing" | "Shipped" | "Delivered" | "Cancelled";
 
 export type Order = {
   id: number;
   total_price: number;
+  delivery_fee: number;
   payment_method: PaymentMethod;
+  payment_status: PaymentStatus;
   status: OrderStatus;
   order_date: string;
   shipping_name: string;
@@ -78,4 +87,40 @@ export type CartLine = {
   imageUrl: string | null;
   quantity: number;
   maxQuantity: number;
+};
+
+export type AdminOrder = Order & {
+  customer_name: string;
+  customer_email: string;
+  payment_reference: string | null;
+  paid_at: string | null;
+};
+
+export type AdminProduct = ProductDetail & { is_active: boolean };
+
+export type AdminSummary = {
+  orders_by_status: Partial<Record<OrderStatus, number>>;
+  revenue_30d: number;
+  orders_30d: number;
+  unread_messages: number;
+  low_stock: AdminProduct[];
+  missing_lab_results: number;
+};
+
+export type ContactMessage = {
+  id: number;
+  sender_name: string;
+  sender_email: string;
+  subject: string;
+  message_body: string;
+  submitted_at: string;
+  is_read: boolean;
+};
+
+export type UploadedMedia = {
+  id: number;
+  url: string;
+  file_name: string;
+  content_type: string;
+  size_bytes: number;
 };

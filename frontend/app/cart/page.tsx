@@ -66,16 +66,12 @@ export default function CartPage() {
             <h2 className="font-display text-xl text-ink-900">Order summary</h2>
             <dl className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between">
-                <dt className="text-ink-600">Subtotal</dt>
-                <dd className="font-medium text-ink-900">{formatPrice(subtotal)}</dd>
-              </div>
-              <div className="flex justify-between">
                 <dt className="text-ink-600">Delivery</dt>
-                <dd className="text-ink-600">Confirmed by phone</dd>
+                <dd className="text-ink-600">Chosen at checkout</dd>
               </div>
             </dl>
             <div className="mt-5 flex justify-between border-t border-line pt-5">
-              <span className="font-medium text-ink-900">Total</span>
+              <span className="font-medium text-ink-900">Subtotal</span>
               <span className="text-xl font-semibold text-ink-950">{formatPrice(subtotal)}</span>
             </div>
             <Link href="/checkout" className="btn-primary mt-6 w-full">

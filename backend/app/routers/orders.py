@@ -4,13 +4,20 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query, Request, status
 from sqlalchemy import select, true, update
+from sqlalchemy.orm import joinedload
 
+from ..delivery import delivery_fee, delivery_options
 from ..deps import AdminUser, CurrentUser, DbSession
 from ..models import Order, OrderItem, Product
 from ..rate_limit import ORDER_LIMIT, limiter
-from ..schemas import OrderCreate, OrderOut, OrderStatus, OrderStatusUpdate
+from ..schemas import AdminOrderOut, DeliveryOptions, OrderCreate, OrderOut, OrderStatus, OrderStatusUpdate
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
+
+
+@router.get("/delivery-options", response_model=DeliveryOptions)
+def get_delivery_options() -> DeliveryOptions:
+    return delivery_options()
 
 
 @router.post("", response_model=OrderOut, status_code=status.HTTP_201_CREATED)
@@ -62,7 +69,8 @@ def create_order(request: Request, body: OrderCreate, db: DbSession, user: Curre
             order.items.append(OrderItem(product_id=pid, quantity=qty, unit_price=price))
             total += price * qty
 
-        order.total_price = total
+        order.delivery_fee = delivery_fee(body.delivery_zone, total)
+        order.total_price = total + order.delivery_fee
         db.add(order)
         db.commit()
     except Exception:
@@ -98,20 +106,20 @@ def get_order(order_id: Annotated[int, Path(gt=0)], db: DbSession, user: Current
 # --- Admin -----------------------------------------------------------------
 
 
-@router.get("", response_model=list[OrderOut])
+@router.get("", response_model=list[AdminOrderOut])
 def list_orders(
     db: DbSession,
     _: AdminUser,
     status_filter: Annotated[OrderStatus | None, Query(alias="status")] = None,
     limit: Annotated[int, Query(ge=1, le=200)] = 100,
 ) -> list[Order]:
-    stmt = select(Order).order_by(Order.order_date.desc()).limit(limit)
+    stmt = select(Order).options(joinedload(Order.user)).order_by(Order.order_date.desc()).limit(limit)
     if status_filter:
         stmt = stmt.where(Order.status == status_filter)
     return list(db.scalars(stmt))
 
 
-@router.patch("/{order_id}/status", response_model=OrderOut)
+@router.patch("/{order_id}/status", response_model=AdminOrderOut)
 def set_order_status(
     order_id: Annotated[int, Path(gt=0)], body: OrderStatusUpdate, db: DbSession, _: AdminUser
 ) -> Order:

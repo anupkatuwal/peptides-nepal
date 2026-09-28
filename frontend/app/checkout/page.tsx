@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAuth, useCart } from "@/components/Providers";
 import { ApiError, apiFetch } from "@/lib/api";
 import { cn, formatPrice } from "@/lib/format";
-import type { Order, PaymentMethod } from "@/lib/types";
+import type { DeliveryOptions, DeliveryZone, Order, PaymentMethod } from "@/lib/types";
 
 const METHODS: { value: PaymentMethod; label: string; note: string }[] = [
   { value: "COD", label: "Cash on delivery", note: "Pay in cash when the parcel arrives." },
@@ -22,12 +22,18 @@ export default function CheckoutPage() {
 
   const [form, setForm] = useState({ shipping_name: "", phone: "", shipping_address: "", city: "", notes: "" });
   const [method, setMethod] = useState<PaymentMethod>("COD");
+  const [zone, setZone] = useState<DeliveryZone>("inside_valley");
+  const [delivery, setDelivery] = useState<DeliveryOptions | null>(null);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (ready && !user) router.replace("/login?next=/checkout");
   }, [ready, user, router]);
+
+  useEffect(() => {
+    apiFetch<DeliveryOptions>("/api/orders/delivery-options").then(setDelivery).catch(() => setDelivery(null));
+  }, []);
 
   useEffect(() => {
     if (user) setForm((f) => (f.shipping_name ? f : { ...f, shipping_name: user.full_name }));
@@ -48,6 +54,11 @@ export default function CheckoutPage() {
     );
   }
 
+  // Mirrors the server's rule; the server's figure is what gets charged.
+  const freeDelivery = delivery?.free_delivery_threshold != null && subtotal >= delivery.free_delivery_threshold;
+  const zoneFee = delivery?.options.find((o) => o.zone === zone)?.fee ?? 0;
+  const deliveryFee = freeDelivery ? 0 : zoneFee;
+
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -63,6 +74,7 @@ export default function CheckoutPage() {
           ...form,
           notes: form.notes.trim() || undefined,
           payment_method: method,
+          delivery_zone: zone,
           items: lines.map((l) => ({ product_id: l.productId, quantity: l.quantity })),
         },
       });
@@ -108,6 +120,31 @@ export default function CheckoutPage() {
             </div>
           </div>
 
+          <div role="radiogroup" aria-labelledby="delivery-zone-heading" className="card p-6 sm:p-8">
+            <h2 id="delivery-zone-heading" className="font-display text-xl text-ink-900">Delivery area</h2>
+            {delivery?.free_delivery_threshold != null && (
+              <p className="mt-1 text-sm text-ink-500">Free delivery on orders over {formatPrice(delivery.free_delivery_threshold)}.</p>
+            )}
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {(delivery?.options ?? [
+                { zone: "inside_valley" as const, label: "Inside Kathmandu Valley", fee: 0 },
+                { zone: "outside_valley" as const, label: "Outside Kathmandu Valley", fee: 0 },
+              ]).map((o) => (
+                <label
+                  key={o.zone}
+                  className={cn(
+                    "flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition",
+                    zone === o.zone ? "border-ink-900 bg-ink-50 ring-1 ring-ink-900" : "border-line hover:border-ink-200",
+                  )}
+                >
+                  <input type="radio" name="zone" value={o.zone} checked={zone === o.zone} onChange={() => setZone(o.zone)} className="sr-only" />
+                  <span className="font-medium text-ink-900">{o.label}</span>
+                  <span className="text-sm text-ink-600">{freeDelivery || o.fee === 0 ? "Free" : formatPrice(o.fee)}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
           <div role="radiogroup" aria-labelledby="payment-heading" className="card p-6 sm:p-8">
             <h2 id="payment-heading" className="mb-5 font-display text-xl text-ink-900">Payment</h2>
             <div className="grid gap-3 sm:grid-cols-3">
@@ -140,9 +177,19 @@ export default function CheckoutPage() {
               </li>
             ))}
           </ul>
+          <dl className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
+            <div className="flex justify-between">
+              <dt className="text-ink-600">Subtotal</dt>
+              <dd className="text-ink-900">{formatPrice(subtotal)}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt className="text-ink-600">Delivery</dt>
+              <dd className="text-ink-900">{deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)}</dd>
+            </div>
+          </dl>
           <div className="mt-4 flex justify-between border-t border-line pt-4">
             <span className="font-medium text-ink-900">Total</span>
-            <span className="text-xl font-semibold text-ink-950">{formatPrice(subtotal)}</span>
+            <span className="text-xl font-semibold text-ink-950">{formatPrice(subtotal + deliveryFee)}</span>
           </div>
           {error && <p className="alert-error mt-5" role="alert">{error}</p>}
           <button type="submit" className="btn-primary mt-6 w-full" disabled={submitting}>
