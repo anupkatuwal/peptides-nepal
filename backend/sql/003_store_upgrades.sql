@@ -62,6 +62,13 @@ END
 GO
 
 /* ---------------------------------------------------------------------
+   Users: after a password change, older sign-in sessions stop working.
+   --------------------------------------------------------------------- */
+IF COL_LENGTH('dbo.Users', 'PasswordChangedAt') IS NULL
+    ALTER TABLE dbo.Users ADD PasswordChangedAt DATETIME2(0) NULL;
+GO
+
+/* ---------------------------------------------------------------------
    PasswordResetTokens — only a SHA-256 of each emailed token is stored.
    --------------------------------------------------------------------- */
 IF OBJECT_ID('dbo.PasswordResetTokens', 'U') IS NULL

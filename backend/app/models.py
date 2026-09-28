@@ -23,6 +23,8 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column("PasswordHash", String(100))
     role: Mapped[str] = mapped_column("Role", String(20), default="Customer")
     created_at: Mapped[datetime] = mapped_column("CreatedAt", DateTime, default=utcnow)
+    # Added in sql/003. Sessions (JWTs) issued before this moment are rejected.
+    password_changed_at: Mapped[datetime | None] = mapped_column("PasswordChangedAt", DateTime)
 
     orders: Mapped[list["Order"]] = relationship(back_populates="user")
 

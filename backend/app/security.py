@@ -27,13 +27,19 @@ def verify_password(password: str, password_hash: str | None) -> bool:
         return False
 
 
-def create_access_token(user_id: int, role: str) -> tuple[str, int]:
+def password_version(changed_at: datetime | None) -> int:
+    """Identifies the current password. Changing the password changes it, which ends older sessions."""
+    return 0 if changed_at is None else int(changed_at.replace(tzinfo=timezone.utc).timestamp())
+
+
+def create_access_token(user_id: int, role: str, pwv: int = 0) -> tuple[str, int]:
     s = get_settings()
     now = datetime.now(timezone.utc)
     expires_in = s.access_token_expire_minutes * 60
     payload = {
         "sub": str(user_id),
         "role": role,
+        "pwv": pwv,
         "iat": now,
         "nbf": now,
         "exp": now + timedelta(seconds=expires_in),

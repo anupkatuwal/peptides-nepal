@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from .database import get_db
 from .models import User
-from .security import decode_access_token
+from .security import decode_access_token, password_version
 
 DbSession = Annotated[Session, Depends(get_db)]
 
@@ -34,6 +34,9 @@ def get_current_user(
     # Load from the database every time, so a deleted user or changed role takes effect at once.
     user = db.get(User, user_id)
     if user is None:
+        raise _UNAUTHORIZED
+    # A password reset signs out every session made with the old password.
+    if payload.get("pwv", 0) != password_version(user.password_changed_at):
         raise _UNAUTHORIZED
     return user
 

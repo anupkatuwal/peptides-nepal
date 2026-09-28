@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const categories = await getCategories();
 
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"

@@ -51,11 +51,29 @@ class Settings(BaseSettings):
     # Orders whose items total at least this much ship free. 0 = no free-delivery offer.
     free_delivery_threshold: Decimal = Field(default=Decimal("0"), ge=0)
 
+    # --- Email (SMTP) ---------------------------------------------------
+    # Leave SMTP_HOST empty to switch email off (orders still work).
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_security: str = "starttls"  # "starttls" (port 587), "ssl" (port 465) or "none" (local testing only)
+    mail_from: str = ""              # e.g. "Peptides Nepal <orders@yourdomain.com>"
+    shop_notify_email: str = ""      # where new-order and contact alerts go
+    password_reset_minutes: int = 60
+
     # --- Rate limiting --------------------------------------------------
     rate_limit_enabled: bool = True
     # "memory://" works for one process. With several workers or servers use
     # Redis so they share counters, e.g. "redis://localhost:6379/0".
     rate_limit_storage_uri: str = "memory://"
+
+    @field_validator("smtp_security")
+    @classmethod
+    def _smtp_security(cls, v: str) -> str:
+        if v not in {"starttls", "ssl", "none"}:
+            raise ValueError("smtp_security must be starttls, ssl or none")
+        return v
 
     @field_validator("jwt_algorithm")
     @classmethod
@@ -70,6 +88,10 @@ class Settings(BaseSettings):
         if "*" in origins:
             raise ValueError("CORS_ORIGINS must list exact origins, not '*'")
         return origins
+
+    @property
+    def email_enabled(self) -> bool:
+        return bool(self.smtp_host and self.mail_from)
 
     @property
     def is_production(self) -> bool:

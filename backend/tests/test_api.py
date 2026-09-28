@@ -346,3 +346,95 @@ def test_admin_summary_and_product_list(client):
     assert orders[0]["customer_email"] == "sita@example.com"
 
     assert client.get("/api/admin/summary", headers=headers).status_code == 403
+
+
+# --- Email & password reset -------------------------------------------------------
+
+
+@pytest.fixture()
+def outbox(monkeypatch):
+    sent: list[dict] = []
+
+    def fake_send(to, subject, text, html=None, reply_to=None):
+        sent.append({"to": to, "subject": subject, "text": text, "html": html, "reply_to": reply_to})
+        return True
+
+    monkeypatch.setattr("app.email.send_email", fake_send)
+    s = get_settings()
+    monkeypatch.setattr(s, "shop_notify_email", "shop@example.com")
+    monkeypatch.setattr(s, "frontend_url", "https://shop.example.com")
+    return sent
+
+
+def test_order_emails_customer_and_shop(client, outbox):
+    headers = register(client)
+    notes = "<script>alert(1)</script> gate is blue"
+    order = client.post("/api/orders", headers=headers,
+                        json={**SHIPPING, "notes": notes, "items": [{"product_id": 1, "quantity": 1}]}).json()
+    to = {m["to"]: m for m in outbox}
+    assert set(to) == {"sita@example.com", "shop@example.com"}
+    assert f"#{order['id']}" in to["sita@example.com"]["subject"]
+    assert "BPC-157 (5 mg) x 1" in to["sita@example.com"]["text"]
+    assert to["shop@example.com"]["reply_to"] == "sita@example.com"
+    assert "<script>" not in to["shop@example.com"]["html"] and "&lt;script&gt;" in to["shop@example.com"]["html"]
+
+    admin = auth_header(client, "admin@example.com", "adminpass1")
+    outbox.clear()
+    client.patch(f"/api/orders/{order['id']}/status", headers=admin, json={"status": "Shipped"})
+    assert [m["subject"] for m in outbox] == [f"Order #{order['id']} shipped — Peptides Nepal"]
+    outbox.clear()
+    client.patch(f"/api/orders/{order['id']}/status", headers=admin, json={"status": "Shipped"})
+    assert outbox == []  # no change, no email
+
+
+def test_contact_alert_email(client, outbox):
+    client.post("/api/contact", json=MESSAGE)
+    assert len(outbox) == 1
+    assert outbox[0]["to"] == "shop@example.com" and outbox[0]["reply_to"] == "hari@example.com"
+    client.post("/api/contact", json={**MESSAGE, "website": "spam"})
+    assert len(outbox) == 1  # honeypot: nothing sent
+
+
+def _token_from(mail: dict) -> str:
+    link = next(w for w in mail["text"].split() if w.startswith("https://shop.example.com/reset-password?token="))
+    return link.split("token=", 1)[1]
+
+
+def test_password_reset_flow(client, outbox, db_session):
+    old_session = register(client)
+    unknown = client.post("/api/auth/forgot-password", json={"email": "nobody@example.com"})
+    known = client.post("/api/auth/forgot-password", json={"email": "SITA@example.com"})
+    assert unknown.status_code == known.status_code == 202
+    assert unknown.json() == known.json()  # can't tell which emails have accounts
+    assert [m["to"] for m in outbox] == ["sita@example.com"]
+    first = _token_from(outbox[0])
+
+    client.post("/api/auth/forgot-password", json={"email": "sita@example.com"})
+    second = _token_from(outbox[1])
+    assert client.post("/api/auth/reset-password", json={"token": first, "password": "newpass123"}).status_code == 400
+
+    weak = client.post("/api/auth/reset-password", json={"token": second, "password": "short"})
+    assert weak.status_code == 422
+    ok = client.post("/api/auth/reset-password", json={"token": second, "password": "newpass123"})
+    assert ok.status_code == 200
+    assert client.post("/api/auth/reset-password", json={"token": second, "password": "another123"}).status_code == 400
+
+    assert client.get("/api/auth/me", headers=old_session).status_code == 401  # old sessions signed out
+    assert client.post("/api/auth/login", json={"email": "sita@example.com", "password": "strongpass1"}).status_code == 401
+    fresh = auth_header(client, "sita@example.com", "newpass123")
+    assert client.get("/api/auth/me", headers=fresh).status_code == 200
+
+
+def test_expired_reset_token_rejected(client, outbox, db_session):
+    from datetime import timedelta
+
+    from app.models import PasswordResetToken, utcnow
+
+    register(client)
+    client.post("/api/auth/forgot-password", json={"email": "sita@example.com"})
+    token = _token_from(outbox[0])
+    with db_session() as s:
+        for t in s.query(PasswordResetToken).all():
+            t.expires_at = utcnow() - timedelta(minutes=1)
+        s.commit()
+    assert client.post("/api/auth/reset-password", json={"token": token, "password": "newpass123"}).status_code == 400

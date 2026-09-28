@@ -1,8 +1,9 @@
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Path, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Path, Query, Request, status
 from sqlalchemy import false, select
 
+from .. import email
 from ..deps import AdminUser, DbSession
 from ..models import ContactMessage
 from ..rate_limit import CONTACT_LIMIT, limiter
@@ -13,20 +14,22 @@ router = APIRouter(prefix="/api/contact", tags=["contact"])
 
 @router.post("", response_model=ContactAccepted, status_code=status.HTTP_202_ACCEPTED)
 @limiter.limit(CONTACT_LIMIT)
-def submit_contact(request: Request, body: ContactCreate, db: DbSession) -> ContactAccepted:
+def submit_contact(
+    request: Request, body: ContactCreate, db: DbSession, background: BackgroundTasks
+) -> ContactAccepted:
     # Honeypot filled in: it's a bot. Answer as if it worked so it doesn't adapt.
     if body.website:
         return ContactAccepted()
 
-    db.add(
-        ContactMessage(
-            sender_name=body.sender_name,
-            sender_email=body.sender_email.lower(),
-            subject=body.subject,
-            message_body=body.message_body,
-        )
+    message = ContactMessage(
+        sender_name=body.sender_name,
+        sender_email=body.sender_email.lower(),
+        subject=body.subject,
+        message_body=body.message_body,
     )
+    db.add(message)
     db.commit()
+    background.add_task(email.contact_alert, message)
     return ContactAccepted()
 
 

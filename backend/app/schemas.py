@@ -62,6 +62,29 @@ class LoginRequest(RequestModel):
         return v.lower()
 
 
+class ForgotPasswordRequest(RequestModel):
+    email: EmailStr = Field(max_length=254)
+
+    @field_validator("email")
+    @classmethod
+    def _lower(cls, v: str) -> str:
+        return v.lower()
+
+
+class ResetPasswordRequest(RequestModel):
+    token: str = Field(min_length=20, max_length=200)
+    password: str = Field(min_length=8, max_length=72)
+
+    @field_validator("password")
+    @classmethod
+    def _strong(cls, v: str) -> str:
+        return _check_password(v)
+
+
+class Detail(BaseModel):
+    detail: str
+
+
 class UserOut(ResponseModel):
     id: int
     full_name: str

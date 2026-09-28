@@ -2,10 +2,11 @@ from collections import Counter
 from decimal import Decimal
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Path, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Path, Query, Request, status
 from sqlalchemy import select, true, update
 from sqlalchemy.orm import joinedload
 
+from .. import email
 from ..delivery import delivery_fee, delivery_options
 from ..deps import AdminUser, CurrentUser, DbSession
 from ..models import Order, OrderItem, Product
@@ -22,7 +23,9 @@ def get_delivery_options() -> DeliveryOptions:
 
 @router.post("", response_model=OrderOut, status_code=status.HTTP_201_CREATED)
 @limiter.limit(ORDER_LIMIT)
-def create_order(request: Request, body: OrderCreate, db: DbSession, user: CurrentUser) -> Order:
+def create_order(
+    request: Request, body: OrderCreate, db: DbSession, user: CurrentUser, background: BackgroundTasks
+) -> Order:
     # Merge repeated lines for the same product.
     wanted: Counter[int] = Counter()
     for line in body.items:
@@ -78,6 +81,9 @@ def create_order(request: Request, body: OrderCreate, db: DbSession, user: Curre
         raise
 
     db.refresh(order)
+    email.preload(order)
+    background.add_task(email.order_confirmation, order)
+    background.add_task(email.new_order_alert, order)
     return order
 
 
@@ -121,7 +127,11 @@ def list_orders(
 
 @router.patch("/{order_id}/status", response_model=AdminOrderOut)
 def set_order_status(
-    order_id: Annotated[int, Path(gt=0)], body: OrderStatusUpdate, db: DbSession, _: AdminUser
+    order_id: Annotated[int, Path(gt=0)],
+    body: OrderStatusUpdate,
+    db: DbSession,
+    _: AdminUser,
+    background: BackgroundTasks,
 ) -> Order:
     order = db.get(Order, order_id)
     if order is None:
@@ -137,7 +147,11 @@ def set_order_status(
                 .values(stock_level=Product.stock_level + item.quantity)
                 .execution_options(synchronize_session=False)
             )
+    changed = order.status != body.status
     order.status = body.status
     db.commit()
     db.refresh(order)
+    email.preload(order)
+    if changed:
+        background.add_task(email.order_status_update, order)
     return order

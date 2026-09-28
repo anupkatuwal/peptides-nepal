@@ -86,6 +86,13 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
               onChange={(e) => setPassword(e.target.value)}
             />
             {!isLogin && <p className="mt-1.5 text-xs text-ink-500">At least 8 characters, with a letter and a number.</p>}
+            {isLogin && (
+              <p className="mt-2 text-right text-sm">
+                <Link href="/forgot-password" className="text-ink-600 underline-offset-4 hover:text-ink-900 hover:underline">
+                  Forgot password?
+                </Link>
+              </p>
+            )}
           </div>
           <button type="submit" className="btn-primary w-full" disabled={busy}>
             {busy ? "Please wait…" : isLogin ? "Sign in" : "Create account"}
