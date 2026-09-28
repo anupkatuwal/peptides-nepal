@@ -12,7 +12,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from .config import get_settings
 from .database import engine
 from .rate_limit import limiter
-from .routers import admin, auth, categories, contact, media, orders, products
+from .routers import admin, auth, categories, contact, media, orders, payments, products
 
 settings = get_settings()
 logger = logging.getLogger("peptides_nepal")
@@ -88,6 +88,7 @@ app.include_router(orders.router)
 app.include_router(contact.router)
 app.include_router(media.router)
 app.include_router(admin.router)
+app.include_router(payments.router)
 
 
 @app.get("/api/health", tags=["health"])

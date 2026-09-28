@@ -7,13 +7,20 @@ import { useEffect, useState } from "react";
 import { useAuth, useCart } from "@/components/Providers";
 import { ApiError, apiFetch } from "@/lib/api";
 import { cn, formatPrice } from "@/lib/format";
+import { paymentMethodsAvailable, startPayment, type PaymentMethods } from "@/lib/payments";
 import type { DeliveryOptions, DeliveryZone, Order, PaymentMethod } from "@/lib/types";
 
-const METHODS: { value: PaymentMethod; label: string; note: string }[] = [
-  { value: "COD", label: "Cash on delivery", note: "Pay in cash when the parcel arrives." },
-  { value: "eSewa", label: "eSewa", note: "We send payment details after confirming your order." },
-  { value: "Khalti", label: "Khalti", note: "We send payment details after confirming your order." },
+const METHODS: { value: PaymentMethod; label: string }[] = [
+  { value: "COD", label: "Cash on delivery" },
+  { value: "eSewa", label: "eSewa" },
+  { value: "Khalti", label: "Khalti" },
 ];
+
+function methodNote(method: PaymentMethod, online: PaymentMethods | null): string {
+  if (method === "COD") return "Pay in cash when the parcel arrives.";
+  const live = method === "eSewa" ? online?.esewa : online?.khalti;
+  return live ? `You’ll pay on ${method} right after placing the order.` : "We send payment details after confirming your order.";
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -24,6 +31,7 @@ export default function CheckoutPage() {
   const [method, setMethod] = useState<PaymentMethod>("COD");
   const [zone, setZone] = useState<DeliveryZone>("inside_valley");
   const [delivery, setDelivery] = useState<DeliveryOptions | null>(null);
+  const [online, setOnline] = useState<PaymentMethods | null>(null);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -33,6 +41,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     apiFetch<DeliveryOptions>("/api/orders/delivery-options").then(setDelivery).catch(() => setDelivery(null));
+    paymentMethodsAvailable().then(setOnline).catch(() => setOnline(null));
   }, []);
 
   useEffect(() => {
@@ -79,6 +88,15 @@ export default function CheckoutPage() {
         },
       });
       clear();
+      const payOnline = (method === "eSewa" && online?.esewa) || (method === "Khalti" && online?.khalti);
+      if (payOnline) {
+        try {
+          await startPayment(order.id, token); // leaves the site
+          return;
+        } catch {
+          // The order exists; the customer can retry from their account.
+        }
+      }
       router.push(`/account?order=${order.id}`);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "We couldn’t reach the server. Please try again.");
@@ -158,7 +176,7 @@ export default function CheckoutPage() {
                 >
                   <input type="radio" name="payment" value={m.value} checked={method === m.value} onChange={() => setMethod(m.value)} className="sr-only" />
                   <span className="block font-medium text-ink-900">{m.label}</span>
-                  <span className="mt-1 block text-xs leading-relaxed text-ink-500">{m.note}</span>
+                  <span className="mt-1 block text-xs leading-relaxed text-ink-500">{methodNote(m.value, online)}</span>
                 </label>
               ))}
             </div>
@@ -193,9 +211,16 @@ export default function CheckoutPage() {
           </div>
           {error && <p className="alert-error mt-5" role="alert">{error}</p>}
           <button type="submit" className="btn-primary mt-6 w-full" disabled={submitting}>
-            {submitting ? "Placing order…" : "Place order"}
+            {submitting
+              ? "Placing order…"
+              : (method === "eSewa" && online?.esewa) || (method === "Khalti" && online?.khalti)
+                ? `Place order and pay with ${method}`
+                : "Place order"}
           </button>
           <p className="mt-4 text-center text-xs text-ink-500">Signed in as {user.email}</p>
+          {online?.test_mode && method !== "COD" && (
+            <p className="mt-2 text-center text-xs text-amber-700">Payments are in test mode. No real money moves.</p>
+          )}
         </aside>
       </form>
     </section>

@@ -62,6 +62,17 @@ class Settings(BaseSettings):
     shop_notify_email: str = ""      # where new-order and contact alerts go
     password_reset_minutes: int = 60
 
+    # --- Online payments ------------------------------------------------
+    # "test" uses the eSewa/Khalti sandboxes; "live" takes real money.
+    payments_env: str = "test"
+    # eSewa ePay v2. In test mode, empty values fall back to eSewa's public
+    # sandbox merchant (EPAYTEST). In live mode both are required.
+    esewa_product_code: str = ""
+    esewa_secret_key: str = ""
+    # Khalti KPG-2 secret key (test key from test-admin.khalti.com, live key
+    # from admin.khalti.com). Empty = Khalti online payment off.
+    khalti_secret_key: str = ""
+
     # --- Rate limiting --------------------------------------------------
     rate_limit_enabled: bool = True
     # "memory://" works for one process. With several workers or servers use
@@ -73,6 +84,13 @@ class Settings(BaseSettings):
     def _smtp_security(cls, v: str) -> str:
         if v not in {"starttls", "ssl", "none"}:
             raise ValueError("smtp_security must be starttls, ssl or none")
+        return v
+
+    @field_validator("payments_env")
+    @classmethod
+    def _payments_env(cls, v: str) -> str:
+        if v not in {"test", "live"}:
+            raise ValueError("payments_env must be test or live")
         return v
 
     @field_validator("jwt_algorithm")

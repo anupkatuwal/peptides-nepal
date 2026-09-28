@@ -26,7 +26,8 @@ const securityHeaders = [
       `connect-src 'self' ${apiOrigin}`,
       "frame-ancestors 'none'",
       "base-uri 'self'",
-      "form-action 'self'",
+      // eSewa checkout is a signed form POST to eSewa.
+      "form-action 'self' https://rc-epay.esewa.com.np https://epay.esewa.com.np",
       "object-src 'none'",
     ].join("; "),
   },

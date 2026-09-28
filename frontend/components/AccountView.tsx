@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { ApiError, apiFetch } from "@/lib/api";
+import { paymentMethodsAvailable, startPayment, type PaymentMethods } from "@/lib/payments";
 import { cn, formatDate, formatPrice } from "@/lib/format";
 import { whatsappLink } from "@/lib/site";
 import type { Order, OrderStatus } from "@/lib/types";
@@ -27,6 +28,23 @@ export default function AccountView() {
   const { user, token, ready, logout } = useAuth();
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [error, setError] = useState("");
+  const [online, setOnline] = useState<PaymentMethods | null>(null);
+  const [paying, setPaying] = useState<number | null>(null);
+
+  useEffect(() => {
+    paymentMethodsAvailable().then(setOnline).catch(() => setOnline(null));
+  }, []);
+
+  async function pay(orderId: number) {
+    setPaying(orderId);
+    setError("");
+    try {
+      await startPayment(orderId, token);
+    } catch (e) {
+      setError(e instanceof ApiError ? e.message : "Couldn’t start the payment.");
+      setPaying(null);
+    }
+  }
 
   useEffect(() => {
     if (ready && !user) router.replace("/login?next=/account");
@@ -122,6 +140,20 @@ export default function AccountView() {
               </span>
               <span className="font-semibold text-ink-950">{formatPrice(o.total_price)}</span>
             </div>
+            {o.payment_method !== "COD" &&
+              o.payment_status !== "Paid" &&
+              o.status !== "Cancelled" &&
+              (o.payment_method === "eSewa" ? online?.esewa : online?.khalti) && (
+                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line bg-amber-50/60 px-6 py-3 text-sm">
+                  <span className="text-amber-800">Not paid yet.</span>
+                  <button type="button" className="btn-primary px-5 py-2 text-sm" onClick={() => pay(o.id)} disabled={paying === o.id}>
+                    {paying === o.id ? "Opening…" : `Pay with ${o.payment_method}`}
+                  </button>
+                </div>
+              )}
+            {o.payment_status === "Paid" && o.payment_method !== "COD" && (
+              <div className="border-t border-line bg-sage-50/60 px-6 py-3 text-sm text-sage-800">Paid with {o.payment_method}.</div>
+            )}
           </li>
         ))}
       </ul>
