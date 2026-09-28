@@ -106,7 +106,7 @@ function Orders() {
                       </li>
                     ))}
                     <li className="flex justify-between py-2 text-ink-600">
-                      <span>Delivery</span>
+                      <span>Shipping & handling</span>
                       <span>{o.delivery_fee === 0 ? "Free" : formatPrice(o.delivery_fee)}</span>
                     </li>
                   </ul>

@@ -45,8 +45,9 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
 
     # --- Delivery (NPR) -------------------------------------------------
-    # Kathmandu, Lalitpur and Bhaktapur vs. the rest of Nepal. 0 = free.
-    delivery_fee_inside_valley: Decimal = Field(default=Decimal("0"), ge=0)
+    # Shipping & handling. The shop delivers inside Kathmandu only.
+    delivery_fee_inside_valley: Decimal = Field(default=Decimal("7500"), ge=0)
+    delivery_outside_valley_enabled: bool = False
     delivery_fee_outside_valley: Decimal = Field(default=Decimal("0"), ge=0)
     # Orders whose items total at least this much ship free. 0 = no free-delivery offer.
     free_delivery_threshold: Decimal = Field(default=Decimal("0"), ge=0)

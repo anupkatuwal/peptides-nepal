@@ -79,14 +79,14 @@ def _layout(title: str, body_html: str) -> str:
 
 def _items_table(order: Order) -> tuple[str, str]:
     text_lines = [f"- {i.product_name} x {i.quantity}: {_npr(i.unit_price * i.quantity)}" for i in order.items]
-    text_lines.append(f"- Delivery: {'Free' if not order.delivery_fee else _npr(order.delivery_fee)}")
+    text_lines.append(f"- Shipping & handling: {'Free' if not order.delivery_fee else _npr(order.delivery_fee)}")
     rows = "".join(
         f'<tr><td style="padding:6px 0">{escape(i.product_name)} × {i.quantity}</td>'
         f'<td align="right" style="padding:6px 0">{_npr(i.unit_price * i.quantity)}</td></tr>'
         for i in order.items
     )
     rows += (
-        f'<tr><td style="padding:6px 0;color:#43679A">Delivery</td><td align="right" style="padding:6px 0;color:#43679A">'
+        f'<tr><td style="padding:6px 0;color:#43679A">Shipping &amp; handling</td><td align="right" style="padding:6px 0;color:#43679A">'
         f'{"Free" if not order.delivery_fee else _npr(order.delivery_fee)}</td></tr>'
         f'<tr><td style="padding:10px 0;border-top:1px solid #E3E9EE"><b>Total</b></td>'
         f'<td align="right" style="padding:10px 0;border-top:1px solid #E3E9EE"><b>{_npr(order.total_price)}</b></td></tr>'

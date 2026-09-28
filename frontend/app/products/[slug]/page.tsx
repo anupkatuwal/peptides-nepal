@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: { params: Params }) {
               { icon: FlaskIcon, text: purity !== null ? `${formatPurity(purity)} purity by HPLC` : "Purity result pending for this batch" },
               { icon: DocumentIcon, text: product.coa_image_url ? "Certificate of Analysis below" : "COA will be posted when ready" },
               { icon: ShieldIcon, text: "Pay with eSewa, Khalti or COD" },
-              { icon: TruckIcon, text: "Delivery across Nepal" },
+              { icon: TruckIcon, text: `Delivery inside ${site.deliveryArea} only` },
             ].map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-3">
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-mist text-ink-700">

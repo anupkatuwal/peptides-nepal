@@ -4,9 +4,13 @@ from .config import get_settings
 from .schemas import DeliveryOption, DeliveryOptions, DeliveryZone
 
 ZONE_LABELS: dict[str, str] = {
-    "inside_valley": "Inside Kathmandu Valley",
-    "outside_valley": "Outside Kathmandu Valley",
+    "inside_valley": "Kathmandu",
+    "outside_valley": "Outside Kathmandu",
 }
+
+
+def zone_available(zone: DeliveryZone) -> bool:
+    return zone == "inside_valley" or get_settings().delivery_outside_valley_enabled
 
 
 def zone_fee(zone: DeliveryZone) -> Decimal:
@@ -24,6 +28,10 @@ def delivery_fee(zone: DeliveryZone, items_total: Decimal) -> Decimal:
 def delivery_options() -> DeliveryOptions:
     threshold = get_settings().free_delivery_threshold
     return DeliveryOptions(
-        options=[DeliveryOption(zone=z, label=label, fee=float(zone_fee(z))) for z, label in ZONE_LABELS.items()],
+        options=[
+            DeliveryOption(zone=z, label=label, fee=float(zone_fee(z)))
+            for z, label in ZONE_LABELS.items()
+            if zone_available(z)
+        ],
         free_delivery_threshold=float(threshold) if threshold > 0 else None,
     )

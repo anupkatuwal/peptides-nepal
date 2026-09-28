@@ -80,7 +80,7 @@ jobs:
         working-directory: backend
         run: |
           python -m tests.e2e_seed
-          KHALTI_SECRET_KEY=fake_test_key DELIVERY_FEE_INSIDE_VALLEY=100 DELIVERY_FEE_OUTSIDE_VALLEY=250 \
+          KHALTI_SECRET_KEY=fake_test_key \
             nohup uvicorn tests.e2e_app:app --port 8000 > api.log 2>&1 &
           for i in $(seq 1 30); do curl -sf localhost:8000/api/health && break; sleep 1; done
 
@@ -95,7 +95,6 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: http://localhost:8000
           NEXT_PUBLIC_SITE_URL: http://localhost:3000
-          NEXT_PUBLIC_WHATSAPP_NUMBER: "9779800000000"
         run: |
           npm ci
           npm run typecheck

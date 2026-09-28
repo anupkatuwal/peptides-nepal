@@ -6,6 +6,8 @@ os.environ["JWT_SECRET_KEY"] = "test-secret-key-that-is-long-enough-for-hs256"
 os.environ["CORS_ORIGINS"] = "https://shop.example.com"
 os.environ["ENVIRONMENT"] = "test"
 os.environ["RATE_LIMIT_ENABLED"] = "false"
+# Keep order totals equal to item totals in most tests; delivery rules have their own tests.
+os.environ["DELIVERY_FEE_INSIDE_VALLEY"] = "0"
 
 from decimal import Decimal  # noqa: E402
 

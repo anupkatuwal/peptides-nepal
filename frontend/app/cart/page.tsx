@@ -1,13 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import ProductImage from "@/components/ProductImage";
 import { useCart } from "@/components/Providers";
+import { apiFetch } from "@/lib/api";
 import { formatPrice } from "@/lib/format";
+import type { DeliveryOptions } from "@/lib/types";
 
 export default function CartPage() {
   const { lines, subtotal, setQuantity, remove } = useCart();
+  const [delivery, setDelivery] = useState<DeliveryOptions | null>(null);
+
+  useEffect(() => {
+    apiFetch<DeliveryOptions>("/api/orders/delivery-options").then(setDelivery).catch(() => setDelivery(null));
+  }, []);
+
+  // Only one area is offered today (Kathmandu); with several, the customer picks at checkout.
+  const single = delivery?.options.length === 1 ? delivery.options[0] : null;
+  const free = delivery?.free_delivery_threshold != null && subtotal >= delivery.free_delivery_threshold;
+  const shipping = single ? (free ? 0 : single.fee) : null;
 
   return (
     <section className="container py-12 md:py-16">
@@ -66,13 +79,16 @@ export default function CartPage() {
             <h2 className="font-display text-xl text-ink-900">Order summary</h2>
             <dl className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between">
-                <dt className="text-ink-600">Delivery</dt>
-                <dd className="text-ink-600">Chosen at checkout</dd>
+                <dt className="text-ink-600">
+                  Shipping & handling
+                  {single && <span className="block text-xs text-ink-400">Inside {single.label} only</span>}
+                </dt>
+                <dd className="text-ink-900">{shipping === null ? "At checkout" : shipping === 0 ? "Free" : formatPrice(shipping)}</dd>
               </div>
             </dl>
             <div className="mt-5 flex justify-between border-t border-line pt-5">
-              <span className="font-medium text-ink-900">Subtotal</span>
-              <span className="text-xl font-semibold text-ink-950">{formatPrice(subtotal)}</span>
+              <span className="font-medium text-ink-900">{shipping === null ? "Subtotal" : "Total"}</span>
+              <span className="text-xl font-semibold text-ink-950">{formatPrice(subtotal + (shipping ?? 0))}</span>
             </div>
             <Link href="/checkout" className="btn-primary mt-6 w-full">
               Continue to checkout

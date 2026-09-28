@@ -10,12 +10,12 @@ The store is two apps in this repo, separate from the static education site at t
 | Area | What's there |
 |---|---|
 | Shop | Categories, search, sort, product pages with HPLC purity and the COA, cart |
-| Checkout | Account required. Delivery zone (inside/outside Kathmandu Valley) with fees and a free-delivery threshold. Pay by COD, eSewa or Khalti |
+| Checkout | Account required. Delivery inside Kathmandu only, Rs. 7,500 shipping & handling (outside Kathmandu can be switched on later). Pay by COD, eSewa or Khalti |
 | Online payments | eSewa ePay v2 and Khalti KPG-2, confirmed server-to-server. Retry from the account page |
 | Accounts | Register, sign in, order history, forgot/reset password (signs out every session) |
 | Email | Order confirmation, payment/shipping/cancel updates, new-order and contact alerts to the shop, reset links |
 | Admin (`/admin`) | Overview, orders (change status; cancelling returns stock), products (edit price, stock, purity, upload photos and COAs), messages |
-| Content | Lab results table, guides, contact form, floating WhatsApp button |
+| Content | Lab results table, guides, contact form, floating WhatsApp button (+977 974-594-7888) |
 | SEO | Sitemap, robots.txt, product structured data |
 
 ## Folder structure
@@ -31,7 +31,7 @@ backend/
     security.py        bcrypt, JWT
     deps.py            Current user / admin checks
     rate_limit.py      Per-route limits
-    delivery.py        Delivery fee rules
+    delivery.py        Shipping & handling rules (Kathmandu only by default)
     email.py           SMTP sending + email templates
     payments.py        eSewa and Khalti clients
     create_admin.py    CLI: create or promote an admin
@@ -187,7 +187,7 @@ The education site already deploys from the repo root, so the store needs its **
    |---|---|
    | `NEXT_PUBLIC_API_URL` | `https://api.yourdomain.com` |
    | `NEXT_PUBLIC_SITE_URL` | `https://shop.yourdomain.com` |
-   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | digits with country code, e.g. `9779812345678` |
+   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | `9779745947888` (the default if left empty) |
    | `NEXT_PUBLIC_CONTACT_EMAIL` | your support email |
 
 3. Deploy, then add `shop.yourdomain.com` under **Settings → Domains**.
@@ -199,7 +199,7 @@ The education site already deploys from the repo root, so the store needs its **
 
 - [ ] `003_store_upgrades.sql` run on the production database
 - [ ] Real prices and stock; purity and COA for each product
-- [ ] Delivery fees set
+- [ ] Shipping & handling confirmed (default Rs. 7,500, Kathmandu only)
 - [ ] Email configured; test order and password reset emails received (check spam)
 - [ ] Admin account created
 - [ ] Payment keys set, `PAYMENTS_ENV=live`, one small real payment with each gateway shows *Paid*

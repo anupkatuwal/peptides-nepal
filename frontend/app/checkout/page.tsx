@@ -27,7 +27,7 @@ export default function CheckoutPage() {
   const { user, token, ready } = useAuth();
   const { lines, subtotal, clear } = useCart();
 
-  const [form, setForm] = useState({ shipping_name: "", phone: "", shipping_address: "", city: "", notes: "" });
+  const [form, setForm] = useState({ shipping_name: "", phone: "", shipping_address: "", city: "Kathmandu", notes: "" });
   const [method, setMethod] = useState<PaymentMethod>("COD");
   const [zone, setZone] = useState<DeliveryZone>("inside_valley");
   const [delivery, setDelivery] = useState<DeliveryOptions | null>(null);
@@ -127,7 +127,7 @@ export default function CheckoutPage() {
               <input id="shipping_address" required minLength={5} maxLength={300} autoComplete="street-address" placeholder="Street, tole, ward no." className="field" value={form.shipping_address} onChange={set("shipping_address")} />
             </div>
             <div>
-              <label htmlFor="city" className="field-label">City</label>
+              <label htmlFor="city" className="field-label">City / area</label>
               <input id="city" required minLength={2} maxLength={80} autoComplete="address-level2" placeholder="Kathmandu" className="field" value={form.city} onChange={set("city")} />
             </div>
             <div>
@@ -138,29 +138,38 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          <div role="radiogroup" aria-labelledby="delivery-zone-heading" className="card p-6 sm:p-8">
-            <h2 id="delivery-zone-heading" className="font-display text-xl text-ink-900">Delivery area</h2>
-            {delivery?.free_delivery_threshold != null && (
-              <p className="mt-1 text-sm text-ink-500">Free delivery on orders over {formatPrice(delivery.free_delivery_threshold)}.</p>
+          <div aria-labelledby="delivery-zone-heading" className="card p-6 sm:p-8">
+            <h2 id="delivery-zone-heading" className="font-display text-xl text-ink-900">Shipping & handling</h2>
+            {delivery && delivery.options.length > 1 ? (
+              <div role="radiogroup" aria-labelledby="delivery-zone-heading" className="mt-5 grid gap-3 sm:grid-cols-2">
+                {delivery.options.map((o) => (
+                  <label
+                    key={o.zone}
+                    className={cn(
+                      "flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition",
+                      zone === o.zone ? "border-ink-900 bg-ink-50 ring-1 ring-ink-900" : "border-line hover:border-ink-200",
+                    )}
+                  >
+                    <input type="radio" name="zone" value={o.zone} checked={zone === o.zone} onChange={() => setZone(o.zone)} className="sr-only" />
+                    <span className="font-medium text-ink-900">{o.label}</span>
+                    <span className="text-sm text-ink-600">{freeDelivery || o.fee === 0 ? "Free" : formatPrice(o.fee)}</span>
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-4 flex items-center justify-between rounded-2xl border border-line bg-mist/60 p-4">
+                <span>
+                  <span className="block font-medium text-ink-900">Delivery inside {delivery?.options[0]?.label ?? "Kathmandu"}</span>
+                  <span className="mt-0.5 block text-sm text-ink-500">We don’t deliver outside Kathmandu yet.</span>
+                </span>
+                <span className="text-sm font-medium text-ink-800">
+                  {delivery ? (deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)) : "…"}
+                </span>
+              </div>
             )}
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {(delivery?.options ?? [
-                { zone: "inside_valley" as const, label: "Inside Kathmandu Valley", fee: 0 },
-                { zone: "outside_valley" as const, label: "Outside Kathmandu Valley", fee: 0 },
-              ]).map((o) => (
-                <label
-                  key={o.zone}
-                  className={cn(
-                    "flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition",
-                    zone === o.zone ? "border-ink-900 bg-ink-50 ring-1 ring-ink-900" : "border-line hover:border-ink-200",
-                  )}
-                >
-                  <input type="radio" name="zone" value={o.zone} checked={zone === o.zone} onChange={() => setZone(o.zone)} className="sr-only" />
-                  <span className="font-medium text-ink-900">{o.label}</span>
-                  <span className="text-sm text-ink-600">{freeDelivery || o.fee === 0 ? "Free" : formatPrice(o.fee)}</span>
-                </label>
-              ))}
-            </div>
+            {delivery?.free_delivery_threshold != null && (
+              <p className="mt-3 text-sm text-ink-500">Free shipping on orders over {formatPrice(delivery.free_delivery_threshold)}.</p>
+            )}
           </div>
 
           <div role="radiogroup" aria-labelledby="payment-heading" className="card p-6 sm:p-8">
@@ -201,8 +210,8 @@ export default function CheckoutPage() {
               <dd className="text-ink-900">{formatPrice(subtotal)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-ink-600">Delivery</dt>
-              <dd className="text-ink-900">{deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)}</dd>
+              <dt className="text-ink-600">Shipping & handling</dt>
+              <dd className="text-ink-900">{!delivery ? "…" : deliveryFee === 0 ? "Free" : formatPrice(deliveryFee)}</dd>
             </div>
           </dl>
           <div className="mt-4 flex justify-between border-t border-line pt-4">

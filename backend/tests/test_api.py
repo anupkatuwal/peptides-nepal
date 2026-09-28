@@ -300,13 +300,33 @@ def test_errors_still_carry_cors_headers(client):
 
 
 @pytest.fixture()
-def delivery_fees():
+def delivery_fees(monkeypatch):
     s = get_settings()
-    old = (s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold)
-    s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold = (
-        Decimal("100"), Decimal("250"), Decimal("10000"))
-    yield
-    s.delivery_fee_inside_valley, s.delivery_fee_outside_valley, s.free_delivery_threshold = old
+    monkeypatch.setattr(s, "delivery_fee_inside_valley", Decimal("100"))
+    monkeypatch.setattr(s, "delivery_outside_valley_enabled", True)
+    monkeypatch.setattr(s, "delivery_fee_outside_valley", Decimal("250"))
+    monkeypatch.setattr(s, "free_delivery_threshold", Decimal("10000"))
+
+
+def test_shop_delivery_rules_by_default(client, monkeypatch):
+    """The shop's own rules: Rs. 7,500 shipping & handling, Kathmandu only."""
+    from app.config import Settings
+
+    assert Settings.model_fields["delivery_fee_inside_valley"].default == Decimal("7500")
+    assert Settings.model_fields["delivery_outside_valley_enabled"].default is False
+    monkeypatch.setattr(get_settings(), "delivery_fee_inside_valley", Decimal("7500"))
+
+    opts = client.get("/api/orders/delivery-options").json()
+    assert opts == {"options": [{"zone": "inside_valley", "label": "Kathmandu", "fee": 7500.0}],
+                    "free_delivery_threshold": None}
+
+    headers = register(client)
+    order = client.post("/api/orders", headers=headers, json={**SHIPPING, "items": [{"product_id": 1, "quantity": 1}]})
+    assert (order.json()["delivery_fee"], order.json()["total_price"]) == (7500, 12000)
+
+    outside = {**SHIPPING, "delivery_zone": "outside_valley", "items": [{"product_id": 1, "quantity": 1}]}
+    refused = client.post("/api/orders", headers=headers, json=outside)
+    assert refused.status_code == 422 and "only deliver inside Kathmandu" in refused.json()["detail"]
 
 
 def test_delivery_fee_added_by_zone_and_waived_over_threshold(client, delivery_fees):

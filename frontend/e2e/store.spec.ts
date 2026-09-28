@@ -35,7 +35,8 @@ async function fillCheckout(page: Page, method: "Cash on delivery" | "eSewa" | "
   await page.locator("#main").getByLabel("Mobile number").fill("9841234567");
   await page.locator("#main").getByLabel("Address").fill("Ward 4, Baneshwor");
   await page.locator("#main").getByLabel("City").fill("Kathmandu");
-  await page.locator("#main label", { hasText: "Inside Kathmandu Valley" }).click();
+  await expect(page.getByText("Delivery inside Kathmandu")).toBeVisible();
+  await expect(page.locator("#main").getByText("Rs. 7,500").first()).toBeVisible(); // shipping & handling
   await page.locator("#main label", { hasText: new RegExp(`^${method}`) }).first().click();
 }
 

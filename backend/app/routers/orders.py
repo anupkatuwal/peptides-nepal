@@ -7,7 +7,7 @@ from sqlalchemy import select, true, update
 from sqlalchemy.orm import joinedload
 
 from .. import email
-from ..delivery import delivery_fee, delivery_options
+from ..delivery import delivery_fee, delivery_options, zone_available
 from ..deps import AdminUser, CurrentUser, DbSession
 from ..models import Order, OrderItem, Product
 from ..rate_limit import ORDER_LIMIT, limiter
@@ -26,6 +26,11 @@ def get_delivery_options() -> DeliveryOptions:
 def create_order(
     request: Request, body: OrderCreate, db: DbSession, user: CurrentUser, background: BackgroundTasks
 ) -> Order:
+    if not zone_available(body.delivery_zone):
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_CONTENT, "Sorry, we only deliver inside Kathmandu at the moment."
+        )
+
     # Merge repeated lines for the same product.
     wanted: Counter[int] = Counter()
     for line in body.items:

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import ContactForm from "@/components/ContactForm";
 import { InstagramIcon, MailIcon, WhatsAppIcon } from "@/components/icons";
-import { site, whatsappLink } from "@/lib/site";
+import { formatPhone, site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact us",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const wa = whatsappLink();
   const channels = [
-    wa && { icon: WhatsAppIcon, label: "WhatsApp", value: "Fastest reply", href: wa },
+    wa && { icon: WhatsAppIcon, label: "WhatsApp", value: `${formatPhone(site.whatsappNumber)} · fastest reply`, href: wa },
     site.email && { icon: MailIcon, label: "Email", value: site.email, href: `mailto:${site.email}` },
     { icon: InstagramIcon, label: "Instagram", value: "@peptidesnepal", href: site.instagram },
   ].filter(Boolean) as { icon: typeof MailIcon; label: string; value: string; href: string }[];

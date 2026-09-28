@@ -136,7 +136,7 @@ export default function AccountView() {
             <div className="flex flex-wrap justify-between gap-2 border-t border-line px-6 py-4 text-sm">
               <span className="text-ink-500">
                 To {o.shipping_name}, {o.city}
-                {o.delivery_fee > 0 && <> · Delivery {formatPrice(o.delivery_fee)}</>}
+                {o.delivery_fee > 0 && <> · Shipping & handling {formatPrice(o.delivery_fee)}</>}
               </span>
               <span className="font-semibold text-ink-950">{formatPrice(o.total_price)}</span>
             </div>
