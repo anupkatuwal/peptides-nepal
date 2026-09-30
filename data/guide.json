@@ -28,11 +28,11 @@
         },
         {
           "label": "Evidence",
-          "text": "Strong. Large randomised human trials (the STEP and SUSTAIN programmes)."
+          "text": "Strong. Large randomized human trials (the STEP and SUSTAIN programs)."
         },
         {
           "label": "Common side effects",
-          "text": "Nausea, vomiting, diarrhoea, constipation. Listed warnings include pancreatitis and gallbladder problems."
+          "text": "Nausea, vomiting, diarrhea, constipation. Listed warnings include pancreatitis and gallbladder problems."
         },
         {
           "label": "Where to get it",
@@ -63,7 +63,7 @@
         },
         {
           "label": "Evidence",
-          "text": "Strong. Large randomised human trials (the SURPASS and SURMOUNT programmes)."
+          "text": "Strong. Large randomized human trials (the SURPASS and SURMOUNT programs)."
         },
         {
           "label": "Common side effects",
@@ -199,7 +199,7 @@
       "facts": [
         {
           "label": "What it is",
-          "text": "Marketed for tendon, gut and injury healing. Most data comes from rats and lab studies. There are no large randomised human trials."
+          "text": "Marketed for tendon, gut and injury healing. Most data comes from rats and lab studies. There are no large randomized human trials."
         },
         {
           "label": "Evidence",
@@ -354,7 +354,7 @@
       "id": "q4",
       "statement": "BPC-157 has been proven in large human trials.",
       "answer": "myth",
-      "explanation": "Most BPC-157 data comes from rats and lab studies. There are no large randomised human trials, and it isn't approved as a medicine anywhere."
+      "explanation": "Most BPC-157 data comes from rats and lab studies. There are no large randomized human trials, and it isn't approved as a medicine anywhere."
     },
     {
       "id": "q5",
