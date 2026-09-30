@@ -87,13 +87,14 @@ export const Navbar: React.FC = () => {
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
           <button 
             onClick={() => handleNav('shop')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-full transition-colors ${
+            className={`px-3.5 py-1.5 text-sm font-bold rounded-full transition-all flex items-center gap-1.5 ${
               currentView === 'shop' || currentView === 'product-detail'
-                ? 'bg-[#3E481D] text-white shadow-sm'
-                : 'text-[#3E481D] hover:bg-[#3E481D]/10'
+                ? 'bg-[#3E481D] text-white shadow-md'
+                : 'bg-[#3E481D]/10 text-[#3E481D] hover:bg-[#3E481D] hover:text-white'
             }`}
           >
-            Peptide Catalog
+            <ShoppingBag className="w-4 h-4 text-emerald-600" />
+            <span>🛒 Shop Peptides</span>
           </button>
           <button 
             onClick={() => handleNav('guides')}
@@ -240,10 +241,13 @@ export const Navbar: React.FC = () => {
         <div className="lg:hidden bg-white border-b border-[#DCE3CE] px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top duration-200">
           <button
             onClick={() => handleNav('shop')}
-            className="w-full text-left px-4 py-2.5 rounded-xl font-medium text-[#3E481D] hover:bg-[#F4F4EA] flex items-center justify-between"
+            className="w-full text-left px-4 py-3 rounded-xl font-bold bg-[#3E481D] text-white flex items-center justify-between shadow-xs"
           >
-            <span>Peptide Catalog &amp; Supplies</span>
-            <span className="text-xs bg-[#EAEBD9] px-2 py-0.5 rounded-full">12 items</span>
+            <span className="flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-[#A0D468]" />
+              <span>🛒 Shop Peptide Store &amp; Supplies</span>
+            </span>
+            <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full font-mono">12 items</span>
           </button>
           <button
             onClick={() => handleNav('guides')}

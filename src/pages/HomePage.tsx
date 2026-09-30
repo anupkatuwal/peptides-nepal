@@ -104,15 +104,15 @@ export const HomePage: React.FC = () => {
               <div className="flex flex-wrap gap-3 pt-2">
                 <button
                   onClick={() => navigateTo('shop')}
-                  className="px-6 py-3.5 rounded-full bg-[#3E481D] text-white font-bold text-sm hover:bg-[#2A3312] shadow-md transition-all flex items-center gap-2 active:scale-98"
+                  className="px-7 py-3.5 rounded-full bg-[#3E481D] text-white font-extrabold text-sm hover:bg-[#2A3312] shadow-lg transition-all flex items-center gap-2.5 active:scale-98 cursor-pointer ring-2 ring-[#3E481D]/30"
                 >
-                  <span>Explore Peptide Rate Lists</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>🛒 Shop Peptides &amp; Rate Lists</span>
+                  <ArrowRight className="w-4 h-4 text-[#A0D468]" />
                 </button>
 
                 <button
                   onClick={() => navigateTo('guides')}
-                  className="px-6 py-3.5 rounded-full bg-white text-[#3E481D] border border-[#B7C29E] font-bold text-sm hover:bg-[#F0F0E0] shadow-xs transition-colors flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-full bg-white text-[#3E481D] border border-[#B7C29E] font-bold text-sm hover:bg-[#F0F0E0] shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
                 >
                   <FileText className="w-4 h-4 text-[#707E46]" />
                   <span>Read Science Guide</span>

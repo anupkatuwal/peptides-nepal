@@ -325,6 +325,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     };
 
+    handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
@@ -335,6 +336,18 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (params?.id) setSelectedGuideId(params.id);
     if (params?.batch) setSelectedBatch(params.batch);
     if (params?.order) setLastOrder(params.order);
+
+    try {
+      if (view === 'product-detail' && params?.slug) {
+        window.location.hash = `product/${params.slug}`;
+      } else if (view !== 'home') {
+        window.location.hash = view;
+      } else if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    } catch {
+      // safe fallback
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
