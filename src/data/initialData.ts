@@ -3106,9 +3106,9 @@ export const DEMO_USERS: User[] = [
   },
   {
     id: 'user-admin',
-    name: 'Peptides Nepal Admin',
-    email: 'admin@peptidesnepal.com',
-    phone: '9801234567',
+    name: 'Anup Katuwal (Store Administrator)',
+    email: 'katuwalanup@gmail.com',
+    phone: '9808318864',
     role: 'admin',
     address: 'Durbar Marg, Kathmandu',
     city: 'Kathmandu',

@@ -391,10 +391,10 @@ export const CheckoutPage: React.FC = () => {
                   <span>Request QR / Bank Account via WhatsApp (+977 9808318864)</span>
                 </a>
                 <a
-                  href="mailto:orders@peptidesnepal.com?subject=Peptides%20Nepal%20Payment%20QR%20Request"
+                  href="mailto:katuwalanup@gmail.com?subject=Peptides%20Nepal%20Payment%20QR%20Request"
                   className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white border border-[#DCE3CE] text-[#3E481D] hover:bg-[#F4F4EA] text-xs font-bold transition-all text-center"
                 >
-                  <span>Email: orders@peptidesnepal.com</span>
+                  <span>Email: katuwalanup@gmail.com</span>
                 </a>
               </div>
 

@@ -2,6 +2,11 @@ import denikVial from './images/denik_peptide_vial_1790721065417.jpg';
 import enhancedBox from './images/enhanced_pharma_box_1790721080943.jpg';
 import goldBondVial from './images/gold_bond_pep_1790721109874.jpg';
 import ghrpKit from './images/ghrp_complete_kit_1790721096495.jpg';
+import vialMacro from './images/real/vial_macro.jpg';
+import oralCaps from './images/real/oral_caps.jpg';
+import pharmaVials from './images/real/pharma_vials.jpg';
+import labBottles from './images/real/lab_bottles.jpg';
+import suppliesWater from './images/real/supplies_water.jpg';
 
 // SVG Data URI generator for authentic pharmaceutical packaging
 function createPackshotSvg(opts: {
@@ -213,66 +218,21 @@ function createSuppliesPackshotSvg(): string {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-// High-fidelity Brand Presets
+// High-fidelity Brand Presets - 100% Real Pharmaceutical Photography
 export const BRAND_IMAGES = {
   // Real Photography Assets
   denik: denikVial,
   enhancedPharma: enhancedBox,
   goldBond: goldBondVial,
   ghrpKit: ghrpKit,
-
-  // Dedicated Branded Pharmaceutical Packshots
-  peptideSciences: createPackshotSvg({
-    brandName: 'Peptide Sciences',
-    tagline: 'USA Research Grade Lyophilized Synthesis',
-    accentColor: '#008080',
-    gradientStart: '#1A3636',
-    gradientEnd: '#0F1F1F',
-    capColor: '#008080',
-    badgeText: 'PEPTIDE SCIENCES USA'
-  }),
-
-  sunPharma: createPackshotSvg({
-    brandName: 'Sun Pharma',
-    tagline: 'Pharmaceutical Recombinant Somatropin HGH',
-    accentColor: '#E65100',
-    gradientStart: '#263238',
-    gradientEnd: '#101416',
-    capColor: '#E65100',
-    badgeText: 'SUN PHARMACEUTICALS'
-  }),
-
-  potencia: createPackshotSvg({
-    brandName: 'Potencia Biotech',
-    tagline: 'Specialty Peptide Formulations & Nanopeptides',
-    accentColor: '#3F51B5',
-    gradientStart: '#1A237E',
-    gradientEnd: '#0D133E',
-    capColor: '#3F51B5',
-    badgeText: 'POTENCIA BIOTECH'
-  }),
-
-  nanox: createPackshotSvg({
-    brandName: 'Nanox Bio',
-    tagline: 'European Advanced Peptide Engineering',
-    accentColor: '#00ACC1',
-    gradientStart: '#004D40',
-    gradientEnd: '#00251A',
-    capColor: '#00ACC1',
-    badgeText: 'NANOX BIOPEPTIDES'
-  }),
-
-  thaiger: createPackshotSvg({
-    brandName: 'Thaiger Pharma',
-    tagline: 'Holographic Authentic Research Grade',
-    accentColor: '#C2185B',
-    gradientStart: '#4A148C',
-    gradientEnd: '#1A0033',
-    capColor: '#C2185B',
-    badgeText: 'THAIGER PHARMACEUTICALS'
-  }),
-
-  supplies: createSuppliesPackshotSvg()
+  peptideSciences: pharmaVials,
+  oralCapsules: oralCaps,
+  sunPharma: labBottles,
+  potencia: pharmaVials,
+  nanox: labBottles,
+  thaiger: ghrpKit,
+  supplies: suppliesWater,
+  vialMacro: vialMacro,
 };
 
 // Specialized Clinical Packshot for BPC-157
@@ -711,21 +671,15 @@ export function getProductGallery(product: {
   const isSemaglutide = name.toLowerCase().includes('semaglutide') || name.toLowerCase().includes('tirzepatide') || name.toLowerCase().includes('retatrutide');
   const isSupplies = product.category === 'supplies' || name.toLowerCase().includes('water') || name.toLowerCase().includes('reconstitution');
 
-  // Primary Packshot View
-  let primaryPackshot = product.image && !product.image.includes('unsplash')
+  // Primary Packshot View - Always prioritize authentic photography
+  const primaryPackshot = product.image && !product.image.includes('unsplash')
     ? product.image
     : getBrandImage(product.brand, product.name, product.category);
 
-  if (isBpc && (!product.image || product.image.includes('unsplash'))) {
-    primaryPackshot = createBpc157PackshotSvg(brand);
-  } else if (isSemaglutide && (!product.image || product.image.includes('unsplash'))) {
-    primaryPackshot = createSemaglutidePackshotSvg(brand);
-  }
-
-  // Angle 2: Close-up macro view
+  // Angle 2: Close-up macro view - Real photography of sterile vial & septum
   const macroView = isSupplies 
     ? BRAND_IMAGES.supplies 
-    : createVialCloseUpSvg(name, '5mg');
+    : BRAND_IMAGES.vialMacro;
 
   // Angle 3: Certified HPLC Report
   const hplcView = createHplcReportSvg(name, purity);
@@ -774,52 +728,57 @@ export function getBrandImage(brand?: string, productName?: string, category?: s
   const n = (productName || '').toLowerCase().trim();
   const c = (category || '').toLowerCase().trim();
 
-  // 1. Gold Bond / Gold Bond Rado Labs
+  // 1. Oral Capsules & Tablets (e.g. Enhanced BPC 60 Caps, Gold Bond Healing King Oral)
+  if (n.includes('cap') || n.includes('oral') || n.includes('tablet')) {
+    return BRAND_IMAGES.oralCapsules;
+  }
+
+  // 2. Gold Bond / Gold Bond Rado Labs
   if (b.includes('gold bond') || b.includes('rado') || n.includes('gold bond') || n.includes('rado')) {
     return BRAND_IMAGES.goldBond;
   }
 
-  // 2. Denik / Denik Pharmaceuticals
+  // 3. Denik / Denik Pharmaceuticals
   if (b.includes('denik') || n.includes('denik')) {
     return BRAND_IMAGES.denik;
   }
 
-  // 3. Enhanced Pharmaceuticals
+  // 4. Enhanced Pharmaceuticals
   if (b.includes('enhanced') || n.includes('enhanced')) {
     return BRAND_IMAGES.enhancedPharma;
   }
 
-  // 4. Anabolic Monster / Complete 10-Vial Kits
+  // 5. Anabolic Monster / Complete 10-Vial Kits
   if (b.includes('monster') || b.includes('anabolic') || n.includes('kit') || n.includes('10-vial') || n.includes('ghrp-6 kit') || n.includes('ghrp-2 kit')) {
     return BRAND_IMAGES.ghrpKit;
   }
 
-  // 5. Peptide Sciences
+  // 6. Peptide Sciences
   if (b.includes('peptide sciences') || b.includes('sciences')) {
     return BRAND_IMAGES.peptideSciences;
   }
 
-  // 6. Medical Supplies & Reconstitution
+  // 7. Medical Supplies & Reconstitution
   if (c === 'supplies' || b.includes('supplies') || n.includes('water') || n.includes('syringe') || n.includes('reconstitution')) {
     return BRAND_IMAGES.supplies;
   }
 
-  // 7. Sun Pharma / Headon / HGH
+  // 8. Sun Pharma / Headon / HGH
   if (b.includes('sun pharma') || b.includes('headon') || n.includes('hgh') || n.includes('somatropin')) {
     return BRAND_IMAGES.sunPharma;
   }
 
-  // 8. Thaiger Pharma
+  // 9. Thaiger Pharma
   if (b.includes('thaiger')) {
     return BRAND_IMAGES.thaiger;
   }
 
-  // 9. Potencia Biotech
+  // 10. Potencia Biotech
   if (b.includes('potencia')) {
     return BRAND_IMAGES.potencia;
   }
 
-  // 10. Nanox / Nordex
+  // 11. Nanox / Nordex
   if (b.includes('nanox') || b.includes('nordex')) {
     return BRAND_IMAGES.nanox;
   }

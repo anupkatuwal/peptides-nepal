@@ -223,10 +223,11 @@ export const ContactPage: React.FC = () => {
               <div className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-[#707E46] flex-none mt-0.5" />
                 <div>
-                  <strong className="text-[#3E481D] block">Official Email:</strong>
-                  <a href="mailto:orders@peptidesnepal.com" className="text-[#3E481D] hover:underline">
-                    orders@peptidesnepal.com
+                  <strong className="text-[#3E481D] block">Official Inquiries &amp; Orders Email:</strong>
+                  <a href="mailto:katuwalanup@gmail.com" className="text-[#3E481D] font-medium hover:underline">
+                    katuwalanup@gmail.com
                   </a>
+                  <span className="block text-[10px] text-gray-500 mt-0.5">Direct response from founder &amp; inventory dispatch</span>
                 </div>
               </div>
             </div>

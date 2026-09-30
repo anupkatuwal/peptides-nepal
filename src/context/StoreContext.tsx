@@ -624,9 +624,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const switchUserRole = (role: 'customer' | 'admin') => {
     const target = DEMO_USERS.find(u => u.role === role) || {
       id: `user-${role}`,
-      name: role === 'admin' ? 'Peptides Nepal Admin' : 'Verified Client',
-      email: role === 'admin' ? 'admin@peptidesnepal.com' : 'client@peptidesnepal.com',
-      phone: '9841000000',
+      name: role === 'admin' ? 'Anup Katuwal (Store Administrator)' : 'Verified Client',
+      email: role === 'admin' ? 'katuwalanup@gmail.com' : 'katuwalanup@gmail.com',
+      phone: '9808318864',
       role
     };
     setCurrentUser(target);

@@ -85,7 +85,7 @@ export const SupportTermsPage: React.FC = () => {
 
         <h2 className="text-sm font-bold text-[#3E481D]">6. Contacting Support &amp; Sales</h2>
         <p>
-          Direct inquiries to <a href="mailto:orders@peptidesnepal.com" className="font-bold underline text-[#3E481D]">orders@peptidesnepal.com</a> or directly through WhatsApp at <a href="https://wa.me/9779808318864" className="font-bold underline text-[#3E481D]">+977 9808318864</a>. Direct chat is strictly reserved for sales inquiries and order verification.
+          Direct inquiries to <a href="mailto:katuwalanup@gmail.com" className="font-bold underline text-[#3E481D]">katuwalanup@gmail.com</a> or directly through WhatsApp at <a href="https://wa.me/9779808318864" className="font-bold underline text-[#3E481D]">+977 9808318864</a>. Direct chat is strictly reserved for sales inquiries and order verification.
         </p>
       </div>
     </div>

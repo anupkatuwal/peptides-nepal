@@ -167,8 +167,8 @@ export const Footer: React.FC = () => {
           <p className="text-xs text-[#9BB07A] space-y-1">
             <span className="block font-semibold text-white">Direct Nepal Inquiries &amp; Orders:</span>
             <span className="block text-white font-mono">WhatsApp/Tel: +977 9808318864</span>
-            <a href="mailto:orders@peptidesnepal.com" className="block text-white hover:underline">
-              orders@peptidesnepal.com
+            <a href="mailto:katuwalanup@gmail.com" className="block text-white hover:underline">
+              katuwalanup@gmail.com
             </a>
           </p>
         </div>
