@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Playwrite US Trad";
+  src: url("/fonts/playwrite-us-trad-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --color-matcha-dark: #3E481D;
+  --color-matcha-sage: #707E46;
+  --color-matcha-tint: #C0CBA9;
+  --color-matcha-cream: #F4F4EA;
+  --color-matcha-surface: #FFFFFF;
+}
+
+body {
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #F4F4EA;
+  color: #2A3312;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Playwrite US Trad", Georgia, "Times New Roman", serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #EAEBD9;
+}
+::-webkit-scrollbar-thumb {
+  background: #AAB792;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #707E46;
+}

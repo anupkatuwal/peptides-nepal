@@ -1,0 +1,7 @@
+{
+  "name": "Peptides Nepal",
+  "description": "Plain-language peptide guide for Nepal: legal status, evidence and sources for BPC-157, semaglutide, tirzepatide, TB-500 and more.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

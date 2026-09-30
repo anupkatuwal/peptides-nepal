@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A peptide or compound product in the store inventory.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the product" },
+        "name": { "type": "string", "description": "Display name of the peptide or compound" },
+        "category": { "type": "string", "description": "Category classification" },
+        "basePriceInr": { "type": "number", "description": "Base price in Indian Rupees" },
+        "inStock": { "type": "boolean", "description": "Availability status" },
+        "stockCount": { "type": "number", "description": "Current quantity in stock" }
+      },
+      "required": ["id", "name", "category", "basePriceInr", "inStock"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order for peptides.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique order identifier" },
+        "orderNumber": { "type": "string", "description": "User-facing order reference number" },
+        "customerName": { "type": "string", "description": "Full name of the purchaser" },
+        "email": { "type": "string", "description": "Customer email" },
+        "phone": { "type": "string", "description": "Customer phone number in Nepal" },
+        "totalInr": { "type": "number", "description": "Order total in Indian Rupees" },
+        "totalNpr": { "type": "number", "description": "Order total in Nepali Rupees" },
+        "status": { "type": "string", "description": "Fulfillment status" },
+        "paymentMethod": { "type": "string", "description": "Method of payment" },
+        "paymentStatus": { "type": "string", "description": "Payment verification status" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of order creation" }
+      },
+      "required": ["id", "orderNumber", "customerName", "phone", "totalInr", "status", "paymentMethod", "paymentStatus", "createdAt"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Customer sales or sourcing inquiry message.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique message ID" },
+        "name": { "type": "string", "description": "Customer name" },
+        "email": { "type": "string", "description": "Customer email" },
+        "phone": { "type": "string", "description": "Customer phone" },
+        "subject": { "type": "string", "description": "Message topic or unlisted sourcing request" },
+        "message": { "type": "string", "description": "Message text" },
+        "createdAt": { "type": "string", "description": "Submission timestamp" },
+        "isRead": { "type": "boolean", "description": "Read status for admin" }
+      },
+      "required": ["id", "name", "email", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Product catalog and real-time inventory synchronization."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Synchronized purchase orders."
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ContactMessage" },
+      "description": "Customer inquiries and sourcing messages."
+    }
+  }
+}
