@@ -2,8 +2,6 @@
 
 Static site for [@peptidesnepal](https://instagram.com/peptidesnepal). No build step: Vercel serves the files as they are.
 
-The online store (FastAPI backend in `backend/`, Next.js frontend in `frontend/`) is separate and deploys on its own. See [STORE.md](STORE.md). `.vercelignore` keeps those folders out of this site's deployment.
-
 - `index.html` — the page. The peptide guide cards are written by hand. The `<head>` holds the SEO tags (title, description, canonical, Open Graph / Twitter card) and JSON-LD (Organization, WebSite, WebPage).
 - `styles.css` — Matcha theme (colours, spacing, radii from the Astryx Matcha theme), light and dark.
 - `app.js` — the live parts: guide filter + search, swipeable post slides with arrows and a "2 / 7" counter, "New" tags and "3 days ago" dates, the "New on Instagram" strip in the hero, counting-up numbers, the Myth or fact quiz (4 random cards at a time), fade-in on scroll, the jump buttons, the image fallback and the email link. Everything it touches is already in the HTML, so the page still works with JavaScript off, and motion is skipped for visitors who ask for reduced motion.

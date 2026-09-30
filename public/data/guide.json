@@ -1,0 +1,384 @@
+{
+  "lastReviewed": "September 2026",
+  "legend": [
+    {
+      "status": "approved",
+      "text": "Licensed as a medicine for specific uses. Needs a prescription."
+    },
+    {
+      "status": "trials",
+      "text": "Being tested in humans. Not yet approved."
+    },
+    {
+      "status": "not-approved",
+      "text": "No licensed human use. Mostly animal or lab data."
+    }
+  ],
+  "peptides": [
+    {
+      "id": "semaglutide",
+      "name": "Semaglutide",
+      "aka": "Ozempic, Wegovy, Rybelsus",
+      "status": "approved",
+      "statusLabel": "Approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A GLP-1 receptor agonist. It copies a gut hormone that lowers blood sugar, slows digestion, and reduces appetite. Approved for type 2 diabetes and, as Wegovy, for weight management."
+        },
+        {
+          "label": "Evidence",
+          "text": "Strong. Large randomised human trials (the STEP and SUSTAIN programmes)."
+        },
+        {
+          "label": "Common side effects",
+          "text": "Nausea, vomiting, diarrhoea, constipation. Listed warnings include pancreatitis and gallbladder problems."
+        },
+        {
+          "label": "Where to get it",
+          "text": "Only with a doctor's prescription from a licensed pharmacy."
+        }
+      ],
+      "sources": [
+        {
+          "title": "STEP 1 trial, Wilding et al., NEJM 2021 (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Wilding+semaglutide+STEP+1+2021"
+        },
+        {
+          "title": "Official US drug labels (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=semaglutide"
+        }
+      ]
+    },
+    {
+      "id": "tirzepatide",
+      "name": "Tirzepatide",
+      "aka": "Mounjaro, Zepbound",
+      "status": "approved",
+      "statusLabel": "Approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A dual GIP and GLP-1 receptor agonist. It acts on two gut hormones instead of one. Approved for type 2 diabetes and weight management."
+        },
+        {
+          "label": "Evidence",
+          "text": "Strong. Large randomised human trials (the SURPASS and SURMOUNT programmes)."
+        },
+        {
+          "label": "Common side effects",
+          "text": "Similar to semaglutide: mainly stomach and gut effects."
+        },
+        {
+          "label": "Where to get it",
+          "text": "Only with a doctor's prescription from a licensed pharmacy."
+        }
+      ],
+      "sources": [
+        {
+          "title": "SURMOUNT-1 trial, Jastreboff et al., NEJM 2022 (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Jastreboff+tirzepatide+SURMOUNT-1"
+        },
+        {
+          "title": "Official US drug labels (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=tirzepatide"
+        }
+      ]
+    },
+    {
+      "id": "retatrutide",
+      "name": "Retatrutide",
+      "aka": "LY3437943 (Eli Lilly)",
+      "status": "trials",
+      "statusLabel": "In trials",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A 'triple agonist': it acts on GLP-1, GIP and glucagon receptors. Early trials showed large weight loss. As of September 2026 it is still investigational and not approved anywhere."
+        },
+        {
+          "label": "Evidence",
+          "text": "Promising but incomplete. Phase 2 published; phase 3 results still coming in."
+        },
+        {
+          "label": "Safety",
+          "text": "Long-term safety is not yet known. Online 'retatrutide' is not the real drug — the only legitimate supply is inside clinical trials."
+        },
+        {
+          "label": "Where to get it",
+          "text": "Nowhere legally, outside of an official clinical trial."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Phase 2 trial, Jastreboff et al., NEJM 2023 (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Jastreboff+retatrutide+phase+2+obesity"
+        },
+        {
+          "title": "Registered trials (ClinicalTrials.gov)",
+          "url": "https://clinicaltrials.gov/search?intr=retatrutide"
+        }
+      ]
+    },
+    {
+      "id": "tesamorelin",
+      "name": "Tesamorelin",
+      "aka": "Egrifta",
+      "status": "approved",
+      "statusLabel": "Approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A growth-hormone-releasing hormone (GHRH) analogue. Approved in the US for one narrow use: reducing excess belly fat in people with HIV-associated lipodystrophy."
+        },
+        {
+          "label": "Evidence",
+          "text": "Good for its approved use. Not proven for general fat loss or muscle gain."
+        },
+        {
+          "label": "Sport",
+          "text": "Prohibited by WADA (growth hormone releasing factors)."
+        },
+        {
+          "label": "Where to get it",
+          "text": "Prescription only, for its approved use."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Official US drug label (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=tesamorelin"
+        },
+        {
+          "title": "Clinical trials (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=tesamorelin+HIV+abdominal+fat+randomized"
+        }
+      ]
+    },
+    {
+      "id": "bremelanotide",
+      "name": "Bremelanotide (PT-141)",
+      "aka": "Vyleesi",
+      "status": "approved",
+      "statusLabel": "Approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A melanocortin receptor agonist. Approved in the US for low sexual desire (HSDD) in premenopausal women. Online \"PT-141\" vials are not the approved product."
+        },
+        {
+          "label": "Evidence",
+          "text": "Moderate, for its approved use (the RECONNECT trials)."
+        },
+        {
+          "label": "Common side effects",
+          "text": "Nausea, flushing, headache, temporary rise in blood pressure."
+        },
+        {
+          "label": "Where to get it",
+          "text": "Prescription only, for its approved use."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Official US drug label (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=bremelanotide"
+        },
+        {
+          "title": "RECONNECT trials (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=bremelanotide+RECONNECT"
+        }
+      ]
+    },
+    {
+      "id": "bpc-157",
+      "name": "BPC-157",
+      "aka": "\"Body Protection Compound\" — 15 amino acids",
+      "status": "not-approved",
+      "statusLabel": "Not approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "Marketed for tendon, gut and injury healing. Most data comes from rats and lab studies. There are no large randomised human trials."
+        },
+        {
+          "label": "Evidence",
+          "text": "Weak in humans. Only small, uncontrolled reports."
+        },
+        {
+          "label": "Regulation",
+          "text": "In 2023 the US FDA put it in Category 2 — substances that raise significant safety concerns for compounding (immunogenicity, impurities, too little human safety data)."
+        },
+        {
+          "label": "Sport",
+          "text": "Banned by WADA."
+        },
+        {
+          "label": "Where to get it",
+          "text": "No licensed source. \"Research use only\" vials are unregulated and not meant for humans."
+        }
+      ],
+      "sources": [
+        {
+          "title": "FDA: bulk substances with safety risks",
+          "url": "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        },
+        {
+          "title": "Review of BPC-157 evidence and regulation (PMC)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12313605/"
+        }
+      ]
+    },
+    {
+      "id": "tb-500",
+      "name": "TB-500",
+      "aka": "Synthetic fragment of thymosin beta-4",
+      "status": "not-approved",
+      "statusLabel": "Not approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "Marketed for recovery and tissue repair. Thymosin beta-4 has been studied in animals and in early human research for wound and eye healing, but TB-500 as sold online is not a studied medicine."
+        },
+        {
+          "label": "Evidence",
+          "text": "Mostly animal and lab data."
+        },
+        {
+          "label": "Sport",
+          "text": "Prohibited by WADA."
+        },
+        {
+          "label": "Where to get it",
+          "text": "No licensed source."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Thymosin beta-4 research (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+beta-4+tissue+repair"
+        },
+        {
+          "title": "WADA Prohibited List",
+          "url": "https://www.wada-ama.org/en/prohibited-list"
+        }
+      ]
+    },
+    {
+      "id": "cjc-1295-and-ipamorelin",
+      "name": "CJC-1295 & Ipamorelin",
+      "aka": "Growth hormone secretagogues, often sold as a pair",
+      "status": "not-approved",
+      "statusLabel": "Not approved",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "Both push the body to release more growth hormone. CJC-1295 is a GHRH analogue; ipamorelin mimics ghrelin. Neither is approved as a medicine."
+        },
+        {
+          "label": "Evidence",
+          "text": "Limited. A few small early human studies; no long-term safety data."
+        },
+        {
+          "label": "Sport",
+          "text": "Prohibited by WADA."
+        },
+        {
+          "label": "Where to get it",
+          "text": "No licensed source."
+        }
+      ],
+      "sources": [
+        {
+          "title": "CJC-1295 research (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295"
+        },
+        {
+          "title": "Ipamorelin research (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=ipamorelin"
+        },
+        {
+          "title": "WADA Prohibited List",
+          "url": "https://www.wada-ama.org/en/prohibited-list"
+        }
+      ]
+    },
+    {
+      "id": "ghk-cu",
+      "name": "GHK-Cu",
+      "aka": "Copper peptide",
+      "status": "not-approved",
+      "statusLabel": "Not approved as a drug",
+      "facts": [
+        {
+          "label": "What it is",
+          "text": "A small copper-binding peptide found naturally in the body. Widely used in topical skincare products. Injectable versions are not an approved medicine."
+        },
+        {
+          "label": "Evidence",
+          "text": "Some lab and small skin studies for topical use. Little human data for injection."
+        },
+        {
+          "label": "Where to get it",
+          "text": "As an ingredient in regular cosmetic skincare."
+        }
+      ],
+      "sources": [
+        {
+          "title": "GHK-Cu skin research (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+skin"
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "statement": "Peptides are natural, so they're safe.",
+      "answer": "myth",
+      "explanation": "Natural doesn't mean safe. Many peptides act like strong hormone signals, and untested products can be contaminated or wrongly dosed. Insulin is natural too, and the wrong dose is dangerous."
+    },
+    {
+      "id": "q2",
+      "statement": "Research-grade and pharma-grade peptides are the same thing.",
+      "answer": "myth",
+      "explanation": "Pharma grade is made in certified factories, tested and approved for people. \"Research use only\" vials aren't approved for humans, and the label may not match what's inside."
+    },
+    {
+      "id": "q3",
+      "statement": "Semaglutide (Ozempic, Wegovy) is an approved medicine.",
+      "answer": "fact",
+      "explanation": "It's approved for type 2 diabetes and weight management, backed by large human trials. It's prescription only, from a licensed pharmacy."
+    },
+    {
+      "id": "q4",
+      "statement": "BPC-157 has been proven in large human trials.",
+      "answer": "myth",
+      "explanation": "Most BPC-157 data comes from rats and lab studies. There are no large randomised human trials, and it isn't approved as a medicine anywhere."
+    },
+    {
+      "id": "q5",
+      "statement": "Insulin is a peptide.",
+      "answer": "fact",
+      "explanation": "Insulin is 51 amino acids long. It has treated diabetes for over 100 years, one of many real, well-tested peptide medicines."
+    },
+    {
+      "id": "q6",
+      "statement": "If it worked in rats, it will work in people.",
+      "answer": "myth",
+      "explanation": "Animal studies are only a first step. About 90% of drug candidates that reach human trials fail, mostly because they don't work well enough or aren't safe enough."
+    },
+    {
+      "id": "q7",
+      "statement": "Many of the peptides in this guide are banned in tested sport.",
+      "answer": "fact",
+      "explanation": "BPC-157, TB-500, CJC-1295, ipamorelin and tesamorelin are all prohibited by WADA. Tested athletes should check the WADA Prohibited List."
+    },
+    {
+      "id": "q8",
+      "statement": "A seller's Certificate of Analysis proves the product is pure.",
+      "answer": "myth",
+      "explanation": "Ask who did the testing. A report from the seller isn't independent, and the batch number should match the product in your hand."
+    }
+  ]
+}
