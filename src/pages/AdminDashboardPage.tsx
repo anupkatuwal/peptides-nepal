@@ -199,19 +199,19 @@ export const AdminDashboardPage: React.FC = () => {
   if (!isAdmin) {
     return (
       <div className="max-w-md mx-auto px-4 py-16 sm:py-24">
-        <div className="bg-white rounded-3xl p-8 border border-[#DCE3CE] shadow-sm text-center space-y-6">
+        <div className="bg-white rounded-3xl p-8 border border-[#CBD5CF] shadow-sm text-center space-y-6">
           <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-8 h-8" />
           </div>
 
           <div className="space-y-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#707E46]">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#4B635A]">
               Store Manager Access
             </span>
-            <h2 className="text-2xl font-black text-[#3E481D] tracking-tight">
+            <h2 className="text-2xl font-black text-[#0E2A23] tracking-tight">
               Admin Authentication
             </h2>
-            <p className="text-xs text-[#707E46]">
+            <p className="text-xs text-[#4B635A]">
               Sign in with the store owner's Google account to view customer orders and manage store inventory.
             </p>
           </div>
@@ -221,7 +221,7 @@ export const AdminDashboardPage: React.FC = () => {
               type="button"
               onClick={handleUnlockAdmin}
               disabled={signingIn}
-              className="w-full py-3.5 rounded-2xl bg-[#3E481D] hover:bg-[#2C3414] text-white text-xs font-bold transition-all shadow-sm disabled:opacity-60"
+              className="w-full py-3.5 rounded-2xl bg-[#0E2A23] hover:bg-[#12352C] text-white text-xs font-bold transition-all shadow-sm disabled:opacity-60"
             >
               {signingIn ? 'Signing in…' : 'Sign in with Google'}
             </button>
@@ -230,11 +230,11 @@ export const AdminDashboardPage: React.FC = () => {
             )}
           </div>
 
-          <div className="pt-2 border-t border-[#F0F0E0]">
+          <div className="pt-2 border-t border-[#E4EBE7]">
             <button
               type="button"
               onClick={() => navigateTo('shop')}
-              className="text-xs text-[#707E46] hover:text-[#3E481D] font-bold"
+              className="text-xs text-[#4B635A] hover:text-[#0E2A23] font-bold"
             >
               ← Return to Storefront
             </button>
@@ -248,7 +248,7 @@ export const AdminDashboardPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       
       {/* Admin Title */}
-      <div className="border-b border-[#DCE3CE] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="border-b border-[#CBD5CF] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
@@ -260,10 +260,10 @@ export const AdminDashboardPage: React.FC = () => {
               <span>Live Firestore Cloud Sync Active</span>
             </div>
           </div>
-          <h1 className="text-3xl font-black text-[#3E481D] tracking-tight mt-1">
+          <h1 className="text-3xl font-black text-[#0E2A23] tracking-tight mt-1">
             Store &amp; Inventory Management
           </h1>
-          <p className="text-xs text-[#707E46] mt-0.5">
+          <p className="text-xs text-[#4B635A] mt-0.5">
             Customer orders and product catalog inventory synchronize instantly in real-time across all devices.
           </p>
         </div>
@@ -278,7 +278,7 @@ export const AdminDashboardPage: React.FC = () => {
           </button>
           <button
             onClick={() => navigateTo('shop')}
-            className="px-4 py-2 rounded-full bg-white border border-[#B7C29E] text-xs font-bold text-[#3E481D] hover:bg-[#F4F4EA]"
+            className="px-4 py-2 rounded-full bg-white border border-[#9FB2A8] text-xs font-bold text-[#0E2A23] hover:bg-[#F2F5F3]"
           >
             View Live Storefront →
           </button>
@@ -287,45 +287,45 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-[#DCE3CE] shadow-xs space-y-1">
-          <span className="text-xs text-[#707E46] font-medium flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#CBD5CF] shadow-xs space-y-1">
+          <span className="text-xs text-[#4B635A] font-medium flex items-center justify-between">
             <span>Total Sales Revenue</span>
             <DollarSign className="w-4 h-4 text-emerald-600" />
           </span>
-          <strong className="text-2xl font-black text-[#3E481D] block">
+          <strong className="text-2xl font-black text-[#0E2A23] block">
             रू {totalRevenueNpr.toLocaleString()}
           </strong>
           <span className="text-[11px] text-emerald-700 font-semibold">Across all Nepal regions</span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-[#DCE3CE] shadow-xs space-y-1">
-          <span className="text-xs text-[#707E46] font-medium flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#CBD5CF] shadow-xs space-y-1">
+          <span className="text-xs text-[#4B635A] font-medium flex items-center justify-between">
             <span>Total Orders</span>
             <Package className="w-4 h-4 text-blue-600" />
           </span>
-          <strong className="text-2xl font-black text-[#3E481D] block">
+          <strong className="text-2xl font-black text-[#0E2A23] block">
             {orders.length}
           </strong>
           <span className="text-[11px] text-amber-700 font-semibold">{pendingOrdersCount} pending dispatch</span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-[#DCE3CE] shadow-xs space-y-1">
-          <span className="text-xs text-[#707E46] font-medium flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#CBD5CF] shadow-xs space-y-1">
+          <span className="text-xs text-[#4B635A] font-medium flex items-center justify-between">
             <span>Active Catalog Items</span>
             <TrendingUp className="w-4 h-4 text-purple-600" />
           </span>
-          <strong className="text-2xl font-black text-[#3E481D] block">
+          <strong className="text-2xl font-black text-[#0E2A23] block">
             {products.length}
           </strong>
           <span className="text-[11px] text-gray-500 font-medium">All HPLC batch linked</span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-[#DCE3CE] shadow-xs space-y-1">
-          <span className="text-xs text-[#707E46] font-medium flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#CBD5CF] shadow-xs space-y-1">
+          <span className="text-xs text-[#4B635A] font-medium flex items-center justify-between">
             <span>Customer Inquiries</span>
             <Mail className="w-4 h-4 text-amber-600" />
           </span>
-          <strong className="text-2xl font-black text-[#3E481D] block">
+          <strong className="text-2xl font-black text-[#0E2A23] block">
             {messages.length}
           </strong>
           <span className="text-[11px] text-amber-700 font-semibold">{unreadMessagesCount} unread</span>
@@ -333,13 +333,13 @@ export const AdminDashboardPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-[#DCE3CE] gap-2 overflow-x-auto">
+      <div className="flex border-b border-[#CBD5CF] gap-2 overflow-x-auto">
         <button
           onClick={() => setActiveTab('orders')}
           className={`px-5 py-3 text-xs font-bold border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'orders'
-              ? 'border-[#3E481D] text-[#3E481D] bg-white rounded-t-xl'
-              : 'border-transparent text-[#707E46] hover:text-[#3E481D]'
+              ? 'border-[#0E2A23] text-[#0E2A23] bg-white rounded-t-xl'
+              : 'border-transparent text-[#4B635A] hover:text-[#0E2A23]'
           }`}
         >
           Customer Orders ({orders.length})
@@ -349,8 +349,8 @@ export const AdminDashboardPage: React.FC = () => {
           onClick={() => setActiveTab('products')}
           className={`px-5 py-3 text-xs font-bold border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'products'
-              ? 'border-[#3E481D] text-[#3E481D] bg-white rounded-t-xl'
-              : 'border-transparent text-[#707E46] hover:text-[#3E481D]'
+              ? 'border-[#0E2A23] text-[#0E2A23] bg-white rounded-t-xl'
+              : 'border-transparent text-[#4B635A] hover:text-[#0E2A23]'
           }`}
         >
           Product &amp; Pricing Inventory ({products.length})
@@ -360,8 +360,8 @@ export const AdminDashboardPage: React.FC = () => {
           onClick={() => setActiveTab('messages')}
           className={`px-5 py-3 text-xs font-bold border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'messages'
-              ? 'border-[#3E481D] text-[#3E481D] bg-white rounded-t-xl'
-              : 'border-transparent text-[#707E46] hover:text-[#3E481D]'
+              ? 'border-[#0E2A23] text-[#0E2A23] bg-white rounded-t-xl'
+              : 'border-transparent text-[#4B635A] hover:text-[#0E2A23]'
           }`}
         >
           Inquiries &amp; Messages ({messages.length})
@@ -370,11 +370,11 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* ── TAB 1: ORDERS MANAGEMENT ── */}
       {activeTab === 'orders' && (
-        <div className="bg-white rounded-3xl border border-[#DCE3CE] overflow-hidden shadow-xs space-y-4 p-6">
+        <div className="bg-white rounded-3xl border border-[#CBD5CF] overflow-hidden shadow-xs space-y-4 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-base font-bold text-[#3E481D]">Customer Orders</h2>
-              <p className="text-xs text-[#707E46]">Real-time synchronized with Google Firebase Firestore.</p>
+              <h2 className="text-base font-bold text-[#0E2A23]">Customer Orders</h2>
+              <p className="text-xs text-[#4B635A]">Real-time synchronized with Google Firebase Firestore.</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -396,8 +396,8 @@ export const AdminDashboardPage: React.FC = () => {
                     onClick={() => setOrderFilter(st)}
                     className={`px-2.5 py-1 rounded-lg font-bold capitalize transition-colors ${
                       orderFilter === st
-                        ? 'bg-[#3E481D] text-white'
-                        : 'bg-[#F4F4EA] text-[#3E481D] hover:bg-[#EAEBD9]'
+                        ? 'bg-[#0E2A23] text-white'
+                        : 'bg-[#F2F5F3] text-[#0E2A23] hover:bg-[#E4EBE7]'
                     }`}
                   >
                     {st}
@@ -410,7 +410,7 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#DCE3CE] text-[#707E46] bg-[#F8FAF5]">
+                <tr className="border-b border-[#CBD5CF] text-[#4B635A] bg-[#F7F9F8]">
                   <th className="p-3 font-bold">Order #</th>
                   <th className="p-3 font-bold">Customer</th>
                   <th className="p-3 font-bold">Destination</th>
@@ -423,8 +423,8 @@ export const AdminDashboardPage: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredOrders.map((o) => (
-                  <tr key={o.id} className="hover:bg-[#F9FAF5] transition-colors">
-                    <td className="p-3 font-mono font-bold text-[#3E481D]">
+                  <tr key={o.id} className="hover:bg-[#F7F9F8] transition-colors">
+                    <td className="p-3 font-mono font-bold text-[#0E2A23]">
                       {o.orderNumber}
                       <span className="block text-[10px] text-gray-400 font-normal">
                         {new Date(o.createdAt).toLocaleDateString()}
@@ -464,7 +464,7 @@ export const AdminDashboardPage: React.FC = () => {
                       <select
                         value={o.paymentStatus}
                         onChange={(e) => updatePaymentStatus(o.id, e.target.value as PaymentStatus)}
-                        className="mt-1 px-2 py-0.5 text-[10px] font-bold rounded-lg border border-gray-200 bg-white text-[#3E481D]"
+                        className="mt-1 px-2 py-0.5 text-[10px] font-bold rounded-lg border border-gray-200 bg-white text-[#0E2A23]"
                         aria-label="Payment status"
                       >
                         <option value="pending">Payment pending</option>
@@ -476,7 +476,7 @@ export const AdminDashboardPage: React.FC = () => {
                       <select
                         value={o.orderStatus}
                         onChange={(e) => updateOrderStatus(o.id, e.target.value as OrderStatus)}
-                        className="px-2 py-1 text-[11px] font-bold rounded-lg border border-gray-200 bg-[#F4F4EA] text-[#3E481D]"
+                        className="px-2 py-1 text-[11px] font-bold rounded-lg border border-gray-200 bg-[#F2F5F3] text-[#0E2A23]"
                       >
                         <option value="pending">Pending</option>
                         <option value="processing">Processing</option>
@@ -509,15 +509,15 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* ── TAB 2: PRODUCT MANAGEMENT ── */}
       {activeTab === 'products' && (
-        <div className="bg-white rounded-3xl border border-[#DCE3CE] p-6 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-[#F0F0E0] pb-4">
+        <div className="bg-white rounded-3xl border border-[#CBD5CF] p-6 shadow-xs space-y-6">
+          <div className="flex items-center justify-between border-b border-[#E4EBE7] pb-4">
             <div>
-              <h2 className="text-base font-bold text-[#3E481D]">Catalog Inventory</h2>
-              <p className="text-xs text-[#707E46]">Edit prices in NPR, update live stock count, and manage HPLC batch numbers.</p>
+              <h2 className="text-base font-bold text-[#0E2A23]">Catalog Inventory</h2>
+              <p className="text-xs text-[#4B635A]">Edit prices in NPR, update live stock count, and manage HPLC batch numbers.</p>
             </div>
             <button
               onClick={() => setNewProductModalOpen(true)}
-              className="px-4 py-2 rounded-xl bg-[#3E481D] text-white text-xs font-bold hover:bg-[#2A3312] flex items-center gap-1.5 shadow-xs"
+              className="px-4 py-2 rounded-xl bg-[#0E2A23] text-white text-xs font-bold hover:bg-[#10241E] flex items-center gap-1.5 shadow-xs"
             >
               <Plus className="w-4 h-4" />
               <span>Add New Peptide</span>
@@ -527,7 +527,7 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#DCE3CE] text-[#707E46] bg-[#F8FAF5]">
+                <tr className="border-b border-[#CBD5CF] text-[#4B635A] bg-[#F7F9F8]">
                   <th className="p-3 font-bold">Peptide Name</th>
                   <th className="p-3 font-bold">Category</th>
                   <th className="p-3 font-bold">Price (NPR)</th>
@@ -539,12 +539,12 @@ export const AdminDashboardPage: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {products.map((p) => (
-                  <tr key={p.id} className="hover:bg-[#F9FAF5]">
-                    <td className="p-3 font-bold text-[#3E481D]">
+                  <tr key={p.id} className="hover:bg-[#F7F9F8]">
+                    <td className="p-3 font-bold text-[#0E2A23]">
                       {p.name}
                       <span className="block text-[10px] text-gray-400 font-normal">{p.scientificName}</span>
                     </td>
-                    <td className="p-3 uppercase text-[10px] font-bold text-[#707E46]">
+                    <td className="p-3 uppercase text-[10px] font-bold text-[#4B635A]">
                       {p.category}
                     </td>
                     <td className="p-3 font-bold text-gray-900">
@@ -567,7 +567,7 @@ export const AdminDashboardPage: React.FC = () => {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => setEditingProduct(p)}
-                          className="p-1 text-gray-500 hover:text-[#3E481D] hover:bg-gray-100 rounded"
+                          className="p-1 text-gray-500 hover:text-[#0E2A23] hover:bg-gray-100 rounded"
                           title="Edit Product"
                         >
                           <Edit3 className="w-4 h-4" />
@@ -591,8 +591,8 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* ── TAB 3: CUSTOMER INQUIRIES ── */}
       {activeTab === 'messages' && (
-        <div className="bg-white rounded-3xl border border-[#DCE3CE] p-6 shadow-xs space-y-4">
-          <h2 className="text-base font-bold text-[#3E481D] border-b border-[#F0F0E0] pb-3">
+        <div className="bg-white rounded-3xl border border-[#CBD5CF] p-6 shadow-xs space-y-4">
+          <h2 className="text-base font-bold text-[#0E2A23] border-b border-[#E4EBE7] pb-3">
             Inquiries Received via Contact Form
           </h2>
 
@@ -601,12 +601,12 @@ export const AdminDashboardPage: React.FC = () => {
               <div 
                 key={m.id} 
                 className={`p-4 rounded-2xl border transition-colors space-y-2 ${
-                  m.isRead ? 'bg-white border-[#DCE3CE]' : 'bg-amber-50/40 border-amber-200'
+                  m.isRead ? 'bg-white border-[#CBD5CF]' : 'bg-amber-50/40 border-amber-200'
                 }`}
               >
                 <div className="flex items-center justify-between text-xs">
                   <div>
-                    <span className="font-bold text-[#3E481D]">{m.name}</span>
+                    <span className="font-bold text-[#0E2A23]">{m.name}</span>
                     <span className="text-gray-400 ml-2">({m.email} · {m.phone})</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -636,74 +636,74 @@ export const AdminDashboardPage: React.FC = () => {
       {editingProduct && (
         <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4 border border-gray-200 shadow-2xl">
-            <h3 className="text-lg font-bold text-[#3E481D]">Edit Peptide Details</h3>
+            <h3 className="text-lg font-bold text-[#0E2A23]">Edit Peptide Details</h3>
 
             <form onSubmit={handleSaveProductEdit} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Product Name</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Product Name</label>
                   <input
                     type="text"
                     value={editingProduct.name}
                     onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Brand Name</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Brand Name</label>
                   <input
                     type="text"
                     value={editingProduct.brand}
                     onChange={(e) => setEditingProduct({ ...editingProduct, brand: e.target.value })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-[#3E481D] mb-1">Packaging Image URL</label>
+                <label className="block font-bold text-[#0E2A23] mb-1">Packaging Image URL</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.denik })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     Denik
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.enhancedPharma })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     Enhanced Pharma
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.goldBond })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     Gold Bond Rado
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.ghrpKit })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     GHRP 10-Kit
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.peptideSciences })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     Peptide Sciences
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingProduct({ ...editingProduct, image: BRAND_IMAGES.supplies })}
-                    className="px-2 py-1 bg-[#F4F4EA] hover:bg-[#EAEBD9] rounded-lg border border-[#DCE3CE] text-[10px] font-bold"
+                    className="px-2 py-1 bg-[#F2F5F3] hover:bg-[#E4EBE7] rounded-lg border border-[#CBD5CF] text-[10px] font-bold"
                   >
                     Sterile Supplies
                   </button>
@@ -712,29 +712,29 @@ export const AdminDashboardPage: React.FC = () => {
                   type="text"
                   value={editingProduct.image}
                   onChange={(e) => setEditingProduct({ ...editingProduct, image: e.target.value })}
-                  className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[11px]"
+                  className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[11px]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Price (NPR)</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Price (NPR)</label>
                   <input
                     type="number"
                     value={editingProduct.priceNpr}
                     onChange={(e) => setEditingProduct({ ...editingProduct, priceNpr: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Stock Count</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Stock Count</label>
                   <input
                     type="number"
                     value={editingProduct.stockCount}
                     onChange={(e) => setEditingProduct({ ...editingProduct, stockCount: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
@@ -742,24 +742,24 @@ export const AdminDashboardPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">HPLC Purity (%)</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">HPLC Purity (%)</label>
                   <input
                     type="number"
                     step="0.1"
                     value={editingProduct.purityPercent}
                     onChange={(e) => setEditingProduct({ ...editingProduct, purityPercent: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Batch Code</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Batch Code</label>
                   <input
                     type="text"
                     value={editingProduct.batchNumber}
                     onChange={(e) => setEditingProduct({ ...editingProduct, batchNumber: e.target.value })}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-mono font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-mono font-bold"
                     required
                   />
                 </div>
@@ -775,7 +775,7 @@ export const AdminDashboardPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#3E481D] text-white font-bold"
+                  className="px-5 py-2 rounded-xl bg-[#0E2A23] text-white font-bold"
                 >
                   Save Changes
                 </button>
@@ -789,42 +789,42 @@ export const AdminDashboardPage: React.FC = () => {
       {newProductModalOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4 border border-gray-200 shadow-2xl">
-            <h3 className="text-lg font-bold text-[#3E481D]">Add New Peptide Product</h3>
+            <h3 className="text-lg font-bold text-[#0E2A23]">Add New Peptide Product</h3>
 
             <form onSubmit={handleCreateProduct} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Peptide Name *</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Peptide Name *</label>
                   <input
                     type="text"
                     placeholder="e.g. BPC-157 or MOTS-c"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Brand Name *</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Brand Name *</label>
                   <input
                     type="text"
                     placeholder="e.g. Denik, Enhanced, Gold Bond"
                     value={newBrand}
                     onChange={(e) => setNewBrand(e.target.value)}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block font-bold text-[#3E481D]">Select Product Packaging Photo Preset</label>
+                <label className="block font-bold text-[#0E2A23]">Select Product Packaging Photo Preset</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                   <button
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.denik); setNewBrand('Denik'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.denik ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.denik ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.denik} alt="Denik" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -835,7 +835,7 @@ export const AdminDashboardPage: React.FC = () => {
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.enhancedPharma); setNewBrand('Enhanced Pharma'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.enhancedPharma ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.enhancedPharma ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.enhancedPharma} alt="Enhanced" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -846,7 +846,7 @@ export const AdminDashboardPage: React.FC = () => {
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.goldBond); setNewBrand('Gold Bond'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.goldBond ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.goldBond ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.goldBond} alt="Gold Bond" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -857,7 +857,7 @@ export const AdminDashboardPage: React.FC = () => {
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.ghrpKit); setNewBrand('Anabolic Monster'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.ghrpKit ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.ghrpKit ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.ghrpKit} alt="GHRP Kit" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -868,7 +868,7 @@ export const AdminDashboardPage: React.FC = () => {
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.peptideSciences); setNewBrand('Peptide Sciences'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.peptideSciences ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.peptideSciences ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.peptideSciences} alt="Peptide Sciences" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -879,7 +879,7 @@ export const AdminDashboardPage: React.FC = () => {
                     type="button"
                     onClick={() => { setNewImage(BRAND_IMAGES.supplies); setNewBrand('Medical Supplies Tier'); }}
                     className={`p-2 rounded-xl border text-center transition-all ${
-                      newImage === BRAND_IMAGES.supplies ? 'border-[#3E481D] bg-[#EAEBD9] font-bold' : 'border-gray-200 bg-white'
+                      newImage === BRAND_IMAGES.supplies ? 'border-[#0E2A23] bg-[#E4EBE7] font-bold' : 'border-gray-200 bg-white'
                     }`}
                   >
                     <img src={BRAND_IMAGES.supplies} alt="Supplies" className="w-12 h-12 object-cover mx-auto rounded-lg mb-1" />
@@ -890,34 +890,34 @@ export const AdminDashboardPage: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Price (INR) *</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Price (INR) *</label>
                   <input
                     type="number"
                     value={newPrice}
                     onChange={(e) => setNewPrice(Number(e.target.value))}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                   <span className="text-[10px] text-gray-500 font-medium">~ रू {Math.round(newPrice * 1.6)} NPR</span>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Vial Mg / IU</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Vial Mg / IU</label>
                   <input
                     type="number"
                     value={newMg}
                     onChange={(e) => setNewMg(Number(e.target.value))}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Category</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Category</label>
                   <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value as any)}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                   >
                     <option value="recovery">Recovery &amp; Tissue</option>
                     <option value="metabolic">Metabolic &amp; GLP-1</option>
@@ -929,36 +929,36 @@ export const AdminDashboardPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Stock Count</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Stock Count</label>
                   <input
                     type="number"
                     value={newStock}
                     onChange={(e) => setNewStock(Number(e.target.value))}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-bold"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Batch Code</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Batch Code</label>
                   <input
                     type="text"
                     value={newBatch}
                     onChange={(e) => setNewBatch(e.target.value)}
-                    className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl font-mono font-bold"
+                    className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl font-mono font-bold"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-[#3E481D] mb-1">Brief Description</label>
+                <label className="block font-bold text-[#0E2A23] mb-1">Brief Description</label>
                 <textarea
                   rows={2}
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
                   placeholder="Preclinical properties and summary..."
-                  className="w-full p-2.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl"
+                  className="w-full p-2.5 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl"
                 />
               </div>
 
@@ -972,7 +972,7 @@ export const AdminDashboardPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#3E481D] text-white font-bold"
+                  className="px-5 py-2 rounded-xl bg-[#0E2A23] text-white font-bold"
                 >
                   Create &amp; Publish
                 </button>

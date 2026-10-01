@@ -1,69 +1,82 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin-400-normal.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin-500-normal.woff2") format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin-600-normal.woff2") format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin-700-normal.woff2") format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Playwrite US Trad";
-  src: url("/fonts/playwrite-us-trad-latin-400-normal.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
+/* Peptides Nepal design system
+   - Ink (pine) on cool paper; white only for surfaces that hold data.
+   - Five prayer-flag colours are reserved for meaning: amino-acid properties
+     and evidence status (green approved, yellow in trials, red not approved). */
+@theme {
+  --font-sans: "Archivo Variable", "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+
+  --color-ink: #0E2A23;
+  --color-ink-soft: #3F574D;
+  --color-paper: #F2F5F3;
+  --color-line: #CBD5CF;
+  --color-mist: #E4EBE7;
+
+  --color-flag-blue: #2152B8;
+  --color-flag-red: #C2362B;
+  --color-flag-green: #1F8A5B;
+  --color-flag-yellow: #E3A81B;
 }
 
 :root {
-  --color-matcha-dark: #3E481D;
-  --color-matcha-sage: #707E46;
-  --color-matcha-tint: #C0CBA9;
-  --color-matcha-cream: #F4F4EA;
+  --color-matcha-dark: #0E2A23;
+  --color-matcha-sage: #4B635A;
+  --color-matcha-tint: #B9C7BF;
+  --color-matcha-cream: #F2F5F3;
   --color-matcha-surface: #FFFFFF;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #F4F4EA;
-  color: #2A3312;
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 100;
+  background-color: #F2F5F3;
+  color: #10241E;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.font-display {
-  font-family: "Playwrite US Trad", Georgia, "Times New Roman", serif;
+/* Headlines use the expanded cut of Archivo: wide, sturdy, label-like. */
+h1, h2, h3, .font-display {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 118;
+  letter-spacing: -0.015em;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Long reading (guides, explanations) in a serif. */
+.prose-serif {
+  font-family: var(--font-serif);
+  line-height: 1.65;
 }
-::-webkit-scrollbar-track {
-  background: #EAEBD9;
+
+:focus-visible {
+  outline: 3px solid #2152B8;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb {
-  background: #AAB792;
-  border-radius: 9999px;
+
+/* One orchestrated moment: the hero sequence tiles settle into place. */
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(14px) rotate(-3deg); }
+  to   { opacity: 1; transform: none; }
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #707E46;
+.tile-in {
+  animation: tile-in 520ms cubic-bezier(.2, .8, .2, 1) both;
 }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tile-in { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #E4EBE7; }
+::-webkit-scrollbar-thumb { background: #9FB2A8; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #4B635A; }

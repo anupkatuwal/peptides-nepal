@@ -33,12 +33,12 @@ export const AccountPage: React.FC = () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
       
       {/* Page Header */}
-      <div className="border-b border-[#DCE3CE] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="border-b border-[#CBD5CF] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#707E46]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#4B635A]">
             Customer Portal
           </span>
-          <h1 className="text-3xl font-black text-[#3E481D] tracking-tight mt-1">
+          <h1 className="text-3xl font-black text-[#0E2A23] tracking-tight mt-1">
             My Account &amp; Order History
           </h1>
         </div>
@@ -60,42 +60,42 @@ export const AccountPage: React.FC = () => {
         <div className="lg:col-span-4 space-y-6">
           
           {/* User Profile Card */}
-          <div className="bg-white rounded-3xl p-6 border border-[#DCE3CE] shadow-xs space-y-4">
+          <div className="bg-white rounded-3xl p-6 border border-[#CBD5CF] shadow-xs space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#3E481D] text-white flex items-center justify-center font-black text-xl">
+              <div className="w-12 h-12 rounded-2xl bg-[#0E2A23] text-white flex items-center justify-center font-black text-xl">
                 {currentUser?.name.charAt(0)}
               </div>
               <div>
-                <h3 className="font-bold text-base text-[#3E481D]">{currentUser?.name}</h3>
+                <h3 className="font-bold text-base text-[#0E2A23]">{currentUser?.name}</h3>
                 <span className="inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
                   {currentUser?.role === 'admin' ? 'Administrator' : 'Verified Customer'}
                 </span>
               </div>
             </div>
 
-            <div className="space-y-2 text-xs text-[#5f6b3a] pt-3 border-t border-[#F0F0E0]">
+            <div className="space-y-2 text-xs text-[#4B635A] pt-3 border-t border-[#E4EBE7]">
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#707E46]" />
+                <Mail className="w-4 h-4 text-[#4B635A]" />
                 <span>{currentUser?.email}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#707E46]" />
+                <Phone className="w-4 h-4 text-[#4B635A]" />
                 <span>{currentUser?.phone}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#707E46]" />
+                <MapPin className="w-4 h-4 text-[#4B635A]" />
                 <span>{currentUser?.address || 'Kathmandu, Nepal'}</span>
               </div>
             </div>
           </div>
 
           {/* Instant Order Tracker */}
-          <div className="bg-[#EAEBD9] rounded-3xl p-6 border border-[#DCE3CE] space-y-4">
+          <div className="bg-[#E4EBE7] rounded-3xl p-6 border border-[#CBD5CF] space-y-4">
             <div className="flex items-center gap-2">
-              <Package className="w-5 h-5 text-[#3E481D]" />
-              <h3 className="font-bold text-sm text-[#3E481D]">Track an Order</h3>
+              <Package className="w-5 h-5 text-[#0E2A23]" />
+              <h3 className="font-bold text-sm text-[#0E2A23]">Track an Order</h3>
             </div>
-            <p className="text-xs text-[#5f6b3a]">
+            <p className="text-xs text-[#4B635A]">
               Enter your PN order number or courier tracking code:
             </p>
 
@@ -105,11 +105,11 @@ export const AccountPage: React.FC = () => {
                 value={trackInput}
                 onChange={(e) => setTrackInput(e.target.value)}
                 placeholder="e.g. PN-84291 or NP-KTM-7482"
-                className="w-full p-2.5 bg-white border border-[#DCE3CE] rounded-xl text-xs font-mono font-bold text-[#3E481D] focus:outline-none"
+                className="w-full p-2.5 bg-white border border-[#CBD5CF] rounded-xl text-xs font-mono font-bold text-[#0E2A23] focus:outline-none"
               />
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-[#3E481D] text-white text-xs font-bold hover:bg-[#2A3312] transition-colors"
+                className="w-full py-2.5 rounded-xl bg-[#0E2A23] text-white text-xs font-bold hover:bg-[#10241E] transition-colors"
               >
                 Track Status
               </button>
@@ -120,8 +120,8 @@ export const AccountPage: React.FC = () => {
             )}
 
             {trackedOrder && (
-              <div className="bg-white p-3.5 rounded-xl border border-[#DCE3CE] text-xs space-y-1.5 animate-in fade-in">
-                <div className="flex justify-between font-bold text-[#3E481D]">
+              <div className="bg-white p-3.5 rounded-xl border border-[#CBD5CF] text-xs space-y-1.5 animate-in fade-in">
+                <div className="flex justify-between font-bold text-[#0E2A23]">
                   <span>{trackedOrder.orderNumber}</span>
                   <span className="capitalize text-emerald-700">{trackedOrder.orderStatus}</span>
                 </div>
@@ -136,24 +136,24 @@ export const AccountPage: React.FC = () => {
         {/* Right Orders List */}
         <div className="lg:col-span-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-[#3E481D]">
+            <h2 className="text-lg font-bold text-[#0E2A23]">
               Recent Orders ({userOrders.length})
             </h2>
             <button
               onClick={() => navigateTo('shop')}
-              className="text-xs font-bold text-[#3E481D] hover:underline"
+              className="text-xs font-bold text-[#0E2A23] hover:underline"
             >
               Order More Peptides →
             </button>
           </div>
 
           {userOrders.length === 0 ? (
-            <div className="bg-white rounded-3xl p-12 text-center border border-[#DCE3CE] space-y-3">
+            <div className="bg-white rounded-3xl p-12 text-center border border-[#CBD5CF] space-y-3">
               <Package className="w-10 h-10 text-gray-300 mx-auto" />
-              <p className="font-bold text-sm text-[#3E481D]">No orders placed yet</p>
+              <p className="font-bold text-sm text-[#0E2A23]">No orders placed yet</p>
               <button
                 onClick={() => navigateTo('shop')}
-                className="px-5 py-2.5 rounded-full bg-[#3E481D] text-white text-xs font-bold"
+                className="px-5 py-2.5 rounded-full bg-[#0E2A23] text-white text-xs font-bold"
               >
                 Browse Catalog
               </button>
@@ -163,11 +163,11 @@ export const AccountPage: React.FC = () => {
               {userOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="bg-white rounded-3xl p-6 border border-[#DCE3CE] shadow-xs space-y-4"
+                  className="bg-white rounded-3xl p-6 border border-[#CBD5CF] shadow-xs space-y-4"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F0F0E0] pb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E4EBE7] pb-3">
                     <div>
-                      <span className="text-base font-black font-mono text-[#3E481D]">
+                      <span className="text-base font-black font-mono text-[#0E2A23]">
                         {order.orderNumber}
                       </span>
                       <p className="text-xs text-gray-400 mt-0.5">
@@ -185,7 +185,7 @@ export const AccountPage: React.FC = () => {
                       }`}>
                         {order.orderStatus}
                       </span>
-                      <span className="text-xs font-mono font-semibold text-gray-500 bg-[#F4F4EA] px-2 py-0.5 rounded">
+                      <span className="text-xs font-mono font-semibold text-gray-500 bg-[#F2F5F3] px-2 py-0.5 rounded">
                         {order.trackingNumber}
                       </span>
                     </div>
@@ -195,7 +195,7 @@ export const AccountPage: React.FC = () => {
                   <div className="divide-y divide-gray-50 text-xs">
                     {order.items.map((item, idx) => (
                       <div key={idx} className="py-2 flex justify-between">
-                        <span className="font-medium text-[#3E481D]">
+                        <span className="font-medium text-[#0E2A23]">
                           {item.productName} × {item.quantity}
                         </span>
                         <span className="font-bold text-gray-700">
@@ -206,10 +206,10 @@ export const AccountPage: React.FC = () => {
                   </div>
 
                   {/* Order Footer */}
-                  <div className="border-t border-[#F0F0E0] pt-3 flex items-center justify-between text-xs">
+                  <div className="border-t border-[#E4EBE7] pt-3 flex items-center justify-between text-xs">
                     <div>
                       <span className="text-gray-400">Total Paid: </span>
-                      <strong className="text-sm font-bold text-[#3E481D]">
+                      <strong className="text-sm font-bold text-[#0E2A23]">
                         रू {order.totalNpr.toLocaleString()}
                       </strong>
                       <span className="ml-2 text-gray-500 uppercase">({order.paymentMethod})</span>
@@ -217,7 +217,7 @@ export const AccountPage: React.FC = () => {
 
                     <button
                       onClick={() => navigateTo('order-confirmation', { order })}
-                      className="text-xs font-bold text-[#3E481D] hover:underline"
+                      className="text-xs font-bold text-[#0E2A23] hover:underline"
                     >
                       View Receipt Details →
                     </button>
