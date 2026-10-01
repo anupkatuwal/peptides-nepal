@@ -194,19 +194,20 @@ export const Navbar: React.FC = () => {
                   </button>
                 )}
 
-                <div className="border-t border-[#F0F0E0] my-1 pt-1">
-                  <p className="px-4 py-1 text-[11px] font-medium text-[#707E46]">Quick Role Switch:</p>
-                  <button
-                    onClick={() => {
-                      switchUserRole(currentUser?.role === 'admin' ? 'customer' : 'admin');
-                      setUserDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-1.5 text-xs text-[#3E481D] hover:bg-[#F4F4EA] flex items-center justify-between"
-                  >
-                    <span>Switch to {currentUser?.role === 'admin' ? 'Customer' : 'Admin'}</span>
-                    <span className="text-[10px] text-[#707E46] bg-[#F0F0E0] px-1.5 py-0.5 rounded">Toggle</span>
-                  </button>
-                </div>
+                {/* Admin access is by Google sign-in on the #admin page only. */}
+                {currentUser?.role === 'admin' && (
+                  <div className="border-t border-[#F0F0E0] my-1 pt-1">
+                    <button
+                      onClick={() => {
+                        switchUserRole('customer');
+                        setUserDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-1.5 text-xs text-[#3E481D] hover:bg-[#F4F4EA]"
+                    >
+                      Sign out of admin
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -287,12 +288,14 @@ export const Navbar: React.FC = () => {
           <div className="pt-3 border-t border-[#F0F0E0] flex flex-col gap-2">
             <div className="flex items-center justify-between px-2 text-xs text-[#707E46]">
               <span>Active User: {currentUser?.name}</span>
-              <button 
-                onClick={() => switchUserRole(currentUser?.role === 'admin' ? 'customer' : 'admin')}
-                className="underline font-bold text-[#3E481D]"
-              >
-                Switch to {currentUser?.role === 'admin' ? 'Customer' : 'Admin'}
-              </button>
+              {currentUser?.role === 'admin' && (
+                <button 
+                  onClick={() => switchUserRole('customer')}
+                  className="underline font-bold text-[#3E481D]"
+                >
+                  Sign out of admin
+                </button>
+              )}
             </div>
             {currentUser?.role === 'admin' ? (
               <button

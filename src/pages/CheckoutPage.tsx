@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { EsewaModal } from '../components/EsewaModal';
-import { KhaltiModal } from '../components/KhaltiModal';
 import { NEPAL_DISTRICTS } from '../data/initialData';
 import { PaymentMethod } from '../types';
 import { 
@@ -40,9 +38,6 @@ export const CheckoutPage: React.FC = () => {
   const [transactionRef, setTransactionRef] = useState('');
 
   // Modals
-  const [esewaOpen, setEsewaOpen] = useState(false);
-  const [khaltiOpen, setKhaltiOpen] = useState(false);
-  const [tempOrderNumber, setTempOrderNumber] = useState('');
 
   if (cart.length === 0) {
     return (
@@ -65,21 +60,9 @@ export const CheckoutPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (paymentMethod === 'esewa') {
-      const generatedOrderNum = `PN-${Math.floor(10000 + Math.random() * 90000)}`;
-      setTempOrderNumber(generatedOrderNum);
-      setEsewaOpen(true);
-      return;
-    }
-
-    if (paymentMethod === 'khalti') {
-      const generatedOrderNum = `PN-${Math.floor(10000 + Math.random() * 90000)}`;
-      setTempOrderNumber(generatedOrderNum);
-      setKhaltiOpen(true);
-      return;
-    }
-
-    // Bank Transfer
+    // There is no live eSewa/Khalti integration on this site, so every method works the
+    // same way: the order is saved as unpaid and the admin confirms the payment by hand.
+    // The site never asks for a wallet MPIN, password or OTP.
     const order = placeOrder({
       customerName,
       email,
@@ -92,38 +75,6 @@ export const CheckoutPage: React.FC = () => {
       transactionRef: transactionRef.trim() || undefined
     });
 
-    navigateTo('order-confirmation', { order });
-  };
-
-  const handleEsewaSuccess = (txnRef: string) => {
-    setEsewaOpen(false);
-    const order = placeOrder({
-      customerName,
-      email,
-      phone,
-      address,
-      city,
-      district,
-      deliveryNotes,
-      paymentMethod: 'esewa',
-      transactionRef: txnRef
-    });
-    navigateTo('order-confirmation', { order });
-  };
-
-  const handleKhaltiSuccess = (txnRef: string) => {
-    setKhaltiOpen(false);
-    const order = placeOrder({
-      customerName,
-      email,
-      phone,
-      address,
-      city,
-      district,
-      deliveryNotes,
-      paymentMethod: 'khalti',
-      transactionRef: txnRef
-    });
     navigateTo('order-confirmation', { order });
   };
 
@@ -293,7 +244,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#60BB46] text-white flex items-center justify-center text-[10px] font-black">e</span>
                     <span>eSewa Wallet / QR</span>
                   </div>
-                  <p className="text-[11px] text-[#707E46] mt-0.5">Instant online payment verification</p>
+                  <p className="text-[11px] text-[#707E46] mt-0.5">Pay to our eSewa ID, then add the reference below</p>
                 </div>
               </label>
 
@@ -318,7 +269,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#5C2D91] text-white flex items-center justify-center text-[10px] font-black">K</span>
                     <span>Khalti Digital Wallet</span>
                   </div>
-                  <p className="text-[11px] text-[#707E46] mt-0.5">Pay via mobile &amp; MPIN</p>
+                  <p className="text-[11px] text-[#707E46] mt-0.5">Pay to our Khalti ID, then add the reference below</p>
                 </div>
               </label>
 
@@ -398,7 +349,7 @@ export const CheckoutPage: React.FC = () => {
                 </a>
               </div>
 
-              {paymentMethod === 'bank_transfer' && (
+              {(
                 <div className="pt-2 border-t border-[#DCE3CE] space-y-1.5">
                   <label className="block text-[11px] font-bold text-[#3E481D]">
                     Transaction Reference / Note (Optional if requesting on WhatsApp)
@@ -407,6 +358,7 @@ export const CheckoutPage: React.FC = () => {
                     type="text"
                     value={transactionRef}
                     onChange={(e) => setTransactionRef(e.target.value)}
+                    maxLength={100}
                     placeholder="e.g. Fonepay Ref #, UPI UTR #, or 'Requested QR on WhatsApp'"
                     className="w-full p-2.5 bg-white border border-[#DCE3CE] rounded-xl text-xs text-[#3E481D] focus:outline-none focus:border-[#3E481D]"
                   />
@@ -503,11 +455,7 @@ export const CheckoutPage: React.FC = () => {
           >
             <Lock className="w-4 h-4" />
             <span>
-              {paymentMethod === 'esewa'
-                ? `Pay with eSewa (~ रू ${Math.round(cartTotal * 1.6).toLocaleString()} NPR)`
-                : paymentMethod === 'khalti'
-                ? `Pay with Khalti (~ रू ${Math.round(cartTotal * 1.6).toLocaleString()} NPR)`
-                : `Place Order (₹ ${cartTotal.toLocaleString()} INR)`}
+              {`Place Order (₹ ${cartTotal.toLocaleString()} INR)`}
             </span>
           </button>
 
@@ -523,23 +471,6 @@ export const CheckoutPage: React.FC = () => {
         </div>
 
       </form>
-
-      {/* Payment Modals */}
-      <EsewaModal
-        isOpen={esewaOpen}
-        onClose={() => setEsewaOpen(false)}
-        orderNumber={tempOrderNumber}
-        amountNpr={Math.round(cartTotal * 1.6)}
-        onSuccess={handleEsewaSuccess}
-      />
-
-      <KhaltiModal
-        isOpen={khaltiOpen}
-        onClose={() => setKhaltiOpen(false)}
-        orderNumber={tempOrderNumber}
-        amountNpr={Math.round(cartTotal * 1.6)}
-        onSuccess={handleKhaltiSuccess}
-      />
 
     </div>
   );

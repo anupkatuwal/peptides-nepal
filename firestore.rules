@@ -1,36 +1,105 @@
 rules_version = '2';
+
+// Security rules for the store's Firestore database.
+//
+// Who can do what:
+// - Anyone: read the product catalogue, place an order, send a contact message.
+// - Only the shop admin (signed in with Google as the address below): read orders
+//   and messages, change order and payment status, edit products.
+// - Nobody: read other people's orders, change prices, or delete anything.
+//
+// These rules only take effect once they are published to Firebase
+// (Firebase console -> Firestore -> Rules, or `firebase deploy --only firestore:rules`).
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Health check and connection test
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'katuwalanup@gmail.com';
+    }
+
+    function shortString(v, max) {
+      return v is string && v.size() <= max;
+    }
+
+    function requiredString(v, min, max) {
+      return v is string && v.size() >= min && v.size() <= max;
+    }
+
+    function optionalString(data, key, max) {
+      return !(key in data) || shortString(data[key], max);
+    }
+
+    // Connection check on page load.
     match /test/{docId} {
       allow read: if true;
       allow write: if false;
     }
 
-    // Products catalog: publicly readable, manageable for inventory sync
+    // Catalogue: everyone can read; only the admin can add or edit.
     match /products/{productId} {
       allow read: if true;
-      allow write: if request.resource.data.name is string && request.resource.data.priceInr is number;
-      allow delete: if false;
+      allow create, update: if isAdmin()
+        && request.resource.data.name is string
+        && request.resource.data.priceInr is number
+        && request.resource.data.priceInr >= 0;
+      allow delete: if isAdmin();
     }
 
-    // Orders collection: customers can create orders, synchronized across devices
+    // Orders: a customer can place one. Only the admin can read or change orders,
+    // so customers' names, phones and addresses are never public.
+    // A new order always starts unpaid and pending: payment is confirmed by the admin.
     match /orders/{orderId} {
-      allow create: if request.resource.data.customerName is string &&
-                       request.resource.data.phone is string &&
-                       request.resource.data.totalNpr is number;
-      allow read: if true;
-      allow update: if true;
+      allow create: if request.resource.data.keys().hasOnly([
+            'id', 'orderNumber', 'customerName', 'email', 'phone', 'address', 'city', 'district',
+            'deliveryNotes', 'items', 'subtotalInr', 'deliveryFeeInr', 'discountInr', 'totalInr',
+            'subtotalNpr', 'deliveryFeeNpr', 'discountNpr', 'totalNpr', 'currency', 'deliveryTimeline',
+            'paymentMethod', 'paymentStatus', 'orderStatus', 'transactionRef', 'trackingNumber', 'createdAt'])
+        && request.resource.data.id == orderId
+        && requiredString(request.resource.data.customerName, 2, 120)
+        && requiredString(request.resource.data.email, 3, 254)
+        && requiredString(request.resource.data.phone, 7, 20)
+        && requiredString(request.resource.data.address, 3, 300)
+        && requiredString(request.resource.data.city, 2, 80)
+        && optionalString(request.resource.data, 'district', 80)
+        && optionalString(request.resource.data, 'deliveryNotes', 500)
+        && optionalString(request.resource.data, 'transactionRef', 100)
+        && request.resource.data.items is list
+        && request.resource.data.items.size() >= 1
+        && request.resource.data.items.size() <= 30
+        && request.resource.data.totalNpr is number
+        && request.resource.data.totalNpr > 0
+        && request.resource.data.paymentMethod in ['esewa', 'khalti', 'cod', 'bank_transfer']
+        && request.resource.data.paymentStatus == 'pending'
+        && request.resource.data.orderStatus == 'pending';
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['orderStatus', 'paymentStatus', 'transactionRef', 'trackingNumber']);
       allow delete: if false;
     }
 
-    // Contact and sourcing messages
+    // Contact form: anyone can send; only the admin can read or mark as read.
     match /messages/{messageId} {
-      allow create: if request.resource.data.name is string &&
-                       request.resource.data.message is string;
-      allow read: if true;
-      allow update: if true;
+      allow create: if request.resource.data.keys().hasOnly(
+            ['id', 'name', 'email', 'phone', 'subject', 'message', 'createdAt', 'isRead'])
+        && request.resource.data.id == messageId
+        && requiredString(request.resource.data.name, 2, 120)
+        && requiredString(request.resource.data.email, 3, 254)
+        && optionalString(request.resource.data, 'phone', 30)
+        && optionalString(request.resource.data, 'subject', 150)
+        && requiredString(request.resource.data.message, 5, 4000)
+        && request.resource.data.isRead == false;
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isRead']);
       allow delete: if false;
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

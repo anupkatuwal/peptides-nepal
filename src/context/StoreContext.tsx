@@ -1,13 +1,19 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { db, auth, ADMIN_EMAIL } from '../firebase';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { 
   collection, 
   doc, 
   setDoc, 
   updateDoc, 
   deleteDoc, 
+  getDocs,
   onSnapshot 
 } from 'firebase/firestore';
+
+// Firestore rejects fields set to undefined, which silently dropped orders with no
+// delivery notes. Copy through JSON to remove them.
+const clean = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 import { 
   Product, 
   CartItem, 
@@ -86,6 +92,10 @@ interface StoreContextType {
   logout: () => void;
   register: (name: string, email: string, phone: string, address?: string) => void;
   switchUserRole: (role: 'customer' | 'admin') => void;
+  // True only when the shop owner is signed in with Google (checked again by Firestore rules).
+  isAdmin: boolean;
+  adminSignIn: () => Promise<boolean>;
+  adminSignOut: () => Promise<void>;
   
   messages: ContactMessage[];
   sendMessage: (msg: { name: string; email: string; phone: string; subject: string; message: string }) => void;
@@ -155,9 +165,44 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // User Auth
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem('pn_user');
-    return saved ? JSON.parse(saved) : DEMO_USERS[0];
+    try {
+      const saved = localStorage.getItem('pn_user');
+      if (saved) {
+        const parsed = JSON.parse(saved) as User;
+        // A role saved in the browser is never trusted: admin comes only from Google sign-in.
+        return { ...parsed, role: 'customer' };
+      }
+    } catch {
+      // fall through
+    }
+    return DEMO_USERS[0];
   });
+
+  // Shop admin: signed in with Google as ADMIN_EMAIL. Firestore rules enforce the same check.
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    try {
+      return onAuthStateChanged(auth, (fbUser) => {
+        const ok = !!fbUser && fbUser.emailVerified && (fbUser.email || '').toLowerCase() === ADMIN_EMAIL;
+        setIsAdmin(ok);
+        setCurrentUser(prev => {
+          if (ok) {
+            return {
+              id: 'user-admin',
+              name: fbUser!.displayName || 'Store Administrator',
+              email: fbUser!.email || ADMIN_EMAIL,
+              phone: prev?.phone || '',
+              role: 'admin'
+            };
+          }
+          return prev && prev.role === 'admin' ? { ...prev, role: 'customer' } : prev;
+        });
+      });
+    } catch (e) {
+      console.warn('Could not start admin sign-in listener:', e);
+      return undefined;
+    }
+  }, []);
 
   // Contact Messages
   const [messages, setMessages] = useState<ContactMessage[]>(() => {
@@ -208,64 +253,23 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [currentUser]);
 
-  // Real-Time Firebase Firestore Synchronization
+  // Live product catalogue for everyone.
   useEffect(() => {
-    // 1. Sync Orders Collection across all devices
-    let unsubscribeOrders: (() => void) | undefined;
-    try {
-      const ordersCol = collection(db, 'orders');
-      unsubscribeOrders = onSnapshot(ordersCol, (snapshot) => {
-        if (!snapshot.empty) {
-          const remoteOrders: Order[] = [];
-          snapshot.forEach((docSnap) => {
-            const data = docSnap.data() as Order;
-            if (data && data.id) {
-              remoteOrders.push(data);
-            }
-          });
-          if (remoteOrders.length > 0) {
-            remoteOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-            setOrders(remoteOrders);
-          }
-        }
-      }, (err) => {
-        console.warn('Orders Firestore sync note:', err.message);
-      });
-    } catch (e) {
-      console.warn('Could not initialize orders listener:', e);
-    }
-
-    // 2. Sync Products / Inventory Collection across all devices
     let unsubscribeProducts: (() => void) | undefined;
     try {
-      const productsCol = collection(db, 'products');
-      unsubscribeProducts = onSnapshot(productsCol, (snapshot) => {
-        if (!snapshot.empty) {
-          const remoteProducts: Product[] = [];
-          snapshot.forEach((docSnap) => {
-            const data = docSnap.data() as Product;
-            if (data && data.id) {
-              remoteProducts.push(data);
-            }
-          });
-          if (remoteProducts.length > 0) {
-            const normalized = remoteProducts.map(p => ({
-              ...p,
-              image: (!p.image || p.image.includes('unsplash')) 
-                ? getBrandImage(p.brand, p.name, p.category) 
-                : p.image
-            }));
-            setProducts(normalized);
-          }
-        } else {
-          // Initialize first-time products to Firestore cloud if empty
-          INITIAL_PRODUCTS.forEach(async (p) => {
-            try {
-              await setDoc(doc(db, 'products', p.id), p);
-            } catch (err) {
-              // ignore offline/quota errors
-            }
-          });
+      unsubscribeProducts = onSnapshot(collection(db, 'products'), (snapshot) => {
+        const remoteProducts: Product[] = [];
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data() as Product;
+          if (data && data.id) remoteProducts.push(data);
+        });
+        if (remoteProducts.length > 0) {
+          setProducts(remoteProducts.map(p => ({
+            ...p,
+            image: (!p.image || p.image.includes('unsplash'))
+              ? getBrandImage(p.brand, p.name, p.category)
+              : p.image
+          })));
         }
       }, (err) => {
         console.warn('Products Firestore sync note:', err.message);
@@ -273,38 +277,68 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch (e) {
       console.warn('Could not initialize products listener:', e);
     }
-
-    // 3. Sync Messages Collection across all devices
-    let unsubscribeMessages: (() => void) | undefined;
-    try {
-      const messagesCol = collection(db, 'messages');
-      unsubscribeMessages = onSnapshot(messagesCol, (snapshot) => {
-        if (!snapshot.empty) {
-          const remoteMsgs: ContactMessage[] = [];
-          snapshot.forEach((docSnap) => {
-            const data = docSnap.data() as ContactMessage;
-            if (data && data.id) {
-              remoteMsgs.push(data);
-            }
-          });
-          if (remoteMsgs.length > 0) {
-            remoteMsgs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-            setMessages(remoteMsgs);
-          }
-        }
-      }, (err) => {
-        console.warn('Messages Firestore sync note:', err.message);
-      });
-    } catch (e) {
-      console.warn('Could not initialize messages listener:', e);
-    }
-
-    return () => {
-      if (unsubscribeOrders) unsubscribeOrders();
-      if (unsubscribeProducts) unsubscribeProducts();
-      if (unsubscribeMessages) unsubscribeMessages();
-    };
+    return () => { if (unsubscribeProducts) unsubscribeProducts(); };
   }, []);
+
+  // Orders and messages hold customers' personal details, so only the admin loads them.
+  useEffect(() => {
+    if (!isAdmin) return;
+    const unsubs: Array<() => void> = [];
+    try {
+      unsubs.push(onSnapshot(collection(db, 'orders'), (snapshot) => {
+        const remoteOrders: Order[] = [];
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data() as Order;
+          if (data && data.id) remoteOrders.push(data);
+        });
+        remoteOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setOrders(remoteOrders);
+      }, (err) => console.warn('Orders Firestore sync note:', err.message)));
+
+      unsubs.push(onSnapshot(collection(db, 'messages'), (snapshot) => {
+        const remoteMsgs: ContactMessage[] = [];
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data() as ContactMessage;
+          if (data && data.id) remoteMsgs.push(data);
+        });
+        remoteMsgs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setMessages(remoteMsgs);
+      }, (err) => console.warn('Messages Firestore sync note:', err.message)));
+
+      // First run: publish the starter catalogue if the cloud copy is empty (admin only).
+      getDocs(collection(db, 'products')).then(snap => {
+        if (snap.empty) {
+          INITIAL_PRODUCTS.forEach(p => {
+            setDoc(doc(db, 'products', p.id), clean(p)).catch(() => undefined);
+          });
+        }
+      }).catch(() => undefined);
+    } catch (e) {
+      console.warn('Could not initialize admin listeners:', e);
+    }
+    return () => unsubs.forEach(u => u());
+  }, [isAdmin]);
+
+  const adminSignIn = async (): Promise<boolean> => {
+    try {
+      const result = await signInWithPopup(auth, new GoogleAuthProvider());
+      const u = result.user;
+      const ok = u.emailVerified && (u.email || '').toLowerCase() === ADMIN_EMAIL;
+      if (!ok) await signOut(auth);
+      return ok;
+    } catch (e) {
+      console.warn('Admin sign-in failed:', e);
+      return false;
+    }
+  };
+
+  const adminSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (e) {
+      console.warn('Admin sign-out failed:', e);
+    }
+  };
 
   // Handle URL hash navigation for deep linking
   useEffect(() => {
@@ -356,7 +390,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const updateProduct = (updated: Product) => {
     setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
     try {
-      setDoc(doc(db, 'products', updated.id), updated).catch(err => console.warn('Product sync error:', err));
+      setDoc(doc(db, 'products', updated.id), clean(updated)).catch(err => console.warn('Product sync error:', err));
     } catch (e) {
       console.warn('Product sync error:', e);
     }
@@ -365,7 +399,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const addProduct = (newProduct: Product) => {
     setProducts(prev => [newProduct, ...prev]);
     try {
-      setDoc(doc(db, 'products', newProduct.id), newProduct).catch(err => console.warn('Product sync error:', err));
+      setDoc(doc(db, 'products', newProduct.id), clean(newProduct)).catch(err => console.warn('Product sync error:', err));
     } catch (e) {
       console.warn('Product sync error:', e);
     }
@@ -504,8 +538,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       totalNpr: (item.unitPriceNpr || Math.round(item.unitPriceInr * 1.6)) * item.quantity
     }));
 
-    const isDigitalPayment = orderData.paymentMethod === 'esewa' || orderData.paymentMethod === 'khalti';
-
     const newOrder: Order = {
       id: `ord-${Date.now()}`,
       orderNumber,
@@ -528,9 +560,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       currency: 'INR',
       deliveryTimeline: '10–14 days (Transit from Delhi partner company)',
       paymentMethod: orderData.paymentMethod,
-      paymentStatus: isDigitalPayment ? 'verified' : 'pending',
-      orderStatus: 'processing',
-      transactionRef: orderData.transactionRef || (isDigitalPayment ? `TXN-${Math.random().toString(36).substring(2, 9).toUpperCase()}` : undefined),
+      // Every order starts unpaid. The admin marks it verified after checking the payment arrived.
+      paymentStatus: 'pending',
+      orderStatus: 'pending',
+      transactionRef: orderData.transactionRef?.trim() || undefined,
       trackingNumber,
       createdAt: new Date().toISOString()
     };
@@ -541,7 +574,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     // Persist to Firebase Firestore for multi-device live sync
     try {
-      setDoc(doc(db, 'orders', newOrder.id), newOrder).catch(err => {
+      setDoc(doc(db, 'orders', newOrder.id), clean(newOrder)).catch(err => {
         console.warn('Firestore order sync warning:', err.message);
       });
     } catch (e) {
@@ -588,8 +621,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     coas.find(c => c.batchNumber.toLowerCase() === batchNumber.trim().toLowerCase());
 
   // Auth
-  const login = (email: string, role?: 'customer' | 'admin') => {
-    const existing = DEMO_USERS.find(u => u.email.toLowerCase() === email.toLowerCase());
+  // Customer sign-in only. Admin access needs adminSignIn (Google), never this.
+  const login = (email: string, _role?: 'customer' | 'admin') => {
+    const existing = DEMO_USERS.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'customer');
     if (existing) {
       setCurrentUser(existing);
       return true;
@@ -599,7 +633,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       name: email.split('@')[0],
       email,
       phone: '98XXXXXXXX',
-      role: role || (email.includes('admin') ? 'admin' : 'customer')
+      role: 'customer'
     };
     setCurrentUser(newUser);
     return true;
@@ -607,6 +641,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const logout = () => {
     setCurrentUser(null);
+    if (isAdmin) void adminSignOut();
   };
 
   const register = (name: string, email: string, phone: string, address?: string) => {
@@ -621,15 +656,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCurrentUser(newUser);
   };
 
+  // "Switch to Admin" now opens Google sign-in; only the shop owner's account gets in.
   const switchUserRole = (role: 'customer' | 'admin') => {
-    const target = DEMO_USERS.find(u => u.role === role) || {
-      id: `user-${role}`,
-      name: role === 'admin' ? 'Anup Katuwal (Store Administrator)' : 'Verified Client',
-      email: role === 'admin' ? 'katuwalanup@gmail.com' : 'katuwalanup@gmail.com',
-      phone: '9808318864',
-      role
-    };
-    setCurrentUser(target);
+    if (role === 'admin') {
+      void adminSignIn().then(ok => { if (ok) navigateTo('admin'); });
+      return;
+    }
+    void adminSignOut();
+    setCurrentUser(prev => prev ? { ...prev, role: 'customer' } : DEMO_USERS[0]);
   };
 
   // Messages
@@ -648,7 +682,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     // Persist to Firestore
     try {
-      setDoc(doc(db, 'messages', newMsg.id), newMsg).catch(err => {
+      setDoc(doc(db, 'messages', newMsg.id), clean(newMsg)).catch(err => {
         console.warn('Firestore message sync note:', err.message);
       });
     } catch (e) {
@@ -684,6 +718,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         cartDeliveryFee,
         cartDiscount,
         cartTotal,
+        cartSubtotalInr,
+        cartDeliveryFeeInr,
+        cartDiscountInr,
+        cartTotalInr,
+        cartSubtotalNpr,
+        cartTotalNpr,
         isCartOpen,
         setIsCartOpen,
         couponCode,
@@ -704,6 +744,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         logout,
         register,
         switchUserRole,
+        isAdmin,
+        adminSignIn,
+        adminSignOut,
         messages,
         sendMessage,
         markMessageRead,

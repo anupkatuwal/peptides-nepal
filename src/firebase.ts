@@ -11,6 +11,10 @@ export const db = config.firestoreDatabaseId
 
 export const auth = getAuth(app);
 
+// The only Google account that can open the admin dashboard.
+// Must match isAdmin() in firestore.rules.
+export const ADMIN_EMAIL = 'katuwalanup@gmail.com';
+
 // Test connection on boot per Firebase skill guidelines
 async function testConnection() {
   try {

@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 export const ShopPage: React.FC = () => {
-  const { products, navigateTo, setSelectedProductSlug } = useStore();
+  const { products, navigateTo } = useStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
