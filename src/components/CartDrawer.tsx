@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { 
+  Truck,
   X, 
   Trash2, 
   Plus, 

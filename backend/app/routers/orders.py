@@ -144,6 +144,17 @@ def set_order_status(
     if order.status == "Cancelled":
         raise HTTPException(status.HTTP_409_CONFLICT, "A cancelled order can't be changed")
     if body.status == "Cancelled":
+        # Claim the cancel with a conditional update first, so two admins cancelling
+        # at the same moment can't both put the stock back.
+        claimed = db.execute(
+            update(Order)
+            .where(Order.id == order.id, Order.status != "Cancelled")
+            .values(status="Cancelled")
+            .execution_options(synchronize_session=False)
+        ).rowcount
+        if claimed != 1:
+            db.rollback()
+            raise HTTPException(status.HTTP_409_CONFLICT, "A cancelled order can't be changed")
         # Return the stock to the shelf.
         for item in order.items:
             db.execute(

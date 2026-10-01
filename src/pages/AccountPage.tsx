@@ -199,7 +199,7 @@ export const AccountPage: React.FC = () => {
                           {item.productName} × {item.quantity}
                         </span>
                         <span className="font-bold text-gray-700">
-                          रू {item.totalNpr.toLocaleString()}
+                          रू {(item.totalNpr ?? Math.round(item.totalInr * 1.6)).toLocaleString()}
                         </span>
                       </div>
                     ))}

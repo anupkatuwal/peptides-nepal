@@ -36,8 +36,21 @@ def _check_password(v: str) -> str:
     return v
 
 
+def _single_line(v: str) -> str:
+    # These end up in email headers (Subject, display names); a line break there could add headers.
+    if any(c in v for c in "\r\n\x00"):
+        raise ValueError("Must be a single line")
+    return v
+
+
 class RegisterRequest(RequestModel):
     full_name: str = Field(min_length=2, max_length=120)
+
+    @field_validator("full_name")
+    @classmethod
+    def _name_one_line(cls, v: str) -> str:
+        return _single_line(v)
+
     email: EmailStr = Field(max_length=254)
     password: str = Field(min_length=8, max_length=72)
 
@@ -255,6 +268,11 @@ class ContactCreate(RequestModel):
     message_body: str = Field(min_length=20, max_length=4000)
     # Honeypot: hidden in the form. People leave it empty; bots fill it in.
     website: str | None = Field(default=None, max_length=200)
+
+    @field_validator("sender_name", "subject")
+    @classmethod
+    def _one_line(cls, v: str) -> str:
+        return _single_line(v)
 
 
 class ContactAccepted(BaseModel):

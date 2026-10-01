@@ -34,7 +34,10 @@ export const AdminDashboardPage: React.FC = () => {
     updateOrderStatus, 
     updatePaymentStatus, 
     markMessageRead,
-    navigateTo 
+    navigateTo,
+    isAdmin,
+    adminSignIn,
+    adminSignOut
   } = useStore();
 
   const [activeTab, setActiveTab] = useState<'orders' | 'products' | 'messages'>('orders');
@@ -54,28 +57,21 @@ export const AdminDashboardPage: React.FC = () => {
   const [newImage, setNewImage] = useState(BRAND_IMAGES.denik);
   const [newDesc, setNewDesc] = useState('');
 
-  // Admin Passkey Authentication Gate
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
-    return sessionStorage.getItem('pn_admin_auth') === 'true';
-  });
-  const [passkeyInput, setPasskeyInput] = useState('');
-  const [passkeyError, setPasskeyError] = useState('');
+  // Admin access: Google sign-in as the shop owner. Firestore rules check the same
+  // account on the server, so hiding this page is not what protects the data.
+  const [signingIn, setSigningIn] = useState(false);
+  const [signInError, setSignInError] = useState('');
 
-  const handleUnlockAdmin = (e: React.FormEvent) => {
-    e.preventDefault();
-    const validKeys = ['nepal2026', 'peptides2026', 'admin123', 'PN-2026'];
-    if (validKeys.includes(passkeyInput.trim().toLowerCase())) {
-      setIsAdminAuthenticated(true);
-      sessionStorage.setItem('pn_admin_auth', 'true');
-      setPasskeyError('');
-    } else {
-      setPasskeyError('Invalid admin security passkey. Please re-enter.');
-    }
+  const handleUnlockAdmin = async () => {
+    setSigningIn(true);
+    setSignInError('');
+    const ok = await adminSignIn();
+    setSigningIn(false);
+    if (!ok) setSignInError('This Google account is not the store administrator.');
   };
 
   const handleLockAdmin = () => {
-    setIsAdminAuthenticated(false);
-    sessionStorage.removeItem('pn_admin_auth');
+    void adminSignOut();
   };
 
   // Metrics
@@ -200,7 +196,7 @@ export const AdminDashboardPage: React.FC = () => {
     setNewDesc('');
   };
 
-  if (!isAdminAuthenticated) {
+  if (!isAdmin) {
     return (
       <div className="max-w-md mx-auto px-4 py-16 sm:py-24">
         <div className="bg-white rounded-3xl p-8 border border-[#DCE3CE] shadow-sm text-center space-y-6">
@@ -216,32 +212,23 @@ export const AdminDashboardPage: React.FC = () => {
               Admin Authentication
             </h2>
             <p className="text-xs text-[#707E46]">
-              Enter the authorized administrator passkey to view customer orders and manage store inventory.
+              Sign in with the store owner's Google account to view customer orders and manage store inventory.
             </p>
           </div>
 
-          <form onSubmit={handleUnlockAdmin} className="space-y-4">
-            <div>
-              <input
-                type="password"
-                placeholder="Enter Admin Passkey (e.g. nepal2026)"
-                value={passkeyInput}
-                onChange={(e) => setPasskeyInput(e.target.value)}
-                className="w-full p-3.5 bg-[#F4F4EA] border border-[#DCE3CE] rounded-2xl text-center text-sm font-bold text-[#3E481D] focus:outline-none focus:border-[#3E481D]"
-                autoFocus
-              />
-              {passkeyError && (
-                <p className="text-xs text-red-600 mt-2 font-medium">{passkeyError}</p>
-              )}
-            </div>
-
+          <div className="space-y-4">
             <button
-              type="submit"
-              className="w-full py-3.5 rounded-2xl bg-[#3E481D] hover:bg-[#2C3414] text-white text-xs font-bold transition-all shadow-sm"
+              type="button"
+              onClick={handleUnlockAdmin}
+              disabled={signingIn}
+              className="w-full py-3.5 rounded-2xl bg-[#3E481D] hover:bg-[#2C3414] text-white text-xs font-bold transition-all shadow-sm disabled:opacity-60"
             >
-              Unlock Administration Console
+              {signingIn ? 'Signing in…' : 'Sign in with Google'}
             </button>
-          </form>
+            {signInError && (
+              <p className="text-xs text-red-600 font-medium">{signInError}</p>
+            )}
+          </div>
 
           <div className="pt-2 border-t border-[#F0F0E0]">
             <button
@@ -285,9 +272,9 @@ export const AdminDashboardPage: React.FC = () => {
           <button
             onClick={handleLockAdmin}
             className="px-3.5 py-2 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-700 hover:bg-red-100"
-            title="Lock the console"
+            title="Sign out of the admin console"
           >
-            Lock Console
+            Sign Out
           </button>
           <button
             onClick={() => navigateTo('shop')}
@@ -403,7 +390,7 @@ export const AdminDashboardPage: React.FC = () => {
 
               {/* Filter buttons */}
               <div className="flex gap-1 overflow-x-auto text-xs">
-                {['all', 'processing', 'shipped', 'delivered', 'cancelled'].map((st) => (
+                {['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'].map((st) => (
                   <button
                     key={st}
                     onClick={() => setOrderFilter(st)}
@@ -473,6 +460,17 @@ export const AdminDashboardPage: React.FC = () => {
                           {o.transactionRef}
                         </span>
                       )}
+                      {/* Payments are confirmed by hand: check the money arrived and the total is right first. */}
+                      <select
+                        value={o.paymentStatus}
+                        onChange={(e) => updatePaymentStatus(o.id, e.target.value as PaymentStatus)}
+                        className="mt-1 px-2 py-0.5 text-[10px] font-bold rounded-lg border border-gray-200 bg-white text-[#3E481D]"
+                        aria-label="Payment status"
+                      >
+                        <option value="pending">Payment pending</option>
+                        <option value="verified">Payment verified</option>
+                        <option value="failed">Payment failed</option>
+                      </select>
                     </td>
                     <td className="p-3">
                       <select
@@ -550,7 +548,7 @@ export const AdminDashboardPage: React.FC = () => {
                       {p.category}
                     </td>
                     <td className="p-3 font-bold text-gray-900">
-                      रू {p.priceNpr.toLocaleString()}
+                      रू {(p.priceNpr ?? Math.round(p.priceInr * 1.6)).toLocaleString()}
                     </td>
                     <td className="p-3">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${

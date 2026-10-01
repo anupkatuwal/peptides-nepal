@@ -28,11 +28,18 @@ app.use('/fonts', (req, res, next) => {
 
 // Vercel image optimization proxy/redirect for local dev & preview
 app.get('/_vercel/image', (req, res) => {
-  const imageUrl = req.query.url;
-  if (!imageUrl) {
-    return res.status(400).send('Missing url parameter');
+  // Only forward to the image CDN the site uses, never to any address in the query
+  // (an open redirect would let phishing links borrow this site's name).
+  let target;
+  try {
+    target = new URL(String(req.query.url || ''));
+  } catch {
+    return res.status(400).send('Missing or invalid url parameter');
   }
-  res.redirect(302, imageUrl);
+  if (target.protocol !== 'https:' || target.hostname !== 'static.metricool.com') {
+    return res.status(400).send('Image host not allowed');
+  }
+  res.redirect(302, target.toString());
 });
 
 // Serve static directory with .html extension support (e.g. /privacy -> privacy.html)

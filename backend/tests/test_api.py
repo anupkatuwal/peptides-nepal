@@ -458,3 +458,17 @@ def test_expired_reset_token_rejected(client, outbox, db_session):
             t.expires_at = utcnow() - timedelta(minutes=1)
         s.commit()
     assert client.post("/api/auth/reset-password", json={"token": token, "password": "newpass123"}).status_code == 400
+
+
+def test_contact_rejects_line_breaks_in_subject(client):
+    # A line break in the subject could add extra email headers.
+    r = client.post(
+        "/api/contact",
+        json={
+            "sender_name": "Test Person",
+            "sender_email": "person@example.com",
+            "subject": "Hello\r\nBcc: victim@example.com",
+            "message_body": "This is a long enough message body for the form.",
+        },
+    )
+    assert r.status_code == 422
