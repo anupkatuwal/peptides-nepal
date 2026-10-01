@@ -26,7 +26,7 @@ import {
   User, 
   ContactMessage 
 } from '../types';
-import { getBrandImage } from '../assets/productImages';
+import { getBrandImage, withProductPhoto } from '../assets/productImages';
 import { 
   INITIAL_PRODUCTS, 
   INITIAL_COAS, 
@@ -119,7 +119,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length >= INITIAL_PRODUCTS.length) {
-          return parsed.map((p: Product) => ({
+          return parsed.map((p: Product) => withProductPhoto({
             ...p,
             image: (!p.image || p.image.includes('unsplash')) 
               ? getBrandImage(p.brand, p.name, p.category) 
@@ -130,7 +130,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch {
       // fallback
     }
-    return INITIAL_PRODUCTS;
+    return INITIAL_PRODUCTS.map(withProductPhoto);
   });
 
   // Cart
@@ -264,7 +264,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           if (data && data.id) remoteProducts.push(data);
         });
         if (remoteProducts.length > 0) {
-          setProducts(remoteProducts.map(p => ({
+          setProducts(remoteProducts.map(p => withProductPhoto({
             ...p,
             image: (!p.image || p.image.includes('unsplash'))
               ? getBrandImage(p.brand, p.name, p.category)

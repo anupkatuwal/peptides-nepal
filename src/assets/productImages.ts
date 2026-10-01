@@ -786,3 +786,23 @@ export function getBrandImage(brand?: string, productName?: string, category?: s
   // Default fallback to authentic Denik Pharma packshot
   return BRAND_IMAGES.denik;
 }
+
+
+// Real manufacturer product photos, supplied by the shop (public/assets/products).
+// These win over any older image stored with the product.
+export const PRODUCT_PHOTOS: Record<string, string> = {
+  'prod-denik-ghrp6-kit': '/assets/products/prod-denik-ghrp6-kit.jpg',
+  'prod-denik-hgh-100iu': '/assets/products/prod-denik-hgh-100iu.jpg',
+  'prod-denik-ipamorelin-2mg-5vials': '/assets/products/prod-denik-ipamorelin-2mg-5vials.jpg',
+  'prod-denik-ototropin-100iu': '/assets/products/prod-denik-ototropin-100iu.jpg',
+  'prod-denik-retatrutide-5mg-5vials': '/assets/products/prod-denik-retatrutide-5mg-5vials.jpg',
+  'prod-denik-tvanio-cjc-no-dac-2mg-5vials': '/assets/products/prod-denik-tvanio-cjc-no-dac-2mg-5vials.jpg',
+  'prod-enhanced-ghrp6-kit': '/assets/products/prod-enhanced-ghrp6-kit.jpg',
+  'prod-enhanced-ipamorelin-5mg-3vials': '/assets/products/prod-enhanced-ipamorelin-5mg-3vials.jpg',
+  'prod-enhanced-retatrutide-5mg-1vial': '/assets/products/prod-enhanced-retatrutide-5mg-1vial.jpg',
+};
+
+export function withProductPhoto<T extends { id: string; image: string }>(p: T): T {
+  const photo = PRODUCT_PHOTOS[p.id];
+  return photo ? { ...p, image: photo } : p;
+}
