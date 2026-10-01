@@ -25,15 +25,15 @@ export const ContactPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
       
       {/* Header */}
-      <div className="border-b border-[#DCE3CE] pb-6 space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAEBD9] text-[#3E481D] text-xs font-bold">
+      <div className="border-b border-[#CBD5CF] pb-6 space-y-4">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E4EBE7] text-[#0E2A23] text-xs font-bold">
           <MessageSquare className="w-4 h-4" />
           <span>Nepal Sales Desk &amp; Sourcing Inquiries</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-[#3E481D] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-[#0E2A23] tracking-tight">
           Sales &amp; Peptide Sourcing Desk
         </h1>
-        <p className="text-base text-[#5f6b3a] max-w-3xl leading-relaxed">
+        <p className="text-base text-[#4B635A] max-w-3xl leading-relaxed">
           <strong>Dynamic Pricing &amp; Unlisted Compounds:</strong> Peptide and amino acid prices fluctuate frequently based on international batch synthesis and currency exchange. Not every peptide, blend, or Amino Acid (AA) is listed on this website. If you require a specific compound or custom formulation, ask us directly.
         </p>
 
@@ -57,8 +57,8 @@ export const ContactPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
         {/* Left Contact Form */}
-        <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE3CE] shadow-xs space-y-6">
-          <h2 className="text-lg font-bold text-[#3E481D]">
+        <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-[#CBD5CF] shadow-xs space-y-6">
+          <h2 className="text-lg font-bold text-[#0E2A23]">
             Send Us a Message
           </h2>
 
@@ -71,7 +71,7 @@ export const ContactPage: React.FC = () => {
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="px-5 py-2 rounded-full bg-[#3E481D] text-white text-xs font-bold mt-2"
+                className="px-5 py-2 rounded-full bg-[#0E2A23] text-white text-xs font-bold mt-2"
               >
                 Send Another Message
               </button>
@@ -80,25 +80,25 @@ export const ContactPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Your Name *</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Your Name *</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full p-3 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[#3E481D] font-medium focus:outline-none focus:border-[#3E481D]"
+                    className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-medium focus:outline-none focus:border-[#0E2A23]"
                     placeholder="e.g. Suman Thapa"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Email Address *</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Email Address *</label>
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full p-3 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[#3E481D] font-medium focus:outline-none focus:border-[#3E481D]"
+                    className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-medium focus:outline-none focus:border-[#0E2A23]"
                     placeholder="suman@example.com"
                   />
                 </div>
@@ -106,22 +106,22 @@ export const ContactPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Mobile / WhatsApp Number</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Mobile / WhatsApp Number</label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full p-3 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[#3E481D] font-mono font-medium focus:outline-none focus:border-[#3E481D]"
+                    className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-mono font-medium focus:outline-none focus:border-[#0E2A23]"
                     placeholder="98XXXXXXXX"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#3E481D] mb-1">Subject</label>
+                  <label className="block font-bold text-[#0E2A23] mb-1">Subject</label>
                   <select
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full p-3 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[#3E481D] font-medium focus:outline-none focus:border-[#3E481D]"
+                    className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-medium focus:outline-none focus:border-[#0E2A23]"
                   >
                     <option value="Specialty Sourcing: Anabolics, SERMs, SARMs, HCG, AIs">Specialty Sourcing: Anabolics, SERMs, SARMs, HCG, AIs</option>
                     <option value="Product / Cold-Chain Inquiry">Cold-Chain &amp; Delivery Inquiry</option>
@@ -134,20 +134,20 @@ export const ContactPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-bold text-[#3E481D] mb-1">Your Message *</label>
+                <label className="block font-bold text-[#0E2A23] mb-1">Your Message *</label>
                 <textarea
                   rows={4}
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full p-3 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-[#3E481D] font-medium focus:outline-none focus:border-[#3E481D]"
+                  className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-medium focus:outline-none focus:border-[#0E2A23]"
                   placeholder="How can we assist you?"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-full bg-[#3E481D] text-white font-bold text-xs hover:bg-[#2A3312] shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-full bg-[#0E2A23] text-white font-bold text-xs hover:bg-[#10241E] shadow-md transition-all flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit Inquiry</span>
@@ -160,17 +160,17 @@ export const ContactPage: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           
           {/* Quick WhatsApp & Direct Help */}
-          <div className="bg-[#3E481D] rounded-3xl p-6 text-white space-y-4 shadow-sm">
+          <div className="bg-[#0E2A23] rounded-3xl p-6 text-white space-y-4 shadow-sm">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-base flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-[#A0D468]" />
+                <MessageSquare className="w-5 h-5 text-[#E3A81B]" />
                 <span>Sales Orders &amp; Sourcing Desk</span>
               </h3>
               <span className="px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-bold">
                 Sales Only
               </span>
             </div>
-            <p className="text-xs text-[#C0CBA9] leading-relaxed">
+            <p className="text-xs text-[#B9C7BF] leading-relaxed">
               <strong>Prices change constantly</strong> and not all products are listed online. If you need any specific peptide, blend, or Amino Acid (AA), ask us directly for pricing.
             </p>
             <div className="p-3 rounded-xl bg-black/20 border border-white/10 text-[11px] text-amber-200">
@@ -187,44 +187,44 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* Operational Hours & Dispatch Location */}
-          <div className="bg-white rounded-3xl p-6 border border-[#DCE3CE] shadow-xs space-y-4 text-xs">
-            <h3 className="font-bold text-sm text-[#3E481D] uppercase tracking-wide">
+          <div className="bg-white rounded-3xl p-6 border border-[#CBD5CF] shadow-xs space-y-4 text-xs">
+            <h3 className="font-bold text-sm text-[#0E2A23] uppercase tracking-wide">
               Kathmandu Operations &amp; Dispatch
             </h3>
 
-            <div className="space-y-3 text-[#5f6b3a]">
+            <div className="space-y-3 text-[#4B635A]">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#707E46] flex-none mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#4B635A] flex-none mt-0.5" />
                 <div>
-                  <strong className="text-[#3E481D] block">Central Storage Facility:</strong>
+                  <strong className="text-[#0E2A23] block">Central Storage Facility:</strong>
                   <span>Lazimpat / Baluwatar Corridor, Kathmandu 44600, Nepal</span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-[#707E46] flex-none mt-0.5" />
+                <Phone className="w-4 h-4 text-[#4B635A] flex-none mt-0.5" />
                 <div>
-                  <strong className="text-[#3E481D] block">Phone / WhatsApp Support:</strong>
-                  <a href="tel:+9779808318864" className="text-[#3E481D] font-mono hover:underline">
+                  <strong className="text-[#0E2A23] block">Phone / WhatsApp Support:</strong>
+                  <a href="tel:+9779808318864" className="text-[#0E2A23] font-mono hover:underline">
                     +977 9808318864
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-[#707E46] flex-none mt-0.5" />
+                <Clock className="w-4 h-4 text-[#4B635A] flex-none mt-0.5" />
                 <div>
-                  <strong className="text-[#3E481D] block">Dispatch Hours:</strong>
+                  <strong className="text-[#0E2A23] block">Dispatch Hours:</strong>
                   <span>Sunday – Friday: 9:00 AM – 6:00 PM</span>
                   <span className="block text-gray-400">Closed Saturdays &amp; National Public Holidays</span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-[#707E46] flex-none mt-0.5" />
+                <Mail className="w-4 h-4 text-[#4B635A] flex-none mt-0.5" />
                 <div>
-                  <strong className="text-[#3E481D] block">Official Inquiries &amp; Orders Email:</strong>
-                  <a href="mailto:katuwalanup@gmail.com" className="text-[#3E481D] font-medium hover:underline">
+                  <strong className="text-[#0E2A23] block">Official Inquiries &amp; Orders Email:</strong>
+                  <a href="mailto:katuwalanup@gmail.com" className="text-[#0E2A23] font-medium hover:underline">
                     katuwalanup@gmail.com
                   </a>
                   <span className="block text-[10px] text-gray-500 mt-0.5">Direct response from founder &amp; inventory dispatch</span>
@@ -234,25 +234,25 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* FAQ Accordion Summary */}
-          <div className="bg-[#EAEBD9] rounded-3xl p-6 border border-[#DCE3CE] space-y-3 text-xs">
-            <h3 className="font-bold text-sm text-[#3E481D]">
+          <div className="bg-[#E4EBE7] rounded-3xl p-6 border border-[#CBD5CF] space-y-3 text-xs">
+            <h3 className="font-bold text-sm text-[#0E2A23]">
               Frequently Asked Questions
             </h3>
             <div className="space-y-2">
-              <details className="bg-white p-3 rounded-xl border border-[#DCE3CE]">
-                <summary className="font-bold text-[#3E481D] cursor-pointer">
+              <details className="bg-white p-3 rounded-xl border border-[#CBD5CF]">
+                <summary className="font-bold text-[#0E2A23] cursor-pointer">
                   How are cold-chain peptides shipped?
                 </summary>
-                <p className="text-[#5f6b3a] mt-1.5 leading-relaxed">
+                <p className="text-[#4B635A] mt-1.5 leading-relaxed">
                   Lyophilized (freeze-dried) powder is stable at ambient temperature for 30–60 days, but we package every shipment in thermal insulated pouches with frozen gel refrigerant to ensure zero thermal degradation during transit across Nepal.
                 </p>
               </details>
 
-              <details className="bg-white p-3 rounded-xl border border-[#DCE3CE]">
-                <summary className="font-bold text-[#3E481D] cursor-pointer">
+              <details className="bg-white p-3 rounded-xl border border-[#CBD5CF]">
+                <summary className="font-bold text-[#0E2A23] cursor-pointer">
                   Is Cash on Delivery (COD) available in Nepal?
                 </summary>
-                <p className="text-[#5f6b3a] mt-1.5 leading-relaxed">
+                <p className="text-[#4B635A] mt-1.5 leading-relaxed">
                   No. Due to cross-border temperature-controlled cold-chain customs clearance directly from our Delhi partner company, all orders must be paid 100% upfront. Orders are placed strictly after full payment confirmation. We accept eSewa, Khalti, Fonepay, Direct Bank Transfer (NIC Asia, Nabil), and Indian UPI / IMPS.
                 </p>
               </details>

@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { StoreProvider } from './context/StoreContext';
 import AppContent from './App';
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/source-serif-4';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

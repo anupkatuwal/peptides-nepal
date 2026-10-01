@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { Search, ExternalLink, ShieldCheck, AlertCircle, BookOpen, CheckCircle } from 'lucide-react';
+import { Search, ExternalLink } from 'lucide-react';
+import { StatusChip } from '../components/design';
 
 export const GuidesPage: React.FC = () => {
-  const { guides } = useStore();
+  const { guides, selectedGuideId } = useStore();
   const [statusFilter, setStatusFilter] = useState<'all' | 'Approved' | 'In trials' | 'Not approved'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Opened from the home page list: jump to that guide.
+  useEffect(() => {
+    if (!selectedGuideId) return;
+    const t = setTimeout(() => document.getElementById(selectedGuideId)?.scrollIntoView({ block: 'start' }), 60);
+    return () => clearTimeout(t);
+  }, [selectedGuideId]);
 
   const filteredGuides = guides.filter((g) => {
     if (statusFilter !== 'all' && g.status !== statusFilter) return false;
@@ -19,169 +27,106 @@ export const GuidesPage: React.FC = () => {
     return true;
   });
 
+  const FILTERS = [
+    { id: 'all', label: 'All' },
+    { id: 'Approved', label: 'Approved' },
+    { id: 'In trials', label: 'In trials' },
+    { id: 'Not approved', label: 'Not approved' },
+  ] as const;
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
-      
-      {/* Header */}
-      <div className="border-b border-[#DCE3CE] pb-6 space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAEBD9] text-[#3E481D] text-xs font-bold">
-          <BookOpen className="w-4 h-4" />
-          <span>Evidence-Based Research Database</span>
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-[#3E481D] tracking-tight">
-          The Peptide Evidence Guide
-        </h1>
-        <p className="text-base text-[#5f6b3a] max-w-2xl leading-relaxed">
-          Plain-language summaries for nine peptides people ask about most in Nepal: where they stand under Nepal DDA regulations, FDA clinical approvals, WADA anti-doping status, and the published human trials you can check yourself.
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-20">
+      <header className="max-w-3xl">
+        <h1 className="text-4xl sm:text-6xl font-black text-[#0E2A23] leading-[1.02]">The peptide evidence guide</h1>
+        <p className="prose-serif mt-5 text-lg text-[#3F574D]">
+          Plain-language summaries of the peptides people in Nepal ask about most: what they are, what the research shows,
+          their status with Nepal's DDA and the World Anti-Doping Agency, and the studies you can read yourself.
         </p>
-      </div>
+      </header>
 
-      {/* Legend */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl bg-white border border-emerald-200 flex items-start gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex-none">
-            Approved
-          </span>
-          <p className="text-xs text-gray-600">
-            Licensed as a finished human medicine for specific clinical indications. Requires doctor prescription.
-          </p>
-        </div>
+      <dl className="mt-8 grid sm:grid-cols-3 gap-x-8 gap-y-3 text-[15px] border-y border-[#CBD5CF] py-5">
+        <div className="flex gap-3 items-start"><dt><StatusChip status="Approved" /></dt><dd className="text-[#3F574D] pt-1">A licensed medicine, prescribed by a doctor.</dd></div>
+        <div className="flex gap-3 items-start"><dt><StatusChip status="In trials" /></dt><dd className="text-[#3F574D] pt-1">Being tested in people. Not approved anywhere yet.</dd></div>
+        <div className="flex gap-3 items-start"><dt><StatusChip status="Not approved" /></dt><dd className="text-[#3F574D] pt-1">Mostly animal or lab studies.</dd></div>
+      </dl>
 
-        <div className="p-4 rounded-2xl bg-white border border-amber-200 flex items-start gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex-none">
-            In trials
-          </span>
-          <p className="text-xs text-gray-600">
-            Being actively evaluated in human clinical trials (Phase 2/3). Not yet commercially approved anywhere.
-          </p>
-        </div>
-
-        <div className="p-4 rounded-2xl bg-white border border-red-200 flex items-start gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-red-100 text-red-800 font-bold text-xs flex-none">
-            Not approved
-          </span>
-          <p className="text-xs text-gray-600">
-            No licensed human drug approval. Evidence is primarily from rodent models or in vitro cellular research.
-          </p>
-        </div>
-      </div>
-
-      {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-[#DCE3CE] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-        {/* Status Filter Buttons */}
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {[
-            { id: 'all', label: 'All Peptides' },
-            { id: 'Approved', label: 'Approved' },
-            { id: 'In trials', label: 'In Trials' },
-            { id: 'Not approved', label: 'Not Approved' }
-          ].map((item) => (
+      <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex gap-2 overflow-x-auto" role="group" aria-label="Filter by status">
+          {FILTERS.map((item) => (
             <button
               key={item.id}
-              onClick={() => setStatusFilter(item.id as any)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap ${
-                statusFilter === item.id
-                  ? 'bg-[#3E481D] text-white'
-                  : 'bg-[#F4F4EA] text-[#3E481D] hover:bg-[#EAEBD9]'
+              onClick={() => setStatusFilter(item.id)}
+              aria-pressed={statusFilter === item.id}
+              className={`px-4 py-2 rounded-md text-sm font-semibold border whitespace-nowrap transition-colors ${
+                statusFilter === item.id ? 'bg-[#0E2A23] text-white border-[#0E2A23]' : 'bg-transparent text-[#0E2A23] border-[#CBD5CF] hover:border-[#0E2A23]'
               }`}
             >
               {item.label}
             </button>
           ))}
         </div>
-
-        {/* Search */}
-        <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-2.5" />
+        <label className="relative w-full sm:w-80">
+          <span className="sr-only">Search the guides</span>
+          <Search className="w-4 h-4 text-[#4B635A] absolute left-3.5 top-3.5" />
           <input
             type="search"
-            placeholder="Search: WADA, weight, healing..."
+            placeholder="Search: WADA, weight, healing"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-xs font-medium text-[#3E481D] focus:outline-none focus:border-[#3E481D]"
+            className="w-full pl-10 pr-4 py-2.5 bg-white border-2 border-[#CBD5CF] rounded-lg text-[15px] text-[#0E2A23] focus:outline-none focus:border-[#0E2A23]"
           />
-        </div>
+        </label>
       </div>
 
-      {/* Guide Cards */}
-      <div className="space-y-6">
+      {filteredGuides.length === 0 && (
+        <p className="mt-12 text-[#3F574D]">No guide matches that. Try another word, or choose All.</p>
+      )}
+
+      <div className="mt-6">
         {filteredGuides.map((guide) => (
-          <article
-            key={guide.id}
-            className="bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE3CE] shadow-xs space-y-6 hover:border-[#B7C29E] transition-all"
-          >
-            {/* Top row */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F0F0E0] pb-4">
+          <article key={guide.id} id={guide.id} className="scroll-mt-24 py-10 border-b border-[#CBD5CF]">
+            <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h2 className="text-2xl font-black text-[#3E481D] tracking-tight">
-                  {guide.name}
-                </h2>
-                <p className="text-xs text-[#707E46] font-medium mt-0.5">
-                  Also known as: {guide.aka}
-                </p>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0E2A23]">{guide.name}</h2>
+                <p className="mt-1 text-[15px] text-[#4B635A]">Also known as {guide.aka}</p>
               </div>
-
-              <span className={`self-start sm:self-auto px-3.5 py-1 rounded-full text-xs font-black tracking-wide ${
-                guide.status === 'Approved'
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                  : guide.status === 'In trials'
-                  ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                  : 'bg-red-100 text-red-800 border border-red-300'
-              }`}>
-                {guide.badge}
-              </span>
+              <StatusChip status={guide.status} label={guide.badge} />
             </div>
 
-            {/* Facts Grid */}
-            <dl className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-[#2A3312]">
-              {guide.facts.map((fact, index) => (
-                <div key={index} className="space-y-1 bg-[#F8FAF5] p-4 rounded-xl border border-[#DCE3CE]">
-                  <dt className="font-bold text-[#3E481D] text-xs uppercase tracking-wide">
-                    {fact.label}
-                  </dt>
-                  <dd className="text-[#5f6b3a] leading-relaxed">
-                    {fact.text}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <div className="mt-8 grid lg:grid-cols-[2fr_1fr] gap-10">
+              <dl className="space-y-5">
+                {guide.facts.map((fact, index) => (
+                  <div key={index}>
+                    <dt className="font-bold text-[#0E2A23]">{fact.label}</dt>
+                    <dd className="prose-serif mt-1 text-[17px] text-[#10241E] max-w-[65ch]">{fact.text}</dd>
+                  </div>
+                ))}
+              </dl>
 
-            {/* Nepal & WADA Regulatory Box */}
-            <div className="bg-[#F4F4EA] p-4 rounded-xl border border-[#DCE3CE] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[#5f6b3a]">
-              {guide.nepalRegulatoryStatus && (
-                <div>
-                  <strong className="block text-[#3E481D] font-bold mb-1">
-                    Nepal Regulatory Status (DDA):
-                  </strong>
-                  <p>{guide.nepalRegulatoryStatus}</p>
-                </div>
-              )}
-              {guide.dopingStatus && (
-                <div>
-                  <strong className="block text-[#3E481D] font-bold mb-1">
-                    Sport &amp; Anti-Doping (WADA):
-                  </strong>
-                  <p>{guide.dopingStatus}</p>
-                </div>
-              )}
+              <aside className="space-y-5 text-[15px]">
+                {guide.nepalRegulatoryStatus && (
+                  <div className="border-l-4 border-[#2152B8] pl-4">
+                    <p className="font-bold text-[#0E2A23]">In Nepal (DDA)</p>
+                    <p className="mt-1 text-[#3F574D]">{guide.nepalRegulatoryStatus}</p>
+                  </div>
+                )}
+                {guide.dopingStatus && (
+                  <div className="border-l-4 border-[#C2362B] pl-4">
+                    <p className="font-bold text-[#0E2A23]">In sport (WADA)</p>
+                    <p className="mt-1 text-[#3F574D]">{guide.dopingStatus}</p>
+                  </div>
+                )}
+              </aside>
             </div>
 
-            {/* Published Sources & Citations */}
-            <div className="pt-2 border-t border-[#F0F0E0]">
-              <h4 className="text-xs font-bold text-[#707E46] uppercase tracking-wider mb-2">
-                Primary Sources &amp; Literature:
-              </h4>
-              <ul className="flex flex-wrap gap-2">
+            <div className="mt-8">
+              <h3 className="text-sm font-bold text-[#0E2A23]">Sources</h3>
+              <ul className="mt-2 space-y-1.5">
                 {guide.sources.map((s, idx) => (
                   <li key={idx}>
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#EAEBD9] hover:bg-[#DCE3CE] text-xs font-semibold text-[#3E481D] transition-colors"
-                    >
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1.5 text-[15px] text-[#2152B8] hover:underline underline-offset-4">
                       <span>{s.title}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-[#707E46]" />
+                      <ExternalLink className="w-3.5 h-3.5 mt-1 shrink-0" aria-hidden="true" />
                     </a>
                   </li>
                 ))}
@@ -190,7 +135,6 @@ export const GuidesPage: React.FC = () => {
           </article>
         ))}
       </div>
-
     </div>
   );
 };

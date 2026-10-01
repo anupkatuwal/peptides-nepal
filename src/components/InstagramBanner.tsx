@@ -35,9 +35,9 @@ export const InstagramBanner: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#3E481D] text-white">
+    <div className="bg-[#E4EBE7] text-[#0E2A23] border-b border-[#CBD5CF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-3 text-xs sm:text-sm">
-        <InstagramGlyph className="w-4 h-4 shrink-0 text-[#C0CBA9]" />
+        <InstagramGlyph className="w-4 h-4 shrink-0 text-[#2152B8]" />
         <p className="flex-1 leading-snug">
           New peptide science posts every other day, with sources.
           <span className="hidden sm:inline"> Myths, research and plain explanations.</span>
@@ -46,14 +46,14 @@ export const InstagramBanner: React.FC = () => {
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#3E481D] font-bold hover:bg-[#F4F4EA] transition-colors"
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E2A23] text-white font-semibold hover:bg-[#12352C] transition-colors"
         >
           Follow @peptidesnepal
         </a>
         <button
           type="button"
           onClick={close}
-          className="shrink-0 p-1 rounded-full hover:bg-white/10"
+          className="shrink-0 p-1 rounded-full hover:bg-[#CBD5CF]"
           aria-label="Close Instagram banner"
         >
           <X className="w-4 h-4" />

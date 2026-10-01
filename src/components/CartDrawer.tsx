@@ -64,32 +64,32 @@ export const CartDrawer: React.FC = () => {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#F4F4EA] shadow-2xl flex flex-col justify-between border-l border-[#DCE3CE] animate-in slide-in-from-right duration-300">
+        <div className="w-screen max-w-md bg-[#F2F5F3] shadow-2xl flex flex-col justify-between border-l border-[#CBD5CF] animate-in slide-in-from-right duration-300">
           
           {/* Header */}
-          <div className="p-5 border-b border-[#DCE3CE] bg-white flex items-center justify-between">
+          <div className="p-5 border-b border-[#CBD5CF] bg-white flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-[#3E481D]" />
-              <h2 className="text-lg font-bold text-[#3E481D]">Your Cart (₹ INR)</h2>
-              <span className="bg-[#EAEBD9] text-[#3E481D] text-xs font-bold px-2 py-0.5 rounded-full">
+              <ShoppingBag className="w-5 h-5 text-[#0E2A23]" />
+              <h2 className="text-lg font-bold text-[#0E2A23]">Your Cart (₹ INR)</h2>
+              <span className="bg-[#E4EBE7] text-[#0E2A23] text-xs font-bold px-2 py-0.5 rounded-full">
                 {cart.reduce((sum, i) => sum + i.quantity, 0)}
               </span>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="p-2 rounded-full text-gray-500 hover:text-[#3E481D] hover:bg-[#F4F4EA] transition-colors"
+              className="p-2 rounded-full text-gray-500 hover:text-[#0E2A23] hover:bg-[#F2F5F3] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Delivery & Partner Sourcing Strip */}
-          <div className="bg-[#FAF7EE] px-5 py-3 border-b border-[#DCE3CE]">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#3E481D] mb-1">
-              <Truck className="w-4 h-4 text-[#DC143C] shrink-0" />
+          <div className="bg-[#F7F9F8] px-5 py-3 border-b border-[#CBD5CF]">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0E2A23] mb-1">
+              <Truck className="w-4 h-4 text-[#C2362B] shrink-0" />
               <span>Direct Delhi to Nepal Courier: Flat ₹4,500 Shipping</span>
             </div>
-            <p className="text-[11px] text-[#5f6b3a] leading-relaxed">
+            <p className="text-[11px] text-[#4B635A] leading-relaxed">
               Dispatched with insured temperature control (10–14 days transit). <strong>Orders placed strictly after 100% upfront payment · No Cash on Delivery (COD).</strong>
             </p>
           </div>
@@ -98,11 +98,11 @@ export const CartDrawer: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-5 space-y-4">
             {cart.length === 0 ? (
               <div className="text-center py-12 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-white text-[#707E46] mx-auto flex items-center justify-center shadow-xs">
+                <div className="w-16 h-16 rounded-full bg-white text-[#4B635A] mx-auto flex items-center justify-center shadow-xs">
                   <ShoppingBag className="w-8 h-8 opacity-60" />
                 </div>
-                <h3 className="text-base font-semibold text-[#3E481D]">Your cart is currently empty</h3>
-                <p className="text-xs text-[#707E46] max-w-xs mx-auto">
+                <h3 className="text-base font-semibold text-[#0E2A23]">Your cart is currently empty</h3>
+                <p className="text-xs text-[#4B635A] max-w-xs mx-auto">
                   Explore our verified June BPC-157 rates, oral capsules, and reconstitution supplies.
                 </p>
                 <button
@@ -110,7 +110,7 @@ export const CartDrawer: React.FC = () => {
                     setIsCartOpen(false);
                     navigateTo('shop');
                   }}
-                  className="px-5 py-2.5 rounded-full bg-[#3E481D] text-white text-xs font-bold hover:bg-[#2F3716] shadow-sm transition-colors"
+                  className="px-5 py-2.5 rounded-full bg-[#0E2A23] text-white text-xs font-bold hover:bg-[#12352C] shadow-sm transition-colors"
                 >
                   Explore Catalog →
                 </button>
@@ -119,16 +119,16 @@ export const CartDrawer: React.FC = () => {
               cart.map((item) => (
                 <div 
                   key={item.id}
-                  className="bg-white rounded-xl p-3.5 border border-[#DCE3CE] shadow-xs flex gap-3.5 items-start"
+                  className="bg-white rounded-xl p-3.5 border border-[#CBD5CF] shadow-xs flex gap-3.5 items-start"
                 >
                   <img 
                     src={item.product.image} 
                     alt={item.product.name}
-                    className="w-18 h-18 object-cover rounded-lg flex-none border border-[#F0F0E0]"
+                    className="w-18 h-18 object-cover rounded-lg flex-none border border-[#E4EBE7]"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1">
-                      <h4 className="text-sm font-bold text-[#3E481D] truncate leading-tight">
+                      <h4 className="text-sm font-bold text-[#0E2A23] truncate leading-tight">
                         {item.product.name}
                       </h4>
                       <button
@@ -140,14 +140,14 @@ export const CartDrawer: React.FC = () => {
                       </button>
                     </div>
 
-                    <p className="text-xs text-[#707E46] font-medium mt-0.5">
-                      {item.product.brand && <span className="font-bold text-[#3E481D]">{item.product.brand} · </span>}
+                    <p className="text-xs text-[#4B635A] font-medium mt-0.5">
+                      {item.product.brand && <span className="font-bold text-[#0E2A23]">{item.product.brand} · </span>}
                       Option: {item.selectedVialMg}mg {item.product.category === 'supplies' ? 'Volume' : 'Powder'}
                     </p>
 
                     <div className="flex items-center justify-between mt-3">
                       <div>
-                        <span className="text-sm font-bold text-[#3E481D] block">
+                        <span className="text-sm font-bold text-[#0E2A23] block">
                           ₹ {(item.unitPriceInr * item.quantity).toLocaleString()}
                         </span>
                         <span className="text-[10px] text-gray-500">
@@ -156,20 +156,20 @@ export const CartDrawer: React.FC = () => {
                       </div>
 
                       {/* Quantity Selector */}
-                      <div className="flex items-center border border-[#DCE3CE] rounded-lg bg-[#F4F4EA]">
+                      <div className="flex items-center border border-[#CBD5CF] rounded-lg bg-[#F2F5F3]">
                         <button
                           onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                          className="p-1 hover:bg-[#DCE3CE] rounded-l-md text-[#3E481D] transition-colors"
+                          className="p-1 hover:bg-[#CBD5CF] rounded-l-md text-[#0E2A23] transition-colors"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="w-7 text-center text-xs font-bold text-[#3E481D]">
+                        <span className="w-7 text-center text-xs font-bold text-[#0E2A23]">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
-                          className="p-1 hover:bg-[#DCE3CE] rounded-r-md text-[#3E481D] transition-colors"
+                          className="p-1 hover:bg-[#CBD5CF] rounded-r-md text-[#0E2A23] transition-colors"
                           aria-label="Increase quantity"
                         >
                           <Plus className="w-3.5 h-3.5" />
@@ -184,7 +184,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Section */}
           {cart.length > 0 && (
-            <div className="border-t border-[#DCE3CE] bg-white p-5 space-y-4 shadow-lg">
+            <div className="border-t border-[#CBD5CF] bg-white p-5 space-y-4 shadow-lg">
               {/* Promo Code Form */}
               <form onSubmit={handleApplyPromo} className="space-y-1.5">
                 <div className="flex gap-2">
@@ -195,12 +195,12 @@ export const CartDrawer: React.FC = () => {
                       placeholder="Promo code (e.g. NEPAL10 or DELHI500)"
                       value={promoInput}
                       onChange={(e) => setPromoInput(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 text-xs bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl focus:outline-none focus:border-[#3E481D] uppercase font-medium"
+                      className="w-full pl-9 pr-3 py-2 text-xs bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl focus:outline-none focus:border-[#0E2A23] uppercase font-medium"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-[#3E481D] text-white text-xs font-semibold rounded-xl hover:bg-[#2A3312] transition-colors"
+                    className="px-4 py-2 bg-[#0E2A23] text-white text-xs font-semibold rounded-xl hover:bg-[#10241E] transition-colors"
                   >
                     Apply
                   </button>
@@ -211,7 +211,7 @@ export const CartDrawer: React.FC = () => {
                   </p>
                 )}
                 {couponCode && (
-                  <div className="flex items-center justify-between text-xs bg-[#EAEBD9] px-2.5 py-1 rounded-lg text-[#3E481D]">
+                  <div className="flex items-center justify-between text-xs bg-[#E4EBE7] px-2.5 py-1 rounded-lg text-[#0E2A23]">
                     <span className="font-semibold">Code applied: {couponCode}</span>
                     <button 
                       type="button" 
@@ -225,10 +225,10 @@ export const CartDrawer: React.FC = () => {
               </form>
 
               {/* Price Breakdown */}
-              <div className="space-y-1.5 text-xs text-[#5f6b3a] pt-1">
+              <div className="space-y-1.5 text-xs text-[#4B635A] pt-1">
                 <div className="flex justify-between">
                   <span>Subtotal (Fixed INR)</span>
-                  <span className="text-[#3E481D] font-bold">₹ {cartSubtotal.toLocaleString()}</span>
+                  <span className="text-[#0E2A23] font-bold">₹ {cartSubtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
@@ -236,7 +236,7 @@ export const CartDrawer: React.FC = () => {
                     <span className="text-[10px] text-gray-500">Delhi to Nepal Cold Transit</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[#3E481D] font-bold block">₹ {cartDeliveryFee.toLocaleString()} INR</span>
+                    <span className="text-[#0E2A23] font-bold block">₹ {cartDeliveryFee.toLocaleString()} INR</span>
                     <span className="text-[10px] text-gray-500 block">~ रू {Math.round(cartDeliveryFee * 1.6).toLocaleString()} NPR</span>
                   </div>
                 </div>
@@ -246,7 +246,7 @@ export const CartDrawer: React.FC = () => {
                     <span>- ₹ {cartDiscount.toLocaleString()}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-base font-bold text-[#3E481D] pt-2 border-t border-[#F0F0E0]">
+                <div className="flex justify-between text-base font-bold text-[#0E2A23] pt-2 border-t border-[#E4EBE7]">
                   <div>
                     <span>Total (INR)</span>
                     <span className="text-[10px] text-gray-500 font-normal block">
@@ -260,13 +260,13 @@ export const CartDrawer: React.FC = () => {
               {/* Checkout CTA */}
               <button
                 onClick={handleCheckoutClick}
-                className="w-full py-3.5 rounded-full bg-[#3E481D] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#2C3414] shadow-md transition-all active:scale-[0.98]"
+                className="w-full py-3.5 rounded-full bg-[#0E2A23] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#12352C] shadow-md transition-all active:scale-[0.98]"
               >
                 <span>Proceed to Checkout (₹ {cartTotal.toLocaleString()})</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center justify-center gap-2 text-[11px] text-[#707E46]">
+              <div className="flex items-center justify-center gap-2 text-[11px] text-[#4B635A]">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 <span>eSewa, Khalti, Fonepay &amp; Bank · 100% Upfront (No COD)</span>
               </div>

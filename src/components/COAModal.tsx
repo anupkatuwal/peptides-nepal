@@ -18,9 +18,9 @@ export const COAModal: React.FC<COAModalProps> = ({ coa, onClose }) => {
       <div className="relative bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-gray-200 animate-in zoom-in-95 duration-200 my-8">
         
         {/* Top Action Bar */}
-        <div className="bg-[#3E481D] text-white px-6 py-4 flex items-center justify-between">
+        <div className="bg-[#0E2A23] text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <Award className="w-5 h-5 text-[#A0D468]" />
+            <Award className="w-5 h-5 text-[#E3A81B]" />
             <span className="font-bold text-sm tracking-wide uppercase">
               Independent Analytical Certificate
             </span>
@@ -46,9 +46,9 @@ export const COAModal: React.FC<COAModalProps> = ({ coa, onClose }) => {
         <div className="p-6 sm:p-8 space-y-6 max-h-[80vh] overflow-y-auto print:max-h-none">
           
           {/* Lab Header */}
-          <div className="border-b-2 border-[#3E481D] pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="border-b-2 border-[#0E2A23] pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-black text-[#3E481D] tracking-tight">
+              <h2 className="text-xl font-black text-[#0E2A23] tracking-tight">
                 CERTIFICATE OF ANALYSIS (COA)
               </h2>
               <p className="text-xs text-gray-500 mt-0.5">
@@ -64,10 +64,10 @@ export const COAModal: React.FC<COAModalProps> = ({ coa, onClose }) => {
           </div>
 
           {/* Sample Meta Table */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAF5] p-4 rounded-xl border border-[#DCE3CE] text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F7F9F8] p-4 rounded-xl border border-[#CBD5CF] text-xs">
             <div>
               <span className="text-gray-400 block text-[10px] uppercase font-bold">Product</span>
-              <span className="font-bold text-[#3E481D]">{coa.productName}</span>
+              <span className="font-bold text-[#0E2A23]">{coa.productName}</span>
             </div>
             <div>
               <span className="text-gray-400 block text-[10px] uppercase font-bold">Vial Spec</span>
@@ -176,11 +176,11 @@ export const COAModal: React.FC<COAModalProps> = ({ coa, onClose }) => {
             </div>
 
             {/* Official seal badge */}
-            <div className="border-2 border-dashed border-[#3E481D]/40 rounded-xl p-3 bg-[#F4F4EA] flex items-center gap-2">
-              <ShieldCheck className="w-6 h-6 text-[#3E481D]" />
+            <div className="border-2 border-dashed border-[#0E2A23]/40 rounded-xl p-3 bg-[#F2F5F3] flex items-center gap-2">
+              <ShieldCheck className="w-6 h-6 text-[#0E2A23]" />
               <div>
-                <p className="font-bold text-[#3E481D] text-[11px] leading-tight">INDEPENDENT VERIFICATION</p>
-                <p className="text-[10px] text-[#707E46]">Peptides Nepal Quality Assurance</p>
+                <p className="font-bold text-[#0E2A23] text-[11px] leading-tight">INDEPENDENT VERIFICATION</p>
+                <p className="text-[10px] text-[#4B635A]">Peptides Nepal Quality Assurance</p>
               </div>
             </div>
           </div>

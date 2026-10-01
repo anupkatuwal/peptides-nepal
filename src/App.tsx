@@ -59,7 +59,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F4F4EA] text-[#2A3312] selection:bg-[#C0CBA9] selection:text-[#1F260C]">
+    <div className="min-h-screen flex flex-col bg-[#F2F5F3] text-[#10241E] selection:bg-[#B9C7BF] selection:text-[#0A1F19]">
       <Navbar />
       {/* Not on checkout, account or admin screens, where it would distract. */}
       {!['checkout', 'order-confirmation', 'account', 'admin'].includes(currentView) && <InstagramBanner />}

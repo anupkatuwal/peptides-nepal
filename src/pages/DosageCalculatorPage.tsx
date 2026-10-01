@@ -25,15 +25,15 @@ export const DosageCalculatorPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
       
       {/* Header */}
-      <div className="border-b border-[#DCE3CE] pb-6 space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAEBD9] text-[#3E481D] text-xs font-bold">
+      <div className="border-b border-[#CBD5CF] pb-6 space-y-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E4EBE7] text-[#0E2A23] text-xs font-bold">
           <Calculator className="w-4 h-4" />
           <span>Precision Laboratory Dilution Tool</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-[#3E481D] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-[#0E2A23] tracking-tight">
           Peptide Reconstitution &amp; Dosage Calculator
         </h1>
-        <p className="text-base text-[#5f6b3a] max-w-2xl leading-relaxed">
+        <p className="text-base text-[#4B635A] max-w-2xl leading-relaxed">
           Accurately calculate your reconstitution concentration and visual insulin syringe units (IU). Never make volumetric dilution errors with research peptides.
         </p>
       </div>
@@ -42,16 +42,16 @@ export const DosageCalculatorPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Inputs Card */}
-        <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE3CE] shadow-sm space-y-6">
-          <h2 className="text-lg font-bold text-[#3E481D] border-b border-[#F0F0E0] pb-3">
+        <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-[#CBD5CF] shadow-sm space-y-6">
+          <h2 className="text-lg font-bold text-[#0E2A23] border-b border-[#E4EBE7] pb-3">
             1. Enter Vial Parameters
           </h2>
 
           {/* Step 1: Vial Mass */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs font-bold text-[#3E481D]">
+            <div className="flex justify-between items-center text-xs font-bold text-[#0E2A23]">
               <span>Peptide Vial Mass (Milligrams - mg)</span>
-              <span className="text-[#707E46] font-mono">{vialMg} mg ({vialMg * 1000} mcg)</span>
+              <span className="text-[#4B635A] font-mono">{vialMg} mg ({vialMg * 1000} mcg)</span>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {[2, 5, 10, 50].map((val) => (
@@ -61,8 +61,8 @@ export const DosageCalculatorPage: React.FC = () => {
                   onClick={() => setVialMg(val)}
                   className={`py-2 text-xs font-bold rounded-xl border transition-all ${
                     vialMg === val
-                      ? 'bg-[#3E481D] text-white border-[#3E481D] shadow-xs'
-                      : 'bg-[#F4F4EA] text-[#3E481D] border-[#DCE3CE] hover:bg-[#EAEBD9]'
+                      ? 'bg-[#0E2A23] text-white border-[#0E2A23] shadow-xs'
+                      : 'bg-[#F2F5F3] text-[#0E2A23] border-[#CBD5CF] hover:bg-[#E4EBE7]'
                   }`}
                 >
                   {val} mg
@@ -73,9 +73,9 @@ export const DosageCalculatorPage: React.FC = () => {
 
           {/* Step 2: Added Water */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs font-bold text-[#3E481D]">
+            <div className="flex justify-between items-center text-xs font-bold text-[#0E2A23]">
               <span>Bacteriostatic Water Added (Milliliters - ml)</span>
-              <span className="text-[#707E46] font-mono">{waterMl} ml</span>
+              <span className="text-[#4B635A] font-mono">{waterMl} ml</span>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {[1, 2, 2.5, 3].map((val) => (
@@ -85,8 +85,8 @@ export const DosageCalculatorPage: React.FC = () => {
                   onClick={() => setWaterMl(val)}
                   className={`py-2 text-xs font-bold rounded-xl border transition-all ${
                     waterMl === val
-                      ? 'bg-[#3E481D] text-white border-[#3E481D] shadow-xs'
-                      : 'bg-[#F4F4EA] text-[#3E481D] border-[#DCE3CE] hover:bg-[#EAEBD9]'
+                      ? 'bg-[#0E2A23] text-white border-[#0E2A23] shadow-xs'
+                      : 'bg-[#F2F5F3] text-[#0E2A23] border-[#CBD5CF] hover:bg-[#E4EBE7]'
                   }`}
                 >
                   {val} ml
@@ -97,9 +97,9 @@ export const DosageCalculatorPage: React.FC = () => {
 
           {/* Step 3: Desired Dose */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs font-bold text-[#3E481D]">
+            <div className="flex justify-between items-center text-xs font-bold text-[#0E2A23]">
               <span>Target Dose (Micrograms - mcg)</span>
-              <span className="text-[#707E46] font-mono">{desiredDoseMcg} mcg ({(desiredDoseMcg / 1000).toFixed(2)} mg)</span>
+              <span className="text-[#4B635A] font-mono">{desiredDoseMcg} mcg ({(desiredDoseMcg / 1000).toFixed(2)} mg)</span>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {[100, 250, 500, 1000].map((val) => (
@@ -109,8 +109,8 @@ export const DosageCalculatorPage: React.FC = () => {
                   onClick={() => setDesiredDoseMcg(val)}
                   className={`py-2 text-xs font-bold rounded-xl border transition-all ${
                     desiredDoseMcg === val
-                      ? 'bg-[#3E481D] text-white border-[#3E481D] shadow-xs'
-                      : 'bg-[#F4F4EA] text-[#3E481D] border-[#DCE3CE] hover:bg-[#EAEBD9]'
+                      ? 'bg-[#0E2A23] text-white border-[#0E2A23] shadow-xs'
+                      : 'bg-[#F2F5F3] text-[#0E2A23] border-[#CBD5CF] hover:bg-[#E4EBE7]'
                   }`}
                 >
                   {val} mcg
@@ -126,14 +126,14 @@ export const DosageCalculatorPage: React.FC = () => {
                 value={desiredDoseMcg}
                 onChange={(e) => setDesiredDoseMcg(Math.max(10, Number(e.target.value)))}
                 step={25}
-                className="w-full px-3 py-2 bg-[#F4F4EA] border border-[#DCE3CE] rounded-xl text-xs font-bold text-[#3E481D] focus:outline-none"
+                className="w-full px-3 py-2 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-xs font-bold text-[#0E2A23] focus:outline-none"
               />
             </div>
           </div>
 
           {/* Step 4: Syringe Type */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-[#3E481D]">
+            <label className="block text-xs font-bold text-[#0E2A23]">
               Insulin Syringe Specification:
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -148,8 +148,8 @@ export const DosageCalculatorPage: React.FC = () => {
                   onClick={() => setSyringeType(s.type as any)}
                   className={`p-2.5 text-xs font-bold rounded-xl border text-center transition-all ${
                     syringeType === s.type
-                      ? 'bg-[#3E481D] text-white border-[#3E481D]'
-                      : 'bg-[#F4F4EA] text-[#3E481D] border-[#DCE3CE]'
+                      ? 'bg-[#0E2A23] text-white border-[#0E2A23]'
+                      : 'bg-[#F2F5F3] text-[#0E2A23] border-[#CBD5CF]'
                   }`}
                 >
                   {s.label}
@@ -161,9 +161,9 @@ export const DosageCalculatorPage: React.FC = () => {
         </div>
 
         {/* Right Output & Interactive Syringe Visualizer */}
-        <div className="lg:col-span-6 bg-[#F4F4EA] rounded-3xl p-6 sm:p-8 border border-[#DCE3CE] shadow-sm space-y-6">
-          <div className="border-b border-[#DCE3CE] pb-3 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-[#3E481D]">
+        <div className="lg:col-span-6 bg-[#F2F5F3] rounded-3xl p-6 sm:p-8 border border-[#CBD5CF] shadow-sm space-y-6">
+          <div className="border-b border-[#CBD5CF] pb-3 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-[#0E2A23]">
               2. Calculated Result
             </h2>
             <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
@@ -172,15 +172,15 @@ export const DosageCalculatorPage: React.FC = () => {
           </div>
 
           {/* Big Number Display */}
-          <div className="bg-white rounded-2xl p-6 border border-[#DCE3CE] space-y-2 text-center shadow-xs">
-            <span className="text-xs font-bold text-[#707E46] uppercase tracking-wider block">
+          <div className="bg-white rounded-2xl p-6 border border-[#CBD5CF] space-y-2 text-center shadow-xs">
+            <span className="text-xs font-bold text-[#4B635A] uppercase tracking-wider block">
               Draw Insulin Syringe To Mark:
             </span>
             <div className="flex items-baseline justify-center gap-2">
-              <span className="text-5xl sm:text-6xl font-black text-[#3E481D]">
+              <span className="text-5xl sm:text-6xl font-black text-[#0E2A23]">
                 {unitsToDraw}
               </span>
-              <span className="text-xl font-bold text-[#707E46]">Units (IU)</span>
+              <span className="text-xl font-bold text-[#4B635A]">Units (IU)</span>
             </div>
             <p className="text-xs font-medium text-gray-500 pt-1">
               Equivalent liquid volume: <strong className="text-gray-800">{volumeToDrawMl.toFixed(3)} ml</strong>
@@ -188,8 +188,8 @@ export const DosageCalculatorPage: React.FC = () => {
           </div>
 
           {/* Syringe Graphical Illustration */}
-          <div className="bg-white rounded-2xl p-5 border border-[#DCE3CE] space-y-3">
-            <div className="flex items-center justify-between text-xs font-bold text-[#3E481D]">
+          <div className="bg-white rounded-2xl p-5 border border-[#CBD5CF] space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-[#0E2A23]">
               <span>U-{syringeType} Syringe Barrel Visualizer</span>
               <span className="font-mono text-emerald-700">Target: {unitsToDraw} Units</span>
             </div>
@@ -231,13 +231,13 @@ export const DosageCalculatorPage: React.FC = () => {
 
           {/* Summary Details */}
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="bg-white p-3 rounded-xl border border-[#DCE3CE]">
+            <div className="bg-white p-3 rounded-xl border border-[#CBD5CF]">
               <span className="text-gray-400 block text-[10px]">Reconstituted Concentration</span>
-              <span className="font-bold text-[#3E481D]">{concentrationMcgPerMl.toLocaleString()} mcg/ml</span>
+              <span className="font-bold text-[#0E2A23]">{concentrationMcgPerMl.toLocaleString()} mcg/ml</span>
             </div>
-            <div className="bg-white p-3 rounded-xl border border-[#DCE3CE]">
+            <div className="bg-white p-3 rounded-xl border border-[#CBD5CF]">
               <span className="text-gray-400 block text-[10px]">Total Doses in Vial</span>
-              <span className="font-bold text-[#3E481D]">{totalDosesInVial} doses</span>
+              <span className="font-bold text-[#0E2A23]">{totalDosesInVial} doses</span>
             </div>
           </div>
 

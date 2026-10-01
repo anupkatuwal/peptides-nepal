@@ -29,8 +29,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     <div className={`space-y-2.5 w-full ${className}`}>
       {/* Input container */}
       <div className="relative flex items-center">
-        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#707E46] pointer-events-none flex items-center">
-          <Search className="w-4 h-4 text-[#56652C]" />
+        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4B635A] pointer-events-none flex items-center">
+          <Search className="w-4 h-4 text-[#3F574D]" />
         </div>
 
         <input
@@ -38,7 +38,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-10 pr-24 py-2.5 bg-[#F4F4EA] text-sm text-[#1E230E] placeholder:text-[#8E9B6A] rounded-xl border border-[#DCE3CE] focus:outline-none focus:ring-2 focus:ring-[#3E481D]/20 focus:border-[#3E481D] transition-all"
+          className="w-full pl-10 pr-24 py-2.5 bg-[#F2F5F3] text-sm text-[#0A1F19] placeholder:text-[#6F877C] rounded-xl border border-[#CBD5CF] focus:outline-none focus:ring-2 focus:ring-[#0E2A23]/20 focus:border-[#0E2A23] transition-all"
           aria-label="Search peptides by name"
         />
 
@@ -47,7 +47,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             <button
               type="button"
               onClick={handleClear}
-              className="p-1 rounded-full text-[#707E46] hover:text-[#1E230E] hover:bg-[#EAEBD9] transition-colors"
+              className="p-1 rounded-full text-[#4B635A] hover:text-[#0A1F19] hover:bg-[#E4EBE7] transition-colors"
               title="Clear search"
               aria-label="Clear search query"
             >
@@ -56,7 +56,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           )}
 
           {typeof totalResults === 'number' && value.trim() && (
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#3E481D] text-white">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#0E2A23] text-white">
               {totalResults} {totalResults === 1 ? 'match' : 'matches'}
             </span>
           )}
@@ -66,7 +66,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       {/* Quick peptide filter chips */}
       {suggestions && suggestions.length > 0 && (
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none text-xs">
-          <span className="text-[11px] font-bold text-[#707E46] flex items-center gap-1 shrink-0">
+          <span className="text-[11px] font-bold text-[#4B635A] flex items-center gap-1 shrink-0">
             <Sparkles className="w-3 h-3 text-emerald-700" /> Quick Search:
           </span>
           {suggestions.map((name) => {
@@ -78,8 +78,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 onClick={() => onChange(isActive ? '' : name)}
                 className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   isActive
-                    ? 'bg-[#3E481D] text-white shadow-xs'
-                    : 'bg-[#F4F4EA] hover:bg-[#EAEBD9] text-[#3E481D] border border-[#DCE3CE]'
+                    ? 'bg-[#0E2A23] text-white shadow-xs'
+                    : 'bg-[#F2F5F3] hover:bg-[#E4EBE7] text-[#0E2A23] border border-[#CBD5CF]'
                 }`}
               >
                 {name}
