@@ -3,6 +3,7 @@ import { useStore } from './context/StoreContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
+import { InstagramBanner } from './components/InstagramBanner';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
@@ -60,6 +61,8 @@ export const AppContent: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F4EA] text-[#2A3312] selection:bg-[#C0CBA9] selection:text-[#1F260C]">
       <Navbar />
+      {/* Not on checkout, account or admin screens, where it would distract. */}
+      {!['checkout', 'order-confirmation', 'account', 'admin'].includes(currentView) && <InstagramBanner />}
       <main className="flex-1">
         {renderView()}
       </main>
