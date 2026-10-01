@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { ShoppingBag, Menu, X, User } from 'lucide-react';
 
-// The mark: three amino-acid tiles in prayer-flag colours, the same tiles the
-// home page uses to spell a peptide.
-export const BrandMark: React.FC<{ className?: string }> = ({ className = '' }) => (
-  <span className={`inline-flex gap-[3px] ${className}`} aria-hidden="true">
-    <span className="w-2.5 h-5 rounded-[3px] bg-[#2152B8]" />
-    <span className="w-2.5 h-5 rounded-[3px] bg-[#E3A81B] translate-y-1" />
-    <span className="w-2.5 h-5 rounded-[3px] bg-[#C2362B]" />
-  </span>
-);
+// The Peptides Nepal logo (also the Instagram profile picture and trademark).
+// Colours and geometry are fixed: do not restyle this with the site palette.
+export const BrandMark: React.FC<{ size?: 'md' | 'sm'; className?: string }> = ({ size = 'md', className = '' }) => {
+  const box = size === 'md' ? 'w-10 h-10 rounded-xl' : 'w-8 h-8 rounded-lg';
+  const icon = size === 'md' ? 'w-7 h-7' : 'w-5 h-5';
+  return (
+    <span className={`${box} bg-[#3E481D] text-white inline-flex items-center justify-center shrink-0 ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 40 40" className={icon}>
+        <g fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="4,32 12,20 17,26 24,10 31,22 36,32" />
+        </g>
+        <g fill="currentColor">
+          <circle cx="4" cy="32" r="2.6" /><circle cx="12" cy="20" r="2.6" /><circle cx="17" cy="26" r="2.6" />
+          <circle cx="31" cy="22" r="2.6" /><circle cx="36" cy="32" r="2.6" />
+        </g>
+        <circle cx="24" cy="10" r="4.5" fill="#DC143C" />
+      </svg>
+    </span>
+  );
+};
 
 const LINKS: { view: string; label: string; match: string[] }[] = [
   { view: 'guides', label: 'Guides', match: ['guides', 'guide-detail'] },
@@ -37,7 +48,10 @@ export const Navbar: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
         <button onClick={() => go('home')} className="flex items-center gap-3 shrink-0" aria-label="Peptides Nepal home">
           <BrandMark />
-          <span className="font-display text-[19px] font-extrabold text-[#0E2A23] tracking-tight">Peptides Nepal</span>
+          <span className="text-left">
+            <span className="block font-bold text-lg text-[#0E2A23] tracking-tight leading-none">Peptides Nepal</span>
+            <span className="hidden sm:block text-[11px] font-medium text-[#4B635A] tracking-wider uppercase mt-1">Verified Purity &amp; Education</span>
+          </span>
         </button>
 
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">

@@ -19,8 +19,8 @@ export const Footer: React.FC = () => {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <BrandMark />
-              <span className="font-display text-xl font-extrabold">Peptides Nepal</span>
+              <BrandMark size="sm" />
+              <span className="font-bold text-lg tracking-tight">Peptides Nepal</span>
             </div>
             <p className="prose-serif mt-4 text-[#B9C7BF] max-w-[38ch]">
               Peptide science in plain language, with the sources, for people in Nepal.
