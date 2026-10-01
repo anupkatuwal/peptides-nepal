@@ -244,7 +244,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#60BB46] text-white flex items-center justify-center text-[10px] font-black">e</span>
                     <span>eSewa Wallet / QR</span>
                   </div>
-                  <p className="text-[11px] text-[#707E46] mt-0.5">Pay to our eSewa ID, then add the reference below</p>
+                  <p className="text-[11px] text-[#707E46] mt-0.5">We send our eSewa QR on WhatsApp after you order</p>
                 </div>
               </label>
 
@@ -269,7 +269,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#5C2D91] text-white flex items-center justify-center text-[10px] font-black">K</span>
                     <span>Khalti Digital Wallet</span>
                   </div>
-                  <p className="text-[11px] text-[#707E46] mt-0.5">Pay to our Khalti ID, then add the reference below</p>
+                  <p className="text-[11px] text-[#707E46] mt-0.5">We send our Khalti QR on WhatsApp after you order</p>
                 </div>
               </label>
 
@@ -307,9 +307,9 @@ export const CheckoutPage: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-1.5 font-bold text-[#3E481D]">
                     <QrCode className="w-4 h-4 text-[#3E481D]" />
-                    <span>Fonepay / Direct Bank / Indian UPI</span>
+                    <span>Bank Transfer</span>
                   </div>
-                  <p className="text-[11px] text-[#707E46] mt-0.5">NIC Asia / Nabil Bank / Indian UPI / IMPS</p>
+                  <p className="text-[11px] text-[#707E46] mt-0.5">We send our bank account details on WhatsApp after you order</p>
                 </div>
               </label>
             </div>
@@ -320,10 +320,10 @@ export const CheckoutPage: React.FC = () => {
                 <QrCode className="w-5 h-5 text-emerald-800 shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <h4 className="text-xs font-bold text-[#1E230E]">
-                    Payment QR &amp; Bank Account Number On-Demand
+                    How payment works
                   </h4>
                   <p className="text-[11px] text-[#56652C] leading-relaxed">
-                    To prevent routing errors, our active <strong>eSewa / Fonepay QR</strong> and <strong>NIC Asia / Nabil Bank Account details</strong> (or Indian UPI ID) are provided directly on request. Ask for the QR or bank account number when needed:
+                    Place your order first. We'll then send you our payment details on WhatsApp or email. Once your payment arrives, we confirm your order and send it. You can also message us now:
                   </p>
                 </div>
               </div>
@@ -339,7 +339,7 @@ export const CheckoutPage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold transition-all shadow-xs"
                 >
-                  <span>Request QR / Bank Account via WhatsApp (+977 9808318864)</span>
+                  <span>Message us on WhatsApp (+977 9808318864)</span>
                 </a>
                 <a
                   href="mailto:katuwalanup@gmail.com?subject=Peptides%20Nepal%20Payment%20QR%20Request"
@@ -352,18 +352,18 @@ export const CheckoutPage: React.FC = () => {
               {(
                 <div className="pt-2 border-t border-[#DCE3CE] space-y-1.5">
                   <label className="block text-[11px] font-bold text-[#3E481D]">
-                    Transaction Reference / Note (Optional if requesting on WhatsApp)
+                    Payment reference (optional — only if you've already paid)
                   </label>
                   <input
                     type="text"
                     value={transactionRef}
                     onChange={(e) => setTransactionRef(e.target.value)}
                     maxLength={100}
-                    placeholder="e.g. Fonepay Ref #, UPI UTR #, or 'Requested QR on WhatsApp'"
+                    placeholder="e.g. eSewa or bank transaction ID"
                     className="w-full p-2.5 bg-white border border-[#DCE3CE] rounded-xl text-xs text-[#3E481D] focus:outline-none focus:border-[#3E481D]"
                   />
                   <p className="text-[10px] text-gray-500">
-                    You can also tap "Place Order" and message us your payment confirmation screenshot on WhatsApp.
+                    After paying, send us the payment screenshot on WhatsApp so we can confirm your order quickly.
                   </p>
                 </div>
               )}
@@ -387,7 +387,7 @@ export const CheckoutPage: React.FC = () => {
                 <span>100% Complete Payment Required (No COD)</span>
               </div>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Orders are placed only after full payment is verified. Flat ₹4,500 INR shipping &amp; handling fee covers insured cross-border cold-chain courier directly from our Delhi partner company (min. 10–14 days delivery across Nepal).
+                Orders are shipped only after full payment is confirmed. Flat ₹4,500 INR shipping &amp; handling fee covers insured cross-border cold-chain courier directly from our Delhi partner company (min. 10–14 days delivery across Nepal).
               </p>
             </div>
           </div>
