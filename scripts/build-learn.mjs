@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:14px;color
 
 const nav = (active) => `<header class="top"><div class="wrap">
 <a class="brand" href="/guides/">Peptides Nepal</a>
-<nav aria-label="Main">${[["/guides/", "Guides"], ["/posts/", "Posts"], ["/myth-or-fact/", "Myth or fact"]].map(([h, t]) => `<a href="${h}"${active === h ? ' aria-current="page"' : ""}>${t}</a>`).join("")}<a href="${IG}" rel="me noopener">Instagram</a></nav>
+<nav aria-label="Main">${[["/guides/", "Guides"], ["/posts/", "Posts"], ["/myth-or-fact/", "Myth or fact"], ["/about/", "About"]].map(([h, t]) => `<a href="${h}"${active === h ? ' aria-current="page"' : ""}>${t}</a>`).join("")}<a href="${IG}" rel="me noopener">Instagram</a></nav>
 </div></header>`;
 
 const page = ({ path, title, description, image, type = "website", active, body, schema, extraHead = "" }) => {
@@ -171,7 +171,7 @@ ${body}
 </div></main>
 <footer><div class="wrap">
 <p><strong>Education only. Not medical advice.</strong> Talk to a doctor before using any medicine.</p>
-<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a></p>
+<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About</a></p>
 </div></footer>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -190,7 +190,8 @@ const crumbs = (items) => ({
     itemListElement: items.map(([name, p], i) => ({ "@type": "ListItem", position: i + 1, name, item: `${SITE}${p}` })),
   },
 });
-const ORG = { "@type": "Organization", "@id": ORG_ID, name: "Peptides Nepal", url: `${SITE}/`, logo: `${SITE}/favicon.svg`, sameAs: [IG] };
+const FOUNDER = { "@type": "Person", name: "Anup Katuwal", url: "https://anup-katuwal.com.np/" };
+const ORG = { "@type": "Organization", "@id": ORG_ID, name: "Peptides Nepal", url: `${SITE}/`, logo: `${SITE}/favicon.svg`, sameAs: [IG], founder: FOUNDER, email: "contact@anup-katuwal.com.np" };
 const chip = (g) => `<span class="chip ${g.status === "Approved" ? "approved" : g.status === "In trials" ? "trials" : "not"}">${esc(g.badge || g.status)}</span>`;
 const STATUS_TEXT = { Approved: "a licensed medicine in at least one country, prescribed by a doctor", "In trials": "being tested in people and not approved as a medicine", "Not approved": "studied mostly in animals or the lab and not approved as a medicine" };
 
@@ -372,6 +373,54 @@ ${guides.map(guideCard).join("\n")}`;
   urls.push([path]);
 }
 
+// ── /about/ ────────────────────────────────────────────────────────────────
+{
+  const path = "/about/";
+  const description = "Who runs Peptides Nepal, how every guide and post is fact-checked, and how to report a mistake.";
+  const body = `<h1>About Peptides Nepal</h1>
+<p class="lede">Peptides Nepal explains peptide science in plain language for people in Nepal, with the source for every claim. It started on Instagram as <a href="${IG}" rel="me noopener">@peptidesnepal</a> in September 2026.</p>
+
+<h2>Who runs it</h2>
+<p>Peptides Nepal is run by <a href="https://anup-katuwal.com.np/" rel="author">Anup Katuwal</a>, based in Kathmandu. Anup has a background in computer information systems and data analysis (MCIS, NCIT, Pokhara University; BSc, Columbia College, Denver) and competes in men's physique.</p>
+<p><strong>Anup is not a doctor or a pharmacist.</strong> The guides summarize published research and official rules. They are not medical advice.</p>
+
+<h2>Why this page exists</h2>
+<p>Much of what people hear about peptides comes from gym talk, sellers and social media. This page tries to show what the research and the regulators actually say, including when the honest answer is "we don't know yet".</p>
+
+<h2>How we check facts</h2>
+<ol>
+<li>Every claim comes from an official or peer-reviewed source: regulators such as the FDA and EMA, anti-doping bodies such as WADA and USADA, or published studies (for example on PubMed).</li>
+<li>The sources are listed on every guide, and in the first comment of every Instagram post.</li>
+<li>We say clearly when results come only from animal or lab studies, and we give placebo results next to trial numbers.</li>
+<li>Posts and guides are researched and drafted with the help of AI tools, then checked against the original sources before they go up.</li>
+<li>When we get something wrong, we fix it. In October 2026 we re-checked every guide and Myth-or-fact card and corrected the mistakes we found.</li>
+</ol>
+
+<h2>What we don't do</h2>
+<ul>
+<li>No medical advice, no dosing and no "how to use" instructions in the guides or posts.</li>
+<li>No health promises. If a claim isn't supported by good evidence, we say so.</li>
+</ul>
+<p class="note">Please be aware: this website also has a shop. The guides and posts do not recommend any product, and nothing on these pages is a reason to buy or use one. Talk to a doctor before using any medicine.</p>
+
+<h2>Found a mistake?</h2>
+<p>Email <a href="mailto:contact@anup-katuwal.com.np">contact@anup-katuwal.com.np</a> or send a DM to <a href="${IG}" rel="noopener">@peptidesnepal</a> with the page and the source. We'll check it and correct the page if we got it wrong.</p>`;
+  write(path, page({
+    path, title: "About Peptides Nepal: who we are and how we check facts", description, active: path, body,
+    schema: [{
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "@id": `${SITE}${path}`,
+      name: "About Peptides Nepal",
+      description,
+      url: `${SITE}${path}`,
+      inLanguage: "en",
+      mainEntity: ORG,
+    }],
+  }));
+  urls.push([path]);
+}
+
 // ── /sitemap.xml ───────────────────────────────────────────────────────────
 const all = [["/"], ...urls];
 writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
@@ -387,6 +436,9 @@ writeFileSync(join(out, "llms.txt"), `# Peptides Nepal
 
 ## Guides
 ${guides.map((g) => `- [${g.name}](${SITE}/guides/${guideSlug(g)}/): ${clip(g.facts[0]?.text || g.aka, 140)}`).join("\n")}
+
+## About
+- [About Peptides Nepal](${SITE}/about/): who runs the site and how facts are checked.
 
 ## Myth or fact
 - [Myth or fact?](${SITE}/myth-or-fact/): ${quiz.length} common claims about peptides, checked against the evidence.
