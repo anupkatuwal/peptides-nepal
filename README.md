@@ -23,16 +23,22 @@ Post images live on Metricool's CDN (`static.metricool.com`). The page loads the
 
 If that fails (for example the Hobby plan's 5,000 transformations a month are used up), `app.js` switches the image to the Metricool original. If the original is gone too, the slide shows "Image unavailable. Open on Instagram →" instead of a broken image.
 
+## Education pages (for search engines)
+
+`npm run build` runs `vite build`, then `scripts/build-learn.mjs`, which writes plain pre-rendered HTML pages into `dist/` so Google, Bing and AI search tools can read them without running JavaScript:
+
+- `/guides/` and `/guides/<peptide>/` from `src/data/education.json` (the same guide cards the app shows)
+- `/posts/` and `/posts/<title>/` from `data/posts.json` (full caption, every slide, the sources from the first comment)
+- `/myth-or-fact/` from the Myth-or-fact cards in `src/data/education.json`
+- `/sitemap.xml` and `/llms.txt`
+
+Each page has its own title, description, canonical link, Open Graph tags and JSON-LD (Article / CollectionPage, BreadcrumbList). `vercel.json` routes those paths to the static files; everything else goes to the app. Edit the data files, never the generated pages.
+
 ## Updating the Instagram posts
 
 1. Save a Metricool `getScheduledPosts` response (brand 7048982, timezone Asia/Kathmandu) to a file.
-2. `node scripts/build-posts.mjs that-file.json` — adds new PUBLISHED Instagram posts, skips ones already there, rebuilds the section.
-3. `node scripts/build-guide.mjs` — refreshes `data/guide.json` if a guide or quiz card changed.
-4. Commit and push; Vercel redeploys.
-
-The script refuses to change anything, and exits with code 1 and a message, when the file isn't valid JSON or has no `data` list (an error or rate-limit reply from Metricool). A post whose link isn't on instagram.com, or whose date is missing, is skipped with a warning, and images not on static.metricool.com are dropped.
-
-Posts made directly in the Instagram app (not through Metricool) don't appear in Metricool, so they won't be picked up.
+2. `node scripts/build-posts.mjs that-file.json` adds new PUBLISHED Instagram posts to `data/posts.json` (and its served copy `public/data/posts.json`) and skips ones already there. Known posts only gain missing sources, alt text or a reel cover; captions are never changed.
+3. Commit and push; Vercel rebuilds the `/posts/` pages and the sitemap.
 
 ## Domain
 

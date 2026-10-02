@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://peptidesnepal.com/sitemap.xml
+Sitemap: https://peptides.anup-katuwal.com.np/sitemap.xml
