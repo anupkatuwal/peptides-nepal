@@ -2,195 +2,261 @@
   "guides": [
     {
       "id": "guide-bpc157",
+      "slug": "bpc-157",
       "name": "BPC-157",
       "aka": "Body Protection Compound-157, PL 14736, PL-10, Bepecin",
-      "status": "In trials",
-      "badge": "In trials",
-      "dopingStatus": "Prohibited by WADA under Category S0 (Non-approved substances)",
-      "nepalRegulatoryStatus": "Unregistered pharmaceutical; research & educational chemical only under DDA Nepal guidelines.",
+      "status": "Not approved",
+      "badge": "Not approved",
+      "dopingStatus": "Prohibited by WADA at all times (in and out of competition) under S0, non-approved substances. It was added to the list in 2022.",
+      "nepalRegulatoryStatus": "Not approved as a medicine anywhere, so it is not expected to be registered with Nepal's Department of Drug Administration (DDA). Under Nepal's Drugs Act 2035, drugs must be registered before they are imported or sold.",
       "facts": [
         {
-          "label": "Origin",
-          "text": "Synthesized 15-amino acid sequence derived from human gastric juice protein."
+          "label": "What it is",
+          "text": "A lab-made chain of 15 amino acids, based on part of a protein first found in human stomach juice."
         },
         {
-          "label": "Primary Research Target",
-          "text": "Angiogenesis (blood vessel formation via VEGF-A pathways), tendon-to-bone junction repair, and gastrointestinal mucosal healing."
+          "label": "What it was studied for",
+          "text": "Blood-vessel growth, tendon and tendon-to-bone repair, and healing of the gut lining. These results come from rats and cell experiments, not from people."
         },
         {
-          "label": "Human Clinical Status",
-          "text": "Limited published Phase 1 human trials for inflammatory bowel disease; most preclinical data from rodent models."
+          "label": "Human evidence",
+          "text": "Very little. One small ulcerative colitis trial (reported only as a conference abstract) and three tiny pilot studies. No large human trial has shown it works or is safe."
         },
         {
-          "label": "Athletic Doping",
-          "text": "Strictly prohibited by the World Anti-Doping Agency (WADA) at all times (in and out of competition)."
+          "label": "FDA",
+          "text": "Not approved by the FDA or any other regulator. FDA has raised concerns about immune reactions and peptide impurities. A 2026 FDA advisory panel vote on compounding is not an approval."
         }
       ],
       "sources": [
         {
-          "title": "Sikiric et al., Brain-gut axis and BPC-157 in tissue repair (PubMed 27847966)",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/27847966/"
+          "title": "FDA briefing document on BPC-157, Pharmacy Compounding Advisory Committee (July 2026)",
+          "url": "https://www.fda.gov/media/193343/download"
         },
         {
-          "title": "Chang et al., The promoting effect of pentadecapeptide BPC 157 on tendon healing (PubMed 21030672)",
+          "title": "Sikiric et al., Brain-gut axis and pentadecapeptide BPC 157 (Curr Neuropharmacol 2016, PubMed 27138887)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27138887/"
+        },
+        {
+          "title": "Chang et al., The promoting effect of pentadecapeptide BPC 157 on tendon healing (J Appl Physiol 2011, rat study, PubMed 21030672)",
           "url": "https://pubmed.ncbi.nlm.nih.gov/21030672/"
         },
         {
-          "title": "WADA Prohibited List Category S0",
-          "url": "https://www.wada-ama.org/en/prohibited-list"
+          "title": "USADA: BPC-157 added to the 2022 WADA Prohibited List under S0",
+          "url": "https://www.usada.org/athlete-advisory/key-changes-2022-prohibited-list/"
         }
       ]
     },
     {
       "id": "guide-tb500",
-      "name": "TB-500 (Thymosin Beta-4)",
-      "aka": "Ac-LKKTETQ, Tβ4 synthetic fragment",
-      "status": "In trials",
-      "badge": "In trials",
-      "dopingStatus": "Prohibited by WADA under Category S2 (Peptide hormones & growth factors)",
-      "nepalRegulatoryStatus": "Unregistered in Nepal. Sourced from partner laboratory for research.",
+      "slug": "tb-500-thymosin-beta-4",
+      "name": "TB-500 (thymosin beta-4 fragment)",
+      "aka": "Ac-LKKTETQ, a 7-amino-acid piece of thymosin beta-4",
+      "status": "Not approved",
+      "badge": "Not approved",
+      "dopingStatus": "Prohibited by WADA at all times under S2 (growth factors). Thymosin beta-4 and its derivatives, such as TB-500, were added in 2018. It is also prohibited in horse racing.",
+      "nepalRegulatoryStatus": "Not approved as a medicine anywhere, so it is not expected to be registered with Nepal's Department of Drug Administration (DDA). Under Nepal's Drugs Act 2035, drugs must be registered before they are imported or sold.",
       "facts": [
         {
-          "label": "Mechanism",
-          "text": "Upregulates cellular actin sequestration, accelerating cell migration to wound sites and reducing fibrosis."
+          "label": "What it is",
+          "text": "A short lab-made piece (7 amino acids, Ac-LKKTETQ) of the natural protein thymosin beta-4. It is not the full protein."
         },
         {
-          "label": "Synergy with BPC-157",
-          "text": "While BPC-157 promotes localized angiogenesis, TB-500 acts systemically on cellular actin and tissue flexibility."
+          "label": "What it was studied for",
+          "text": "Thymosin beta-4 binds actin, a building block inside cells. In animal and lab studies it helped cells move into wounds. Whether TB-500 does this in people is unknown."
         },
         {
-          "label": "Doping Classification",
-          "text": "Banned in human and equine competitive sports."
+          "label": "Human evidence",
+          "text": "FDA found no human studies of TB-500. The full thymosin beta-4 protein has been tested in people, for example as eye drops, which is a different product."
+        },
+        {
+          "label": "Combined with BPC-157?",
+          "text": "Some people combine the two, but no human or controlled study has tested the combination. Any \"synergy\" is unproven."
         }
       ],
       "sources": [
         {
-          "title": "Goldstein et al., Thymosin beta 4: a key player in tissue repair (PubMed 16040810)",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/16040810/"
+          "title": "FDA briefing document on TB-500, Pharmacy Compounding Advisory Committee (July 2026)",
+          "url": "https://www.fda.gov/media/193773/download"
         },
         {
-          "title": "Philp et al., Thymosin beta4 promotes angiogenesis and wound healing (PubMed 14612450)",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/14612450/"
+          "title": "Goldstein, Hannappel & Kleinman, Thymosin beta4: actin-sequestering protein moonlights to repair injured tissues (Trends Mol Med 2005, PubMed 16099219)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16099219/"
+        },
+        {
+          "title": "Philp et al., The actin binding site on thymosin beta4 promotes angiogenesis (PubMed 14500546)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/14500546/"
+        },
+        {
+          "title": "USADA: 2018 Prohibited List, thymosin beta-4 and TB-500 added under S2",
+          "url": "https://www.usada.org/athlete-advisory/2018-prohibited-list-summary-of-major-changes/"
         }
       ]
     },
     {
       "id": "guide-semaglutide",
+      "slug": "semaglutide",
       "name": "Semaglutide",
       "aka": "Ozempic, Wegovy, Rybelsus",
       "status": "Approved",
       "badge": "Approved",
-      "dopingStatus": "Not prohibited by WADA; permitted in sports subject to medical prescription.",
-      "nepalRegulatoryStatus": "Approved by US FDA and European EMA; imported under specialized medical protocols in Nepal.",
+      "dopingStatus": "Not on WADA's 2026 Prohibited List, but WADA monitors it to look for misuse. Athletes should check current rules with their anti-doping body.",
+      "nepalRegulatoryStatus": "Approved in the US (FDA) and the EU (EMA). We could not confirm its registration with Nepal's Department of Drug Administration. It is a prescription medicine: use only under a doctor's care.",
       "facts": [
         {
           "label": "Class",
-          "text": "Glucagon-Like Peptide-1 (GLP-1) receptor agonist with a C18 fatty diacid chain."
+          "text": "A GLP-1 receptor agonist: a copy of the gut hormone GLP-1 with a fatty-acid side chain that makes it last about a week."
         },
         {
-          "label": "Mechanism",
-          "text": "Stimulates glucose-dependent insulin secretion, inhibits glucagon, delays gastric emptying, and reduces central appetite in the hypothalamus."
+          "label": "How it works",
+          "text": "Helps the body release insulin when blood sugar is high, lowers glucagon, slows stomach emptying, and acts on appetite areas of the brain."
         },
         {
-          "label": "Clinical Proof",
-          "text": "Extensive randomized Phase 3 STEP clinical trials demonstrating 15% average total body weight loss over 68 weeks."
+          "label": "Main trial result",
+          "text": "In the STEP 1 trial, adults without diabetes lost about 14.9% of body weight over 68 weeks on average, compared with 2.4% on placebo, alongside diet and exercise."
         },
         {
-          "label": "Side Effects",
-          "text": "Nausea, vomiting, diarrhea, constipation, and rare risk of pancreatitis or biliary disease."
+          "label": "Side effects",
+          "text": "Common: nausea, diarrhoea, vomiting, constipation, stomach pain. Less common but serious: pancreatitis, gallbladder problems, kidney injury from dehydration. Boxed warning: thyroid C-cell tumours seen in rodents."
         }
       ],
       "sources": [
         {
-          "title": "Wilding et al., STEP 1 Trial of Once-Weekly Semaglutide (NEJM 2021; 384:989-1002)",
+          "title": "Wilding et al., Once-Weekly Semaglutide in Adults with Overweight or Obesity (STEP 1, NEJM 2021; 384:989-1002)",
           "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2032183"
+        },
+        {
+          "title": "FDA prescribing information for Wegovy (semaglutide)",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s031lbl218316s003lbl.pdf"
+        },
+        {
+          "title": "EMA: Wegovy EPAR",
+          "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/wegovy"
         }
       ]
     },
     {
       "id": "guide-tirzepatide",
+      "slug": "tirzepatide",
       "name": "Tirzepatide",
       "aka": "Mounjaro, Zepbound, LY3298176",
       "status": "Approved",
       "badge": "Approved",
-      "dopingStatus": "Not on WADA prohibited list.",
-      "nepalRegulatoryStatus": "FDA approved; registered research and imported clinical compound.",
+      "dopingStatus": "Not on the WADA Prohibited List, but covered by WADA monitoring together with semaglutide.",
+      "nepalRegulatoryStatus": "FDA-approved as Mounjaro (type 2 diabetes) and Zepbound (weight management). We could not confirm its registration with Nepal's Department of Drug Administration. It is a prescription medicine.",
       "facts": [
         {
           "label": "Class",
-          "text": "Dual GIP (Glucose-dependent Insulinotropic Polypeptide) and GLP-1 receptor agonist."
+          "text": "Acts on two gut-hormone receptors: GLP-1 and GIP."
         },
         {
-          "label": "Efficacy",
-          "text": "SURMOUNT-1 Phase 3 trials demonstrated up to 20.9% mean body weight reduction, outperforming GLP-1 mono-agonists."
+          "label": "How it works",
+          "text": "Raises insulin release when sugar is high, improves insulin sensitivity, lowers glucagon and slows stomach emptying."
         },
         {
-          "label": "Metabolic Action",
-          "text": "Improves insulin sensitivity, suppresses glucagon, and optimizes lipid metabolism."
+          "label": "Main trial results",
+          "text": "In SURMOUNT-1, the highest dose gave 20.9% average weight loss at 72 weeks vs 3.1% on placebo. In SURMOUNT-5, tirzepatide led to more weight loss than semaglutide (20.2% vs 13.7%)."
         }
       ],
       "sources": [
         {
-          "title": "Jastreboff et al., Tirzepatide Once Weekly for the Treatment of Obesity (NEJM 2022; 387:205-216)",
+          "title": "Jastreboff et al., Tirzepatide Once Weekly for the Treatment of Obesity (SURMOUNT-1, NEJM 2022; 387:205-216)",
           "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2206038"
+        },
+        {
+          "title": "Aronne et al., Tirzepatide as Compared with Semaglutide for the Treatment of Obesity (SURMOUNT-5, NEJM 2025; 393:26-36)",
+          "url": "https://www.acc.org/latest-in-cardiology/journal-scans/2025/07/10/09/09/surmount-5"
+        },
+        {
+          "title": "FDA: approval of Zepbound for chronic weight management (Nov 2023)",
+          "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-new-medication-chronic-weight-management"
         }
       ]
     },
     {
       "id": "guide-retatrutide",
+      "slug": "retatrutide",
       "name": "Retatrutide",
-      "aka": "LY3437943, Triple G Agonist",
+      "aka": "LY3437943, \"triple G\" agonist",
       "status": "In trials",
       "badge": "In trials",
-      "dopingStatus": "Not specifically listed; monitored under non-approved performance agents.",
-      "nepalRegulatoryStatus": "Experimental research only. Sourced from partner laboratory for verified testing.",
+      "dopingStatus": "Prohibited in sport at all times. Unapproved drugs like retatrutide fall under WADA's S0 non-approved substances rule, in and out of competition.",
+      "nepalRegulatoryStatus": "Not approved as a medicine anywhere, so it is not expected to be registered with Nepal's Department of Drug Administration (DDA). Under Nepal's Drugs Act 2035, drugs must be registered before they are imported or sold.",
       "facts": [
         {
-          "label": "Mechanism",
-          "text": "Triple agonist engaging GLP-1, GIP, and Glucagon receptors simultaneously."
+          "label": "Class",
+          "text": "An experimental drug that acts on three hormone receptors: GLP-1, GIP and glucagon."
         },
         {
-          "label": "Phase 2 Trials",
-          "text": "Published in NEJM 2023 with unprecedented weight reduction reaching up to 24.2% at 48 weeks."
+          "label": "Phase 2 result",
+          "text": "In a 2023 Phase 2 trial, adults with obesity lost up to 24.2% of body weight on average at 48 weeks."
         },
         {
-          "label": "Thermogenic Action",
-          "text": "Glucagon receptor activation elevates resting energy expenditure and hepatic fat oxidation."
+          "label": "Phase 3 status",
+          "text": "Eli Lilly reported Phase 3 (TRIUMPH) results in 2026 and plans to apply to the FDA in 2027. It is not approved anywhere yet."
+        },
+        {
+          "label": "The glucagon part",
+          "text": "In animals, glucagon action raised energy use. In people, studies show large drops in liver fat, but whether energy use rises in humans is still being studied."
         }
       ],
       "sources": [
         {
-          "title": "Rosenstock et al., Triple–Hormone-Receptor Agonist Retatrutide (NEJM 2023; 389:514-526)",
+          "title": "Jastreboff et al., Triple-Hormone-Receptor Agonist Retatrutide for Obesity: A Phase 2 Trial (NEJM 2023)",
           "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2301972"
+        },
+        {
+          "title": "Eli Lilly: retatrutide Phase 3 TRIUMPH-2 and TRIUMPH-3 results (July 2026)",
+          "url": "https://investor.lilly.com/news-releases/news-release-details/lillys-triple-agonist-retatrutide-successful-two-additional"
+        },
+        {
+          "title": "Coskun et al., LY3437943, a novel triple agonist (Cell Metabolism 2022, preclinical)",
+          "url": "https://www.sciencedirect.com/science/article/pii/S1550413122003126"
         }
       ]
     },
     {
       "id": "guide-ghkcu",
+      "slug": "ghk-cu",
       "name": "GHK-Cu",
-      "aka": "Copper Peptide, Prezatide Copper",
-      "status": "Approved",
-      "badge": "Approved (Cosmetic)",
-      "dopingStatus": "Permitted. Naturally occurring human plasma tripeptide.",
-      "nepalRegulatoryStatus": "Cosmetic & laboratory research compound.",
+      "aka": "Copper peptide, copper tripeptide-1, prezatide copper",
+      "status": "Not approved",
+      "badge": "Cosmetic ingredient, not a medicine",
+      "dopingStatus": "Not named on the WADA list, and USADA lists GHK in cosmetics as not prohibited. Injected GHK-Cu is not approved anywhere, so it may fall under WADA's S0 rule. Athletes should check with their anti-doping agency.",
+      "nepalRegulatoryStatus": "Used as a cosmetic ingredient. Not approved as a medicine anywhere, so injectable forms are not expected to be registered with Nepal's Department of Drug Administration.",
       "facts": [
         {
-          "label": "Endogenous Role",
-          "text": "Discovered by Dr. Loren Pickart in 1973; naturally declines with age from 200 ng/ml at age 20 to 80 ng/ml at age 60."
+          "label": "What it is",
+          "text": "A tiny peptide of three amino acids bound to copper, found naturally in blood. First described by Dr Loren Pickart in 1973."
         },
         {
-          "label": "Gene Expression",
-          "text": "Regulates over 4,000 human genes, upregulating collagen I, III, decorin, and metalloproteinases."
+          "label": "Levels with age",
+          "text": "Pickart's work reports that blood levels fall with age, from about 200 ng/mL at age 20 to about 80 ng/mL at 60."
         },
         {
-          "label": "Skin & Follicle",
-          "text": "Broadly researched for skin remodeling, dermal thickness, and hair follicle enlargement."
+          "label": "Gene claims",
+          "text": "In lab data on human cancer cells, GHK changed the activity of many genes. This was a computer reanalysis by its discoverer, whose company sells GHK products. It does not show the same effects in people."
+        },
+        {
+          "label": "Human evidence",
+          "text": "Mainly lab and animal studies, plus a few small 12-week skin-cream studies in women. Evidence for hair growth in people is weak. FDA notes limited human data for injectable GHK-Cu."
         }
       ],
       "sources": [
         {
-          "title": "Pickart & Margolina, Regenerative and Protective Actions of the GHK-Cu Peptide (PubMed 30166113)",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/30166113/"
+          "title": "Pickart & Margolina, Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data (Int J Mol Sci 2018, PubMed 29986520)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29986520/"
+        },
+        {
+          "title": "Pickart et al., GHK and DNA: resetting the human genome to health (BioMed Res Int 2014, PubMed 25302294; authors affiliated with Skin Biology)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25302294/"
+        },
+        {
+          "title": "FDA: Certain bulk drug substances for use in compounding that may present significant safety risks (GHK-Cu, injectable)",
+          "url": "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        },
+        {
+          "title": "USADA: Peptides and growth hormones in cosmetics",
+          "url": "https://www.usada.org/spirit-of-sport/peptides-growth-hormones-cosmetics/"
         }
       ]
     }
@@ -200,36 +266,36 @@
       "id": "q1",
       "statement": "BPC-157 is an FDA-approved medicine for muscle and joint injuries.",
       "answer": "myth",
-      "explanation": "BPC-157 is not FDA-approved for human medicine. It remains an experimental research peptide. While pre-clinical animal studies are promising, human clinical trial data is limited.",
-      "reference": "FDA 503A Bulks List Guidance & Pre-clinical Review"
+      "explanation": "BPC-157 is not approved by the FDA or any other regulator. Nearly all the evidence comes from rats. A 2026 FDA advisory panel vote about compounding is not an approval, and FDA has not made a final decision.",
+      "reference": "FDA, Certain bulk drug substances that may present significant safety risks (2026); FDA BPC-157 briefing document (July 2026)"
     },
     {
       "id": "q2",
       "statement": "BPC-157 and TB-500 are banned in all WADA-tested sports.",
       "answer": "fact",
-      "explanation": "The World Anti-Doping Agency (WADA) explicitly prohibits BPC-157 under Category S0 (Unapproved Substances) and TB-500 under Category S2. Athletes using them risk multi-year suspensions.",
-      "reference": "WADA 2026 Prohibited List"
+      "explanation": "WADA prohibits BPC-157 under S0 (non-approved substances) and TB-500 under S2 (growth factors), both at all times. A first violation for these substances carries a default ban of up to four years.",
+      "reference": "WADA 2026 Prohibited List; USADA athlete advisories (2018, 2022)"
     },
     {
       "id": "q3",
-      "statement": "Oral BPC-157 capsules are completely destroyed by stomach acid.",
+      "statement": "Oral BPC-157 has been proven to work in people.",
       "answer": "myth",
-      "explanation": "Unlike many fragile proteins, BPC-157 is originally derived from human gastric juice and has notable stability in gastric acid (especially in arginate or enteric formulations), making oral administration viable for GI research.",
-      "reference": "Sikiric et al., Current Pharmaceutical Design, 2011"
+      "explanation": "Lab tests by BPC-157's developers suggest it survives stomach juice, and it worked by mouth in rats. No human study shows that oral BPC-157 is absorbed or works.",
+      "reference": "Sikiric et al., Gut and Liver 2020; FDA BPC-157 briefing document (July 2026)"
     },
     {
       "id": "q4",
-      "statement": "Semaglutide and Tirzepatide work on the exact same single hormone pathway.",
+      "statement": "Semaglutide and tirzepatide work on exactly the same hormone pathway.",
       "answer": "myth",
-      "explanation": "Semaglutide targets only the GLP-1 receptor. Tirzepatide is a 'twincretin' that targets both GLP-1 and GIP receptors, which clinical trials showed produces greater average weight and glycemic improvements.",
-      "reference": "NEJM SURPASS-2 Trial (Frías et al.)"
+      "explanation": "Semaglutide acts on the GLP-1 receptor only. Tirzepatide acts on both GLP-1 and GIP receptors. In the SURPASS-2 trial (type 2 diabetes), tirzepatide lowered blood sugar and weight more than semaglutide 1 mg.",
+      "reference": "Frías et al., SURPASS-2, NEJM 2021; 385:503-515"
     },
     {
       "id": "q5",
-      "statement": "Independent third-party HPLC & Mass Spectrometry testing is essential to confirm peptide purity.",
-      "answer": "fact",
-      "explanation": "Peptides can degrade or carry synthesis byproducts. Only third-party HPLC (verifying purity percentage) and Mass Spec (verifying molecular weight) confirm what is actually inside the vial.",
-      "reference": "Analytical Methods Committee, Royal Society of Chemistry"
+      "statement": "A lab certificate showing high HPLC purity proves a peptide is safe.",
+      "answer": "myth",
+      "explanation": "HPLC and mass spectrometry check purity and identity. They do not show a product is sterile, free of endotoxin, correctly dosed, safe or legal. In a 2024 study, peptides bought online claiming 99% purity failed on several of these.",
+      "reference": "Ashraf et al., J Med Internet Res 2024 (doi:10.2196/65440); FDA guidance on synthetic peptide impurities (2021)"
     }
   ]
 }

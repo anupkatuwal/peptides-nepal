@@ -61,7 +61,8 @@ const paragraphs = (text) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(B
   .map((p) => `<p>${p.split("\n").map(linkify).join("<br>")}</p>`).join("\n");
 
 // ── Data shaping ───────────────────────────────────────────────────────────
-const guideSlug = (g) => slugify(g.name);
+// A guide keeps its published URL even if its name changes.
+const guideSlug = (g) => g.slug || slugify(g.name);
 const hashtagLine = /^\s*(#\S+\s*)+$/;
 const shapePost = (p) => {
   const text = p.caption.split("\n").filter((l) => !hashtagLine.test(l)).join("\n").trim();
@@ -174,6 +175,8 @@ ${body}
 </div></footer>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<!-- Metricool tracker: counts visits for the peptidesnepal brand in Metricool. -->
+<script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"ce3097acabec72e187fee3182ada01d0"})});</script>
 </body>
 </html>
 `;
@@ -214,6 +217,7 @@ for (const g of guides) {
 <h2>Key facts</h2>
 <dl class="facts">${g.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.text)}</dd></div>`).join("")}</dl>
 ${g.dopingStatus ? `<h2>Anti-doping (WADA) status</h2>\n<p>${esc(g.dopingStatus)}</p>` : ""}
+${g.nepalRegulatoryStatus ? `<h2>Status in Nepal</h2>\n<p>${esc(g.nepalRegulatoryStatus)}</p>` : ""}
 <h2>Sources</h2>
 <ul class="sources">${g.sources.map((s) => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></li>`).join("")}</ul>
 <p class="note">This page explains research. It is not a recommendation to use ${esc(g.name)}. Talk to a doctor before using any medicine.</p>

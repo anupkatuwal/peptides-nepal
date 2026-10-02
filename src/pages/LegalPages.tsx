@@ -31,7 +31,7 @@ export const PrivacyPage: React.FC = () => {
 
         <h2 className="text-sm font-bold text-[#0E2A23]">3. Cookies and Local Storage</h2>
         <p>
-          We use local storage on your device solely to maintain your shopping cart, preferred theme, and session login.
+          We use local storage on your device solely to maintain your shopping cart, preferred theme, and session login. To count visits and see which links bring people to the site, we also use Vercel Web Analytics and the Metricool visitor tracker.
         </p>
       </div>
     </div>
