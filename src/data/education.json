@@ -1,0 +1,235 @@
+{
+  "guides": [
+    {
+      "id": "guide-bpc157",
+      "name": "BPC-157",
+      "aka": "Body Protection Compound-157, PL 14736, PL-10, Bepecin",
+      "status": "In trials",
+      "badge": "In trials",
+      "dopingStatus": "Prohibited by WADA under Category S0 (Non-approved substances)",
+      "nepalRegulatoryStatus": "Unregistered pharmaceutical; research & educational chemical only under DDA Nepal guidelines.",
+      "facts": [
+        {
+          "label": "Origin",
+          "text": "Synthesized 15-amino acid sequence derived from human gastric juice protein."
+        },
+        {
+          "label": "Primary Research Target",
+          "text": "Angiogenesis (blood vessel formation via VEGF-A pathways), tendon-to-bone junction repair, and gastrointestinal mucosal healing."
+        },
+        {
+          "label": "Human Clinical Status",
+          "text": "Limited published Phase 1 human trials for inflammatory bowel disease; most preclinical data from rodent models."
+        },
+        {
+          "label": "Athletic Doping",
+          "text": "Strictly prohibited by the World Anti-Doping Agency (WADA) at all times (in and out of competition)."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Sikiric et al., Brain-gut axis and BPC-157 in tissue repair (PubMed 27847966)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27847966/"
+        },
+        {
+          "title": "Chang et al., The promoting effect of pentadecapeptide BPC 157 on tendon healing (PubMed 21030672)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21030672/"
+        },
+        {
+          "title": "WADA Prohibited List Category S0",
+          "url": "https://www.wada-ama.org/en/prohibited-list"
+        }
+      ]
+    },
+    {
+      "id": "guide-tb500",
+      "name": "TB-500 (Thymosin Beta-4)",
+      "aka": "Ac-LKKTETQ, Tβ4 synthetic fragment",
+      "status": "In trials",
+      "badge": "In trials",
+      "dopingStatus": "Prohibited by WADA under Category S2 (Peptide hormones & growth factors)",
+      "nepalRegulatoryStatus": "Unregistered in Nepal. Sourced from partner laboratory for research.",
+      "facts": [
+        {
+          "label": "Mechanism",
+          "text": "Upregulates cellular actin sequestration, accelerating cell migration to wound sites and reducing fibrosis."
+        },
+        {
+          "label": "Synergy with BPC-157",
+          "text": "While BPC-157 promotes localized angiogenesis, TB-500 acts systemically on cellular actin and tissue flexibility."
+        },
+        {
+          "label": "Doping Classification",
+          "text": "Banned in human and equine competitive sports."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Goldstein et al., Thymosin beta 4: a key player in tissue repair (PubMed 16040810)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16040810/"
+        },
+        {
+          "title": "Philp et al., Thymosin beta4 promotes angiogenesis and wound healing (PubMed 14612450)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/14612450/"
+        }
+      ]
+    },
+    {
+      "id": "guide-semaglutide",
+      "name": "Semaglutide",
+      "aka": "Ozempic, Wegovy, Rybelsus",
+      "status": "Approved",
+      "badge": "Approved",
+      "dopingStatus": "Not prohibited by WADA; permitted in sports subject to medical prescription.",
+      "nepalRegulatoryStatus": "Approved by US FDA and European EMA; imported under specialized medical protocols in Nepal.",
+      "facts": [
+        {
+          "label": "Class",
+          "text": "Glucagon-Like Peptide-1 (GLP-1) receptor agonist with a C18 fatty diacid chain."
+        },
+        {
+          "label": "Mechanism",
+          "text": "Stimulates glucose-dependent insulin secretion, inhibits glucagon, delays gastric emptying, and reduces central appetite in the hypothalamus."
+        },
+        {
+          "label": "Clinical Proof",
+          "text": "Extensive randomized Phase 3 STEP clinical trials demonstrating 15% average total body weight loss over 68 weeks."
+        },
+        {
+          "label": "Side Effects",
+          "text": "Nausea, vomiting, diarrhea, constipation, and rare risk of pancreatitis or biliary disease."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Wilding et al., STEP 1 Trial of Once-Weekly Semaglutide (NEJM 2021; 384:989-1002)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2032183"
+        }
+      ]
+    },
+    {
+      "id": "guide-tirzepatide",
+      "name": "Tirzepatide",
+      "aka": "Mounjaro, Zepbound, LY3298176",
+      "status": "Approved",
+      "badge": "Approved",
+      "dopingStatus": "Not on WADA prohibited list.",
+      "nepalRegulatoryStatus": "FDA approved; registered research and imported clinical compound.",
+      "facts": [
+        {
+          "label": "Class",
+          "text": "Dual GIP (Glucose-dependent Insulinotropic Polypeptide) and GLP-1 receptor agonist."
+        },
+        {
+          "label": "Efficacy",
+          "text": "SURMOUNT-1 Phase 3 trials demonstrated up to 20.9% mean body weight reduction, outperforming GLP-1 mono-agonists."
+        },
+        {
+          "label": "Metabolic Action",
+          "text": "Improves insulin sensitivity, suppresses glucagon, and optimizes lipid metabolism."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Jastreboff et al., Tirzepatide Once Weekly for the Treatment of Obesity (NEJM 2022; 387:205-216)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2206038"
+        }
+      ]
+    },
+    {
+      "id": "guide-retatrutide",
+      "name": "Retatrutide",
+      "aka": "LY3437943, Triple G Agonist",
+      "status": "In trials",
+      "badge": "In trials",
+      "dopingStatus": "Not specifically listed; monitored under non-approved performance agents.",
+      "nepalRegulatoryStatus": "Experimental research only. Sourced from partner laboratory for verified testing.",
+      "facts": [
+        {
+          "label": "Mechanism",
+          "text": "Triple agonist engaging GLP-1, GIP, and Glucagon receptors simultaneously."
+        },
+        {
+          "label": "Phase 2 Trials",
+          "text": "Published in NEJM 2023 with unprecedented weight reduction reaching up to 24.2% at 48 weeks."
+        },
+        {
+          "label": "Thermogenic Action",
+          "text": "Glucagon receptor activation elevates resting energy expenditure and hepatic fat oxidation."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rosenstock et al., Triple–Hormone-Receptor Agonist Retatrutide (NEJM 2023; 389:514-526)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2301972"
+        }
+      ]
+    },
+    {
+      "id": "guide-ghkcu",
+      "name": "GHK-Cu",
+      "aka": "Copper Peptide, Prezatide Copper",
+      "status": "Approved",
+      "badge": "Approved (Cosmetic)",
+      "dopingStatus": "Permitted. Naturally occurring human plasma tripeptide.",
+      "nepalRegulatoryStatus": "Cosmetic & laboratory research compound.",
+      "facts": [
+        {
+          "label": "Endogenous Role",
+          "text": "Discovered by Dr. Loren Pickart in 1973; naturally declines with age from 200 ng/ml at age 20 to 80 ng/ml at age 60."
+        },
+        {
+          "label": "Gene Expression",
+          "text": "Regulates over 4,000 human genes, upregulating collagen I, III, decorin, and metalloproteinases."
+        },
+        {
+          "label": "Skin & Follicle",
+          "text": "Broadly researched for skin remodeling, dermal thickness, and hair follicle enlargement."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Pickart & Margolina, Regenerative and Protective Actions of the GHK-Cu Peptide (PubMed 30166113)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30166113/"
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "statement": "BPC-157 is an FDA-approved medicine for muscle and joint injuries.",
+      "answer": "myth",
+      "explanation": "BPC-157 is not FDA-approved for human medicine. It remains an experimental research peptide. While pre-clinical animal studies are promising, human clinical trial data is limited.",
+      "reference": "FDA 503A Bulks List Guidance & Pre-clinical Review"
+    },
+    {
+      "id": "q2",
+      "statement": "BPC-157 and TB-500 are banned in all WADA-tested sports.",
+      "answer": "fact",
+      "explanation": "The World Anti-Doping Agency (WADA) explicitly prohibits BPC-157 under Category S0 (Unapproved Substances) and TB-500 under Category S2. Athletes using them risk multi-year suspensions.",
+      "reference": "WADA 2026 Prohibited List"
+    },
+    {
+      "id": "q3",
+      "statement": "Oral BPC-157 capsules are completely destroyed by stomach acid.",
+      "answer": "myth",
+      "explanation": "Unlike many fragile proteins, BPC-157 is originally derived from human gastric juice and has notable stability in gastric acid (especially in arginate or enteric formulations), making oral administration viable for GI research.",
+      "reference": "Sikiric et al., Current Pharmaceutical Design, 2011"
+    },
+    {
+      "id": "q4",
+      "statement": "Semaglutide and Tirzepatide work on the exact same single hormone pathway.",
+      "answer": "myth",
+      "explanation": "Semaglutide targets only the GLP-1 receptor. Tirzepatide is a 'twincretin' that targets both GLP-1 and GIP receptors, which clinical trials showed produces greater average weight and glycemic improvements.",
+      "reference": "NEJM SURPASS-2 Trial (Frías et al.)"
+    },
+    {
+      "id": "q5",
+      "statement": "Independent third-party HPLC & Mass Spectrometry testing is essential to confirm peptide purity.",
+      "answer": "fact",
+      "explanation": "Peptides can degrade or carry synthesis byproducts. Only third-party HPLC (verifying purity percentage) and Mass Spec (verifying molecular weight) confirm what is actually inside the vial.",
+      "reference": "Analytical Methods Committee, Royal Society of Chemistry"
+    }
+  ]
+}

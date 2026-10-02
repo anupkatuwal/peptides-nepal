@@ -25,6 +25,11 @@ export const Footer: React.FC = () => {
             <p className="prose-serif mt-4 text-[#B9C7BF] max-w-[38ch]">
               Peptide science in plain language, with the sources, for people in Nepal.
             </p>
+            <p className="mt-3 text-sm text-[#B9C7BF] flex flex-wrap gap-x-4 gap-y-1">
+              <a href="/guides/" className="hover:text-white hover:underline underline-offset-4">Peptide guides</a>
+              <a href="/posts/" className="hover:text-white hover:underline underline-offset-4">All posts</a>
+              <a href="/myth-or-fact/" className="hover:text-white hover:underline underline-offset-4">Myth or fact</a>
+            </p>
             <a
               href="https://www.instagram.com/peptidesnepal/"
               target="_blank"

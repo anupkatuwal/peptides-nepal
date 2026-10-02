@@ -1,11 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "vite build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/guides", "destination": "/guides/index.html" },
+    { "source": "/guides/", "destination": "/guides/index.html" },
+    { "source": "/guides/:slug", "destination": "/guides/:slug/index.html" },
+    { "source": "/guides/:slug/", "destination": "/guides/:slug/index.html" },
+    { "source": "/posts", "destination": "/posts/index.html" },
+    { "source": "/posts/", "destination": "/posts/index.html" },
+    { "source": "/posts/:slug", "destination": "/posts/:slug/index.html" },
+    { "source": "/posts/:slug/", "destination": "/posts/:slug/index.html" },
+    { "source": "/myth-or-fact", "destination": "/myth-or-fact/index.html" },
+    { "source": "/myth-or-fact/", "destination": "/myth-or-fact/index.html" },
     {
-      "source": "/((?!assets/|fonts/|data/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|robots\\.txt|sitemap\\.xml).*)",
+      "source": "/((?!assets/|fonts/|data/|guides/|posts/|myth-or-fact/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "destination": "/index.html"
     }
   ],

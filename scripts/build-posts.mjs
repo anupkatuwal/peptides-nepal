@@ -1,23 +1,21 @@
 #!/usr/bin/env node
-// Keeps the "Latest from Instagram" section in step with @peptidesnepal.
+// Keeps data/posts.json in step with @peptidesnepal on Instagram.
 //
-//   node scripts/build-posts.mjs                      rebuild index.html from data/posts.json
 //   node scripts/build-posts.mjs metricool.json       merge a saved Metricool getScheduledPosts
-//                                                     response first, then rebuild
+//                                                     response into data/posts.json
 //
 // Only posts Metricool reports as PUBLISHED on Instagram are added. Existing
-// posts are never removed (a post deleted on Instagram must be removed from
-// data/posts.json by hand). Output is deterministic: running it twice with the
-// same data leaves index.html byte-for-byte unchanged.
+// posts are never removed and their captions are never changed (a post deleted
+// on Instagram must be removed from data/posts.json by hand). Posts already
+// known only gain fields they were missing: the first comment (where the
+// sources usually are), the image alt text and a reel's cover image. Output is deterministic.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const POSTS = join(root, "data/posts.json");
-const INDEX = join(root, "index.html");
-const START = /<!-- POSTS:START[^>]*-->/;
-const END = "<!-- POSTS:END -->";
+const PUBLIC_POSTS = join(root, "public/data/posts.json");
 
 const posts = JSON.parse(readFileSync(POSTS, "utf8"));
 const fail = (msg) => { console.error(`build-posts: ${msg}`); process.exit(1); };
@@ -37,6 +35,7 @@ const IMAGE_HOSTS = ["static.metricool.com"];
 // ── 1. Optional merge of a Metricool response ──────────────────────────────
 const input = process.argv[2];
 let added = 0;
+let enriched = 0;
 const skipped = [];
 if (input) {
   let raw;
@@ -47,9 +46,29 @@ if (input) {
   const items = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : null;
   if (!items) fail(`Metricool reply has no "data" list (got: ${JSON.stringify(raw).slice(0, 200)}). Nothing was changed.`);
   const known = new Set(posts.map((p) => p.url));
+  const byUrl = new Map(posts.map((p) => [p.url, p]));
+  // Alt text is kept only when it lines up one-to-one with the images kept.
+  const altsFor = (it, images) => {
+    const media = it.media || [];
+    const alts = it.mediaAltText || [];
+    const out = media.map((m, i) => (httpsOn(m, IMAGE_HOSTS) ? (typeof alts[i] === "string" ? alts[i].trim() : "") : null)).filter((a) => a !== null);
+    return out.length === images.length && out.some(Boolean) ? out : undefined;
+  };
   for (const it of items) {
     const ig = (it.providers || []).find((p) => p.network === "instagram" && p.status === "PUBLISHED" && p.publicUrl);
-    if (!ig || known.has(ig.publicUrl)) continue;
+    if (!ig) continue;
+    if (known.has(ig.publicUrl)) {
+      const p = byUrl.get(ig.publicUrl);
+      let changed = false;
+      if (p && p.firstComment === undefined && typeof it.firstCommentText === "string" && it.firstCommentText.trim()) {
+        p.firstComment = it.firstCommentText.trim(); changed = true;
+      }
+      const alts = p && p.alts === undefined ? altsFor(it, p.images) : undefined;
+      if (alts) { p.alts = alts; changed = true; }
+      if (p && p.poster === undefined && httpsOn(it.videoThumbnailUrl, IMAGE_HOSTS)) { p.poster = it.videoThumbnailUrl; changed = true; }
+      if (changed) enriched++;
+      continue;
+    }
     const d = it.publicationDate || {};
     if (d.timezone && d.timezone !== "Asia/Kathmandu") {
       fail(`Unexpected timezone ${d.timezone} on post ${it.id}; ask getScheduledPosts for Asia/Kathmandu`);
@@ -59,7 +78,13 @@ if (input) {
     if (!httpsOn(ig.publicUrl, POST_HOSTS)) { skipped.push(`${it.id}: link not on instagram.com (${ig.publicUrl})`); continue; }
     const images = (it.media || []).filter((m) => httpsOn(m, IMAGE_HOSTS));
     if (images.length !== (it.media || []).length) skipped.push(`${it.id}: dropped ${(it.media || []).length - images.length} image(s) not on static.metricool.com`);
-    posts.push({ id: String(it.id), url: ig.publicUrl, date, caption: it.text || "", images });
+    const post = { id: String(it.id), url: ig.publicUrl, date, caption: it.text || "", images };
+    if (typeof it.firstCommentText === "string" && it.firstCommentText.trim()) post.firstComment = it.firstCommentText.trim();
+    const alts = altsFor(it, images);
+    if (alts) post.alts = alts;
+    // Cover image of a reel, so the site has a picture to show for a video.
+    if (httpsOn(it.videoThumbnailUrl, IMAGE_HOSTS)) post.poster = it.videoThumbnailUrl;
+    posts.push(post);
     known.add(ig.publicUrl);
     added++;
   }
@@ -67,60 +92,15 @@ if (input) {
 
 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-// ── 2. Render ──────────────────────────────────────────────────────────────
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const fmtDate = (iso) => {
-  const d = new Date(iso);
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kathmandu" });
-};
-// Hashtag-only lines are dropped from what the page shows.
-const clean = (caption) => caption.split("\n").filter((l) => !/^\s*(#\S+\s*)+$/.test(l)).join("\n").trim();
-
-function render(p) {
-  const text = clean(p.caption);
-  const paras = text.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
-  const title = paras[0] ? paras[0].split("\n")[0] : "Instagram post";
-  const restOfFirst = paras[0] ? paras[0].split("\n").slice(1).join(" ") : "";
-  let excerpt = [restOfFirst, ...paras.slice(1)].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
-  if (excerpt.length > 170) excerpt = excerpt.slice(0, 170).replace(/\s+\S*$/, "") + "…";
-  const slides = p.images.length;
-  // Every slide of the carousel, in order. CSS scroll-snap makes the strip
-  // swipeable on its own; app.js adds arrows and the "2 / 7" counter.
-  // Images go through Vercel Image Optimization (vercel.json "images"): it
-  // fetches the Metricool original once, then serves a cached AVIF/WebP at
-  // the width the phone needs. data-orig is the fallback app.js switches to
-  // if the optimizer ever fails (for example over the monthly Hobby limit).
-  const opt = (src, w) => `/_vercel/image?url=${encodeURIComponent(src)}&amp;w=${w}&amp;q=75`;
-  const media = slides
-    ? p.images.map((src, i) => `<a class="slide" href="${esc(p.url)}" rel="noopener" tabindex="-1"><img src="${opt(src, 640)}" srcset="${opt(src, 360)} 360w, ${opt(src, 640)} 640w, ${opt(src, 1080)} 1080w" sizes="(max-width: 760px) calc(100vw - 36px), 360px" data-orig="${esc(src)}" alt="${i === 0 ? `First slide of the post: ${esc(title)}` : `Slide ${i + 1} of ${slides}: ${esc(title)}`}" loading="lazy" decoding="async" width="1080" height="1350" /></a>`).join("")
-    : "";
-  return `        <article class="post">
-          <div class="post-media" role="group" aria-roledescription="carousel" aria-label="${slides} slide${slides === 1 ? "" : "s"}: ${esc(title)}" data-slides="${slides}">
-            <div class="slides" tabindex="0">${media}</div>
-          </div>
-          <div class="post-body">
-            <time class="post-date" datetime="${esc(p.date)}">${fmtDate(p.date)}</time>
-            <h3>${esc(title)}</h3>
-            ${excerpt ? `<p class="post-excerpt">${esc(excerpt)}</p>` : ""}
-            <details><summary>Read full caption</summary><p>${esc(text)}</p></details>
-            <a class="post-link" href="${esc(p.url)}" rel="noopener">View on Instagram →</a>
-          </div>
-        </article>`;
+// ── 2. Write ───────────────────────────────────────────────────────────────
+// The site pages that show posts (/posts/ and the Instagram strip) are built
+// from data/posts.json by scripts/build-learn.mjs during `npm run build`, so a
+// sync only ever changes data/posts.json and its served copy in public/data/.
+const out = JSON.stringify(posts, null, 2) + "\n";
+const prev = readFileSync(POSTS, "utf8");
+if (out !== prev) {
+  writeFileSync(POSTS, out);
 }
-
-const SHOW = 9; // latest posts shown on the page; all are kept in data/posts.json
-const block = posts.length
-  ? `\n        <div class="posts" data-total="${posts.length}">\n${posts.slice(0, SHOW).map(render).join("\n")}\n        </div>\n        `
-  : `\n        <p>New posts will appear here.</p>\n        `;
-
-const html = readFileSync(INDEX, "utf8");
-const m = html.match(START);
-const endAt = html.indexOf(END);
-if (!m || endAt < 0 || endAt < m.index) fail("POSTS markers not found in index.html; nothing was changed.");
-const out = html.slice(0, m.index + m[0].length) + block + html.slice(endAt);
-// Write only after everything above succeeded, so a failure never leaves
-// data/posts.json and index.html out of step.
-writeFileSync(POSTS, JSON.stringify(posts, null, 2) + "\n");
-if (out !== html) writeFileSync(INDEX, out);
+writeFileSync(PUBLIC_POSTS, out);
 for (const s of skipped) console.warn(`build-posts: skipped ${s}`);
-console.log(`posts: ${posts.length} total, ${added} new; index.html ${out !== html ? "updated" : "unchanged"}`);
+console.log(`posts: ${posts.length} total, ${added} new, ${enriched} given sources/alt text; data/posts.json ${out !== prev ? "updated" : "unchanged"}`);
