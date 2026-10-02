@@ -29,6 +29,7 @@ export const Footer: React.FC = () => {
               <a href="/guides/" className="hover:text-white hover:underline underline-offset-4">Peptide guides</a>
               <a href="/posts/" className="hover:text-white hover:underline underline-offset-4">All posts</a>
               <a href="/myth-or-fact/" className="hover:text-white hover:underline underline-offset-4">Myth or fact</a>
+              <a href="/about/" className="hover:text-white hover:underline underline-offset-4">About</a>
             </p>
             <a
               href="https://www.instagram.com/peptidesnepal/"

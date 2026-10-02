@@ -14,8 +14,10 @@
     { "source": "/posts/:slug/", "destination": "/posts/:slug/index.html" },
     { "source": "/myth-or-fact", "destination": "/myth-or-fact/index.html" },
     { "source": "/myth-or-fact/", "destination": "/myth-or-fact/index.html" },
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/about/", "destination": "/about/index.html" },
     {
-      "source": "/((?!assets/|fonts/|data/|guides/|posts/|myth-or-fact/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
+      "source": "/((?!assets/|fonts/|data/|guides/|posts/|myth-or-fact/|about/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "destination": "/index.html"
     }
   ],
