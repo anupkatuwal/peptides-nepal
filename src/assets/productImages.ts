@@ -791,6 +791,8 @@ export function getBrandImage(brand?: string, productName?: string, category?: s
 // Real manufacturer product photos, supplied by the shop (public/assets/products).
 // These win over any older image stored with the product.
 export const PRODUCT_PHOTOS: Record<string, string> = {
+  'prod-gold-bond-ghrp2-kit': '/assets/products/prod-gold-bond-ghrp2-kit.jpg',
+  'prod-gb-ipamorelin-2mg-10vials': '/assets/products/prod-gb-ipamorelin-2mg-10vials.jpg',
   'prod-am-cjc1295-no-dac-2mg-5vials': '/assets/products/prod-am-cjc1295-no-dac-2mg-5vials.jpg',
   'prod-am-cjc1295-with-dac-2mg-5vials': '/assets/products/prod-am-cjc1295-with-dac-2mg-5vials.jpg',
   'prod-am-ghrp6-kit': '/assets/products/prod-am-ghrp6-kit.jpg',
