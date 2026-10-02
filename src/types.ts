@@ -141,6 +141,7 @@ export interface GuideSource {
 
 export interface GuideItem {
   id: string;
+  slug?: string; // fixed URL part for /guides/<slug>/ (never change once published)
   name: string;
   aka: string;
   status: 'Approved' | 'In trials' | 'Not approved';
