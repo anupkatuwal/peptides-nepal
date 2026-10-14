@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStore } from '../context/StoreContext';
 import { CheckCircle2, Package, Truck, ShieldCheck, Printer, ArrowRight, Clock, MessageSquare } from 'lucide-react';
+import { WalletPaymentCard, WALLETS, isWallet } from '../components/WalletPaymentCard';
 
 export const OrderConfirmationPage: React.FC = () => {
   const { lastOrder, navigateTo } = useStore();
@@ -92,6 +93,16 @@ export const OrderConfirmationPage: React.FC = () => {
             </span>
           </div>
         </div>
+
+        {/* Not paid yet with eSewa / Khalti: show the same payment details as checkout */}
+        {lastOrder.paymentStatus === 'pending' && isWallet(lastOrder.paymentMethod) && (
+          <WalletPaymentCard
+            method={lastOrder.paymentMethod}
+            amountNpr={lastOrder.totalNpr}
+            orderNumber={lastOrder.orderNumber}
+            customerName={lastOrder.customerName}
+          />
+        )}
 
         {/* Shipping address info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -203,7 +214,7 @@ export const OrderConfirmationPage: React.FC = () => {
             </span>
             <a
               href={`https://wa.me/9779808318864?text=${encodeURIComponent(
-                `Namaste Peptides Nepal! 🔬\n\nI have just placed Order #${lastOrder.orderNumber} on the website.\n\n*Customer Details:*\n• Name: ${lastOrder.customerName}\n• Phone: ${lastOrder.phone}\n• Address: ${lastOrder.address}, ${lastOrder.city}, ${lastOrder.district}\n\n*Ordered Items:*\n${lastOrder.items.map(i => `• ${i.productName} (Qty: ${i.quantity})`).join('\n')}\n\n*Total Amount:* रू ${lastOrder.totalNpr.toLocaleString()} NPR (₹ ${lastOrder.totalInr} INR)\n*Payment Method:* ${lastOrder.paymentMethod.toUpperCase()}${lastOrder.transactionRef ? ` (Ref: ${lastOrder.transactionRef})` : ''}\n*Tracking Code:* ${lastOrder.trackingNumber}\n\nPlease confirm order receipt and send payment QR / transit dispatch verification.`
+                `Namaste Peptides Nepal! 🔬\n\nI have just placed Order #${lastOrder.orderNumber} on the website.\n\n*Customer Details:*\n• Name: ${lastOrder.customerName}\n• Phone: ${lastOrder.phone}\n• Address: ${lastOrder.address}, ${lastOrder.city}, ${lastOrder.district}\n\n*Ordered Items:*\n${lastOrder.items.map(i => `• ${i.productName} (Qty: ${i.quantity})`).join('\n')}\n\n*Total Amount:* रू ${lastOrder.totalNpr.toLocaleString()} NPR (₹ ${lastOrder.totalInr} INR)\n*Payment Method:* ${lastOrder.paymentMethod.toUpperCase()}${lastOrder.transactionRef ? ` (Ref: ${lastOrder.transactionRef})` : ''}\n*Tracking Code:* ${lastOrder.trackingNumber}\n\n${isWallet(lastOrder.paymentMethod) ? `I am paying to ${WALLETS[lastOrder.paymentMethod].label} ID ${WALLETS[lastOrder.paymentMethod].walletId} with Order #${lastOrder.orderNumber} in the remarks. I will send the payment screenshot here.` : 'Please confirm order receipt and send payment QR / transit dispatch verification.'}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -213,7 +224,7 @@ export const OrderConfirmationPage: React.FC = () => {
               <span>Send Order Details to WhatsApp (+977 9808318864)</span>
             </a>
             <p className="text-[10px] text-emerald-800">
-              Opens WhatsApp with your complete order breakdown pre-filled. We reply immediately to verify your order and dispatch payment QR.
+              Opens WhatsApp with your complete order breakdown pre-filled. We reply to verify your order and confirm your payment.
             </p>
           </div>
 

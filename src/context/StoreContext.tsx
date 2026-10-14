@@ -27,6 +27,7 @@ import {
   ContactMessage 
 } from '../types';
 import { getBrandImage, withProductPhoto } from '../assets/productImages';
+import { makeOrderNumber, isOrderNumber } from '../lib/orderNumber';
 import { 
   INITIAL_PRODUCTS, 
   INITIAL_COAS, 
@@ -75,6 +76,7 @@ interface StoreContextType {
     deliveryNotes?: string;
     paymentMethod: Order['paymentMethod'];
     transactionRef?: string;
+    orderNumber?: string;
   }) => Order;
   updateOrderStatus: (orderId: string, status: OrderStatus) => void;
   updatePaymentStatus: (orderId: string, status: PaymentStatus, txnRef?: string) => void;
@@ -522,9 +524,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     deliveryNotes?: string;
     paymentMethod: Order['paymentMethod'];
     transactionRef?: string;
+    orderNumber?: string;
   }): Order => {
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const orderNumber = `DEL-PN-${Date.now().toString().slice(-4)}${randomSuffix}`;
+    // Checkout passes the number it already showed on the payment card, so the number
+    // the customer writes in the eSewa / Khalti remarks matches the saved order.
+    const orderNumber = orderData.orderNumber && isOrderNumber(orderData.orderNumber)
+      ? orderData.orderNumber
+      : makeOrderNumber();
     const trackingNumber = `DEL-NP-${orderData.city.substring(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const orderItems = cart.map(item => ({

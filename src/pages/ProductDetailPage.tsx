@@ -274,7 +274,7 @@ export const ProductDetailPage: React.FC = () => {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-none mt-0.5" />
-                <span>Fixed price in Indian Currency (₹ INR) · Verifiable batch testing</span>
+                <span>Approximate price in Indian Currency (₹ INR) · Verifiable batch testing</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-none mt-0.5" />
@@ -319,7 +319,7 @@ export const ProductDetailPage: React.FC = () => {
           {/* Pricing in INR with NPR Conversion */}
           <div className="bg-white p-4 rounded-2xl border border-[#CBD5CF] flex items-baseline justify-between">
             <div>
-              <span className="text-xs text-[#4B635A] block font-bold">Fixed Indian Currency (INR)</span>
+              <span className="text-xs text-[#4B635A] block font-bold">Approximate price, Indian Currency (INR)</span>
               <div className="flex items-baseline gap-2 mt-0.5">
                 <span className="text-3xl font-black text-[#0E2A23]">
                   ₹ {priceInr.toLocaleString()}
@@ -332,6 +332,9 @@ export const ProductDetailPage: React.FC = () => {
               </div>
               <span className="text-xs text-gray-500 font-medium block mt-1">
                 Approx. <strong>रू {priceNpr.toLocaleString()} NPR</strong> (at Nepal official peg 1:1.60)
+              </span>
+              <span className="text-[10px] text-gray-500 block mt-1">
+                Prices shown are approximate. Please confirm the current price and any running offers before making payment.
               </span>
             </div>
 

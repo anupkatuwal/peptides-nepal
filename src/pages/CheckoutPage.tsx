@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { NEPAL_DISTRICTS } from '../data/initialData';
 import { PaymentMethod } from '../types';
+import { WalletPaymentCard, WALLETS, isWallet } from '../components/WalletPaymentCard';
+import { makeOrderNumber } from '../lib/orderNumber';
 import { 
   ShieldCheck, 
   ArrowLeft, 
@@ -22,6 +24,7 @@ export const CheckoutPage: React.FC = () => {
     cartDeliveryFee, 
     cartDiscount, 
     cartTotal, 
+    cartTotalNpr,
     placeOrder, 
     navigateTo, 
     currentUser 
@@ -36,6 +39,9 @@ export const CheckoutPage: React.FC = () => {
   const [deliveryNotes, setDeliveryNotes] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('esewa');
   const [transactionRef, setTransactionRef] = useState('');
+  // Made once per checkout visit so the customer can write it in the wallet remarks
+  // before the order is saved. placeOrder saves the order under this same number.
+  const [orderNumber] = useState(makeOrderNumber);
 
   // Modals
 
@@ -62,6 +68,7 @@ export const CheckoutPage: React.FC = () => {
 
     // There is no live eSewa/Khalti integration on this site, so every method works the
     // same way: the order is saved as unpaid and the admin confirms the payment by hand.
+    // eSewa and Khalti go to the owner's personal wallets (see WalletPaymentCard).
     // The site never asks for a wallet MPIN, password or OTP.
     const order = placeOrder({
       customerName,
@@ -72,7 +79,8 @@ export const CheckoutPage: React.FC = () => {
       district,
       deliveryNotes,
       paymentMethod,
-      transactionRef: transactionRef.trim() || undefined
+      transactionRef: transactionRef.trim() || undefined,
+      orderNumber
     });
 
     navigateTo('order-confirmation', { order });
@@ -244,7 +252,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#60BB46] text-white flex items-center justify-center text-[10px] font-black">e</span>
                     <span>eSewa Wallet / QR</span>
                   </div>
-                  <p className="text-[11px] text-[#4B635A] mt-0.5">We send our eSewa QR on WhatsApp after you order</p>
+                  <p className="text-[11px] text-[#4B635A] mt-0.5">Scan our QR or send to eSewa ID {WALLETS.esewa.walletId}</p>
                 </div>
               </label>
 
@@ -269,7 +277,7 @@ export const CheckoutPage: React.FC = () => {
                     <span className="w-4 h-4 rounded-full bg-[#5C2D91] text-white flex items-center justify-center text-[10px] font-black">K</span>
                     <span>Khalti Digital Wallet</span>
                   </div>
-                  <p className="text-[11px] text-[#4B635A] mt-0.5">We send our Khalti QR on WhatsApp after you order</p>
+                  <p className="text-[11px] text-[#4B635A] mt-0.5">Scan our QR or send to Khalti ID {WALLETS.khalti.walletId}</p>
                 </div>
               </label>
 
@@ -314,6 +322,16 @@ export const CheckoutPage: React.FC = () => {
               </label>
             </div>
 
+            {/* eSewa / Khalti: QR, wallet ID, amount and order number (manual personal-wallet payment) */}
+            {isWallet(paymentMethod) && (
+              <WalletPaymentCard
+                method={paymentMethod}
+                amountNpr={cartTotalNpr}
+                orderNumber={orderNumber}
+                customerName={customerName.trim() || undefined}
+              />
+            )}
+
             {/* Ask for QR or Bank Account Info Box */}
             <div className="bg-[#F7F9F8] border border-[#9FB2A8] rounded-2xl p-4 sm:p-5 space-y-3">
               <div className="flex items-start gap-2.5">
@@ -323,7 +341,9 @@ export const CheckoutPage: React.FC = () => {
                     How payment works
                   </h4>
                   <p className="text-[11px] text-[#3F574D] leading-relaxed">
-                    Place your order first. We'll then send you our payment details on WhatsApp or email. Once your payment arrives, we confirm your order and send it. You can also message us now:
+                    {isWallet(paymentMethod)
+                      ? `Pay with the ${WALLETS[paymentMethod].label} details above and place your order, or place your order first and pay from the confirmation page. Either way, write Order Number ${orderNumber} in the remarks. Once your payment arrives, we confirm your order and send it. Questions? Message us:`
+                      : "Place your order first. We'll then send you our payment details on WhatsApp or email. Once your payment arrives, we confirm your order and send it. You can also message us now:"}
                   </p>
                 </div>
               </div>
@@ -331,9 +351,11 @@ export const CheckoutPage: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-2 pt-1">
                 <a
                   href={`https://wa.me/9779808318864?text=${encodeURIComponent(
-                    `Namaste! I am checking out on Peptides Nepal. Total: ₹${cartTotal} INR (~ रू ${Math.round(
-                      cartTotal * 1.6
-                    )} NPR). Please provide your active Payment QR code or Bank Account number.`
+                    isWallet(paymentMethod)
+                      ? `Namaste! I am checking out on Peptides Nepal. Order Number: ${orderNumber}. Total: ₹${cartTotal} INR (रू ${cartTotalNpr} NPR), paying by ${WALLETS[paymentMethod].label}. Please confirm the current price before I pay.`
+                      : `Namaste! I am checking out on Peptides Nepal. Total: ₹${cartTotal} INR (~ रू ${Math.round(
+                          cartTotal * 1.6
+                        )} NPR). Please provide your active Payment QR code or Bank Account number.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -378,7 +400,10 @@ export const CheckoutPage: React.FC = () => {
             <h2 className="text-lg font-bold text-[#0E2A23]">
               Order Summary ({cart.reduce((s, i) => s + i.quantity, 0)} items)
             </h2>
-            <p className="text-xs text-[#4B635A]">Fixed rates in Indian Currency (₹ INR)</p>
+            <p className="text-xs text-[#4B635A]">Approximate prices in Indian Currency (₹ INR)</p>
+            <p className="text-[11px] text-[#4B635A]">
+              Order Number: <strong className="font-mono text-[#0E2A23]">{orderNumber}</strong>
+            </p>
 
             {/* Mandatory Policy Banner */}
             <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 text-xs text-amber-900 space-y-1">
@@ -418,7 +443,7 @@ export const CheckoutPage: React.FC = () => {
           {/* Price Breakdown */}
           <div className="border-t border-[#E4EBE7] pt-4 space-y-2 text-xs text-[#4B635A]">
             <div className="flex justify-between">
-              <span>Subtotal (Fixed INR)</span>
+              <span>Subtotal (INR)</span>
               <span className="font-bold text-[#0E2A23]">₹ {cartSubtotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between items-start">
@@ -446,6 +471,9 @@ export const CheckoutPage: React.FC = () => {
               </div>
               <span className="text-2xl font-black">₹ {cartTotal.toLocaleString()} INR</span>
             </div>
+            <p className="text-[10px] text-gray-500 leading-relaxed">
+              Prices shown are approximate. Please confirm the current price and any running offers before making payment.
+            </p>
           </div>
 
           {/* Place Order CTA Button */}
