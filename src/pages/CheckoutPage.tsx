@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { NEPAL_DISTRICTS } from '../data/initialData';
 import { PaymentMethod } from '../types';
@@ -27,7 +27,8 @@ export const CheckoutPage: React.FC = () => {
     cartTotalNpr,
     placeOrder, 
     navigateTo, 
-    currentUser 
+    currentUser,
+    saveProfile
   } = useStore();
 
   const [customerName, setCustomerName] = useState(currentUser?.name || '');
@@ -42,6 +43,17 @@ export const CheckoutPage: React.FC = () => {
   // Made once per checkout visit so the customer can write it in the wallet remarks
   // before the order is saved. placeOrder saves the order under this same number.
   const [orderNumber] = useState(makeOrderNumber);
+
+  // Sign-in finishes after the page opens: fill in saved details the customer has not typed over.
+  useEffect(() => {
+    if (!currentUser) return;
+    setCustomerName(v => v || currentUser.name);
+    setEmail(v => v || currentUser.email);
+    setPhone(v => (v && v !== '98') ? v : (currentUser.phone || v));
+    setAddress(v => v || currentUser.address || '');
+    if (currentUser.city) setCity(v => (v && v !== 'Kathmandu') ? v : currentUser.city!);
+    if (currentUser.district) setDistrict(v => (v && v !== 'Kathmandu') ? v : currentUser.district!);
+  }, [currentUser?.id, currentUser?.phone, currentUser?.address]);
 
   // Modals
 
@@ -82,6 +94,11 @@ export const CheckoutPage: React.FC = () => {
       transactionRef: transactionRef.trim() || undefined,
       orderNumber
     });
+
+    // Remember the delivery details on the account for next time.
+    if (currentUser && currentUser.role === 'customer') {
+      void saveProfile({ phone, address, city, district });
+    }
 
     navigateTo('order-confirmation', { order });
   };

@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
-import { useStore } from '../context/StoreContext';
-import { User, Package, MapPin, Phone, Mail, Clock, Search, LogOut, ArrowRight, ShieldCheck } from 'lucide-react';
+import { useStore, authErrorMessage } from '../context/StoreContext';
+import { AuthPanel } from '../components/AuthPanel';
+import { Package, MapPin, Phone, Mail, LogOut } from 'lucide-react';
+import { Order } from '../types';
 
 export const AccountPage: React.FC = () => {
-  const { currentUser, orders, logout, navigateTo, switchUserRole } = useStore();
+  const { currentUser, authReady, emailVerified, resendVerification, orders, customerOrders, logout, navigateTo } = useStore();
   const [trackInput, setTrackInput] = useState('');
   const [trackedOrder, setTrackedOrder] = useState<any>(null);
   const [trackError, setTrackError] = useState('');
+  const [verifyNote, setVerifyNote] = useState('');
 
-  // Orders matching current user email or demo orders
-  const userOrders = orders.filter(
-    o => o.email.toLowerCase() === currentUser?.email.toLowerCase() || currentUser?.role === 'admin'
+  // Orders for this account: from Firestore (any device) plus ones placed in this browser.
+  const email = currentUser?.email.toLowerCase() || '';
+  const byId = new Map<string, Order>();
+  [...orders.filter(o => currentUser?.role === 'admin' || (email && o.email.toLowerCase() === email)), ...customerOrders]
+    .forEach(o => byId.set(o.id, o));
+  const userOrders = [...byId.values()].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
+  const allOrders = [...orders, ...customerOrders];
+
+  const handleResend = async () => {
+    try {
+      await resendVerification();
+      setVerifyNote('Sent. Check your inbox and spam folder, then reload this page.');
+    } catch (e) {
+      setVerifyNote(authErrorMessage(e));
+    }
+  };
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
     if (!trackInput.trim()) return;
-    const found = orders.find(
+    const found = allOrders.find(
       o => o.orderNumber.toLowerCase() === trackInput.trim().toLowerCase() ||
            o.trackingNumber.toLowerCase() === trackInput.trim().toLowerCase()
     );
@@ -29,8 +46,28 @@ export const AccountPage: React.FC = () => {
     }
   };
 
+  if (!authReady) {
+    return <div className="max-w-md mx-auto px-4 py-20 text-center text-sm text-[#4B635A]">Loading your account…</div>;
+  }
+
+  if (!currentUser) {
+    return <AuthPanel />;
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+
+      {!emailVerified && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <span>
+            Please confirm your email. We sent a link to <strong>{currentUser.email}</strong>. Your past orders show here once it is confirmed.
+            {verifyNote && <span className="block mt-1 font-medium">{verifyNote}</span>}
+          </span>
+          <button onClick={handleResend} className="shrink-0 px-3.5 py-1.5 rounded-full bg-white border border-amber-300 text-xs font-bold hover:bg-amber-100">
+            Resend link
+          </button>
+        </div>
+      )}
       
       {/* Page Header */}
       <div className="border-b border-[#CBD5CF] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -68,7 +105,7 @@ export const AccountPage: React.FC = () => {
               <div>
                 <h3 className="font-bold text-base text-[#0E2A23]">{currentUser?.name}</h3>
                 <span className="inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-                  {currentUser?.role === 'admin' ? 'Administrator' : 'Verified Customer'}
+                  {currentUser?.role === 'admin' ? 'Administrator' : 'Customer'}
                 </span>
               </div>
             </div>
@@ -80,11 +117,11 @@ export const AccountPage: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#4B635A]" />
-                <span>{currentUser?.phone}</span>
+                <span>{currentUser?.phone || 'Add your phone at checkout'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#4B635A]" />
-                <span>{currentUser?.address || 'Kathmandu, Nepal'}</span>
+                <span>{[currentUser?.address, currentUser?.city].filter(Boolean).join(', ') || 'Add your address at checkout'}</span>
               </div>
             </div>
           </div>

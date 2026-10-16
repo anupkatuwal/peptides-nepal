@@ -1,14 +1,28 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { db, auth, ADMIN_EMAIL } from '../firebase';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { 
-  collection, 
-  doc, 
-  setDoc, 
-  updateDoc, 
-  deleteDoc, 
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  updateProfile as updateAuthProfile,
+  User as FirebaseUser
+} from 'firebase/auth';
+import {
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  getDoc,
   getDocs,
-  onSnapshot 
+  onSnapshot,
+  query,
+  where
 } from 'firebase/firestore';
 
 // Firestore rejects fields set to undefined, which silently dropped orders with no
@@ -33,9 +47,34 @@ import {
   INITIAL_COAS, 
   INITIAL_GUIDES, 
   INITIAL_QUIZ, 
-  INITIAL_ORDERS, 
-  DEMO_USERS 
+  INITIAL_ORDERS
 } from '../data/initialData';
+
+// Delivery details a customer saves with their account (prefills checkout).
+export type CustomerProfile = Pick<User, 'name' | 'phone' | 'address' | 'city' | 'district'>;
+
+const profileKey = (uid: string) => `pn_profile_${uid}`;
+
+// Firebase error codes -> messages a customer can act on.
+export const authErrorMessage = (e: unknown): string => {
+  const code = (e as { code?: string })?.code || '';
+  switch (code) {
+    case 'auth/email-already-in-use': return 'An account with this email already exists. Sign in instead.';
+    case 'auth/invalid-email': return 'That email address is not valid.';
+    case 'auth/weak-password': return 'Use a password with at least 6 characters.';
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found': return 'Wrong email or password.';
+    case 'auth/too-many-requests': return 'Too many attempts. Wait a few minutes and try again.';
+    case 'auth/popup-closed-by-user':
+    case 'auth/cancelled-popup-request': return 'Sign-in window was closed before finishing.';
+    case 'auth/popup-blocked': return 'Your browser blocked the sign-in window. Allow pop-ups and try again.';
+    case 'auth/network-request-failed': return 'No connection. Check your internet and try again.';
+    case 'auth/operation-not-allowed': return 'This sign-in method is not switched on yet. Use Google, or message us on WhatsApp.';
+    case 'auth/unauthorized-domain': return 'Sign-in is not set up for this web address yet. Message us on WhatsApp.';
+    default: return 'Something went wrong. Please try again.';
+  }
+};
 
 interface StoreContextType {
   products: Product[];
@@ -90,9 +129,19 @@ interface StoreContextType {
   quizQuestions: QuizQuestion[];
   
   currentUser: User | null;
-  login: (email: string, role?: 'customer' | 'admin') => boolean;
+  // False until Firebase has said whether someone is signed in.
+  authReady: boolean;
+  // Email/password accounts must confirm their address before they can see past orders.
+  emailVerified: boolean;
+  signUpWithEmail: (data: { name: string; email: string; password: string; phone: string }) => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  resendVerification: () => Promise<void>;
+  saveProfile: (profile: Partial<CustomerProfile>) => Promise<void>;
+  // The signed-in customer's orders from Firestore (any device).
+  customerOrders: Order[];
   logout: () => void;
-  register: (name: string, email: string, phone: string, address?: string) => void;
   switchUserRole: (role: 'customer' | 'admin') => void;
   // True only when the shop owner is signed in with Google (checked again by Firestore rules).
   isAdmin: boolean;
@@ -165,46 +214,94 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [guides] = useState<GuideItem[]>(INITIAL_GUIDES);
   const [quizQuestions] = useState<QuizQuestion[]>(INITIAL_QUIZ);
 
-  // User Auth
-  const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    try {
-      const saved = localStorage.getItem('pn_user');
-      if (saved) {
-        const parsed = JSON.parse(saved) as User;
-        // A role saved in the browser is never trusted: admin comes only from Google sign-in.
-        return { ...parsed, role: 'customer' };
-      }
-    } catch {
-      // fall through
-    }
-    return DEMO_USERS[0];
-  });
+  // User Auth: customers and the admin both sign in with Firebase Auth.
+  // Nobody is signed in until Firebase says so; there is no demo account.
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [customerOrders, setCustomerOrders] = useState<Order[]>([]);
 
   // Shop admin: signed in with Google as ADMIN_EMAIL. Firestore rules enforce the same check.
   const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
+
+  // Saved delivery details: Firestore first (works on every device), this browser as fallback.
+  const loadProfile = async (uid: string): Promise<Partial<CustomerProfile>> => {
+    let local: Partial<CustomerProfile> = {};
     try {
-      return onAuthStateChanged(auth, (fbUser) => {
-        const ok = !!fbUser && fbUser.emailVerified && (fbUser.email || '').toLowerCase() === ADMIN_EMAIL;
+      local = JSON.parse(localStorage.getItem(profileKey(uid)) || '{}');
+    } catch {
+      // ignore
+    }
+    try {
+      const snap = await getDoc(doc(db, 'users', uid));
+      if (snap.exists()) return { ...local, ...(snap.data() as Partial<CustomerProfile>) };
+    } catch (e) {
+      console.warn('Profile load note:', (e as Error).message);
+    }
+    return local;
+  };
+
+  const toUser = (fbUser: FirebaseUser, profile: Partial<CustomerProfile>, admin: boolean): User => ({
+    id: admin ? 'user-admin' : fbUser.uid,
+    name: profile.name || fbUser.displayName || (fbUser.email || '').split('@')[0] || 'Customer',
+    email: fbUser.email || '',
+    phone: profile.phone || '',
+    role: admin ? 'admin' : 'customer',
+    address: profile.address,
+    city: profile.city,
+    district: profile.district
+  });
+
+  useEffect(() => {
+    // Clear what older versions of the site saved (including the old demo account).
+    try { localStorage.removeItem('pn_user'); } catch { /* ignore */ }
+    try {
+      return onAuthStateChanged(auth, async (fbUser) => {
+        if (!fbUser) {
+          setIsAdmin(false);
+          setEmailVerified(false);
+          setCurrentUser(null);
+          setAuthReady(true);
+          return;
+        }
+        const ok = fbUser.emailVerified && (fbUser.email || '').toLowerCase() === ADMIN_EMAIL;
         setIsAdmin(ok);
-        setCurrentUser(prev => {
-          if (ok) {
-            return {
-              id: 'user-admin',
-              name: fbUser!.displayName || 'Store Administrator',
-              email: fbUser!.email || ADMIN_EMAIL,
-              phone: prev?.phone || '',
-              role: 'admin'
-            };
-          }
-          return prev && prev.role === 'admin' ? { ...prev, role: 'customer' } : prev;
-        });
+        setEmailVerified(fbUser.emailVerified);
+        // Show the account straight away, then fill in saved delivery details.
+        setCurrentUser(toUser(fbUser, {}, ok));
+        setAuthReady(true);
+        const profile = await loadProfile(fbUser.uid);
+        if (auth.currentUser?.uid === fbUser.uid) setCurrentUser(toUser(fbUser, profile, ok));
       });
     } catch (e) {
-      console.warn('Could not start admin sign-in listener:', e);
+      console.warn('Could not start sign-in listener:', e);
+      setAuthReady(true);
       return undefined;
     }
   }, []);
+
+  // A signed-in customer with a confirmed email sees their own orders from every device.
+  // Firestore rules only return orders whose email matches the signed-in account.
+  useEffect(() => {
+    if (!currentUser || isAdmin || !emailVerified || !currentUser.email) {
+      setCustomerOrders([]);
+      return;
+    }
+    try {
+      const q = query(collection(db, 'orders'), where('email', '==', currentUser.email));
+      return onSnapshot(q, (snapshot) => {
+        const mine: Order[] = [];
+        snapshot.forEach(d => {
+          const data = d.data() as Order;
+          if (data && data.id) mine.push(data);
+        });
+        setCustomerOrders(mine);
+      }, (err) => console.warn('My orders sync note:', err.message));
+    } catch (e) {
+      console.warn('Could not load my orders:', e);
+      return undefined;
+    }
+  }, [currentUser?.email, isAdmin, emailVerified]);
 
   // Contact Messages
   const [messages, setMessages] = useState<ContactMessage[]>(() => {
@@ -246,14 +343,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     localStorage.setItem('pn_messages', JSON.stringify(messages));
   }, [messages]);
-
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('pn_user', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('pn_user');
-    }
-  }, [currentUser]);
 
   // Live product catalogue for everyone.
   useEffect(() => {
@@ -627,49 +716,66 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     coas.find(c => c.batchNumber.toLowerCase() === batchNumber.trim().toLowerCase());
 
   // Auth
-  // Customer sign-in only. Admin access needs adminSignIn (Google), never this.
-  const login = (email: string, _role?: 'customer' | 'admin') => {
-    const existing = DEMO_USERS.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'customer');
-    if (existing) {
-      setCurrentUser(existing);
-      return true;
+  // Customer accounts. Admin rights come only from the Google account in ADMIN_EMAIL,
+  // checked again by Firestore rules; nothing here can grant them.
+  // These throw on failure; show the message with authErrorMessage().
+  const saveProfile = async (profile: Partial<CustomerProfile>) => {
+    const fbUser = auth.currentUser;
+    if (!fbUser) return;
+    const fields: Partial<CustomerProfile> = {};
+    (['name', 'phone', 'address', 'city', 'district'] as const).forEach(k => {
+      const v = profile[k];
+      if (typeof v === 'string') fields[k] = v.trim().slice(0, k === 'address' ? 300 : 120);
+    });
+    try {
+      const prev = JSON.parse(localStorage.getItem(profileKey(fbUser.uid)) || '{}');
+      localStorage.setItem(profileKey(fbUser.uid), JSON.stringify({ ...prev, ...fields }));
+    } catch {
+      // ignore
     }
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      name: email.split('@')[0],
-      email,
-      phone: '98XXXXXXXX',
-      role: 'customer'
-    };
-    setCurrentUser(newUser);
-    return true;
+    setCurrentUser(prev => prev ? { ...prev, ...fields } : prev);
+    try {
+      await setDoc(doc(db, 'users', fbUser.uid), fields, { merge: true });
+    } catch (e) {
+      console.warn('Profile save note:', (e as Error).message);
+    }
+  };
+
+  const signUpWithEmail = async ({ name, email, password, phone }: { name: string; email: string; password: string; phone: string }) => {
+    const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
+    await updateAuthProfile(cred.user, { displayName: name.trim() }).catch(() => undefined);
+    await sendEmailVerification(cred.user).catch(e => console.warn('Verification email note:', e));
+    await saveProfile({ name, phone });
+  };
+
+  const signInWithEmail = async (email: string, password: string) => {
+    await signInWithEmailAndPassword(auth, email.trim(), password);
+  };
+
+  const signInWithGoogle = async () => {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  };
+
+  const resetPassword = async (email: string) => {
+    await sendPasswordResetEmail(auth, email.trim());
+  };
+
+  const resendVerification = async () => {
+    if (auth.currentUser) await sendEmailVerification(auth.currentUser);
   };
 
   const logout = () => {
-    setCurrentUser(null);
-    if (isAdmin) void adminSignOut();
+    void adminSignOut();
   };
 
-  const register = (name: string, email: string, phone: string, address?: string) => {
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      name,
-      email,
-      phone,
-      role: 'customer',
-      address
-    };
-    setCurrentUser(newUser);
-  };
-
-  // "Switch to Admin" now opens Google sign-in; only the shop owner's account gets in.
+  // "Switch to Admin" opens Google sign-in; only the shop owner's account gets in.
+  // "Sign out of admin" signs out completely.
   const switchUserRole = (role: 'customer' | 'admin') => {
     if (role === 'admin') {
       void adminSignIn().then(ok => { if (ok) navigateTo('admin'); });
       return;
     }
     void adminSignOut();
-    setCurrentUser(prev => prev ? { ...prev, role: 'customer' } : DEMO_USERS[0]);
   };
 
   // Messages
@@ -746,9 +852,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         guides,
         quizQuestions,
         currentUser,
-        login,
+        authReady,
+        emailVerified,
+        signUpWithEmail,
+        signInWithEmail,
+        signInWithGoogle,
+        resetPassword,
+        resendVerification,
+        saveProfile,
+        customerOrders,
         logout,
-        register,
         switchUserRole,
         isAdmin,
         adminSignIn,

@@ -4,7 +4,9 @@ rules_version = '2';
 //
 // Who can do what:
 // - Anyone: read the product catalogue, place an order, send a contact message.
-// - Only the shop admin (signed in with Google as the address below): read orders
+// - A signed-in customer (confirmed email): read and edit their own profile, and read
+//   orders placed with their account's email.
+// - Only the shop admin (signed in with Google as the address below): read all orders
 //   and messages, change order and payment status, edit products.
 // - Nobody: read other people's orders, change prices, or delete anything.
 //
@@ -17,6 +19,12 @@ service cloud.firestore {
       return request.auth != null
         && request.auth.token.email_verified == true
         && request.auth.token.email == 'katuwalanup@gmail.com';
+    }
+
+    function signedInVerified() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email is string;
     }
 
     function shortString(v, max) {
@@ -73,7 +81,8 @@ service cloud.firestore {
         && request.resource.data.paymentMethod in ['esewa', 'khalti', 'cod', 'bank_transfer']
         && request.resource.data.paymentStatus == 'pending'
         && request.resource.data.orderStatus == 'pending';
-      allow read: if isAdmin();
+      allow read: if isAdmin()
+        || (signedInVerified() && resource.data.email == request.auth.token.email);
       allow update: if isAdmin()
         && request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['orderStatus', 'paymentStatus', 'transactionRef', 'trackingNumber']);
@@ -94,6 +103,20 @@ service cloud.firestore {
       allow read: if isAdmin();
       allow update: if isAdmin()
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isRead']);
+      allow delete: if false;
+    }
+
+    // Customer profiles (delivery details that prefill checkout). Each customer can
+    // only read and write their own, keyed by their Firebase Auth uid.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['name', 'phone', 'address', 'city', 'district'])
+        && optionalString(request.resource.data, 'name', 120)
+        && optionalString(request.resource.data, 'phone', 120)
+        && optionalString(request.resource.data, 'address', 300)
+        && optionalString(request.resource.data, 'city', 120)
+        && optionalString(request.resource.data, 'district', 120);
       allow delete: if false;
     }
 
