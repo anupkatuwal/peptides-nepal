@@ -199,12 +199,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [flatDiscountInr, setFlatDiscountInr] = useState<number>(0);
 
   // Orders
+  // Orders placed in this browser. Older versions seeded two demo orders here;
+  // drop them so "Track an order" can never show a fake order.
   const [orders, setOrders] = useState<Order[]>(() => {
     try {
       const saved = localStorage.getItem('pn_orders_v3');
-      return saved ? JSON.parse(saved) : INITIAL_ORDERS;
+      const parsed: Order[] = saved ? JSON.parse(saved) : [];
+      const demoIds = new Set(INITIAL_ORDERS.map(o => o.id));
+      return Array.isArray(parsed) ? parsed.filter(o => !demoIds.has(o.id)) : [];
     } catch {
-      return INITIAL_ORDERS;
+      return [];
     }
   });
 

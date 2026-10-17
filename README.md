@@ -7,9 +7,9 @@ Static site for [@peptidesnepal](https://instagram.com/peptidesnepal). No build 
 - `app.js` — the live parts: guide filter + search, swipeable post slides with arrows and a "2 / 7" counter, "New" tags and "3 days ago" dates, the "New on Instagram" strip in the hero, counting-up numbers, the Myth or fact quiz (4 random cards at a time), fade-in on scroll, the jump buttons, the image fallback and the email link. Everything it touches is already in the HTML, so the page still works with JavaScript off, and motion is skipped for visitors who ask for reduced motion.
 - `data/posts.json` — every Instagram post the site knows about (from Metricool).
 - `data/guide.json` — the guide cards and Myth-or-fact cards as data, for the mobile app. Made from `index.html` by `scripts/build-guide.mjs`; don't edit it by hand.
-- `privacy.html`, `support.html` — privacy policy and support page (the App Store and Google Play need both links).
+- `public/privacy.html`, `public/support.html` — privacy policy and support page (the App Store and Google Play need both links). They live in `public/` so the build copies them; files at the repo root are not served.
 - `scripts/build-posts.mjs` — writes the newest 9 posts (every slide of each) into `index.html` between the `POSTS:START` / `POSTS:END` markers, plus the total post count (`data-total`). The hero strip and the post counter read from that block, so a sync only ever changes the block and `data/posts.json`.
-- `404.html` — shown by Vercel for any missing URL.
+- `public/404.html` — 404 page. Plain pages like this use `public/styles.css`.
 - `robots.txt`, `sitemap.xml`, `og-image.png` (1200×630 share image) — for search engines and link previews.
 - `ac2bc0a7d86395eca9eff18b691bd343.txt` — IndexNow key. It proves to Bing (and other IndexNow engines) that pings for this site come from us. After a change, ping: `https://api.indexnow.org/indexnow?url=https://peptides.anup-katuwal.com.np/&key=ac2bc0a7d86395eca9eff18b691bd343`. Don't delete or rename it.
 - `googlebe5c6877a9634ad2.html` — Google Search Console ownership proof. Google needs `/googlebe5c6877a9634ad2.html` to answer 200 with no redirect, which is why `cleanUrls` is off in `vercel.json` (it redirected every `.html` URL). Don't delete it, or Search Console access is lost.

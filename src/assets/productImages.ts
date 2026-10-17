@@ -8,6 +8,11 @@ import pharmaVials from './images/real/pharma_vials.jpg';
 import labBottles from './images/real/lab_bottles.jpg';
 import suppliesWater from './images/real/supplies_water.jpg';
 
+// Text placed inside the SVGs below must be XML-escaped: a bare "&" or "<" in a
+// product or brand name makes the whole image fail to render.
+const xml = (v: string): string =>
+  v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 // SVG Data URI generator for authentic pharmaceutical packaging
 function createPackshotSvg(opts: {
   brandName: string;
@@ -74,7 +79,7 @@ function createPackshotSvg(opts: {
     <text x="110" y="33" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7" font-weight="900" fill="#1A1A1A" letter-spacing="1">AUTHENTIC</text>
 
     <!-- Brand Header -->
-    <text x="110" y="95" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" letter-spacing="1.5">${opts.brandName.toUpperCase()}</text>
+    <text x="110" y="95" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" letter-spacing="1.5">${xml(opts.brandName.toUpperCase())}</text>
     <text x="110" y="118" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="${opts.accentColor}" letter-spacing="2">PHARMACEUTICAL LABS</text>
 
     <!-- Purity Badge -->
@@ -116,9 +121,9 @@ function createPackshotSvg(opts: {
     <!-- Pharmaceutical Bottle Label -->
     <rect x="18" y="110" width="114" height="110" rx="3" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
     <rect x="18" y="110" width="114" height="12" fill="${opts.accentColor}"/>
-    <text x="75" y="119" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7" font-weight="900" fill="#FFFFFF" letter-spacing="1">${opts.badgeText}</text>
+    <text x="75" y="119" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7" font-weight="900" fill="#FFFFFF" letter-spacing="1">${xml(opts.badgeText)}</text>
     
-    <text x="75" y="140" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#1C2410">${opts.brandName}</text>
+    <text x="75" y="140" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#1C2410">${xml(opts.brandName)}</text>
     <text x="75" y="154" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="${opts.accentColor}">PREMIUM PEPTIDE</text>
     
     <line x1="28" y1="162" x2="122" y2="162" stroke="#E0E0E0" stroke-width="0.8"/>
@@ -283,7 +288,7 @@ export function createBpc157PackshotSvg(brand: string = 'Denik'): string {
     <text x="115" y="35" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="7" font-weight="900" fill="#1A1A1A">AUTHENTIC</text>
 
     <!-- Brand & Compound -->
-    <text x="115" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" letter-spacing="1.5">${brand.toUpperCase()}</text>
+    <text x="115" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" letter-spacing="1.5">${xml(brand.toUpperCase())}</text>
     <text x="115" y="112" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="${accent}" letter-spacing="2">PHARMACEUTICAL RESEARCH</text>
 
     <rect x="25" y="135" width="180" height="52" rx="8" fill="rgba(255,255,255,0.08)" stroke="${accent}" stroke-width="1.2"/>
@@ -319,7 +324,7 @@ export function createBpc157PackshotSvg(brand: string = 'Denik'): string {
     <rect x="18" y="120" width="114" height="16" fill="${accent}"/>
     <text x="75" y="132" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" font-weight="900" fill="#FFFFFF">BPC-157 5mg</text>
     
-    <text x="75" y="156" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" fill="#1C2410">${brand}</text>
+    <text x="75" y="156" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" fill="#1C2410">${xml(brand)}</text>
     <text x="75" y="170" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="#2E7D32">PURITY: ≥99.7%</text>
     <text x="75" y="186" text-anchor="middle" font-family="monospace" font-size="7" font-weight="600" fill="#555555">MFG: DELHI PARTNER</text>
     <text x="75" y="200" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="7" font-weight="600" fill="#777777">STORE 2°C TO 8°C</text>
@@ -374,7 +379,7 @@ export function createSemaglutidePackshotSvg(brand: string = 'Sun Pharma'): stri
     <circle cx="115" cy="32" r="15" fill="#00E676"/>
     <text x="115" y="36" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="7" font-weight="900" fill="#051C14">VERIFIED</text>
 
-    <text x="115" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" letter-spacing="1">${brand.toUpperCase()}</text>
+    <text x="115" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" letter-spacing="1">${xml(brand.toUpperCase())}</text>
     <text x="115" y="110" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#00E676" letter-spacing="2">METABOLIC RESEARCH</text>
 
     <rect x="25" y="132" width="180" height="54" rx="8" fill="rgba(255,255,255,0.08)" stroke="#00E676" stroke-width="1.2"/>
@@ -431,6 +436,8 @@ export function createSemaglutidePackshotSvg(brand: string = 'Sun Pharma'): stri
 
 // Macrophotography Close-Up View of Lyophilized Cake & Flip Cap
 export function createVialCloseUpSvg(compoundName: string = 'Peptide', mg: string = '5mg'): string {
+  const name = xml(compoundName.toUpperCase());
+  mg = xml(mg);
   const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
   <defs>
@@ -489,7 +496,7 @@ export function createVialCloseUpSvg(compoundName: string = 'Peptide', mg: strin
     <rect x="30" y="140" width="240" height="24" fill="#3E481D"/>
     <text x="150" y="157" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" letter-spacing="1">AUTHENTIC PEPTIDE SPECIFICATION</text>
     
-    <text x="150" y="195" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#1C2410">${compoundName.toUpperCase()}</text>
+    <text x="150" y="195" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#1C2410">${name}</text>
     <text x="150" y="215" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="800" fill="#3E481D">${mg} NET WEIGHT</text>
     
     <line x1="50" y1="228" x2="250" y2="228" stroke="#EAEBD9" stroke-width="1.5"/>
@@ -513,6 +520,8 @@ export function createVialCloseUpSvg(compoundName: string = 'Peptide', mg: strin
 
 // HPLC Chromatogram Analytical Report Card
 export function createHplcReportSvg(compoundName: string = 'BPC-157', purity: string = '99.7%'): string {
+  const name = xml(compoundName.toUpperCase());
+  purity = xml(purity);
   const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
   <defs>
@@ -536,7 +545,7 @@ export function createHplcReportSvg(compoundName: string = 'BPC-157', purity: st
     <!-- Meta Details Table -->
     <g transform="translate(30, 80)">
       <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#707E46">COMPOUND:</text>
-      <text x="100" y="20" font-family="-apple-system, sans-serif" font-size="13" font-weight="900" fill="#1C2410">${compoundName.toUpperCase()}</text>
+      <text x="100" y="20" font-family="-apple-system, sans-serif" font-size="13" font-weight="900" fill="#1C2410">${name}</text>
 
       <text x="0" y="45" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#707E46">SAMPLE ID:</text>
       <text x="100" y="45" font-family="monospace" font-size="12" font-weight="800" fill="#1C2410">DEL-LAB-HPLC-${Date.now().toString().slice(-4)}</text>
@@ -577,7 +586,7 @@ export function createHplcReportSvg(compoundName: string = 'BPC-157', purity: st
       
       <text x="95" y="30" font-family="-apple-system, sans-serif" font-size="12" font-weight="900" fill="#1C2410">DELHI PEPTIDES ANALYTICAL TESTING FACILITY</text>
       <text x="95" y="48" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F6B3A">Batch verified with mass spectrometry (MS) and high-pressure liquid chromatography.</text>
-      <text x="95" y="64" font-family="monospace" font-size="9.5" font-weight="700" fill="#2E7D32">STATUS: APPROVED FOR PHARMACEUTICAL & RESEARCH DISTRIBUTION</text>
+      <text x="95" y="64" font-family="monospace" font-size="9.5" font-weight="700" fill="#2E7D32">STATUS: APPROVED FOR PHARMACEUTICAL &amp; RESEARCH DISTRIBUTION</text>
     </g>
   </g>
 </svg>

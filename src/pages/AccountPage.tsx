@@ -141,7 +141,7 @@ export const AccountPage: React.FC = () => {
                 type="text"
                 value={trackInput}
                 onChange={(e) => setTrackInput(e.target.value)}
-                placeholder="e.g. PN-84291 or NP-KTM-7482"
+                placeholder="e.g. DEL-PN-12345678"
                 className="w-full p-2.5 bg-white border border-[#CBD5CF] rounded-xl text-xs font-mono font-bold text-[#0E2A23] focus:outline-none"
               />
               <button
