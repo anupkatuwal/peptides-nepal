@@ -92,12 +92,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="mt-auto pt-5 flex items-end justify-between gap-3">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-xl font-extrabold text-[#0E2A23]">₹{priceInr.toLocaleString()}</span>
+              <span className="text-xl font-extrabold text-[#0E2A23]">रू {priceNpr.toLocaleString()}</span>
               {originalPriceInr && (
-                <span className="text-sm text-[#6F877C] line-through">₹{originalPriceInr.toLocaleString()}</span>
+                <span className="text-sm text-[#6F877C] line-through">रू {Math.round(originalPriceInr * 1.6).toLocaleString()}</span>
               )}
             </div>
-            <span className="text-[13px] text-[#4B635A]">about रू{priceNpr.toLocaleString()}</span>
+            <span className="text-[13px] text-[#4B635A]">₹{priceInr.toLocaleString()} INR</span>
           </div>
           <button
             onClick={handleAddToCart}

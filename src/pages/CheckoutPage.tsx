@@ -369,7 +369,7 @@ export const CheckoutPage: React.FC = () => {
                 <a
                   href={`https://wa.me/9779808318864?text=${encodeURIComponent(
                     isWallet(paymentMethod)
-                      ? `Namaste! I am checking out on Peptides Nepal. Order Number: ${orderNumber}. Total: ₹${cartTotal} INR (रू ${cartTotalNpr} NPR), paying by ${WALLETS[paymentMethod].label}. Please confirm the current price before I pay.`
+                      ? `Namaste! I am checking out on Peptides Nepal. Order Number: ${orderNumber}. Total: रू ${cartTotalNpr} NPR (₹${cartTotal} INR), paying by ${WALLETS[paymentMethod].label}. Please confirm the current price before I pay.`
                       : `Namaste! I am checking out on Peptides Nepal. Total: ₹${cartTotal} INR (~ रू ${Math.round(
                           cartTotal * 1.6
                         )} NPR). Please provide your active Payment QR code or Bank Account number.`
@@ -417,7 +417,7 @@ export const CheckoutPage: React.FC = () => {
             <h2 className="text-lg font-bold text-[#0E2A23]">
               Order Summary ({cart.reduce((s, i) => s + i.quantity, 0)} items)
             </h2>
-            <p className="text-xs text-[#4B635A]">Approximate prices in Indian Currency (₹ INR)</p>
+            <p className="text-xs text-[#4B635A]">Prices in Nepali rupees (रू NPR)</p>
             <p className="text-[11px] text-[#4B635A]">
               Order Number: <strong className="font-mono text-[#0E2A23]">{orderNumber}</strong>
             </p>
@@ -429,7 +429,7 @@ export const CheckoutPage: React.FC = () => {
                 <span>100% Complete Payment Required (No COD)</span>
               </div>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Orders are shipped only after full payment is confirmed. Flat ₹4,500 INR shipping &amp; handling fee covers insured cross-border cold-chain courier directly from our Delhi partner company (min. 10–14 days delivery across Nepal).
+                Orders are shipped only after full payment is confirmed. Flat रू 7,200 (₹4,500 INR) shipping &amp; handling fee covers insured cross-border cold-chain courier directly from our Delhi partner company (min. 10–14 days delivery across Nepal).
               </p>
             </div>
           </div>
@@ -447,10 +447,10 @@ export const CheckoutPage: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <span className="font-bold text-[#0E2A23] whitespace-nowrap block">
-                    ₹ {(item.unitPriceInr * item.quantity).toLocaleString()}
+                    रू {Math.round(item.unitPriceInr * item.quantity * 1.6).toLocaleString()}
                   </span>
                   <span className="text-[10px] text-gray-500">
-                    ~ रू {Math.round(item.unitPriceInr * item.quantity * 1.6).toLocaleString()} NPR
+                    ₹ {(item.unitPriceInr * item.quantity).toLocaleString()} INR
                   </span>
                 </div>
               </div>
@@ -460,8 +460,8 @@ export const CheckoutPage: React.FC = () => {
           {/* Price Breakdown */}
           <div className="border-t border-[#E4EBE7] pt-4 space-y-2 text-xs text-[#4B635A]">
             <div className="flex justify-between">
-              <span>Subtotal (INR)</span>
-              <span className="font-bold text-[#0E2A23]">₹ {cartSubtotal.toLocaleString()}</span>
+              <span>Subtotal</span>
+              <span className="font-bold text-[#0E2A23]">रू {Math.round(cartSubtotal * 1.6).toLocaleString()}</span>
             </div>
             <div className="flex justify-between items-start">
               <div>
@@ -469,24 +469,24 @@ export const CheckoutPage: React.FC = () => {
                 <span className="text-[10px] text-gray-500">Direct Delhi to Nepal Cold-Chain (10–14 Days)</span>
               </div>
               <div className="text-right">
-                <span className="font-bold text-[#0E2A23]">₹ {cartDeliveryFee.toLocaleString()} INR</span>
-                <span className="text-[10px] text-gray-500 block">~ रू {Math.round(cartDeliveryFee * 1.6).toLocaleString()} NPR</span>
+                <span className="font-bold text-[#0E2A23]">रू {Math.round(cartDeliveryFee * 1.6).toLocaleString()}</span>
+                <span className="text-[10px] text-gray-500 block">₹ {cartDeliveryFee.toLocaleString()} INR</span>
               </div>
             </div>
             {cartDiscount > 0 && (
               <div className="flex justify-between text-emerald-700 font-bold">
                 <span>Partner Discount Applied</span>
-                <span>- ₹ {cartDiscount.toLocaleString()}</span>
+                <span>- रू {Math.round(cartDiscount * 1.6).toLocaleString()}</span>
               </div>
             )}
             <div className="border-t border-[#E4EBE7] pt-3 flex justify-between items-baseline text-base font-bold text-[#0E2A23]">
               <div>
                 <span>Payable Total:</span>
                 <span className="text-xs text-gray-500 font-normal block">
-                  ~ रू {Math.round(cartTotal * 1.6).toLocaleString()} NPR (at 1:1.60 peg)
+                  ₹ {cartTotal.toLocaleString()} INR (at 1:1.60 peg)
                 </span>
               </div>
-              <span className="text-2xl font-black">₹ {cartTotal.toLocaleString()} INR</span>
+              <span className="text-2xl font-black">रू {cartTotalNpr.toLocaleString()}</span>
             </div>
             <p className="text-[10px] text-gray-500 leading-relaxed">
               Prices shown are approximate. Please confirm the current price and any running offers before making payment.
@@ -500,7 +500,7 @@ export const CheckoutPage: React.FC = () => {
           >
             <Lock className="w-4 h-4" />
             <span>
-              {`Place Order (₹ ${cartTotal.toLocaleString()} INR)`}
+              {`Place Order (रू ${cartTotalNpr.toLocaleString()})`}
             </span>
           </button>
 

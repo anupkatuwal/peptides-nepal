@@ -131,7 +131,7 @@ export const ShopPage: React.FC = () => {
       <header className="pb-6 border-b border-[#CBD5CF]">
         <h1 className="text-4xl sm:text-5xl font-black text-[#0E2A23] leading-[1.05]">Shop</h1>
         <p className="mt-3 text-[17px] text-[#3F574D] max-w-[62ch]">
-          Every batch has a purity test you can look up. Prices are fixed in Indian rupees, and delivery across Nepal takes 10 to 14 days.
+          Every batch has a purity test you can look up. Prices are in Nepali rupees (fixed from Indian rupee prices at 1:1.60), and delivery across Nepal takes 10 to 14 days.
         </p>
       </header>
 
@@ -247,8 +247,8 @@ export const ShopPage: React.FC = () => {
                   className="px-3 py-2 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-xs font-bold text-[#0E2A23] focus:outline-none"
                 >
                   <option value="popular">Most Popular</option>
-                  <option value="price-asc">Price (INR): Low to High</option>
-                  <option value="price-desc">Price (INR): High to Low</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
                   <option value="purity">HPLC Purity (Highest)</option>
                 </select>
               </div>
@@ -287,13 +287,13 @@ export const ShopPage: React.FC = () => {
                 Delhi Partner Sourced · 100% Upfront Payment Required (Strictly NO COD)
               </span>
               <span className="text-xs text-[#4B635A]">
-                Orders are placed only after complete payment. Shipping &amp; Handling is flat <strong>₹4,500 INR (~ रू 7,200 NPR)</strong> extra per order for temperature-controlled cold-chain transit across Nepal (minimum 10 to 14 days).
+                Orders are placed only after complete payment. Shipping &amp; Handling is flat <strong>रू 7,200 (₹4,500 INR)</strong> extra per order for temperature-controlled cold-chain transit across Nepal (minimum 10 to 14 days).
               </span>
             </div>
           </div>
           <div className="flex items-center gap-2 self-start md:self-center shrink-0">
             <span className="px-3 py-1.5 rounded-xl bg-[#0E2A23] text-white font-bold text-xs tracking-wide">
-              ₹4,500 Flat Shipping
+              रू 7,200 Flat Shipping
             </span>
             <span className="px-3 py-1.5 rounded-xl bg-red-100 text-red-800 font-bold text-xs">
               No COD
@@ -403,7 +403,7 @@ export const ShopPage: React.FC = () => {
         <div className="space-y-1">
           <strong className="block font-bold">Fixed Indian Rupee Pricing:</strong>
           <p className="text-[#4B635A]">
-            All prices are fixed in INR (₹). Active offers and discount codes are posted online here to ensure complete transparency.
+            Prices are shown in Nepali rupees (रू), converted from fixed Indian rupee (₹) prices at the official 1:1.60 rate. Active offers and discount codes are posted online here to ensure complete transparency.
           </p>
         </div>
       </div>

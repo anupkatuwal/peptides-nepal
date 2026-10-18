@@ -274,7 +274,7 @@ export const ProductDetailPage: React.FC = () => {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-none mt-0.5" />
-                <span>Approximate price in Indian Currency (₹ INR) · Verifiable batch testing</span>
+                <span>Prices in Nepali rupees (रू NPR) · Verifiable batch testing</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-none mt-0.5" />
@@ -316,22 +316,22 @@ export const ProductDetailPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Pricing in INR with NPR Conversion */}
+          {/* Pricing in NPR, with the INR price it is fixed from */}
           <div className="bg-white p-4 rounded-2xl border border-[#CBD5CF] flex items-baseline justify-between">
             <div>
-              <span className="text-xs text-[#4B635A] block font-bold">Approximate price, Indian Currency (INR)</span>
+              <span className="text-xs text-[#4B635A] block font-bold">Price in Nepali rupees (NPR)</span>
               <div className="flex items-baseline gap-2 mt-0.5">
                 <span className="text-3xl font-black text-[#0E2A23]">
-                  ₹ {priceInr.toLocaleString()}
+                  रू {priceNpr.toLocaleString()}
                 </span>
                 {originalPriceInr && (
                   <span className="text-sm text-gray-400 line-through">
-                    ₹ {originalPriceInr.toLocaleString()}
+                    रू {Math.round(originalPriceInr * 1.6).toLocaleString()}
                   </span>
                 )}
               </div>
               <span className="text-xs text-gray-500 font-medium block mt-1">
-                Approx. <strong>रू {priceNpr.toLocaleString()} NPR</strong> (at Nepal official peg 1:1.60)
+                Fixed in Indian rupees: <strong>₹ {priceInr.toLocaleString()} INR</strong> (Nepal official peg 1:1.60)
               </span>
               <span className="text-[10px] text-gray-500 block mt-1">
                 Prices shown are approximate. Please confirm the current price and any running offers before making payment.
@@ -368,7 +368,7 @@ export const ProductDetailPage: React.FC = () => {
                       {opt.label}
                     </span>
                     <span className="text-xs font-semibold text-[#4B635A] mt-0.5 block">
-                      ₹ {opt.priceInr.toLocaleString()}
+                      रू {Math.round(opt.priceInr * 1.6).toLocaleString()}
                     </span>
                   </button>
                 ))}
@@ -413,7 +413,7 @@ export const ProductDetailPage: React.FC = () => {
                 ) : (
                   <>
                     <ShoppingBag className="w-4 h-4" />
-                    <span>Add to Cart (₹ {(priceInr * quantity).toLocaleString()})</span>
+                    <span>Add to Cart (रू {(priceNpr * quantity).toLocaleString()})</span>
                   </>
                 )}
               </button>
@@ -423,7 +423,7 @@ export const ProductDetailPage: React.FC = () => {
               onClick={handleBuyNow}
               className="w-full py-3.5 rounded-xl bg-[#E3A81B] hover:bg-[#E3A81B] text-[#0A1F19] font-black text-sm shadow-sm transition-colors text-center"
             >
-              Express Checkout (₹ {(priceInr * quantity).toLocaleString()}) →
+              Express Checkout (रू {(priceNpr * quantity).toLocaleString()}) →
             </button>
           </div>
 

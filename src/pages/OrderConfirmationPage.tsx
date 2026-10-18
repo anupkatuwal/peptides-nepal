@@ -165,10 +165,10 @@ export const OrderConfirmationPage: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <span className="font-bold text-gray-800 block">
-                    ₹ {item.totalInr ? item.totalInr.toLocaleString() : Math.round((item.totalNpr || 0) / 1.6).toLocaleString()} INR
+                    रू {(item.totalNpr || Math.round((item.totalInr || 0) * 1.6)).toLocaleString()}
                   </span>
                   <span className="text-[10px] text-gray-500">
-                    ~ रू {item.totalNpr ? item.totalNpr.toLocaleString() : ''} NPR
+                    ₹ {item.totalInr ? item.totalInr.toLocaleString() : Math.round((item.totalNpr || 0) / 1.6).toLocaleString()} INR
                   </span>
                 </div>
               </div>
@@ -179,27 +179,27 @@ export const OrderConfirmationPage: React.FC = () => {
           <div className="bg-[#F7F9F8] p-4 rounded-2xl border border-[#CBD5CF] space-y-1.5 text-xs text-[#4B635A]">
             <div className="flex justify-between">
               <span>Subtotal:</span>
-              <span>₹ {(lastOrder.subtotalInr || Math.round(lastOrder.subtotalNpr / 1.6)).toLocaleString()} INR</span>
+              <span>रू {(lastOrder.subtotalNpr || Math.round((lastOrder.subtotalInr || 0) * 1.6)).toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping &amp; Handling (Delhi Cold-Chain):</span>
-              <span>₹ {(lastOrder.deliveryFeeInr ?? 4500).toLocaleString()} INR</span>
+              <span>रू {(lastOrder.deliveryFeeNpr ?? Math.round((lastOrder.deliveryFeeInr ?? 4500) * 1.6)).toLocaleString()}</span>
             </div>
             {(lastOrder.discountInr ?? 0) > 0 && (
               <div className="flex justify-between text-emerald-700 font-bold">
                 <span>Discount Applied:</span>
-                <span>- ₹ {lastOrder.discountInr.toLocaleString()}</span>
+                <span>- रू {(lastOrder.discountNpr ?? Math.round(lastOrder.discountInr * 1.6)).toLocaleString()}</span>
               </div>
             )}
             <div className="border-t border-[#CBD5CF] pt-2 flex justify-between font-bold text-sm text-[#0E2A23]">
               <div>
                 <span>Total Amount:</span>
                 <span className="text-xs text-gray-500 font-normal block">
-                  ~ रू {lastOrder.totalNpr.toLocaleString()} NPR
+                  ₹ {(lastOrder.totalInr || Math.round(lastOrder.totalNpr / 1.6)).toLocaleString()} INR
                 </span>
               </div>
               <span className="text-lg font-black">
-                ₹ {(lastOrder.totalInr || Math.round(lastOrder.totalNpr / 1.6)).toLocaleString()} INR
+                रू {lastOrder.totalNpr.toLocaleString()}
               </span>
             </div>
           </div>

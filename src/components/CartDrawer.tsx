@@ -70,7 +70,7 @@ export const CartDrawer: React.FC = () => {
           <div className="p-5 border-b border-[#CBD5CF] bg-white flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#0E2A23]" />
-              <h2 className="text-lg font-bold text-[#0E2A23]">Your Cart (₹ INR)</h2>
+              <h2 className="text-lg font-bold text-[#0E2A23]">Your Cart</h2>
               <span className="bg-[#E4EBE7] text-[#0E2A23] text-xs font-bold px-2 py-0.5 rounded-full">
                 {cart.reduce((sum, i) => sum + i.quantity, 0)}
               </span>
@@ -87,7 +87,7 @@ export const CartDrawer: React.FC = () => {
           <div className="bg-[#F7F9F8] px-5 py-3 border-b border-[#CBD5CF]">
             <div className="flex items-center gap-2 text-xs font-bold text-[#0E2A23] mb-1">
               <Truck className="w-4 h-4 text-[#C2362B] shrink-0" />
-              <span>Direct Delhi to Nepal Courier: Flat ₹4,500 Shipping</span>
+              <span>Direct Delhi to Nepal Courier: Flat रू 7,200 Shipping</span>
             </div>
             <p className="text-[11px] text-[#4B635A] leading-relaxed">
               Dispatched with insured temperature control (10–14 days transit). <strong>Orders placed strictly after 100% upfront payment · No Cash on Delivery (COD).</strong>
@@ -148,10 +148,10 @@ export const CartDrawer: React.FC = () => {
                     <div className="flex items-center justify-between mt-3">
                       <div>
                         <span className="text-sm font-bold text-[#0E2A23] block">
-                          ₹ {(item.unitPriceInr * item.quantity).toLocaleString()}
+                          रू {Math.round(item.unitPriceInr * item.quantity * 1.6).toLocaleString()}
                         </span>
                         <span className="text-[10px] text-gray-500">
-                          ~ रू {Math.round(item.unitPriceInr * item.quantity * 1.6).toLocaleString()} NPR
+                          ₹ {(item.unitPriceInr * item.quantity).toLocaleString()} INR
                         </span>
                       </div>
 
@@ -227,8 +227,8 @@ export const CartDrawer: React.FC = () => {
               {/* Price Breakdown */}
               <div className="space-y-1.5 text-xs text-[#4B635A] pt-1">
                 <div className="flex justify-between">
-                  <span>Subtotal (Fixed INR)</span>
-                  <span className="text-[#0E2A23] font-bold">₹ {cartSubtotal.toLocaleString()}</span>
+                  <span>Subtotal</span>
+                  <span className="text-[#0E2A23] font-bold">रू {Math.round(cartSubtotal * 1.6).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
@@ -236,24 +236,24 @@ export const CartDrawer: React.FC = () => {
                     <span className="text-[10px] text-gray-500">Delhi to Nepal Cold Transit</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[#0E2A23] font-bold block">₹ {cartDeliveryFee.toLocaleString()} INR</span>
-                    <span className="text-[10px] text-gray-500 block">~ रू {Math.round(cartDeliveryFee * 1.6).toLocaleString()} NPR</span>
+                    <span className="text-[#0E2A23] font-bold block">रू {Math.round(cartDeliveryFee * 1.6).toLocaleString()}</span>
+                    <span className="text-[10px] text-gray-500 block">₹ {cartDeliveryFee.toLocaleString()} INR</span>
                   </div>
                 </div>
                 {cartDiscount > 0 && (
                   <div className="flex justify-between text-emerald-700 font-medium">
                     <span>Discount</span>
-                    <span>- ₹ {cartDiscount.toLocaleString()}</span>
+                    <span>- रू {Math.round(cartDiscount * 1.6).toLocaleString()}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-base font-bold text-[#0E2A23] pt-2 border-t border-[#E4EBE7]">
                   <div>
-                    <span>Total (INR)</span>
+                    <span>Total</span>
                     <span className="text-[10px] text-gray-500 font-normal block">
-                      ~ रू {Math.round(cartTotal * 1.6).toLocaleString()} NPR
+                      ₹ {cartTotal.toLocaleString()} INR
                     </span>
                   </div>
-                  <span className="text-xl font-black">₹ {cartTotal.toLocaleString()}</span>
+                  <span className="text-xl font-black">रू {Math.round(cartTotal * 1.6).toLocaleString()}</span>
                 </div>
               </div>
 
@@ -262,7 +262,7 @@ export const CartDrawer: React.FC = () => {
                 onClick={handleCheckoutClick}
                 className="w-full py-3.5 rounded-full bg-[#0E2A23] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#12352C] shadow-md transition-all active:scale-[0.98]"
               >
-                <span>Proceed to Checkout (₹ {cartTotal.toLocaleString()})</span>
+                <span>Proceed to Checkout (रू {Math.round(cartTotal * 1.6).toLocaleString()})</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
