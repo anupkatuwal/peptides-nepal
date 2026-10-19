@@ -685,10 +685,7 @@ export function getProductGallery(product: {
     ? product.image
     : getBrandImage(product.brand, product.name, product.category);
 
-  // Angle 2: Close-up macro view - Real photography of sterile vial & septum
-  const macroView = isSupplies 
-    ? BRAND_IMAGES.supplies 
-    : BRAND_IMAGES.vialMacro;
+  // (No generic "macro" stock photo: the gallery shows only this product's own photo.)
 
   // Angle 3: Certified HPLC Report
   const hplcView = createHplcReportSvg(name, purity);
@@ -703,13 +700,6 @@ export function getProductGallery(product: {
       title: 'Full Presentation Packshot',
       caption: `Official ${brand} pharmaceutical packaging carton with sealed borosilicate glass vial.`,
       badge: `${brand} Official`
-    },
-    {
-      id: 'angle-macro',
-      url: macroView,
-      title: 'Lyophilized Vial & Seal Macro',
-      caption: 'Detailed close-up of flip-off aluminum crimp cap, sterile rubber septum, and vacuum-sealed freeze-dried peptide cake.',
-      badge: '10x Macro Detail'
     },
     {
       id: 'angle-hplc',

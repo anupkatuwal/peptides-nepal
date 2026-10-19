@@ -38,7 +38,8 @@ let products;
 try {
   const { INITIAL_PRODUCTS } = await vite.ssrLoadModule("/src/data/initialData.ts");
   const { withProductPhoto } = await vite.ssrLoadModule("/src/assets/productImages.ts");
-  products = INITIAL_PRODUCTS.map(withProductPhoto);
+  const { applyCatalogueFixes } = await vite.ssrLoadModule("/src/data/catalogueFixes.ts");
+  products = applyCatalogueFixes(INITIAL_PRODUCTS).map(withProductPhoto);
 } finally {
   await vite.close();
 }

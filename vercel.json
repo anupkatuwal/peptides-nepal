@@ -24,6 +24,8 @@
     }
   ],
   "redirects": [
+    { "source": "/products/denik-somatropin-hgh-100iu-kit/:rest*", "destination": "/products/denik-pharma-ototropin-100iu/", "permanent": true },
+    { "source": "/products/denik-bpc-157-lyophilized-vial/:rest*", "destination": "/products/denik-bpc/", "permanent": true },
     {
       "source": "/:path*",
       "has": [

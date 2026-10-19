@@ -4,95 +4,6 @@ import education from "./education.json";
 
 export const INITIAL_PRODUCTS: Product[] = [
   // ── DENIK PHARMACEUTICALS (OFFICIAL BRAND PACKAGING & VERIFICATION) ──
-  {
-    id: 'prod-denik-bpc157-vial',
-    slug: 'denik-bpc-157-lyophilized-vial',
-    name: 'Denik BPC-157 Lyophilized Vial',
-    brand: 'Denik',
-    format: 'Lyophilized Vial & Box',
-    scientificName: 'Denik Pharmaceuticals BPC-157 Pentadecapeptide Pure Reagent',
-    category: 'recovery',
-    categoryLabel: 'Recovery & Tissue Healing',
-    priceInr: 6200,
-    originalPriceInr: 7500,
-    priceNpr: 9920,
-    originalPriceNpr: 12000,
-    vialOptions: [
-      { mg: 5, label: '5mg Lyophilized Vial + Denik Box', priceInr: 6200, priceNpr: 9920 },
-      { mg: 10, label: '10mg High-Potency Vial + Denik Box', priceInr: 10500, priceNpr: 16800 }
-    ],
-    defaultVialMg: 5,
-    inStock: true,
-    stockCount: 35,
-    purityPercent: 99.6,
-    batchNumber: 'DEL-DNK-BPC6200',
-    casNumber: '137525-51-0',
-    shortDesc: 'Original Denik Pharmaceuticals BPC-157 in branded sterile packaging with one-time verification security code. Renowned for gut lining recovery, tendon rebuilding, and rapid angiogenic repair.',
-    description: 'Directly sourced from Denik verified manufacturer facilities through our Delhi partner network. Each vial includes the signature Denik pharmaceutical flip-off cap, vacuum-sealed lyophilized cake, and authentic manufacturer box with security scratch-off code.',
-    highlights: [
-      'Official Denik Pharmaceuticals product & branded box',
-      'One-time scratch verification code on every box',
-      '≥99.6% HPLC certified analytical purity',
-      'Direct cold-chain delivery to Nepal within 10–14 days'
-    ],
-    reconstitutionWaterMl: 2.0,
-    storageInstructions: 'Keep dry powder refrigerated (2°C–8°C) or frozen (-20°C). Protect from heat and light.',
-    reconstitutionInstructions: 'Introduce 2.0ml of bacteriostatic water slowly along the vial wall. Swirl gently.',
-    dosageExample: '250 mcg to 500 mcg daily in laboratory recovery protocols.',
-    coaUrl: '/lab-results?batch=DEL-DNK-BPC6200',
-    rating: 5.0,
-    reviewsCount: 48,
-    isPopular: true,
-    isFeatured: true,
-    deliveryTimeline: '10–14 days',
-    sourcePartner: 'Delhi Peptides Partner Company',
-    activeOffer: 'Denik Official Verified',
-    image: BRAND_IMAGES.denik
-  },
-  {
-    id: 'prod-denik-hgh-100iu',
-    slug: 'denik-somatropin-hgh-100iu-kit',
-    name: 'Denik Somatropin HGH (100iu Kit)',
-    brand: 'Denik',
-    format: 'Complete 10-Vial Kit',
-    scientificName: 'Denik Recombinant Human Growth Hormone 191aa Somatropin',
-    category: 'longevity',
-    categoryLabel: 'Longevity & Vitality',
-    priceInr: 22000,
-    originalPriceInr: 26000,
-    priceNpr: 35200,
-    originalPriceNpr: 41600,
-    vialOptions: [
-      { mg: 100, label: '100iu Complete Kit (10x10iu Vials + Denik Box)', priceInr: 22000, priceNpr: 35200 }
-    ],
-    defaultVialMg: 100,
-    inStock: true,
-    stockCount: 16,
-    purityPercent: 99.4,
-    batchNumber: 'DEL-DNK-HGH22000',
-    casNumber: '12629-01-5',
-    shortDesc: 'Complete 100iu recombinant Human Growth Hormone kit by Denik. Includes 10 sterile lyophilized 10iu vials in presentation box with one-time verification scratch code.',
-    description: 'Denik Somatropin is a genuine 191-amino acid sequence recombinant human growth hormone identical to endogenous pituitary somatropin. Dispatched in temperature-controlled cold-chain packaging.',
-    highlights: [
-      'Denik official 100iu boxed kit with holographic seal',
-      'One-time scratch verification code for online authentication',
-      '≥99.4% HPLC purity & low dimer content',
-      'Cold-chain insulated shipping to Nepal (10–14 days)'
-    ],
-    reconstitutionWaterMl: 1.0,
-    storageInstructions: 'Store unmixed powder at 2°C–8°C. Keep cold at all times.',
-    reconstitutionInstructions: 'Mix gently with 1ml bacteriostatic water per vial. Do not shake.',
-    dosageExample: 'Common research assays utilize 2iu to 4iu daily.',
-    coaUrl: '/lab-results?batch=DEL-DNK-HGH22000',
-    rating: 5.0,
-    reviewsCount: 29,
-    isPopular: true,
-    isFeatured: true,
-    deliveryTimeline: '10–14 days',
-    sourcePartner: 'Delhi Peptides Partner Company',
-    activeOffer: 'Denik June Rate',
-    image: BRAND_IMAGES.denik
-  },
 
   // ── BPC-157 RATE LIST JUNE (DIRECT FROM DELHI PEPTIDES PARTNER COMPANY) ──
   {
@@ -1933,7 +1844,7 @@ export const INITIAL_PRODUCTS: Product[] = [
   {
     id: 'prod-potencia-ghrp-kit',
     slug: 'potencia-biotech-ghrp-kit',
-    name: 'Potencia Biotech GHRP Kit',
+    name: 'Potencia Biotech GHRP-2 Kit',
     brand: 'Potencia Biotech',
     format: 'Lyophilized Vials Kit',
     scientificName: 'Potencia Biotech High-Yield GHRP Formulation',
@@ -1951,7 +1862,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockCount: 24,
     purityPercent: 99.3,
     batchNumber: 'DEL-POT-GHRP',
-    shortDesc: 'Potencia Biotech GHRP research kit. Superb value-to-potency ratio for prolonged tissue healing and growth hormone secretagogue investigations.',
+    shortDesc: 'Potencia Biotech GHRP-2 research kit. Superb value-to-potency ratio for prolonged tissue healing and growth hormone secretagogue investigations.',
     description: 'Potencia Biotech GHRP offers an accessible entry point with solid biological activity. Fixed INR price from our Delhi partner network with guaranteed 10–14 days Nepal delivery.',
     highlights: [
       'Potencia Biotech authentic batch seal',
