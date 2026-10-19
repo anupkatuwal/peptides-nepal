@@ -32,6 +32,8 @@ If that fails (for example the Hobby plan's 5,000 transformations a month are us
 - `/myth-or-fact/` from the Myth-or-fact cards in `src/data/education.json`
 - `/sitemap.xml` and `/llms.txt`
 
+Then `scripts/build-products.mjs` writes `/products/<slug>/` for every product in `src/data/initialData.ts`: the app's page with the product's title, description, canonical link, Open Graph tags, Product JSON-LD (price in NPR) and the product details as plain HTML, and adds them to the sitemap and `llms.txt`. In a browser the app opens the same product; clicking a product in the shop moves to its `/products/` URL.
+
 Each page has its own title, description, canonical link, Open Graph tags and JSON-LD (Article / CollectionPage, BreadcrumbList). `vercel.json` routes those paths to the static files; everything else goes to the app. Edit the data files, never the generated pages.
 
 ## Updating the Instagram posts

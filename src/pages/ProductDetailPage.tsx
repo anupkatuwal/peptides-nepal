@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { COAModal } from '../components/COAModal';
 import { BatchCOA } from '../types';
@@ -33,6 +33,13 @@ export const ProductDetailPage: React.FC = () => {
   } = useStore();
 
   const product = products.find(p => p.slug === selectedProductSlug) || products[0];
+
+  // Match the tab title to the product (the static /products/ pages set the same).
+  useEffect(() => {
+    const previous = document.title;
+    document.title = `${product.name} | Peptides Nepal`;
+    return () => { document.title = previous; };
+  }, [product.name]);
   const [selectedVialMg, setSelectedVialMg] = useState<number>(product.defaultVialMg);
   const [quantity, setQuantity] = useState<number>(1);
   const [isAdded, setIsAdded] = useState(false);

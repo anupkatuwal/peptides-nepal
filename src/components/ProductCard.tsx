@@ -61,7 +61,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.brand ? `${product.brand}, ` : ''}{product.categoryLabel.toLowerCase()}
         </p>
         <h3 className="mt-1 font-bold text-lg text-[#0E2A23] leading-snug group-hover:underline underline-offset-4">
-          {product.name}
+          {/* A real link so the product can be opened in a new tab, shared, and crawled.
+              A plain click is left to the card's own handler. */}
+          <a
+            href={`/products/${product.slug}/`}
+            onClick={(e) => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+                e.stopPropagation();
+                return;
+              }
+              e.preventDefault();
+            }}
+          >
+            {product.name}
+          </a>
         </h3>
         <p className="mt-2 text-sm text-[#3F574D] line-clamp-2">{product.shortDesc}</p>
 

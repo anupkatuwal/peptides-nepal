@@ -435,11 +435,21 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  // Handle URL hash navigation for deep linking
+  // Deep links: /products/<slug>/ (the crawlable product pages built by
+  // scripts/build-products.mjs) and #view hashes for everything else.
   useEffect(() => {
-    const handleHash = () => {
+    const handleRoute = (e?: Event) => {
+      const product = window.location.pathname.match(/^\/products\/([^/]+)\/?$/);
+      if (product) {
+        navigateTo('product-detail', { slug: decodeURIComponent(product[1]) });
+        return;
+      }
       const hash = window.location.hash.replace('#', '');
-      if (!hash) return;
+      if (!hash) {
+        // Back button to the plain home URL.
+        if (e?.type === 'popstate') navigateTo('home');
+        return;
+      }
       if (hash.startsWith('product/')) {
         const slug = hash.replace('product/', '');
         navigateTo('product-detail', { slug });
@@ -454,9 +464,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     };
 
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleRoute();
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
+    return () => {
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
+    };
   }, []);
 
   const navigateTo = (view: string, params?: { slug?: string; id?: string; batch?: string; order?: Order }) => {
@@ -467,8 +481,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (params?.order) setLastOrder(params.order);
 
     try {
+      const onRoot = window.location.pathname === '/';
       if (view === 'product-detail' && params?.slug) {
-        window.location.hash = `product/${params.slug}`;
+        // Products get a real URL that search engines can index and people can share.
+        const path = `/products/${params.slug}/`;
+        if (window.location.pathname !== path || window.location.hash) history.pushState(null, '', path);
+      } else if (!onRoot) {
+        // Leaving a product page: go back to the root URL with the view as a hash.
+        history.pushState(null, '', view !== 'home' ? `/#${view}` : '/');
       } else if (view !== 'home') {
         window.location.hash = view;
       } else if (window.location.hash) {
