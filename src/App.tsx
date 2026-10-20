@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { InstagramBanner } from './components/InstagramBanner';
+import { FestiveOfferBanner } from './components/FestiveOfferBanner';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
@@ -61,6 +62,7 @@ export const AppContent: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#F2F5F3] text-[#10241E] selection:bg-[#B9C7BF] selection:text-[#0A1F19]">
       <Navbar />
+      {!['checkout', 'order-confirmation', 'admin'].includes(currentView) && <FestiveOfferBanner />}
       {/* Not on checkout, account or admin screens, where it would distract. */}
       {!['checkout', 'order-confirmation', 'account', 'admin'].includes(currentView) && <InstagramBanner />}
       <main className="flex-1">

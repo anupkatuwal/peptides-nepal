@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { db, auth, ADMIN_EMAIL } from '../firebase';
+import { FESTIVE_OFFER, isFestiveOfferActive } from '../lib/festiveOffer';
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -198,6 +199,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [couponCode, setCouponCode] = useState<string>('');
   const [discountPercent, setDiscountPercent] = useState<number>(0);
   const [flatDiscountInr, setFlatDiscountInr] = useState<number>(0);
+  // When set, the percent discount only applies to cart items in this category.
+  const [discountCategory, setDiscountCategory] = useState<string | null>(null);
 
   // Orders
   // Orders placed in this browser. Older versions seeded two demo orders here;
@@ -582,20 +585,36 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCouponCode('');
     setDiscountPercent(0);
     setFlatDiscountInr(0);
+    setDiscountCategory(null);
   };
 
   const applyCoupon = (code: string) => {
     const cleaned = code.trim().toUpperCase();
+    if (cleaned === FESTIVE_OFFER.code) {
+      if (!isFestiveOfferActive()) {
+        return { success: false, message: 'The Dashain–Tihar offer has ended.' };
+      }
+      if (!cart.some(item => item.product.category === FESTIVE_OFFER.category)) {
+        return { success: false, message: 'DASHAIN10 works on HGH / Somatropin products only. Add one to your cart first.' };
+      }
+      setCouponCode(FESTIVE_OFFER.code);
+      setDiscountPercent(FESTIVE_OFFER.percent);
+      setFlatDiscountInr(0);
+      setDiscountCategory(FESTIVE_OFFER.category);
+      return { success: true, message: '10% Dashain–Tihar discount applied to your HGH / Somatropin items!' };
+    }
     if (cleaned === 'NEPAL10') {
       setCouponCode('NEPAL10');
       setDiscountPercent(10);
       setFlatDiscountInr(0);
+      setDiscountCategory(null);
       return { success: true, message: '10% partner discount applied to your order!' };
     }
     if (cleaned === 'DELHI500' || cleaned === 'FIRSTORDER') {
       setCouponCode(cleaned);
       setDiscountPercent(0);
       setFlatDiscountInr(500);
+      setDiscountCategory(null);
       return { success: true, message: '₹ 500 INR flat partner discount applied!' };
     }
     return { success: false, message: 'Invalid promo code. Try NEPAL10 or DELHI500.' };
@@ -605,6 +624,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCouponCode('');
     setDiscountPercent(0);
     setFlatDiscountInr(0);
+    setDiscountCategory(null);
   };
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -614,7 +634,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Cross-border shipping + handling fee directly from Delhi partner company: Flat ₹ 4,500 INR (~ रू 7,200 NPR)
   const cartDeliveryFeeInr = cartSubtotalInr === 0 ? 0 : 4500;
   
-  const percentDiscountAmountInr = Math.round((cartSubtotalInr * discountPercent) / 100);
+  // A category-limited code (DASHAIN10) only discounts matching items, and stops
+  // counting once the offer window closes, even if it was applied earlier.
+  const discountableSubtotalInr = discountCategory
+    ? (couponCode === FESTIVE_OFFER.code && !isFestiveOfferActive()
+        ? 0
+        : cart
+            .filter(item => item.product.category === discountCategory)
+            .reduce((sum, item) => sum + (item.unitPriceInr * item.quantity), 0))
+    : cartSubtotalInr;
+  const percentDiscountAmountInr = Math.round((discountableSubtotalInr * discountPercent) / 100);
   const cartDiscountInr = percentDiscountAmountInr + flatDiscountInr;
   const cartTotalInr = Math.max(0, cartSubtotalInr + cartDeliveryFeeInr - cartDiscountInr);
 
