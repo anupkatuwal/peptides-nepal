@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Keeps data/posts.json in step with @peptidesnepal on Instagram.
 //
+//   node scripts/build-posts.mjs instagram.json       merge a saved Instagram Graph API /media
+//                                                     reply (see mergeInstagram) into data/posts.json
 //   node scripts/build-posts.mjs metricool.json       merge a saved Metricool getScheduledPosts
 //                                                     response into data/posts.json
 //
@@ -9,7 +11,8 @@
 // on Instagram must be removed from data/posts.json by hand). Posts already
 // known only gain fields they were missing: the first comment (where the
 // sources usually are), the image alt text and a reel's cover image. Output is deterministic.
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, statSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -30,6 +33,7 @@ const httpsOn = (url, hosts) => {
   } catch { return false; }
 };
 const POST_HOSTS = ["instagram.com"];
+const SITE = "https://peptides.anup-katuwal.com.np";
 const IMAGE_HOSTS = ["static.metricool.com"];
 
 // ── 1. Optional merge of a Metricool response ──────────────────────────────
@@ -44,9 +48,14 @@ if (input) {
   // An error or rate-limit reply has no "data" array. Treat that as a failed
   // sync, not as "no new posts", so the daily task reports it.
   const items = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : null;
-  if (!items) fail(`Metricool reply has no "data" list (got: ${JSON.stringify(raw).slice(0, 200)}). Nothing was changed.`);
+  if (!items) fail(`Reply has no "data" list (got: ${JSON.stringify(raw).slice(0, 200)}). Nothing was changed.`);
   const known = new Set(posts.map((p) => p.url));
   const byUrl = new Map(posts.map((p) => [p.url, p]));
+  // An Instagram Graph API /media reply (items carry "permalink") is handled
+  // by mergeInstagram below; anything else is treated as Metricool.
+  if (items.some((it) => it && typeof it.permalink === "string")) {
+    ({ added, enriched } = mergeInstagram(items, known, byUrl, skipped));
+  } else {
   // Alt text is kept only when it lines up one-to-one with the images kept.
   const altsFor = (it, images) => {
     const media = it.media || [];
@@ -88,6 +97,88 @@ if (input) {
     known.add(ig.publicUrl);
     added++;
   }
+  }
+}
+
+// ── Instagram Graph API mode ────────────────────────────────────────────────
+// Input: the JSON body of GET /<ig-user-id>/media with fields
+//   id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,alt_text,
+//   children{media_url,media_type,alt_text},comments{username,text,timestamp}
+// Instagram's own image links expire after a few weeks, so the files of each
+// NEW post are downloaded into public/media/<shortcode>/ and served from this
+// site. Existing posts are never re-downloaded or re-captioned.
+function mergeInstagram(items, known, byUrl, skipped) {
+  let added = 0, enriched = 0;
+  const OWNER = "peptidesnepal";
+  const firstComment = (it) => {
+    const own = (it.comments?.data || []).filter((c) => c.username === OWNER && typeof c.text === "string" && c.text.trim());
+    own.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    return own[0]?.text.trim();
+  };
+  const parts = (it) => (it.media_type === "CAROUSEL_ALBUM" ? it.children?.data || [] : [it]);
+  const ktm = (ts) => {
+    const t = new Date(String(ts).replace(/([+-]\d{2})(\d{2})$/, "$1:$2"));
+    if (Number.isNaN(t.getTime())) return null;
+    return new Date(t.getTime() + 345 * 60000).toISOString().slice(0, 19) + "+05:45";
+  };
+  const download = (src, dest, kind) => {
+    if (!httpsOn(src, ["cdninstagram.com", "fbcdn.net"])) throw new Error(`not an Instagram CDN link: ${String(src).slice(0, 80)}`);
+    mkdirSync(dirname(dest), { recursive: true });
+    const type = execFileSync("curl", ["-sSfL", "--max-time", "120", "--max-filesize", "80000000", "-o", dest, "-w", "%{content_type}", src], { encoding: "utf8" });
+    if (!type.startsWith(kind) || statSync(dest).size < 1000) throw new Error(`unexpected download (${type}, ${statSync(dest).size} bytes)`);
+  };
+  for (const it of items) {
+    const url = it.permalink;
+    if (!httpsOn(url, POST_HOSTS)) { skipped.push(`${it.id}: link not on instagram.com (${url})`); continue; }
+    const kids = parts(it);
+    if (known.has(url)) {
+      const p = byUrl.get(url);
+      let changed = false;
+      const fc = firstComment(it);
+      if (p && p.firstComment === undefined && fc) { p.firstComment = fc; changed = true; }
+      const alts = kids.map((k) => (typeof k.alt_text === "string" ? k.alt_text.trim() : ""));
+      if (p && p.alts === undefined && alts.length === p.images.length && alts.some(Boolean)) { p.alts = alts; changed = true; }
+      if (changed) enriched++;
+      continue;
+    }
+    const date = ktm(it.timestamp);
+    if (!date) { skipped.push(`${it.id}: bad date ${it.timestamp}`); continue; }
+    const code = (url.match(/\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/) || [])[1];
+    if (!code) { skipped.push(`${it.id}: no shortcode in ${url}`); continue; }
+    const dir = join(root, "public/media", code);
+    const site = `${SITE}/media/${code}`;
+    const images = [];
+    const alts = [];
+    let poster;
+    try {
+      kids.forEach((k, i) => {
+        const video = k.media_type === "VIDEO";
+        const name = `${i + 1}.${video ? "mp4" : "jpg"}`;
+        download(k.media_url, join(dir, name), video ? "video/" : "image/");
+        images.push(`${site}/${name}`);
+        alts.push(typeof k.alt_text === "string" ? k.alt_text.trim() : "");
+      });
+      if (it.media_type === "VIDEO" && it.thumbnail_url) {
+        download(it.thumbnail_url, join(dir, "poster.jpg"), "image/");
+        poster = `${site}/poster.jpg`;
+      }
+    } catch (e) {
+      rmSync(dir, { recursive: true, force: true });
+      skipped.push(`${it.id}: could not download media (${e.message.split("\n")[0]})`);
+      continue;
+    }
+    if (!images.length) { skipped.push(`${it.id}: no media`); continue; }
+    const post = { id: String(it.id), url, date, caption: it.caption || "", images };
+    const fc = firstComment(it);
+    if (fc) post.firstComment = fc;
+    if (alts.some(Boolean)) post.alts = alts;
+    if (poster) post.poster = poster;
+    posts.push(post);
+    known.add(url);
+    byUrl.set(url, post);
+    added++;
+  }
+  return { added, enriched };
 }
 
 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
