@@ -23,7 +23,7 @@
     { "source": "/terms", "destination": "/terms/index.html" },
     { "source": "/terms/", "destination": "/terms/index.html" },
     {
-      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|about/|privacy/|terms/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
+      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|about/|privacy/|terms/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|tiktokwzNKFVmpXKYaVea8PxUsOmoVIXUcaa0G\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "destination": "/index.html"
     }
   ],
