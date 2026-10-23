@@ -449,6 +449,11 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return;
       }
       const hash = window.location.hash.replace('#', '');
+      // Privacy and terms are static pages (readable without JavaScript); keep old #links working.
+      if (hash === 'privacy' || hash === 'support') {
+        window.location.replace(hash === 'privacy' ? '/privacy/' : '/terms/');
+        return;
+      }
       if (!hash) {
         // Back button to the plain home URL.
         if (e?.type === 'popstate') navigateTo('home');
@@ -463,7 +468,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       } else if (hash.startsWith('batch/')) {
         const batch = hash.replace('batch/', '');
         navigateTo('lab-results', { batch });
-      } else if (['shop', 'guides', 'lab-results', 'calculator', 'quiz', 'cart', 'checkout', 'account', 'admin', 'contact', 'privacy', 'support'].includes(hash)) {
+      } else if (['shop', 'guides', 'lab-results', 'calculator', 'quiz', 'cart', 'checkout', 'account', 'admin', 'contact'].includes(hash)) {
         navigateTo(hash);
       }
     };

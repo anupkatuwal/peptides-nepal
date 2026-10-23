@@ -18,7 +18,6 @@ import { OrderConfirmationPage } from './pages/OrderConfirmationPage';
 import { AccountPage } from './pages/AccountPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { ContactPage } from './pages/ContactPage';
-import { PrivacyPage, SupportTermsPage } from './pages/LegalPages';
 
 export const AppContent: React.FC = () => {
   const { currentView } = useStore();
@@ -50,10 +49,6 @@ export const AppContent: React.FC = () => {
         return <AdminDashboardPage />;
       case 'contact':
         return <ContactPage />;
-      case 'privacy':
-        return <PrivacyPage />;
-      case 'support':
-        return <SupportTermsPage />;
       default:
         return <HomePage />;
     }
