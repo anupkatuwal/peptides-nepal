@@ -22,8 +22,10 @@
     { "source": "/privacy/", "destination": "/privacy/index.html" },
     { "source": "/terms", "destination": "/terms/index.html" },
     { "source": "/terms/", "destination": "/terms/index.html" },
+    { "source": "/auth/tiktok/callback", "destination": "/auth/tiktok/callback/index.html" },
+    { "source": "/auth/tiktok/callback/", "destination": "/auth/tiktok/callback/index.html" },
     {
-      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|about/|privacy/|terms/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|tiktokwzNKFVmpXKYaVea8PxUsOmoVIXUcaa0G\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
+      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|about/|privacy/|terms/|auth/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|tiktokwzNKFVmpXKYaVea8PxUsOmoVIXUcaa0G\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "destination": "/index.html"
     }
   ],
@@ -72,6 +74,14 @@
           "key": "Strict-Transport-Security",
           "value": "max-age=63072000; includeSubDomains; preload"
         }
+      ]
+    },
+    {
+      "source": "/auth/(.*)",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-store" }
       ]
     },
     {

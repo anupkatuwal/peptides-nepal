@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>TikTok sign-in | Peptides Nepal</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+body{margin:0;background:#F2F5F3;color:#0E2A23;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:40px 18px}
+h1{font-size:28px;margin:0 0 .4em}
+p{color:#3F574D}
+textarea{width:100%;box-sizing:border-box;font:14px/1.4 ui-monospace,Menlo,monospace;padding:12px;border:1px solid #CBD5CF;border-radius:8px;background:#fff;resize:vertical}
+button{margin-top:10px;font:inherit;font-weight:700;padding:10px 18px;border:0;border-radius:8px;background:#0E2A23;color:#fff;cursor:pointer}
+.err{color:#C2362B;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<h1>TikTok sign-in</h1>
+<div id="out"><p>Reading the sign-in result…</p></div>
+</main>
+<!-- Owner-only page for the Peptides Nepal video publisher. No analytics or trackers here:
+     the URL carries a one-time sign-in code that must not be sent anywhere. -->
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var out = document.getElementById("out");
+  if (q.get("error")) {
+    out.innerHTML = '<p class="err"></p><p>Close this tab and start the sign-in again from the publisher script.</p>';
+    out.firstChild.textContent = "TikTok returned an error: " + q.get("error") + (q.get("error_description") ? " (" + q.get("error_description") + ")" : "");
+    return;
+  }
+  if (!q.get("code")) {
+    out.innerHTML = "<p>This page is used by the Peptides Nepal video publisher after signing in with TikTok. There is nothing to do here.</p>";
+    return;
+  }
+  out.innerHTML = '<p>Copy the text below and paste it into the publisher script in your terminal. The code expires in a few minutes and works once.</p><textarea id="t" rows="5" readonly></textarea><br><button id="b" type="button">Copy</button>';
+  var t = document.getElementById("t");
+  t.value = location.href;
+  document.getElementById("b").onclick = function () {
+    t.select();
+    (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.reject()).then(
+      function () { document.getElementById("b").textContent = "Copied"; },
+      function () { document.execCommand("copy"); document.getElementById("b").textContent = "Copied"; }
+    );
+  };
+  // Drop the code from the address bar and history once it is shown.
+  history.replaceState(null, "", location.pathname);
+})();
+</script>
+</body>
+</html>
