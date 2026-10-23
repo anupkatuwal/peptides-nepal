@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
             <ul className="mt-3 space-y-2 text-[15px]">
               <Link to="shop">All products</Link>
               <Link to="account">Your orders</Link>
-              <Link to="support">Delivery and terms</Link>
+              <li><a href="/terms/" className="text-[#B9C7BF] hover:text-white hover:underline underline-offset-4">Delivery and terms</a></li>
             </ul>
           </nav>
 
@@ -79,8 +79,8 @@ export const Footer: React.FC = () => {
         <div className="mt-6 flex flex-col sm:flex-row justify-between gap-3 text-[13px] text-[#6F877C]">
           <p>© {new Date().getFullYear()} Peptides Nepal</p>
           <div className="flex gap-5">
-            <button onClick={() => navigateTo('privacy')} className="hover:text-white hover:underline">Privacy</button>
-            <button onClick={() => navigateTo('support')} className="hover:text-white hover:underline">Support and terms</button>
+            <a href="/privacy/" className="hover:text-white hover:underline">Privacy</a>
+            <a href="/terms/" className="hover:text-white hover:underline">Terms</a>
             <button onClick={() => navigateTo('admin')} className="hover:text-white hover:underline">Admin</button>
           </div>
         </div>

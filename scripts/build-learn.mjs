@@ -171,7 +171,7 @@ ${body}
 </div></main>
 <footer><div class="wrap">
 <p><strong>Education only. Not medical advice.</strong> Talk to a doctor before using any medicine.</p>
-<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About</a></p>
+<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
 </div></footer>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -419,6 +419,154 @@ ${guides.map(guideCard).join("\n")}`;
     }],
   }));
   urls.push([path]);
+}
+
+// ── /privacy/ and /terms/ (static, so platform reviewers and crawlers can read them without JavaScript) ──
+{
+  const UPDATED = "23 October 2026";
+  const CONTACT = `<a href="mailto:katuwalanup@gmail.com">katuwalanup@gmail.com</a> or WhatsApp <a href="https://wa.me/9779808318864" rel="noopener">+977 9808318864</a>`;
+
+  const privacyBody = `<h1>Privacy Policy</h1>
+<p class="lede">Peptides Nepal (operated by Anup Katuwal). Website: ${SITE}. Last updated: ${UPDATED}.</p>
+
+<h2>1. Who we are</h2>
+<p>Peptides Nepal publishes educational content about fitness, bodybuilding, weight management, peptide and compound research, and harm reduction. This website also has a shop. Shop orders are fulfilled by a third-party supplier. This policy explains what personal information we collect through the website and our social media channels, why, and your choices.</p>
+
+<h2>2. Information we collect</h2>
+<p><strong>Information you give us</strong></p>
+<ul>
+<li>Order details: name, delivery address, phone number, email, items ordered, and payment confirmation details (for example a transaction reference).</li>
+<li>Account details if you create an account: email and sign-in details. Accounts are handled by Google Firebase.</li>
+<li>Messages you send us by email or WhatsApp, including your name and contact details.</li>
+</ul>
+<p><strong>Collected automatically</strong></p>
+<ul>
+<li>Device and usage data such as browser type, pages viewed, referring page (for example Instagram), approximate location and time of visit.</li>
+<li>Local storage on your device that keeps your shopping cart, theme and sign-in session.</li>
+<li>Campaign data from links we share on social media (UTM parameters such as source and campaign).</li>
+</ul>
+<p><strong>From social platforms.</strong> When you interact with our posts on Instagram, TikTok or YouTube, those platforms give us aggregated analytics (views, watch time, likes, comments). We do not receive your private account data.</p>
+<p>We do not ask for health conditions or medical history. The products you order may suggest health-related interests. We use that only to fulfil your order and never for advertising. Please do not send us medical information.</p>
+
+<h2>3. Payments</h2>
+<p>Payment is taken in advance by eSewa, Khalti, Fonepay, direct bank transfer, Indian UPI/IMPS, another wallet transfer, or cash in advance. Cash on delivery is not available. Wallet and bank providers process payments under their own policies. We never see or store your MPIN, wallet password, bank credentials or card numbers.</p>
+
+<h2>4. How we use information</h2>
+<ul>
+<li>To take, fulfil, ship and support orders, and to prevent fraud.</li>
+<li>To run and secure the website and answer your messages.</li>
+<li>To understand which content and pages are useful, and improve them.</li>
+<li>To meet legal obligations.</li>
+</ul>
+<p>We do not sell your personal information to advertisers or data brokers.</p>
+
+<h2>5. Who we share it with</h2>
+<ul>
+<li><strong>Fulfilment partners:</strong> orders are dispatched from our supplier Apex Supplements Muscle (Noida, India) and its partner company in Delhi. We share the name, delivery address, phone number, email and items ordered that are needed to deliver your order, and the supplier handles these under its own policies. Couriers and customs authorities also process these details during cross-border shipping.</li>
+<li><strong>Payment providers:</strong> eSewa, Khalti, Fonepay and your bank, for payments you make.</li>
+<li><strong>Hosting and domain:</strong> Vercel hosts the site. Mercantile provides the .com.np domain.</li>
+<li><strong>Accounts and order records:</strong> Google Firebase.</li>
+<li><strong>Analytics:</strong> Vercel Web Analytics and the Metricool visitor tracker.</li>
+<li><strong>Social platforms:</strong> Instagram (Meta), TikTok and YouTube (Google), where you interact with us there.</li>
+</ul>
+<p>We may also disclose information if the law requires it or to protect our rights and safety.</p>
+
+<h2>6. Cookies and local storage</h2>
+<p>We use local storage on your device to keep your cart, theme and sign-in session. To count visits and see which links bring people to the site, we use Vercel Web Analytics and the Metricool tracker. You can block or delete cookies and site data in your browser settings; some parts of the site may stop working if you do.</p>
+
+<h2>7. YouTube API Services</h2>
+<p>Our tools use YouTube API Services to publish our own videos and read performance statistics for our own channel. By using features linked to YouTube you agree to the <a href="https://www.youtube.com/t/terms" rel="noopener">YouTube Terms of Service</a>. Google's handling of data is described in the <a href="http://www.google.com/policies/privacy" rel="noopener">Google Privacy Policy</a>. You can revoke access to your Google data at any time on the <a href="https://security.google.com/settings/security/permissions" rel="noopener">Google security settings page</a>. We only access data from channels we own. We do not collect or store viewers' personal data through the API, and access tokens are stored securely and used only for our own accounts.</p>
+
+<h2>8. Data retention</h2>
+<p>We keep order records as long as needed for fulfilment, refunds, accounting and legal requirements. Server and analytics logs are kept for between 30 and 90 days. After that we delete or anonymise personal information.</p>
+
+<h2>9. Security</h2>
+<p>We use reasonable technical and organisational measures (HTTPS, access controls). No system is perfectly secure, so we cannot guarantee absolute security.</p>
+
+<h2>10. Your rights</h2>
+<p>Depending on where you live (including under Nepal's Privacy Act, 2075 (2018), the EU/UK GDPR, or similar laws), you may have the right to access, correct, delete or restrict use of your personal information, to object to processing, and to withdraw consent. Contact us at ${CONTACT} and we will respond within 30 days.</p>
+
+<h2>11. Children</h2>
+<p>Our content and shop are for adults. We do not knowingly collect information from anyone under 18. If you think a child has given us information, contact us and we will delete it.</p>
+
+<h2>12. International transfers</h2>
+<p>Your information is processed in Nepal, India and by providers in other countries (such as Vercel and Google). Where required, we rely on appropriate safeguards.</p>
+
+<h2>13. Changes</h2>
+<p>We may update this policy. The "Last updated" date shows the latest version.</p>
+
+<h2>14. Contact</h2>
+<p>Peptides Nepal (operated by Anup Katuwal)<br>${CONTACT}</p>
+<p>See also our <a href="/terms/">Terms of Use, Shipping and Returns</a>.</p>`;
+
+  const termsBody = `<h1>Terms of Use, Shipping and Returns</h1>
+<p class="lede">Peptides Nepal (operated by Anup Katuwal). Website: ${SITE}. Last updated: ${UPDATED}.</p>
+<p>By using this website or placing an order you agree to these terms. If you do not agree, do not use the site.</p>
+
+<h2>1. Education, not medical advice</h2>
+<p>The guides, posts and videos are general information and education. They are not medical advice, diagnosis or treatment and do not replace a qualified healthcare professional. Research on many compounds discussed is early, limited or based on animal or lab studies. Do not start, stop or change any treatment without talking to a qualified clinician. We make no claim that any product treats, cures or prevents any condition.</p>
+
+<h2>2. Research use and legality</h2>
+<p>Items listed under research categories are sold for in-vitro laboratory research, chemical characterization and analytical reference. They are not intended for unprescribed human consumption or self-administration. Some products are regulated, prescription-only or restricted in some countries. You are responsible for checking that buying, importing, possessing and using a product is lawful where you live, and for making your own informed decision, including reading the scientific literature, before you buy. We do not encourage anyone to use any substance. We may refuse or cancel any order we believe is unlawful or unsafe.</p>
+
+<h2>3. Who can order</h2>
+<p>You must be at least 18 years old and able to enter a binding contract, and the information you give must be accurate.</p>
+
+<h2>4. Orders and fulfilment</h2>
+<p>Orders are fulfilled and shipped by our supplier Apex Supplements Muscle (Noida, India) and its partner company in Delhi. An order is accepted only when we confirm it to you. We may decline or cancel an order, for example for stock, pricing errors, suspected fraud or legal concerns, and will refund any payment already made for it.</p>
+
+<h2>5. Prices and payment</h2>
+<p>Prices are shown in Nepalese rupees, with other currencies for reference only. Payment is taken in full in advance by eSewa, Khalti, Fonepay, direct bank transfer, Indian UPI/IMPS, another wallet transfer, or cash in advance. Cash on delivery is not available. We do not dispatch until payment is verified. Prices may change without notice, but not for orders we have already confirmed.</p>
+
+<h2>6. Shipping</h2>
+<ul>
+<li><strong>Shipping fee:</strong> a flat fee of ₹4,500 INR per order (roughly NPR 7,200 to 7,500 depending on the exchange rate), covering cross-border customs handling and temperature-controlled logistics.</li>
+<li><strong>Delivery time:</strong> at least 10 days and typically within 14 days of payment verification. This is an estimate, not a guarantee.</li>
+<li><strong>Packaging:</strong> insulated packaging with cold packs where the product needs it.</li>
+<li><strong>Customs:</strong> parcels pass through couriers and customs. Delay, inspection or seizure can happen and is outside our control. Any duties, taxes or fees charged on delivery are your responsibility.</li>
+<li><strong>Address:</strong> give a complete, correct delivery address and phone number. We are not responsible for delay or loss caused by wrong details.</li>
+</ul>
+
+<h2>7. Returns and refunds</h2>
+<p>Products ship sealed from a third party and may be temperature- or health-sensitive, so we do not accept returns of opened or used items. We handle claims in two cases only.</p>
+<p><strong>Damaged or accident-affected items.</strong> Contact us within 10 days of receiving the parcel. You must send an unedited, continuous video of the outer parcel being opened that shows the product already damaged, or showing the accident that occurred, together with your order details. Where the product has a manufacturer scratch-off security code, the video should also show the code being scratched and entered. Claims without that video will not be accepted. If the claim is approved, we will arrange a refund or replacement.</p>
+<p><strong>Authenticity claims.</strong> If you believe a product is not genuine, you must send us, within 3 weeks of receiving the parcel, a Certificate of Analysis (COA) from a reputable independent laboratory for the product you received, showing the batch number and the test results that support your claim. If the COA supports your claim, we will refund your order and send you a replacement product at no charge. Claims without a COA within that period will not be accepted.</p>
+<p>If a parcel is seized by customs or never arrives, contact us and we will work with the supplier to resolve it. Refunds are made to the original payment method or another method we agree with you.</p>
+
+<h2>8. Product information</h2>
+<p>Product descriptions, purity and batch information come from the supplier and may change. They are not guarantees of results. Store products as the supplier directs and keep them away from children.</p>
+
+<h2>9. Responsibility and liability</h2>
+<p>You are responsible for how you purchase, handle, store and use any product. To the extent the law allows, we are not liable for indirect or consequential loss, or for harm from using products or relying on site content. Nothing in these terms limits liability that cannot be limited by law.</p>
+
+<h2>10. Intellectual property</h2>
+<p>The site's text, graphics and design belong to Peptides Nepal or its licensors. Do not copy or reuse them without our written permission.</p>
+
+<h2>11. Third-party links</h2>
+<p>The site may link to other websites we do not control. We are not responsible for their content or practices.</p>
+
+<h2>12. Privacy</h2>
+<p>How we handle your personal information is described in our <a href="/privacy/">Privacy Policy</a>.</p>
+
+<h2>13. Governing law</h2>
+<p>These terms are governed by the laws of Nepal, and disputes are subject to the courts of Nepal, unless the law of your country gives you other rights.</p>
+
+<h2>14. Changes</h2>
+<p>We may update these terms. The "Last updated" date shows the latest version. Continued use after a change means you accept it.</p>
+
+<h2>15. Contact</h2>
+<p>Peptides Nepal (operated by Anup Katuwal)<br>${CONTACT}</p>`;
+
+  for (const [path, title, description, body] of [
+    ["/privacy/", "Privacy Policy | Peptides Nepal", "How Peptides Nepal collects, uses and shares personal information, and your choices.", privacyBody],
+    ["/terms/", "Terms of Use, Shipping and Returns | Peptides Nepal", "Terms of use, payment, shipping, returns and refunds for Peptides Nepal.", termsBody],
+  ]) {
+    write(path, page({
+      path, title, description, active: path, body,
+      schema: [{ "@context": "https://schema.org", "@type": "WebPage", "@id": `${SITE}${path}`, name: title, url: `${SITE}${path}`, inLanguage: "en" }],
+    }));
+    urls.push([path]);
+  }
 }
 
 // ── /sitemap.xml ───────────────────────────────────────────────────────────
