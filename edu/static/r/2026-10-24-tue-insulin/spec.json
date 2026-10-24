@@ -1,0 +1,33 @@
+{
+ "topic": "Therapeutic Use Exemptions (TUEs): how diabetic athletes can use insulin, a prohibited peptide, in tested sport",
+ "style": "Swiss minimal: white, strict grid with black rules, Kit Display/Kit Sans, one yellow accent block",
+ "transition": "slideleft",
+ "music": {
+  "mood": "ambient",
+  "seed": 58213
+ },
+ "css": ".card { background:#FFFFFF; color:#0A0A0A; font-family:'Kit Sans'; } .card::before { content:''; position:absolute; left:80px; right:140px; top:250px; height:8px; background:#0A0A0A; } .idx { position:absolute; left:80px; top:280px; font:700 44px 'Kit Sans'; letter-spacing:2px; } .lab { position:absolute; right:140px; top:280px; font:700 44px 'Kit Sans'; letter-spacing:2px; text-transform:uppercase; } .safe { justify-content:center; padding-top:80px; } h1 { font-family:'Kit Display'; font-size:124px; line-height:.95; letter-spacing:-3px; margin:0; } .y { background:#FFD400; padding:0 14px; box-decoration-break:clone; -webkit-box-decoration-break:clone; } .big { font-family:'Kit Display'; font-size:280px; line-height:.88; letter-spacing:-8px; margin:0; }   .lbl { font:700 74px/1.15 'Kit Sans'; margin:34px 0 0; } .p { font:400 64px/1.25 'Kit Sans'; margin:30px 0 0; } .row { display:grid; grid-template-columns:120px 1fr; gap:24px; border-top:5px solid #0A0A0A; padding:34px 0; align-items:start; } .row b { font-family:'Kit Display'; font-size:110px; line-height:.9; } .row span { font:400 60px/1.2 'Kit Sans'; } .row span strong { font-weight:700; } .block { background:#FFD400; padding:40px 44px; margin-top:20px; } .block .big { font-size:300px; } .end h1 { font-size:116px; } .handle { font:700 60px 'Kit Sans'; margin-top:60px; border-top:5px solid #0A0A0A; padding-top:30px; }",
+ "cards": [
+  {
+   "html": "<span class='idx'>01</span><span class='lab'>Anti-doping</span><div class='safe'><h1>Insulin is banned in sport.</h1><h1 style='margin-top:50px'><span class='y'>Diabetic athletes still compete.</span></h1></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<span class='idx'>02</span><span class='lab'>WADA 2026 List</span><div class='safe'><p class='big step'>S4.4.2</p><p class='lbl step'>Insulins are on the Prohibited List.</p></div>"
+  },
+  {
+   "html": "<span class='idx'>03</span><span class='lab'>The answer</span><div class='safe'><p class='big step'>TUE</p><p class='lbl step'>Therapeutic Use Exemption.</p><p class='p step'>Approval for a real medical need.</p></div>"
+  },
+  {
+   "html": "<span class='idx'>04</span><span class='lab'>4 tests. All must pass.</span><div class='safe'><div class='row step'><b>1</b><span>A <strong>diagnosed</strong> condition.</span></div><div class='row step'><b>2</b><span><strong>No extra boost</strong> beyond normal health.</span></div><div class='row step'><b>3</b><span><strong>No permitted</strong> alternative.</span></div><div class='row step'><b>4</b><span>Not caused by <strong>past misuse</strong>.</span></div></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<span class='idx'>05</span><span class='lab'>Rare, not a loophole</span><div class='safe'><div class='block step'><p class='big'>&lt;1%</p></div><p class='p step'>of Olympians (2010–2018) had a valid TUE.</p></div>"
+  },
+  {
+   "html": "<span class='idx'>06</span><span class='lab'>Peptides Nepal</span><div class='safe end'><h1>Save this for your next <span class='y'>check-up.</span></h1><p class='p'>Sources in the caption.</p><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 1.0
+  }
+ ]
+}
