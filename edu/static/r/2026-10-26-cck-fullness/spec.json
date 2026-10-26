@@ -1,0 +1,40 @@
+{
+ "topic": "Peptides your body makes: CCK (cholecystokinin), the gut peptide released by fat and protein that squeezes the gallbladder, slows the stomach and signals fullness via the vagus nerve",
+ "style": "Retro textbook: cream paper with mustard, olive and burnt-orange blocks, halftone dot corner, Zilla Slab headings, numbered 'Fig.' labels, thick ink rules",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 947430028
+ },
+ "css": "@font-face{font-family:'Slab';src:url(node_modules/@fontsource/zilla-slab/files/zilla-slab-latin-700-normal.woff2);font-weight:700} .card{background:#F3E9D2;color:#2B2A1F;font-family:'Kit Sans'} .card:after{content:'';position:absolute;right:-60px;top:-60px;width:520px;height:520px;background-image:radial-gradient(#C8502A 30%,transparent 32%);background-size:34px 34px;opacity:.55} .card-1{background:#E2B43B} .card-1:after{background-image:radial-gradient(#2B2A1F 30%,transparent 32%);opacity:.25} .card-7{background:#5B6B2E;color:#F3E9D2} .card-7:after{background-image:radial-gradient(#E2B43B 30%,transparent 32%);opacity:.5} .safe{z-index:2} .fig{display:inline-block;align-self:flex-start;font:700 50px 'Slab';background:#2B2A1F;color:#F3E9D2;padding:10px 24px;margin:0 0 36px;letter-spacing:1px} .card-1 .fig{background:#C8502A} h1{font:700 150px/0.98 'Slab';margin:0} h2{font:700 128px/1.0 'Slab';margin:0 0 18px} .p{font:500 74px/1.25 'Kit Sans';margin:26px 0 0} .o{color:#C8502A} .g{color:#5B6B2E} .rule{border-top:8px solid #2B2A1F;margin:34px 0 0;padding-top:30px} .row{display:flex;gap:34px;align-items:center;border-bottom:6px solid #2B2A1F;padding:40px 0} .row b{font:700 140px/1 'Slab';color:#C8502A;min-width:90px} .row span{font:700 74px/1.18 'Kit Sans'} .box{background:#E2B43B;border:6px solid #2B2A1F;padding:30px 36px;margin-top:40px} .box .p{margin:0} .yr{font:700 130px/1 'Slab';color:#C8502A;margin:0} .handle{font:700 70px 'Kit Sans';margin-top:60px;color:#E2B43B} .card-7 h1{font-size:128px}",
+ "cards": [
+  {
+   "html": "<div class='safe'><span class='fig'>Peptides your body makes</span><h1>Your gut has a <span class='o' style='white-space:nowrap'>stop-eating</span> peptide.</h1></div>",
+   "hold": 0.4
+  },
+  {
+   "html": "<div class='safe'><span class='fig'>Fig. 1 · Meet CCK</span><h2>Cholecys&shy;tokinin</h2><p class='p step'>Made by <b class='o'>I&nbsp;cells</b> in your upper small intestine.</p></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><span class='fig'>Fig. 2 · The trigger</span><h1>Fat and <span class='o'>protein</span> arrive.</h1><p class='p step rule'>Your gut releases CCK into the blood.</p></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><span class='fig'>Fig. 3 · What CCK does</span><div class='row step'><b>1</b><span>Gallbladder squeezes: bile out</span></div><div class='row step'><b>2</b><span>Pancreas releases enzymes</span></div><div class='row step'><b>3</b><span>Stomach empties slower</span></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><span class='fig'>Fig. 4 · The fullness signal</span><h1>Gut → <span class='g'>vagus nerve</span> → brain</h1><p class='p step rule'>The message: <b class='o'>“that's enough.”</b></p></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><span class='fig'>Fig. 5 · History</span><div class='step'><p class='yr'>1928</p><p class='p' style='margin-top:10px'>Named for moving the gallbladder.</p></div><div class='step rule' style='margin-top:50px'><p class='yr'>1973</p><p class='p' style='margin-top:10px'>First hormone shown to cut meal size (in rats).</p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><h1>Save this for your physiology exam.</h1><p class='p'>Sources in the caption.</p><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 0.8
+  }
+ ]
+}
