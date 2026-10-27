@@ -1,0 +1,40 @@
+{
+ "topic": "Discovery stories: secretin, the first hormone ever discovered (Bayliss and Starling, 1902) — a gut peptide; Starling first used the word 'hormone' in 1905",
+ "style": "Newspaper front page: off-white newsprint, black Playfair Display headlines, Libre Franklin body, double column rules, masthead with date line, red 'EXTRA' stamp",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 386530185
+ },
+ "css": "@font-face{font-family:'News';src:url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-900-normal.woff2);font-weight:900} @font-face{font-family:'News';src:url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2);font-weight:700} @font-face{font-family:'Frank';src:url(node_modules/@fontsource/libre-franklin/files/libre-franklin-latin-500-normal.woff2);font-weight:500} @font-face{font-family:'Frank';src:url(node_modules/@fontsource/libre-franklin/files/libre-franklin-latin-800-normal.woff2);font-weight:800} .card{background:#F2EEE3;color:#141414;font-family:'Frank'} .mast{border-top:10px solid #141414;border-bottom:4px solid #141414;padding:14px 0 12px;margin:0 0 10px;display:flex;justify-content:space-between;font:800 36px 'Frank';letter-spacing:3px;text-transform:uppercase} .dl{border-bottom:2px solid #141414;margin:0 0 50px;padding-bottom:8px} h1{font:900 158px/1.0 'News';margin:0;letter-spacing:-2px} h2{font:900 132px/1.02 'News';margin:0 0 20px;letter-spacing:-1px} p.p{font:500 74px/1.25 'Frank';margin:34px 0 0} .p b{font-weight:800} .red{color:#B3171D} .rule{border-top:4px double #141414;border-top-width:10px;padding-top:30px} .stamp{display:inline-block;align-self:flex-start;border:7px solid #B3171D;color:#B3171D;font:800 54px 'Frank';letter-spacing:6px;padding:8px 26px;transform:rotate(-4deg);margin:0 0 44px} .kick{font:800 44px 'Frank';letter-spacing:4px;text-transform:uppercase;color:#B3171D;margin:0 0 22px} .row{display:flex;gap:30px;align-items:baseline;border-bottom:3px solid #141414;padding:48px 0} .row b{font:900 130px/1 'News';color:#B3171D;min-width:80px} .row span{font:800 72px/1.2 'Frank'} .quote{font:700 italic 160px/1.1 'News';margin:30px 0 0} .card-7{background:#141414;color:#F2EEE3} .card-7 .mast{border-color:#F2EEE3} .handle{font:800 66px 'Frank';margin-top:60px;color:#F2EEE3;background:#B3171D;align-self:flex-start;padding:14px 28px}",
+ "cards": [
+  {
+   "html": "<div class='safe'><div class='mast'><span>The Peptide Times</span><span>1902</span></div><div class='dl'></div><span class='stamp'>EXTRA</span><h1>The first hormone ever found was a <span class='red'>peptide.</span></h1></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe'><p class='kick'>London 1902 · Bayliss &amp; Starling</p><h2>How does the pancreas know food arrived?</h2></div>",
+   "hold": 0.1
+  },
+  {
+   "html": "<div class='safe'><p class='kick'>The experiment</p><div class='row step'><b>1</b><span>Cut the nerves to a loop of dog gut.</span></div><div class='row step'><b>2</b><span>Put weak acid inside.</span></div><div class='row step'><b>3</b><span>The pancreas <span class='red'>still</span> made juice.</span></div></div>",
+   "hold": 0.1
+  },
+  {
+   "html": "<div class='safe'><p class='kick'>The proof</p><h2>No nerves needed.</h2><p class='p step rule'>Gut extract in the blood worked too: <b class='red'>a chemical messenger.</b></p></div>",
+   "hold": 0.1
+  },
+  {
+   "html": "<div class='safe'><p class='kick'>They named it</p><h1>Secretin</h1><p class='p step rule'><b>27 amino acids.</b> It tells the pancreas to release <b class='red'>bicarbonate</b> to calm stomach acid.</p></div>",
+   "hold": 0.1
+  },
+  {
+   "html": "<div class='safe'><p class='kick'>1905 · Starling's new word</p><p class='quote red' style='margin-top:0'>“hormone”</p><p class='p step rule'>Greek for <b>“I set in motion.”</b></p></div>",
+   "hold": 0.1
+  },
+  {
+   "html": "<div class='safe'><div class='mast'><span>The Peptide Times</span><span>Today</span></div><div class='dl' style='border-color:#F2EEE3'></div><h1>Save this for your physiology exam.</h1><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 0.6
+  }
+ ]
+}
