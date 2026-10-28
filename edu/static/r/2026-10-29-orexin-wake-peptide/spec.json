@@ -1,0 +1,7 @@
+{
+ "topic": "Brain Peptides #1: orexin (hypocretin), the hypothalamic peptide that keeps you awake; 85-95% loss of orexin neurons in narcolepsy",
+ "style": "Bold flat cards: tomato #D9481C, cream #F2E8D5, ink #161210; Inter Display Black headlines, DejaVu Serif italic sub-lines; animated wake switch",
+ "music": {"mood": "original 120 bpm synth beat", "generated": true},
+ "renderer": "PIL + ffmpeg (scratch render.py)",
+ "sources": ["PMID 9491897", "PMID 9419374", "PMID 11055430", "PMID 23508038"]
+}
