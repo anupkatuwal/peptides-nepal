@@ -1,0 +1,32 @@
+{
+ "topic": "Anti-doping basics: stored doping samples can be re-tested later with newer methods (WADA Code Art. 6.6), cases can start up to 10 years later (Art. 17); IOC's 2016 re-tests of Beijing 2008 and London 2012 samples gave 101 new adverse findings; IOC said new tests may come for EPO and small peptides like growth hormone",
+ "style": "Sticky-note board: kraft cork board with dot texture, tilted yellow/pink/mint/white paper notes with red push pins and masking tape, Permanent Marker headlines, Kalam handwritten labels, Kit Sans body, black ink",
+ "transition": "slideleft",
+ "music": {
+  "mood": "ambient",
+  "seed": 239719873
+ },
+ "css": "@font-face{font-family:'Marker';src:url(node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2)} @font-face{font-family:'Hand';font-weight:700;src:url(node_modules/@fontsource/kalam/files/kalam-latin-700-normal.woff2)} .card{background-color:#C49A6C;background-image:radial-gradient(#A97E52 3px,transparent 3.5px),radial-gradient(#D8B48A 2px,transparent 2.5px);background-size:46px 46px,46px 46px;background-position:0 0,23px 23px;color:#1A1A1A;font-family:'Kit Sans'} .note{position:relative;background:#FFE45C;padding:70px 56px 56px;box-shadow:10px 14px 0 rgba(60,35,10,.35);margin:0 0 46px} .note:before{content:'';position:absolute;top:-22px;left:50%;margin-left:-24px;width:48px;height:48px;border-radius:50%;background:#D7261E;box-shadow:4px 6px 0 rgba(60,35,10,.4)} .tape:before{top:-30px;left:50%;margin-left:-90px;width:180px;height:56px;border-radius:0;background:rgba(245,240,225,.85);box-shadow:none;transform:rotate(-3deg)} .pink{background:#FF9EBB} .mint{background:#9EE6C4} .white{background:#FBF8F0} .l{transform:rotate(-2.2deg)} .r{transform:rotate(1.8deg)} .tag{font:700 52px 'Hand';margin:0 0 6px;color:#1A1A1A} h1{font:400 128px/1.02 'Marker';margin:0} h2{font:400 104px/1.05 'Marker';margin:0} .big{font:400 260px/0.9 'Marker';margin:0;color:#D7261E} p.b{font:700 56px/1.26 'Kit Sans';margin:0} .u{background:linear-gradient(transparent 70%,#FF9EBB 70%);padding:0 6px} .label{display:inline-block;align-self:flex-start;background:#1A1A1A;color:#FFE45C;font:400 52px 'Marker';padding:10px 26px;margin:0 0 40px;transform:rotate(-2deg)} .small{font:700 46px/1.3 'Kit Sans';margin:18px 0 0}",
+ "cards": [
+  {
+   "html": "<div class='safe'><span class='label'>Tested athletes</span><div class='note l'><h1>A clean test today can turn <span class='u'>positive</span> later.</h1></div></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<div class='safe'><div class='note white r step'><p class='tag'>Fact 1</p><h2>Samples are stored.</h2></div><div class='note mint l step'><p class='b'>After a negative result, your sample can be kept and tested again later, with newer and better tests.</p><p class='small'>World Anti-Doping Code, Art. 6.6</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='note white tape r step'><p class='tag'>Real example · 2016</p><p class='b'>The IOC re-tested stored samples from Beijing 2008 and London 2012.</p></div><div class='note l step'><p class='big'>101</p><p class='b'>new positive findings that year.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='note mint l step'><p class='tag'>The time limit</p><p class='big'>10 yrs</p><p class='b'>A doping case can start up to 10 years after the violation.</p><p class='small'>Code, Art. 17</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='note pink r step'><p class='tag'>Peptides too</p><h2>Next on the list</h2></div><div class='note white l step'><p class='b'>The IOC said new tests may come for EPO and small peptides like growth hormone.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='note l'><h2>Save this for your teammates.</h2></div><div class='note white tape r'><p class='b'>Sources in the caption.</p><h2 style='font-size:76px;margin-top:22px'>Follow @peptidesnepal</h2></div></div>",
+   "hold": 1.0
+  }
+ ]
+}
