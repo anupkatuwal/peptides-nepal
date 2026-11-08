@@ -1,0 +1,35 @@
+{
+ "topic": "Peptides your body makes: motilin and the stomach growl. During fasting the migrating motor complex repeats every 90-120 min and motilin levels peak with gastric phase III (Takahashi 2014); gut sounds are loudest in gastric phase III (Tomomasa 1999); motilin-induced gastric phase III is a hunger signal in humans (Tack 2016, Gut); motilin is a 22-amino-acid peptide from the upper intestine, eating disrupts the cycle, the waves flush the gut and help prevent bacterial overgrowth (Kitazawa & Kaiya 2021)",
+ "style": "Swiss minimal: pure white, strict 12-column hairline grid, Inter 900 black headlines flush left, IBM Plex Mono index labels (01/07), thick black top rule, one signal-yellow #FFD400 accent block per card",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 36963695
+ },
+ "css": "@font-face{font-family:'Inter';src:url(node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2);font-weight:400} @font-face{font-family:'Inter';src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2);font-weight:700} @font-face{font-family:'Inter';src:url(node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2);font-weight:900} @font-face{font-family:'Plex';src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2);font-weight:500} .card{background:#FFFFFF;color:#0A0A0A;font-family:'Inter';background-image:repeating-linear-gradient(90deg,transparent 0,transparent 89px,#EDEDED 89px,#EDEDED 90px)} .safe{justify-content:center} .top{position:absolute;top:0;left:80px;right:140px} .top{display:flex;justify-content:space-between;border-top:14px solid #0A0A0A;padding-top:22px;font:500 36px 'Plex';letter-spacing:1px;text-transform:uppercase} h1{font-weight:900;font-size:132px;line-height:1.12;letter-spacing:-5px;margin:0} .hook h1{font-size:150px} .y{background:#FFD400;padding:0 12px;margin-left:-12px;box-decoration-break:clone;-webkit-box-decoration-break:clone} p{font-weight:400;font-size:58px;line-height:1.22;margin:50px 0 0;max-width:840px} p b{font-weight:700} .num{font-weight:900;font-size:230px;line-height:.9;letter-spacing:-9px;margin:0} .unit{font:500 40px 'Plex';margin:14px 0 0;text-transform:uppercase} .blk{background:#FFD400;width:180px;height:180px;margin-top:80px} .rule{border-top:4px solid #0A0A0A;padding-top:26px} .end .handle{font-weight:900;font-size:64px;margin-top:70px;letter-spacing:-1px} .blk{position:absolute;bottom:0;left:80px;width:200px;height:28px;background:#FFD400;margin:0}",
+ "cards": [
+  {
+   "html": "<div class='safe hook'><div class='top'><span>01/07</span><span>■</span></div><h1>Your stomach growls <span class='y'>on a timer.</span></h1><p class='step'>The clock is a peptide: <b>motilin.</b></p><div class='blk'></div></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<div class='safe'><div class='top'><span>02/07</span><span>■</span></div><p class='unit'>Empty stomach. Every</p><p class='num'>90–120</p><p class='unit'>minutes</p><p class='step rule'>A strong squeezing wave sweeps your gut.</p><div class='blk'></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='top'><span>03/07</span><span>■</span></div><h1>Motilin.</h1><p class='step'>22 amino acids, made in your <b>small intestine.</b></p><p class='step'>It peaks with each <span class='y'>strong wave.</span></p><div class='blk'></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='top'><span>04/07</span><span>■</span></div><h1>Strongest wave, <span class='y'>loudest growl.</span></h1><p class='step'>Measured in a 1999 study.</p><div class='blk'></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='top'><span>05/07</span><span>■</span></div><h1>Then you feel <span class='y'>hungry.</span></h1><p class='step'>2016 study: hunger rose with these waves.</p><div class='blk'></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='top'><span>06/07</span><span>■</span></div><h1>Gut cleaning.</h1><p class='step'>They flush out leftovers and help keep bacteria in check.</p><p class='step'><b>Eating stops the cycle.</b></p><div class='blk'></div></div>"
+  },
+  {
+   "html": "<div class='safe end'><div class='top'><span>07/07</span><span>■</span></div><h1>Save this for your <span class='y'>physiology</span> exam.</h1><p class='handle'>Follow @peptidesnepal</p><div class='blk'></div></div>",
+   "hold": 1.0
+  }
+ ]
+}
