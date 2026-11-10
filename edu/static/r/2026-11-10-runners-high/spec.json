@@ -1,0 +1,32 @@
+{
+ "topic": "Quick comparisons: endorphins vs endocannabinoids, what causes the runner's high. Old belief = endorphins; blood beta-endorphin cannot cross the blood-brain barrier while lipid anandamide can; mice: anxiety relief and pain relief after running depend on cannabinoid receptors (Fuss et al., PNAS 2015); humans: 63 people, 45 min moderate treadmill run, opioid blocker naltrexone vs placebo, euphoria and lower anxiety still developed, anandamide and 2-AG rose (Siebers et al., Psychoneuroendocrinology 2021); but PET in 10 athletes after a 2-hour run showed brain opioid release that correlated with euphoria (Boecker et al., Cerebral Cortex 2008)",
+ "style": "Retro textbook: mustard #E2AE3C pages with halftone dot texture, cream #F4E8C8 panels with thick ink borders and offset shadows, olive #4F5F2A and burnt-orange #C4521D figure labels ('Fig. 1'), Alfa Slab One slab-serif headlines, Libre Franklin body, dark brown ink #2A2114",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 545927735
+ },
+ "css": "@font-face{font-family:'Slab';src:url(node_modules/@fontsource/alfa-slab-one/files/alfa-slab-one-latin-400-normal.woff2)} @font-face{font-family:'LF';src:url(node_modules/@fontsource/libre-franklin/files/libre-franklin-latin-500-normal.woff2);font-weight:500} @font-face{font-family:'LF';src:url(node_modules/@fontsource/libre-franklin/files/libre-franklin-latin-800-normal.woff2);font-weight:800} .card{background-color:#E2AE3C;color:#2A2114;font-family:'LF';font-weight:500;background-image:radial-gradient(circle,rgba(42,33,20,.16) 3px,transparent 3.5px);background-size:22px 22px} .safe{justify-content:center} h1{font-family:'Slab';font-weight:400;font-size:124px;line-height:1.02;margin:0;letter-spacing:-1px} .hook h1{font-size:150px} .fig{display:inline-block;align-self:flex-start;background:#4F5F2A;color:#F4E8C8;font:800 44px 'LF';padding:12px 26px;margin:0 0 40px;letter-spacing:1px;text-transform:uppercase} .fig.o{background:#C4521D} .panel{background:#F4E8C8;border:7px solid #2A2114;box-shadow:16px 16px 0 #2A2114;padding:40px 46px;margin-top:44px} .panel p{margin:0} .panel p+p{margin-top:26px} p{font-size:66px;line-height:1.24;margin:40px 0 0;max-width:840px} b{font-weight:800} .or{color:#C4521D} .ol{color:#4F5F2A} .hl{background:#2A2114;color:#F4E8C8;padding:0 14px;box-decoration-break:clone;-webkit-box-decoration-break:clone} .vs{display:flex;gap:26px;margin-top:44px} .vs > div{flex:1;background:#F4E8C8;border:7px solid #2A2114;box-shadow:12px 12px 0 #2A2114;padding:30px 28px} .vs h2{font-family:'Slab';font-weight:400;font-size:66px;line-height:1.05;margin:0 0 18px} .vs p{font-size:48px;margin:14px 0 0;line-height:1.2} .big{font-family:'Slab';font-size:230px;line-height:.9;margin:0;color:#C4521D} .end h1{font-size:128px} .handle{font:800 64px 'LF';margin-top:70px} h1 .hl{display:inline-block;padding:6px 18px 10px;margin:14px 0;line-height:1} .vs p{font-size:52px} .vs h2{font-size:70px} .vs .yn{font-family:'Slab';font-size:110px;line-height:1;margin-top:24px !important} .q{font:800 58px/1.2 'LF';margin:0} .vs p{font-size:54px}",
+ "cards": [
+  {
+   "html": "<div class='safe hook'><p class='fig o' style='margin-top:0'>Myth check</p><h1>Runner's high? <span class='hl'>Endorphins</span> may not be the cause.</h1></div>",
+   "hold": 0.6
+  },
+  {
+   "html": "<div class='safe'><p class='fig o'>Fig. 1 · The problem</p><h1>Endorphins are big <span class='or'>peptides.</span></h1><div class='panel step'><p>In your blood, they can't cross the <b>blood-brain barrier.</b></p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><p class='fig'>Fig. 2 · Side by side</p><p class='q'>Can it pass from blood into the brain?</p><div class='vs'><div class='step'><h2 class='or'>Endorphin</h2><p>Peptide</p><p>Large</p><p class='yn or'>NO</p></div><div class='step'><h2 class='ol'>Anand&shy;amide</h2><p>Fat-based</p><p>Small</p><p class='yn ol'>YES</p></div></div><p class='step'>Anandamide is your body's own <b>cannabis-like</b> molecule.</p></div>"
+  },
+  {
+   "html": "<div class='safe'><p class='fig o'>Fig. 3 · The 2021 test</p><p class='big' style='margin-top:0'>63</p><p style='margin-top:10px'>people ran for <b>45 minutes.</b></p><p class='step'>Half got a drug that <b>blocks opioids</b>, like endorphins.</p><p class='step'><span class='hl'>The high still came.</span></p></div>"
+  },
+  {
+   "html": "<div class='safe'><p class='fig'>Fig. 4 · Not so fast</p><h1>Endorphins still help.</h1><p class='step'>2008 brain scan: <b>opioid release</b> after a 2-hour run.</p><p class='step'>Top suspects now: <b class='ol'>endocannabinoids.</b></p></div>"
+  },
+  {
+   "html": "<div class='safe end'><h1>Save this for your next <span class='hl'>long run.</span></h1><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 0.8
+  }
+ ]
+}
