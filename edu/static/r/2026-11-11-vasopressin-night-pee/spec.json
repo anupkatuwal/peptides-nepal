@@ -1,0 +1,35 @@
+{
+ "topic": "Myth vs fact / peptides your body makes: why you don't pee all night. Not just less drinking: vasopressin (ADH), released from the brain, rises at night (steady 8 AM-10 PM, significant rise 10 PM-8 AM in 11 healthy subjects; Rittig et al., Am J Physiol 1989); it inserts aquaporin-2 water channels in kidney collecting ducts so water is reabsorbed and urine is concentrated (MedlinePlus Genetics AQP2; StatPearls V2 receptor); 15 enuresis patients had a less pronounced night rise and higher night urine volume (Rittig 1989)",
+ "style": "Newspaper fact-check: off-white newsprint #F3EEE2 with fine dot texture, 'The Peptide Times' masthead with thick black rules, Playfair Display 900 headlines, Source Serif 4 body, Oswald 600 uppercase kickers in red #B3121B, rotated rubber-stamp verdicts (red ONLY HALF TRUE, yellow TRUE), yellow highlighter marks",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 78915
+ },
+ "css": "\n@font-face { font-family: PF; src: url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-900-normal.woff2); font-weight: 900; }\n@font-face { font-family: PF; src: url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2); font-weight: 700; }\n@font-face { font-family: SS; src: url(node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-400-normal.woff2); font-weight: 400; }\n@font-face { font-family: SS; src: url(node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-700-normal.woff2); font-weight: 700; }\n@font-face { font-family: OS; src: url(node_modules/@fontsource/oswald/files/oswald-latin-600-normal.woff2); font-weight: 600; }\n.card { background: #F3EEE2; color: #141414; font-family: SS;\n  background-image: radial-gradient(rgba(0,0,0,.05) 1px, transparent 1.2px); background-size: 7px 7px; }\n.mast { position: absolute; left: 80px; right: 140px; top: 240px; border-top: 10px solid #141414; border-bottom: 3px solid #141414; padding: 14px 0 10px; display: flex; justify-content: space-between; font: 600 34px OS; letter-spacing: 3px; text-transform: uppercase; }\n.safe { inset: 340px 140px 440px 80px; justify-content: center; }\nh1 { font: 900 124px/0.98 PF; margin: 0; letter-spacing: -2px; }\nh2 { font: 900 128px/1.0 PF; margin: 0 0 30px; letter-spacing: -1px; }\np { font: 400 60px/1.28 SS; margin: 34px 0 0; }\np b { font-weight: 700; }\n.kick { font: 600 48px OS; letter-spacing: 3px; text-transform: uppercase; color: #B3121B; margin: 0 0 24px; }\n.stamp { display: inline-block; align-self: flex-start; font: 600 78px OS; letter-spacing: 6px; padding: 8px 30px; border: 8px solid; transform: rotate(-4deg); margin: 10px 0 34px; }\n.false { color: #B3121B; border-color: #B3121B; }\n.true { color: #141414; background: #FFD84A; border-color: #141414; }\n.rule { border-top: 3px solid #141414; padding-top: 22px; }\n.hl { background: #FFD84A; padding: 0 8px; }\n.col { display: flex; gap: 34px; margin-top: 30px; }\n.col > div { flex: 1; border-top: 6px solid #141414; padding-top: 16px; }\n.col .t { font: 600 46px OS; letter-spacing: 2px; text-transform: uppercase; }\n.col .n { font: 900 104px/1.05 PF; margin-top: 8px; }\n.col .s { font: 400 44px/1.25 SS; margin-top: 10px; }\n.src { font: 400 46px/1.3 SS; font-style: italic; color: #4a4a4a; }\n.card-1 .safe { justify-content: center; padding-top: 0; }\n.card-1 h1 { font-size: 172px; }\n\n.card::before { content: attr(data-x); }\n.mast::before { content: 'The Peptide Times'; } .mast::after { content: attr(data-n); }\n.big { font: 900 300px/0.9 PF; margin: 0; }\n\n.card::after { content: 'Fact-checked with sources  ·  Education only'; position: absolute; left: 80px; right: 140px; top: 1400px; border-top: 3px solid #141414; padding-top: 14px; font: 600 32px OS; letter-spacing: 2px; text-transform: uppercase; color: #555; }\n.card-1 h1 { font-size: 190px; }\n",
+ "cards": [
+  {
+   "html": "<div class='mast' data-n='No. 1'></div><div class='safe'><p class='kick'>Fact check</p><h1>Why don't you pee all night?</h1></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='mast' data-n='No. 2'></div><div class='safe'><p class='kick'>The claim</p><h2>“You just stop drinking.”</h2><span class='stamp false step'>HALF TRUE</span><p class='step'>The bigger reason is a <b>hormone</b> from your brain.</p></div>"
+  },
+  {
+   "html": "<div class='mast' data-n='No. 3'></div><div class='safe'><p class='kick'>Meet the hormone</p><h2>Vasopressin</h2><p class='step'>Also called <b>ADH</b>. A small peptide.</p><p class='step'>Its job: <span class='hl'>save water</span>.</p></div>"
+  },
+  {
+   "html": "<div class='mast' data-n='No. 4'></div><div class='safe'><p class='kick'>The night shift</p><h2>It rises while you sleep.</h2><div class='col step'><div><div class='t'>Day</div><div class='n'>Steady</div></div><div><div class='t'>Night</div><div class='n'>Big rise</div></div></div><p class='src'>Healthy volunteers, Rittig 1989</p></div>"
+  },
+  {
+   "html": "<div class='mast' data-n='No. 5'></div><div class='safe'><p class='kick'>In the kidneys</p><h2>It opens water gates.</h2><p class='step'>Channels called <b>aquaporin-2</b> pull water back into blood.</p><p class='step'>Night urine: <span class='hl'>less, more concentrated</span>.</p></div>"
+  },
+  {
+   "html": "<div class='mast' data-n='No. 6'></div><div class='safe'><p class='kick'>The proof</p><span class='stamp true'>TRUE</span><p class='step'>Kids and teens who <b>wet the bed</b> had a smaller night rise.</p><p class='step'>They made more urine at night.</p></div>"
+  },
+  {
+   "html": "<div class='mast' data-n='No. 7'></div><div class='safe'><h2>Save this for biology class.</h2><p class='rule'>Sources in the caption.</p><p style='font:600 60px OS;letter-spacing:2px;margin-top:40px'>FOLLOW @PEPTIDESNEPAL</p></div>",
+   "hold": 1.0
+  }
+ ]
+}
