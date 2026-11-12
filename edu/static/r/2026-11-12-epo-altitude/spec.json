@@ -1,0 +1,40 @@
+{
+ "topic": "Peptides your body makes: EPO (erythropoietin), the kidney's thin-air hormone. In adults the kidney makes >90% of EPO, in peritubular fibroblast-like cells (Bussolati et al., JASN 2013); low oxygen lets HIF build up and switch on the EPO gene (Nobel Prize in Physiology or Medicine 2019, Kaelin, Ratcliffe, Semenza); EPO is a 165-amino-acid glycoprotein hormone (Jelkmann, Transfus Med Hemother 2013); at high altitude plasma EPO peaks by 48 h then falls to a level still above sea-level values (Vizcardo-Galindo et al., High Alt Med Biol 2020; Mairbaurl, Front Physiol 2018); reticulocytes peak ~7 days, total red cell volume rises after >3 weeks; extra red cells cleared after descent (neocytolysis; polycythemia after 5,260 m reverted within ~1 week) (Mairbaurl 2018)",
+ "style": "Bold editorial: pure white pages, huge black Anton condensed uppercase headlines, Inter 500/800 body, one hot red-orange #FF3D00 colour block per card (full red hook card), thick black rules, big index numbers 01-07 top-right",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 1377829470
+ },
+ "css": "@font-face{font-family:'Anton';src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2) format('woff2');font-weight:400} @font-face{font-family:'Inter';src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2) format('woff2');font-weight:500} @font-face{font-family:'Inter';src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2) format('woff2');font-weight:800} .card{background:#FFFFFF;color:#0A0A0A;font-family:'Inter'} .safe{display:flex;flex-direction:column;justify-content:center} .idx{font:800 40px 'Inter';letter-spacing:2px;border-top:10px solid #0A0A0A;padding-top:18px;margin:0 0 40px;display:flex;justify-content:space-between} h1{font-family:'Anton';font-weight:400;font-size:170px;line-height:.95;text-transform:uppercase;margin:0;letter-spacing:-1px} h2{font-family:'Anton';font-weight:400;font-size:140px;line-height:1;text-transform:uppercase;margin:0 0 34px} p{font:500 60px/1.25 'Inter';margin:0 0 30px;max-width:820px} p b{font-weight:800} .block{background:#FF3D00;color:#0A0A0A;padding:34px 40px;margin:10px 0 34px;align-self:flex-start} .block h2{margin:0} .block p{margin:0;font-weight:800} .card:has(.hook){background:#FF3D00} .hook .idx{border-color:#0A0A0A} .hook h1{font-size:190px} .hook .sub{font:800 56px/1.25 'Inter';margin-top:56px;border-top:6px solid #0A0A0A;padding-top:26px} .row{display:flex;gap:34px;align-items:baseline;border-top:6px solid #0A0A0A;padding:22px 0} .row b{font-family:'Anton';font-weight:400;font-size:84px;min-width:300px;text-transform:uppercase;line-height:1} .row span{font:500 54px/1.22 'Inter'} .row.hot b{color:#FF3D00} .end h1{font-size:150px} .end .handle{font:800 56px 'Inter';background:#FF3D00;padding:22px 30px;align-self:flex-start;margin-top:30px}",
+ "cards": [
+  {
+   "html": "<div class='safe hook'><div class='idx'><span></span><span>01/07</span></div><h1>Your kidneys can sense thin air.</h1><p class='sub'>Here's what happens on a trek.</p></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe'><div class='idx'><span></span><span>02/07</span></div><h2 class='step'>Up high: less oxygen.</h2><p class='step'>Kidney cells <b>notice the drop</b>.</p></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='idx'><span></span><span>03/07</span></div><div class='block'><h2>EPO</h2></div><p class='step'><b>Erythropoietin.</b> 165 amino acids.</p><p class='step'>Kidneys make <b>over 90%</b> of it.</p></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='idx'><span></span><span>04/07</span></div><p class='step'>Low oxygen builds up a protein: <b>HIF</b>.</p><p class='step'>HIF turns the <b>EPO gene</b> on.</p><div class='block'><p>Nobel Prize, 2019</p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='idx'><span></span><span>05/07</span></div><div class='row step'><b>2 days</b><span>EPO peaks</span></div><div class='row step'><b>1 week</b><span>Young red cells peak</span></div><div class='row step hot'><b>3+ weeks</b><span>More red cells overall</span></div></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe'><div class='idx'><span></span><span>06/07</span></div><h2 class='step'>Back down? Extras cleared.</h2><p class='step'>After <b>5,260 m</b>: gone in <b>about a week</b>.</p></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe end'><div class='idx'><span></span><span>07/07</span></div><h1>Save this for your next trek.</h1><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 0.8
+  }
+ ]
+}
