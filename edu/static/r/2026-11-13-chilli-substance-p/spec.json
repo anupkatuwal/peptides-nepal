@@ -1,0 +1,33 @@
+{
+ "topic": "Peptides your body makes: why chilli burns. Capsaicin activates TRPV1 on pain-sensing nerves (Caterina et al., Nature 1997); TRPV1 is also activated by painful heat, so the brain reads 'hot' (Nobel Prize in Physiology or Medicine 2021, David Julius); activated nerve endings release substance P (and CGRP), an 11-amino-acid neuropeptide discovered in 1931 by von Euler and Gaddum in horse brain and gut and first called 'preparation P' (Suvas, J Immunol 2017); on skin these neuropeptides widen blood vessels causing redness, warmth and swelling (neurogenic inflammation; Gouin et al., Protein & Cell 2017)",
+ "style": "Terminal: near-black #0B0B0B with faint scanlines, lime #C6FF3D JetBrains Mono 800 headlines, off-white mono body with '>' prompts, window bar with three dots and 'pain_nerve.log', chilli-red #FF4B2B accents, lime label tags, blinking-cursor block on hook",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 2540
+ },
+ "css": "\n@font-face { font-family: 'JBM'; src: url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2); font-weight: 500; }\n@font-face { font-family: 'JBM'; src: url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-800-normal.woff2); font-weight: 800; }\n.card { background: #0B0B0B; color: #C6FF3D; font-family: 'JBM'; }\n.card::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 2px, transparent 2px 6px); }\n.bar { position: absolute; top: 120px; left: 80px; right: 140px; height: 70px; border: 3px solid #2E3A12; display: flex; align-items: center; gap: 16px; padding: 0 22px; }\n.bar i { width: 22px; height: 22px; border-radius: 50%; background: #FF4B2B; display: block; }\n.bar i:nth-child(2) { background: #FFC23D; } .bar i:nth-child(3) { background: #C6FF3D; }\n.bar span { font: 500 30px 'JBM'; color: #7E9A3A; margin-left: 12px; }\n.prompt { font: 500 52px 'JBM'; color: #7E9A3A; margin: 0 0 36px; }\nh1 { font: 800 132px/1.02 'JBM'; letter-spacing: -4px; margin: 0 0 34px; color: #C6FF3D; }\n.hot { color: #FF4B2B; }\n.tag { align-self: flex-start; background: #C6FF3D; color: #0B0B0B; font: 800 48px 'JBM'; padding: 10px 22px; margin-bottom: 44px; }\np.l { font: 500 60px/1.28 'JBM'; color: #F2F2E8; margin: 0 0 38px; }\np.l::before { content: '> '; color: #C6FF3D; }\n.note { align-self: flex-start; border: 5px solid #FF4B2B; color: #FF4B2B; font: 800 56px 'JBM'; padding: 14px 24px; margin-top: 20px; }\n.row { display: flex; gap: 26px; align-items: center; border-top: 3px dashed #4A5E1C; padding: 28px 0; font: 800 84px/1.1 'JBM'; color: #F2F2E8; }\n.row b { color: #FF4B2B; font-size: 84px; min-width: 120px; }\n.cursor { display: inline-block; width: 0.55em; height: 0.9em; background: #C6FF3D; vertical-align: -0.1em; margin-left: 10px; }\n.end h1 { font-size: 124px; }\n.end .handle { font: 800 60px 'JBM'; color: #0B0B0B; background: #C6FF3D; padding: 16px 26px; align-self: flex-start; margin-top: 30px; }\n",
+ "cards": [
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe'><p class='prompt'>$ why does chilli burn?</p><h1>Your nerves mistake chilli for <span class='hot'>fire.</span><span class='cursor'></span></h1></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe'><span class='tag'>STEP 01</span><h1 class='step hot'>Capsaicin</h1><p class='l step'>The hot molecule in chilli.</p><p class='l step'>It switches on TRPV1, a sensor on pain nerves.</p></div>"
+  },
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe'><span class='tag'>STEP 02</span><h1 class='step'>Heat alarm.</h1><p class='l step'>TRPV1 also fires at painful heat.</p><p class='l step'>Same switch. Your brain reads: HOT.</p><div class='note step'>Nobel Prize 2021</div></div>"
+  },
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe'><span class='tag'>STEP 03</span><h1 class='step'>Substance <span class='hot'>P</span></h1><p class='l step'>The nerve releases this peptide. 11 amino acids.</p><p class='l step'>Named in 1931 from “preparation P”.</p></div>"
+  },
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe'><span class='tag'>OUTPUT</span><p class='l'>On skin, it widens blood vessels:</p><div class='row step'><b>01</b>Redness</div><div class='row step'><b>02</b>Warmth</div><div class='row step'><b>03</b>Swelling</div></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='bar'><i></i><i></i><i></i><span>pain_nerve.log</span></div><div class='safe end'><h1>Save this for your next spicy momo.</h1><p class='l'>Sources in the caption.</p><div class='handle'>Follow @peptidesnepal</div></div>",
+   "hold": 0.9
+  }
+ ]
+}
