@@ -1,0 +1,35 @@
+{
+ "topic": "Peptides your body makes: gastrin, the stomach's acid switch. Gastrin is a peptide hormone made by G cells of the gastric antrum and duodenum (StatPearls 'Physiology, Gastrin' 2023); released by gastric distension, peptides/amino acids, vagal/GRP stimulation and raised stomach pH; acts on parietal cell CCK-B receptors and makes ECL cells release histamine, which further drives acid (StatPearls 2023; Duan, Rico & Merchant, Function 2021); acid (pH<3) makes antral D cells release somatostatin, which inhibits gastrin (Duan 2021); Edkins named gastrin in 1905, largely dismissed; Gregory & Tracy (Gut 1964) isolated two 17-amino-acid gastrins (heptadecapeptides), the first GI peptide with full structure solved",
+ "style": "Sticky-note board: kraft-cork #C29A63 with speckle texture and dark wood frame, rotated sticky notes (yellow #FFE45C, pink #FF9EBB, mint #9FE6C3, blue #9CCBFF, cream) with red pushpins and hard drop shadows, Permanent Marker headlines, Kalam 700 labels, Atkinson Hyperlegible body, black tape-style tags",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 1979500670
+ },
+ "css": "\n@font-face { font-family: 'PM'; src: url(node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2); }\n@font-face { font-family: 'Kal'; src: url(node_modules/@fontsource/kalam/files/kalam-latin-700-normal.woff2); font-weight: 700; }\n@font-face { font-family: 'Atk'; src: url(node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2); font-weight: 400; }\n@font-face { font-family: 'Atk'; src: url(node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff2); font-weight: 700; }\n.card { background-color: #C29A63; color: #1E1A14; font-family: 'Atk'; }\n.card::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(70,45,15,.28) 1.6px, transparent 2px), radial-gradient(rgba(255,240,210,.22) 1.4px, transparent 2px); background-size: 23px 23px, 31px 31px; background-position: 0 0, 11px 7px; }\n.card::after { content: ''; position: absolute; inset: 34px; border: 18px solid #7A5230; pointer-events: none; }\n.safe { gap: 0; }\n.note { position: relative; padding: 80px 60px 60px; margin: 0 0 54px; box-shadow: 6px 10px 0 rgba(60,35,10,.35); }\n.note::before { content: ''; position: absolute; top: 18px; left: 50%; width: 40px; height: 40px; margin-left: -20px; border-radius: 50%; background: #D7262E; box-shadow: 3px 5px 0 rgba(0,0,0,.35); }\n.y { background: #FFE45C; } .p { background: #FF9EBB; } .m { background: #9FE6C3; } .b { background: #9CCBFF; } .w { background: #FFF8E7; }\n.r1 { transform: rotate(-2deg); } .r2 { transform: rotate(1.6deg); } .r3 { transform: rotate(-1deg); } .r4 { transform: rotate(2.4deg); }\nh1 { font: 400 134px/1.05 'PM'; margin: 0; }\nh2 { font: 400 104px/1.05 'PM'; margin: 0 0 18px; }\n.lbl { font: 700 62px/1.15 'Kal'; margin: 0 0 8px; color: #7A2E10; }\np.t { font: 400 64px/1.25 'Atk'; margin: 0; }\np.t b { font-weight: 700; }\n.tag { align-self: flex-start; font: 700 56px 'Kal'; background: #1E1A14; color: #FFE45C; padding: 6px 26px 10px; margin: 0 0 40px; transform: rotate(-2deg); }\n.row { display: flex; gap: 26px; align-items: center; }\n.row .num { font: 400 100px/1 'PM'; min-width: 80px; color: #B4231F; }\n.small { padding: 58px 46px 40px; margin-bottom: 34px; }\n.small p.t { font-size: 62px; }\n.hl { background: #FFE45C; padding: 0 8px; }\n.end h1 { font-size: 124px; }\n.handle { align-self: flex-start; font: 700 68px 'Kal'; background: #1E1A14; color: #FFF8E7; padding: 14px 30px 20px; transform: rotate(1.5deg); margin-top: 10px; }\n",
+ "cards": [
+  {
+   "html": "<div class='safe'><div class='tag'>Peptides your body makes</div><div class='note y r1'><h1>Your stomach has its own acid switch.</h1></div><div class='note w r4 small step'><p class='t'>Its name: <b>gastrin.</b></p></div></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<div class='safe'><div class='tag'>Meet gastrin</div><div class='note p r2'><h2>A peptide hormone</h2><p class='t step'>Made by <b>G cells</b> in the lower stomach and the first part of the gut.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='tag'>What switches it ON</div><div class='note m r1 small step'><div class='row'><span class='num'>1</span><p class='t'>Food stretches the stomach</p></div></div><div class='note m r2 small step'><div class='row'><span class='num'>2</span><p class='t'>Protein pieces arrive</p></div></div><div class='note m r3 small step'><div class='row'><span class='num'>3</span><p class='t'>The vagus nerve sends a signal</p></div></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='tag'>What it does</div><div class='note b r2 step'><p class='lbl'>Gastrin \u2192 parietal cells</p><h2>\"Make acid.\"</h2></div><div class='note y r1 step'><p class='lbl'>Plus a helper</p><p class='t'>It also triggers <b>histamine</b>, which adds more acid.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='tag'>What switches it OFF</div><div class='note p r1 step'><p class='t'>When acid gets strong, <b>D cells</b> release <b>somatostatin.</b></p></div><div class='note w r4 step'><h2>Gastrin stops.</h2></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='tag'>How we found it</div><div class='note y r2 step'><p class='lbl'>1905</p><p class='t'>John Edkins named it gastrin. Few believed him.</p></div><div class='note m r1 step'><p class='lbl'>1964</p><p class='t'>Gregory and Tracy isolated it: <b>17 amino acids</b> long.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe end'><div class='note y r1'><h1>Save this for your physiology exam.</h1></div><div class='note w r2 small'><p class='t'>Sources in the caption.</p></div><div class='handle'>Follow @peptidesnepal</div></div>",
+   "hold": 1.2
+  }
+ ]
+}
