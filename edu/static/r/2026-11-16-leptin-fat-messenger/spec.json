@@ -1,0 +1,32 @@
+{
+ "topic": "Discovery stories / peptides your body makes: leptin, the hormone your fat makes. 1950 the obese (ob) mouse appeared at the Jackson Laboratory, Maine (Lasker Foundation 2010); Douglas Coleman's parabiosis experiments: ob mouse joined to another mouse ate less, so ob mice lack a circulating hormone (Neill, JCI 2010); 1994 Friedman lab at Rockefeller cloned the ob gene, active in fat; named leptin from Greek leptos 'thin' (Zhang et al., Nature 1994; Lasker 2010); mature leptin 146 amino acids, made by white adipose tissue, blood level proportional to fat mass, acts on hypothalamus and brainstem, falling leptin = starvation signal (StatPearls 'Physiology, Leptin' 2023); 2010 Lasker Basic Medical Research Award to Coleman and Friedman",
+ "style": "Soft pastel cards: warm cream #FFF4E8 pages with flat peach #FFD3BC and mint #BFEBD6 circles, rounded white/peach/mint panes with thick charcoal #23302D outline and hard offset shadow, Fraunces 800 serif headlines, Nunito 600/800 body, charcoal pill tags, terracotta #C2522B big numbers, mint hook card, peach end card",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 483266959
+ },
+ "css": "@font-face{font-family:'Fr';src:url(node_modules/@fontsource/fraunces/files/fraunces-latin-800-normal.woff2);font-weight:800}@font-face{font-family:'Nu';src:url(node_modules/@fontsource/nunito/files/nunito-latin-600-normal.woff2);font-weight:600}@font-face{font-family:'Nu';src:url(node_modules/@fontsource/nunito/files/nunito-latin-800-normal.woff2);font-weight:800}\n.card{background:#FFF4E8;color:#23302D;font-family:'Nu';font-weight:600}\n.dot{position:absolute;border-radius:50%}\n.d1{width:260px;height:260px;background:#FFD3BC;right:-70px;top:120px}\n.d2{width:180px;height:180px;background:#BFEBD6;left:-50px;bottom:300px}\n.safe{z-index:2;justify-content:center}\n.tag{display:inline-block;align-self:flex-start;background:#23302D;color:#FFF4E8;font:800 38px 'Nu';padding:12px 26px;border-radius:999px;margin-bottom:40px}\n.tag.mint{background:#2E7D62}\nh1{font-family:'Fr';font-weight:800;font-size:124px;line-height:1.0;letter-spacing:-2px;margin:0}\n.pane{background:#FFFFFF;border-radius:44px;padding:44px 48px;margin:0 0 30px;border:5px solid #23302D;box-shadow:12px 12px 0 #23302D}\n.pane.peach{background:#FFD3BC}.pane.mint{background:#BFEBD6}\n.pane p{font:600 58px/1.25 'Nu';margin:0}\n.pane b{font-weight:800}\n.big{font-family:'Fr';font-weight:800;font-size:200px;line-height:.9;margin:0 0 10px;color:#C2522B}\n.card-1{background:#BFEBD6}\n.card-1 .d1{background:#FFD3BC}.card-1 .d2{background:#FFF4E8}\n.card-1 h1{font-size:150px}\n.card-1 .sub{font:800 50px/1.25 'Nu';margin-top:44px;color:#2E7D62}\n.card-6{background:#FFD3BC}\n.card-6 .d1{background:#BFEBD6}.card-6 .d2{background:#FFF4E8}\n.end h1{font-size:118px}\n.card-6 .handle{display:inline-block;align-self:flex-start;font:800 54px 'Nu';margin-top:56px;background:#23302D;color:#FFF4E8;padding:18px 34px;border-radius:999px}\n",
+ "cards": [
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><span class='tag'>Discovery story</span><h1>Your fat sends messages to your brain.</h1></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><span class='tag'>Maine, USA</span><p class='big step'>1950</p><div class='pane step'><p>A <b>very hungry mouse</b> appears in a lab.</p></div><div class='pane peach step'><p>Named the <b>ob mouse</b>.</p></div></div>"
+  },
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><span class='tag mint'>The experiment</span><div class='pane step'><p>Coleman joins two mice so they <b>share blood</b>.</p></div><div class='pane mint step'><p>The ob mouse <b>eats less</b>.</p></div><div class='pane peach step'><p>Normal blood has a <b>signal</b> it lacks.</p></div></div>"
+  },
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><span class='tag'>New York</span><p class='big step'>1994</p><div class='pane step'><p>Friedman finds the gene. It works <b>in fat</b>.</p></div><div class='pane mint step'><p>He names it <b>leptin</b>. Greek <b>leptos</b> = thin.</p></div></div>"
+  },
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><span class='tag mint'>How it works</span><p class='big step'>146</p><div class='pane step'><p>amino acids. More fat, <b>more leptin</b>.</p></div><div class='pane peach step'><p>Leptin falls? The brain reads <b>starvation</b>.</p></div></div>"
+  },
+  {
+   "html": "<div class='dot d1'></div><div class='dot d2'></div><div class='safe'><h1>Save this for your physiology exam.</h1><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 0.8
+  }
+ ]
+}
