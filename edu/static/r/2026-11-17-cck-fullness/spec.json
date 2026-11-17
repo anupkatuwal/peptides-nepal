@@ -1,0 +1,35 @@
+{
+ "topic": "Peptides your body makes: CCK (cholecystokinin), the gut's own 'I'm full' signal. Made by I cells (enteroendocrine cells) mainly in the duodenum and jejunum; released by fats, proteins and amino acids (glucose only briefly); blood levels rise from 0.5-1 pM to 5-15 pM within minutes of eating (Chandra & Liddle, Pancreapedia 2018); Ivy & Oldberg 1928 (Am J Physiol 86:599): intestinal extracts made the gallbladder contract, hence the name; also stimulates pancreatic enzyme secretion (once called pancreozymin, Harper & Raper 1943) and delays gastric emptying; acts on CCK1 receptors on vagal afferent nerves that signal the hindbrain to limit intake; first hormone shown to cause satiety: Gibbs, Young & Smith 1973 in rats (SSIB Ingestive Classics); CCK-8 infusion decreased food intake in humans (Kissileff et al., Am J Clin Nutr 1981)",
+ "style": "Diner receipt: deep olive-green #2E4636 table background, cream thermal-paper receipt #FBF7EC with zigzag torn top and bottom edges and soft drop shadow, Rubik Mono One heavy headlines, Space Mono 700 labels, IBM Plex Mono 500 body, dashed separator lines, tomato-red #E0402B rotated rubber-stamp tags and line-item prices replaced by 'jobs', receipt header 'ORDER #CCK' and barcode strip on end card",
+ "transition": "slideup",
+ "music": {
+  "mood": "bright",
+  "seed": 731946
+ },
+ "css": "@font-face{font-family:'RMono';src:url(node_modules/@fontsource/rubik-mono-one/files/rubik-mono-one-latin-400-normal.woff2) format('woff2');font-weight:400} @font-face{font-family:'SMono';src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format('woff2');font-weight:700} @font-face{font-family:'SMono';src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format('woff2');font-weight:400} @font-face{font-family:'Plex';src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2) format('woff2');font-weight:500} @font-face{font-family:'Plex';src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-700-normal.woff2) format('woff2');font-weight:700} .card{background:#2E4636;background-image:radial-gradient(rgba(255,255,255,.05) 2px,transparent 2px);background-size:22px 22px;color:#1B1B1B;font-family:'Plex'} .safe{justify-content:center} .rc{position:relative;background:#FBF7EC;padding:70px 60px 80px;box-shadow:0 26px 0 rgba(0,0,0,.22);margin:24px 0} .rc:before,.rc:after{content:'';position:absolute;left:0;right:0;height:24px;background-size:36px 24px;background-repeat:repeat-x} .rc:before{top:-24px;background-image:linear-gradient(135deg,transparent 50%,#FBF7EC 50%),linear-gradient(225deg,transparent 50%,#FBF7EC 50%);background-size:36px 24px;background-position:0 0,18px 0;background-image:linear-gradient(45deg,#FBF7EC 25%,transparent 25%),linear-gradient(-45deg,#FBF7EC 25%,transparent 25%);background-size:36px 48px;background-position:0 24px,0 24px} .rc:after{bottom:-24px;background-image:linear-gradient(135deg,#FBF7EC 25%,transparent 25%),linear-gradient(-135deg,#FBF7EC 25%,transparent 25%);background-size:36px 48px;background-position:0 0,0 0} .hd{display:flex;justify-content:space-between;font:700 36px 'SMono';letter-spacing:2px;text-transform:uppercase;color:#555;margin:0 0 26px} .dash{border-top:5px dashed #1B1B1B;margin:28px 0} h1{font:400 112px/1.04 'RMono';margin:0;letter-spacing:-2px;text-transform:uppercase} h2{font:400 92px/1.08 'RMono';margin:0;text-transform:uppercase;letter-spacing:-1px} p{font:500 54px/1.32 'Plex';margin:0} p+p{margin-top:24px} b{font-weight:700} .hl{background:#FFD84A;padding:0 8px} .stamp{display:inline-block;border:6px solid #E0402B;color:#E0402B;font:700 44px 'SMono';padding:8px 22px;transform:rotate(-4deg);text-transform:uppercase;letter-spacing:2px;margin:0 0 30px} .item{display:flex;align-items:baseline;gap:22px;font:500 54px/1.3 'Plex';padding:18px 0;border-bottom:4px dotted #9A9488} .item:last-child{border-bottom:0} .item .n{font:400 58px 'RMono';color:#E0402B;min-width:80px} .big{font:400 200px/1 'RMono';color:#E0402B;margin:0 0 6px} .vs{display:flex;gap:26px} .vs div{flex:1;border:5px solid #1B1B1B;padding:30px 24px} .vs div.r{background:#1B1B1B;color:#FBF7EC} .vs h2{font-size:64px} .vs p{font-size:46px;margin-top:14px} .bars{height:110px;margin-top:34px;background:repeating-linear-gradient(90deg,#1B1B1B 0 6px,transparent 6px 11px,#1B1B1B 11px 14px,transparent 14px 22px,#1B1B1B 22px 31px,transparent 31px 36px)} .handle{font:700 54px 'SMono';margin-top:26px}",
+ "cards": [
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Order #CCK</span><span>Your gut</span></div><div class='stamp'>Body-made peptide</div><h1>Your gut makes its own “I'm full” signal.</h1></div></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Item 01</span><span>Who</span></div><h2>Meet CCK</h2><div class='dash'></div><p class='step'>Short for <b>cholecystokinin</b>. A small peptide hormone.</p><p class='step'>Made by <span class='hl'>I cells</span> in your upper small intestine.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Item 02</span><span>Trigger</span></div><h2>Fat + protein arrive</h2><div class='dash'></div><p class='step'>Food moves from stomach to small intestine.</p><p class='step'>Blood CCK rises <span class='hl'>within minutes</span>.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Item 03</span><span>Found</span></div><p class='big step'>1928</p><p class='step'>Gut extracts made the <b>gallbladder squeeze</b>. The name comes from that job.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Item 04</span><span>Its jobs</span></div><div class='item step'><span class='n'>1</span><span>Squeezes the gallbladder: bile helps digest fat</span></div><div class='item step'><span class='n'>2</span><span>Tells the pancreas to send enzymes</span></div><div class='item step'><span class='n'>3</span><span>Slows stomach emptying</span></div></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Item 05</span><span>Fullness</span></div><h2>“Enough”</h2><div class='dash'></div><p class='step'>CCK acts on the <b>vagus nerve</b>, which signals your brainstem.</p><p class='step'>Result: <span class='hl'>smaller meals</span>. Rats 1973. People 1981.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><div class='rc'><div class='hd'><span>Total</span><span>Thank you</span></div><div class='vs'><div><h2>Ghrelin</h2><p>says “eat”</p></div><div class='r'><h2>CCK</h2><p>says “enough”</p></div></div><div class='dash'></div><p>Save this for your next physiology class.</p><p class='handle'>Follow @peptidesnepal</p><div class='bars'></div></div></div>",
+   "hold": 1.0
+  }
+ ]
+}
