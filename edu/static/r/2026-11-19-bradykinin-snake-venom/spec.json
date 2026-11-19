@@ -1,0 +1,35 @@
+{
+ "topic": "Discovery stories / peptides your body makes: bradykinin, the peptide hiding in your blood that snake venom revealed. 1948-49 Rocha e Silva, Beraldo & Rosenfeld (São Paulo) found that Bothrops jararaca venom (or trypsin) acting on plasma globulin released a hypotensive, smooth-muscle-stimulating factor (Am J Physiol 1949;156:261); it caused a slow, delayed contraction of guinea pig ileum, hence brady (slow) + kinin (movement) (Motta & Tersariol, Front Physiol 2017; Graeff et al., Acta Neuropsychiatr 2024); 9 amino acids Arg-Pro-Pro-Gly-Phe-Ser-Pro-Phe-Arg released from high-molecular-weight kininogen by plasma kallikrein; causes vasodilation, increased microvessel permeability, edema and pain (Motta 2017); ACE (kininase II) and other enzymes inactivate it, circulating lifespan only a few seconds (Rex et al., Mol Biol Rep 2022)",
+ "style": "Vintage field guide: parchment #EFE6D2 pages with double forest-green #1F3A2E border, snake-scale scalloped bands top and bottom (green/rust/cream), DM Serif Display headlines with rust #B6532C italic accents, IBM Plex Mono 'Plate No.' labels, Work Sans body, cream specimen-label boxes with hard green offset shadow, full green hook card",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 845716551
+ },
+ "css": "@font-face{font-family:'Serif';src:url(node_modules/@fontsource/dm-serif-display/files/dm-serif-display-latin-400-normal.woff2)}\n@font-face{font-family:'Serif';font-style:italic;src:url(node_modules/@fontsource/dm-serif-display/files/dm-serif-display-latin-400-italic.woff2)}\n@font-face{font-family:'Work';src:url(node_modules/@fontsource/work-sans/files/work-sans-latin-500-normal.woff2);font-weight:500}\n@font-face{font-family:'Work';src:url(node_modules/@fontsource/work-sans/files/work-sans-latin-700-normal.woff2);font-weight:700}\n@font-face{font-family:'Plex';src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2);font-weight:600}\n.card{background:#EFE6D2;color:#1F3A2E;font-family:'Work';font-weight:500}\n.card::before{content:'';position:absolute;left:40px;right:40px;top:40px;bottom:40px;border:5px solid #1F3A2E;outline:2px solid #1F3A2E;outline-offset:-18px}\n.scales{position:absolute;left:40px;right:40px;height:70px;background-color:#1F3A2E;background-image:radial-gradient(circle at 50% 0,#EFE6D2 0 16px,transparent 17px),radial-gradient(circle at 50% 0,#B6532C 0 22px,transparent 23px);background-size:56px 36px;background-position:0 0,28px 18px}\n.scales.top{top:150px} .scales.bot{bottom:150px}\n.safe{z-index:2;padding-left:40px}\n.plate{font:600 36px 'Plex';letter-spacing:3px;text-transform:uppercase;color:#B6532C;margin:0 0 26px}\nh1{font-family:'Serif';font-weight:400;font-size:128px;line-height:1.0;margin:0;letter-spacing:-1px;max-width:850px}\nh1 em{color:#B6532C;font-style:italic}\n.lbl{font:500 52px/1.3 'Work';margin:30px 0 0;max-width:820px}\n.lbl b{font-weight:700;color:#B6532C}\n.big{font-family:'Serif';font-size:280px;line-height:.85;margin:0;color:#B6532C}\n.spec{border:4px solid #1F3A2E;background:#F8F2E4;padding:30px 34px;margin-top:34px;max-width:800px;box-shadow:10px 10px 0 #1F3A2E}\n.spec .k{font:600 34px 'Plex';color:#B6532C;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px}\n.spec .v{font:500 50px/1.25 'Work'}\n.row{display:flex;gap:30px;align-items:center;border-top:4px solid #1F3A2E;padding:26px 0;max-width:820px}\n.row:last-child{border-bottom:4px solid #1F3A2E}\n.row b{font-family:'Serif';font-weight:400;font-size:100px;color:#B6532C;min-width:100px}\n.row span{font:500 52px/1.2 'Work'}\n.card-1{background:#1F3A2E;color:#EFE6D2}\n.card-1::before{border-color:#EFE6D2;outline-color:#EFE6D2}\n.card-1 .scales{background-color:#B6532C;background-image:radial-gradient(circle at 50% 0,#1F3A2E 0 16px,transparent 17px),radial-gradient(circle at 50% 0,#EFE6D2 0 22px,transparent 23px)}\n.card-1 h1{font-size:150px;line-height:.98} .card-1 h1 em{color:#F0A27E}\n.card-1 .plate{color:#F0A27E}\n.end h1{font-size:118px} .end .handle{font:700 60px 'Work';margin-top:50px;color:#B6532C}\n .spec{padding:34px 40px} .spec .k{font-size:40px} .spec .v{font-size:60px}",
+ "cards": [
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>Plate No. 1 · Brazil, 1948</p><h1>Snake venom revealed a peptide <em>hiding in your blood.</em></h1></div>",
+   "hold": 0.6
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>The experiment</p><h1>São Paulo, 1948.</h1><p class='lbl step'>Three scientists mixed <b>jararaca</b> snake venom with blood plasma. Something new appeared.</p></div>"
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>The name</p><p class='lbl' style='margin-top:0'>It made gut muscle contract <b>slowly.</b></p><div class='step'><div class='spec'><span class='k'>brady</span><span class='v'>= slow</span></div><div class='spec'><span class='k'>kinin</span><span class='v'>= movement</span></div></div><h1 class='step' style='margin-top:44px'><em>Bradykinin.</em></h1></div>"
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>The twist</p><h1>It was never in the venom.</h1><p class='lbl step'>It sits locked inside a bigger blood protein, <b>kininogen.</b> Your enzyme <b>kallikrein</b> cuts it free. The venom made the same cut.</p></div>"
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>Field notes</p><p class='big'>9</p><p class='lbl' style='margin-top:10px'>amino acids. Once free, it:</p><div style='margin-top:30px'><div class='row step'><b>1</b><span>Widens blood vessels</span></div><div class='row step'><b>2</b><span>Makes them leaky, so tissue swells</span></div><div class='row step'><b>3</b><span>Switches on pain</span></div></div></div>"
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe'><p class='plate'>Lifespan</p><h1>Gone in <em>seconds.</em></h1><p class='lbl step'>Enzymes in your blood, like <b>ACE</b>, chop it up almost as soon as it is made.</p></div>"
+  },
+  {
+   "html": "<div class='scales top'></div><div class='scales bot'></div><div class='safe end'><p class='plate'>End of entry</p><h1>Save this for your pharmacology exam.</h1><p class='lbl'>Sources in the caption.</p><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 1.0
+  }
+ ]
+}
