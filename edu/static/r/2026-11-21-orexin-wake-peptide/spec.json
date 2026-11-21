@@ -1,0 +1,35 @@
+{
+ "topic": "Peptides your body makes: orexin (hypocretin), the brain's own stay-awake peptide. Made by a small group of hypothalamic neurons; helps you stay awake and stabilises sleep-wake states (NINDS Narcolepsy page); 1998 two groups: de Lecea et al. named hypocretins (hypothalamic + secretin similarity), Sakurai et al. (Cell 1998) named orexins after Greek for appetite because they stimulated food intake in rats (Siegel, Cell 1999); 1999 Lin et al. (Cell): narcoleptic Doberman and Labrador dogs had deletions in Hcrtr2 (orexin receptor 2) gene; 2000 Thannickal et al. (Neuron): human narcoleptics had an 85-95% reduction in Hcrt neurons, on average only 7% left; narcolepsy: EDS in all, type 1 cataplexy triggered by strong emotions, caused by loss of hypocretin neurons (NINDS)",
+ "style": "Lab notebook: cream #FBF8EE grid paper with light-blue #C9DCEB 60 px grid and a red #E0565B margin line, Caveat 700 handwritten headings, Lexend 500/800 body, yellow/green/pink highlighter marks, white note boxes with thick charcoal #22262B outline and hard offset shadow, rotated red date tags, 'Lab notes / Entry 1' page labels",
+ "transition": "slideleft",
+ "music": {
+  "mood": "ambient",
+  "seed": 2886527835
+ },
+ "css": "\n@font-face { font-family: 'Hand'; font-weight: 700; src: url(node_modules/@fontsource/caveat/files/caveat-latin-700-normal.woff2); }\n@font-face { font-family: 'Lex'; font-weight: 400; src: url(node_modules/@fontsource/lexend/files/lexend-latin-400-normal.woff2); }\n@font-face { font-family: 'Lex'; font-weight: 500; src: url(node_modules/@fontsource/lexend/files/lexend-latin-500-normal.woff2); }\n@font-face { font-family: 'Lex'; font-weight: 700; src: url(node_modules/@fontsource/lexend/files/lexend-latin-700-normal.woff2); }\n@font-face { font-family: 'Lex'; font-weight: 800; src: url(node_modules/@fontsource/lexend/files/lexend-latin-800-normal.woff2); }\n.card { background-color: #FBF8EE; color: #22262B; font-family: 'Lex';\n  background-image: linear-gradient(#C9DCEB 2px, transparent 2px), linear-gradient(90deg, #C9DCEB 2px, transparent 2px);\n  background-size: 60px 60px; }\n.card::before { content: ''; position: absolute; left: 70px; top: 0; bottom: 0; width: 5px; background: #E0565B; }\n.safe { padding-left: 120px !important; }\n.page { font: 700 54px 'Hand'; color: #E0565B; margin: 0 0 18px; }\nh1 { font: 700 150px/0.95 'Hand'; margin: 0 0 30px; color: #22262B; }\nh2 { font: 700 118px/1 'Hand'; margin: 0 0 26px; color: #22262B; }\n.hl { background: linear-gradient(transparent 52%, #FFE94D 52%, #FFE94D 92%, transparent 92%); padding: 0 8px; }\n.hg { background: linear-gradient(transparent 52%, #9EF0B4 52%, #9EF0B4 92%, transparent 92%); padding: 0 8px; }\n.hp { background: linear-gradient(transparent 52%, #FFB3CF 52%, #FFB3CF 92%, transparent 92%); padding: 0 8px; }\np { font: 500 56px/1.3 'Lex'; margin: 0 0 30px; max-width: 790px; }\n.note { background: #FFFFFF; border: 5px solid #22262B; box-shadow: 12px 12px 0 #22262B; padding: 34px 40px; margin: 0 0 44px; max-width: 760px; }\n.note p { margin: 0; }\n.note b { font-weight: 800; }\n.tag { display: inline-block; font: 800 38px 'Lex'; color: #fff; background: #E0565B; padding: 10px 22px; margin: 0 0 28px; transform: rotate(-2deg); align-self: flex-start; }\n.big { white-space: nowrap; font: 800 172px/0.9 'Lex'; margin: 0 0 20px; color: #22262B; letter-spacing: -6px; }\n.arrow { font: 700 80px 'Hand'; color: #E0565B; margin: 0 0 10px; }\n.hook { justify-content: center; }\n.hook h1 { font-size: 172px; }\n.end h1 { font-size: 140px; }\n.handle { font: 800 56px 'Lex'; margin-top: 30px; }\n",
+ "cards": [
+  {
+   "html": "<div class='safe hook'><p class='page'>Lab notes · peptides your body makes</p><h1>Your brain makes its own <span class='hl'>“stay awake”</span> peptide.</h1></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><p class='page'>Entry 1</p><h2>Meet <span class='hl'>orexin</span>.</h2><div class='note step'><p>Also called hypocretin. Made by a few nerve cells in the <b>hypothalamus</b>.</p></div><p class='step'>Job: help you <span class='hg'>stay awake</span>.</p></div>"
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>1998</span><h2>Two teams. One peptide.</h2><div class='note step'><p><b>Hypocretin</b> = hypothalamus + secretin.</p></div><div class='note step'><p><b>Orexin</b> = Greek for appetite. It made rats eat more.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>1999</span><h2>The sleepy dogs.</h2><p class='step'>Doberman and Labrador dogs with narcolepsy:</p><div class='note step'><p>a broken gene for an <span class='hl'>orexin receptor</span>.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>2000</span><h2>Then, human brains.</h2><p class='big step'>85–95%</p><p class='step'>of orexin cells lost in people with narcolepsy.</p></div>"
+  },
+  {
+   "html": "<div class='safe'><p class='page'>Result</p><h2>Too little orexin:</h2><div class='note step'><p><span class='hp'>Heavy daytime sleepiness</span>.</p></div><div class='note step'><p>Type 1: sudden muscle weakness with strong emotions, like laughing.</p></div></div>"
+  },
+  {
+   "html": "<div class='safe end'><p class='page'>Don't lose this page</p><h1>Save this for your <span class='hl'>neuro class</span>.</h1><p>Sources in the caption.</p><p class='handle'>Follow @peptidesnepal</p></div>",
+   "hold": 1.0
+  }
+ ]
+}
