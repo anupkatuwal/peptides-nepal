@@ -1,0 +1,35 @@
+{
+ "topic": "Peptides your body makes: carnosine, the muscle's own acid buffer. Carnosine (beta-alanyl-L-histidine) is a dipeptide made in skeletal muscle from beta-alanine and histidine by carnosine synthase, limited by beta-alanine availability; first isolated by Gulewitsch & Amiradzhibi in 1900; the imidazole ring of histidine buffers H+ over the exercise intracellular pH range, from about pH 7.1 at rest to about pH 6 after intense exercise; equine gluteus medius has 6-10 times the carnosine of human muscle (Harris et al., Amino Acids 2012); human muscle carnosine 5-10 mM, type II fibres about 30-100% higher than type I (Jukic et al., Antioxidants 2021)",
+ "style": "Bold editorial: pure white #FFFFFF pages, huge black Archivo Black uppercase headlines, Inter 500/800/900 body, one hot-pink #FF2E7E colour block (full-pink hook card, pink slab behind key numbers, pink underline bars), thick black 14 px rules, black top rule with dot and 01/07 index, big pH 7.1 -> 6 number pair",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 58213
+ },
+ "css": "@font-face{font-family:'AB';src:url(node_modules/@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2)} @font-face{font-family:'In';font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)} @font-face{font-family:'In';font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)} @font-face{font-family:'In';font-weight:900;src:url(node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2)} .card{background:#FFFFFF;color:#0A0A0A;font-family:'In';font-weight:500} .strip{position:absolute;left:80px;right:140px;top:236px;display:flex;justify-content:space-between;font:800 32px 'In';letter-spacing:4px;text-transform:uppercase;border-bottom:14px solid #0A0A0A;padding-bottom:16px} .card-1{background:#FF2E7E} .card-1 .strip{border-color:#0A0A0A} h1{font-family:'AB';font-size:124px;line-height:.95;letter-spacing:-3px;text-transform:uppercase;margin:0 0 36px} .hook h1{font-size:150px;line-height:.92} .kick{display:inline-block;align-self:flex-start;background:#0A0A0A;color:#fff;font:900 40px 'In';letter-spacing:3px;text-transform:uppercase;padding:14px 24px;margin:0 0 44px} .p{font:500 56px/1.28 'In';margin:0 0 28px;max-width:840px} .p b{font-weight:900} .hl{background:#FF2E7E;padding:0 10px} .bar{width:220px;height:22px;background:#FF2E7E;margin:0 0 40px} .num{display:flex;align-items:center;gap:30px;margin:10px 0 36px} .num .box{background:#0A0A0A;color:#fff;font-family:'AB';font-size:150px;line-height:1;padding:18px 26px} .num .box.pk{background:#FF2E7E;color:#0A0A0A} .num .arr{font-family:'AB';font-size:110px} .lab{font:800 40px 'In';text-transform:uppercase;letter-spacing:2px;margin:0 0 30px} .eq{display:flex;align-items:center;gap:22px;margin:0 0 40px;flex-wrap:wrap} .eq span{font:900 52px 'In';border:8px solid #0A0A0A;padding:16px 22px} .eq i{font-style:normal;font-family:'AB';font-size:80px} .row{display:flex;flex-direction:column;gap:6px;border-top:10px solid #0A0A0A;padding:26px 0} .row b{font-family:'AB';font-size:90px;min-width:240px} .row span{font:500 52px/1.25 'In'} .end h1{font-size:118px} .handle{display:inline-block;align-self:flex-start;background:#FF2E7E;font:900 56px 'In';padding:16px 26px;margin-top:20px}",
+ "cards": [
+  {
+   "html": "<div class='strip'><span>●</span><span>01/07</span></div><div class='safe hook'><span class='kick'>Carnosine</span><h1>Your muscles make their own acid buffer.</h1></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>02/07</span></div><div class='safe'><h1>Meet carnosine.</h1><div class='bar'></div><div class='eq step'><span>Beta-alanine</span><i>+</i><span>Histidine</span></div><p class='p step'>Just <b>2 amino acids</b>, built inside your muscle cells.</p></div>"
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>03/07</span></div><div class='safe'><h1>Hard sprints make acid.</h1><p class='lab'>Muscle pH</p><div class='num step'><div class='box'>7.1</div><div class='arr'>→</div><div class='box pk'>~6</div></div><p class='p step'>At rest vs. after <b>intense exercise</b>.</p></div>"
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>04/07</span></div><div class='safe'><h1>Carnosine soaks it up.</h1><div class='bar'></div><p class='p step'>Its histidine ring <span class='hl'><b>grabs H⁺</b></span>, the acid particle.</p></div>"
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>05/07</span></div><div class='safe'><h1>Fast fibres carry more.</h1><div class='row step'><b>+30–100%</b><span>in fast-twitch (type II) fibres vs. slow type I</span></div></div>"
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>06/07</span></div><div class='safe'><h1>Horses beat us.</h1><div class='num step'><div class='box pk'>6–10×</div></div><p class='p step'>more in a horse's hip muscle than in ours.</p></div>"
+  },
+  {
+   "html": "<div class='strip'><span>●</span><span>07/07</span></div><div class='safe end'><h1>Save this for leg day.</h1><p class='p'>Sources in the caption.</p><span class='handle'>Follow @peptidesnepal</span></div>",
+   "hold": 1.0
+  }
+ ]
+}
