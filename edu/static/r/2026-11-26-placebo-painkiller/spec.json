@@ -1,0 +1,40 @@
+{
+ "topic": "Spot the hype / peptides your body makes: the placebo effect and the brain's own opioid peptides. Levine, Gordon & Fields, Lancet 1978 (PMID 80579): after impacted wisdom-tooth (third molar) extraction, double-blind naloxone vs placebo; placebo responders' pain relief was reversed by naloxone, nonresponders unaffected; consistent with endorphin release mediating placebo analgesia. Zubieta et al., J Neurosci 2005 (PMID 16120776): PET imaging in sustained pain, placebo activated mu-opioid receptor neurotransmission (rostral anterior cingulate, DLPFC, insula, nucleus accumbens), paralleled by lower pain ratings; expectation of relief modulates physical and emotional states. Benedetti, Carlino & Pollo, Neuropsychopharmacology 2011 (PMID 20592717): how placebos change the patient's brain. Angle: why fair trials compare against a placebo.",
+ "style": "Sticky-note board: warm kraft/cork #C8996A background with fine dark dot texture, slightly rotated sticky notes (yellow #FFE36E, pink #FF9FB2, mint #A8E6C1, sky #A9D8F5) with soft drop shadows and red #D7263D push pins, Permanent Marker headlines in ink #1E1E1E, Atkinson Hyperlegible 400/700 body, Kalam handwritten labels, masking-tape strips on hook and end notes, red marker underlines",
+ "transition": "slideleft",
+ "music": {
+  "mood": "lofi",
+  "seed": 58213
+ },
+ "css": "@font-face{font-family:'PM';src:url(node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2);font-weight:400} @font-face{font-family:'AH';src:url(node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2);font-weight:400} @font-face{font-family:'AH';src:url(node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff2);font-weight:700} @font-face{font-family:'KL';src:url(node_modules/@fontsource/kalam/files/kalam-latin-700-normal.woff2);font-weight:700} .card{background-color:#C8996A;background-image:radial-gradient(rgba(60,35,15,.22) 2px,transparent 2.5px),radial-gradient(rgba(255,240,220,.18) 2px,transparent 2.5px);background-size:26px 26px,38px 38px;background-position:0 0,13px 17px;color:#1E1E1E;font-family:'AH'} .card::after{content:'';position:absolute;inset:0;border:28px solid #8A5A34;pointer-events:none} .note{position:relative;padding:70px 60px 60px;box-shadow:0 18px 30px rgba(40,20,5,.35);margin:0 0 46px} .note::before{content:'';position:absolute;top:-22px;left:50%;width:46px;height:46px;margin-left:-23px;border-radius:50%;background:#D7263D;box-shadow:inset -8px -8px 0 rgba(0,0,0,.25),0 6px 8px rgba(0,0,0,.35)} .y{background:#FFE36E}.p{background:#FF9FB2}.m{background:#A8E6C1}.b{background:#A9D8F5}.w{background:#FFF8E7} .r1{transform:rotate(-2deg)}.r2{transform:rotate(1.6deg)}.r3{transform:rotate(-1deg)} .tape::before{top:-30px;left:50%;width:260px;height:64px;margin-left:-130px;border-radius:0;background:rgba(255,250,235,.7);box-shadow:none;transform:rotate(-3deg)} h1{font-family:'PM';font-weight:400;font-size:128px;line-height:1.02;margin:0} h2{font-family:'PM';font-weight:400;font-size:104px;line-height:1.05;margin:0 0 20px} p{font-size:58px;line-height:1.28;margin:0} p b{font-weight:700} .lbl{font-family:'KL';font-weight:700;font-size:48px;color:#B3122B;margin:0 0 14px;transform:rotate(-2deg);display:inline-block} .u{background:linear-gradient(transparent 70%,rgba(215,38,61,.45) 70%)} .kick{font-family:'KL';font-weight:700;font-size:56px;color:#1E1E1E;margin:0 0 30px} .handle{font-family:'PM';font-size:66px;margin-top:10px} .small{font-size:52px}",
+ "cards": [
+  {
+   "html": "<div class='safe'><div class='note y r1 tape'><p class='kick'>Placebo effect</p><h1>A fake pill can make your brain release <span class='u'>painkillers.</span></h1></div></div>",
+   "hold": 0.3
+  },
+  {
+   "html": "<div class='safe'><div class='note w r2 step'><p class='lbl'>1978 · The Lancet</p><h2>Wisdom-tooth surgery</h2></div><div class='note p r3 step'><p>Patients got a <b>dummy drug.</b> Some felt <b>less pain.</b></p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='note m r1 step'><p class='lbl'>The test</p><p>Then <b>naloxone</b>, which <b>blocks opioid signals.</b></p></div><div class='note y r2 step'><h2>The relief vanished.</h2></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='note b r2 step'><p class='lbl'>The answer</p><h2>Endorphins</h2><p>Your brain's own opioid <b>peptides</b> did the work.</p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='note w r1 step'><p class='lbl'>2005 · J Neuroscience</p><h2>Brain scans agree</h2></div><div class='note m r2 step'><p>A placebo <b>switched on</b> the opioid system. Pain <b>dropped.</b></p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='note p r2 step'><p class='lbl'>Why it matters</p><h2>Fair trials need a placebo group.</h2></div><div class='note y r1 step'><p>Without one, almost anything <b>looks like it works.</b></p></div></div>",
+   "hold": 0.2
+  },
+  {
+   "html": "<div class='safe'><div class='note y r2 tape'><h2>Save this for the next 'miracle' claim.</h2></div><div class='note w r1'><p class='handle'>Follow @peptidesnepal</p></div></div>",
+   "hold": 0.6
+  }
+ ]
+}
