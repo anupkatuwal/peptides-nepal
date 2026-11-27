@@ -1,0 +1,214 @@
+{
+  "reviewed": "2026-11-28",
+  "hub": {
+    "title": "Anabolic steroids: a harm reduction guide",
+    "summary": "Plain-language facts about anabolic steroids for gym-goers in Nepal: how they work, what they do to the heart, hormones and mind, which blood tests matter, why fake products are common, and where to get help. No judgment, no selling, no doses.",
+    "intro": [
+      "Anabolic steroids are used in gyms across Nepal, mostly by people who never compete. A large review of studies worldwide estimated that about 3.3% of people have used them at some point.",
+      "Most users don't tell a doctor. In one study, 56% of users said they had never told any doctor about their use.",
+      "These pages don't tell anyone to use steroids, and they don't give doses, cycles or sources. They explain what happens in the body, what the risks are, and how people who already use them can catch problems early."
+    ]
+  },
+  "pages": [
+    {
+      "slug": "how-anabolic-steroids-work",
+      "title": "How anabolic steroids work in the body",
+      "summary": "Anabolic steroids are testosterone or lab-made versions of it. They switch on the androgen receptor in muscle cells, which raises muscle protein building. They also switch off your body's own testosterone production.",
+      "sections": [
+        {"heading": "What they are", "paragraphs": [
+          "Anabolic-androgenic steroids (AAS) are testosterone and synthetic drugs built from it.",
+          "\"Anabolic\" means building tissue, like muscle. \"Androgenic\" means male traits, like a deeper voice and body hair. Every AAS has both effects, in different amounts.",
+          "Doctors prescribe testosterone for men whose bodies don't make enough. Gym use is different: people usually take far more than the body makes, often several drugs at once."]},
+        {"heading": "How they build muscle", "paragraphs": [
+          "Steroids are fat-soluble, so they pass straight into cells.",
+          "Inside a muscle cell, they bind to the androgen receptor. The receptor moves into the cell's nucleus and switches on genes for building muscle protein.",
+          "They also activate satellite cells. These are muscle stem cells that fuse with muscle fibers and add new nuclei, so each fiber can grow bigger.",
+          "In a well-known 1996 trial, men given high doses of testosterone gained muscle and strength even without training. Men who trained and took testosterone gained the most."]},
+        {"heading": "How they shut down your own testosterone", "paragraphs": [
+          "Your brain controls testosterone through a feedback loop called the HPT axis (hypothalamus, pituitary, testes).",
+          "The brain sends signals (LH and FSH) to the testes. The testes make testosterone and sperm. When testosterone is high, the brain turns the signals down.",
+          "Steroids flood the body with androgen. The brain sees this and stops sending LH and FSH. The testes then make little testosterone or sperm, and they can shrink.",
+          "This is why people can feel low on energy, mood and sex drive after stopping. Their own system has to restart, and in some people it stays low for years."]}
+      ],
+      "faq": [
+        {"q": "Are anabolic steroids the same as the steroids doctors give for inflammation?", "a": "No. Corticosteroids, like prednisolone, calm inflammation and do not build muscle. Anabolic steroids are testosterone and drugs made from it."},
+        {"q": "Why do steroids cause testicular shrinkage?", "a": "They make the brain stop sending LH and FSH, the signals that tell the testes to work. Without those signals, the testes make less testosterone and sperm and can shrink."}
+      ],
+      "sources": [
+        {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"},
+        {"title": "Bhasin S, et al., The effects of supraphysiologic doses of testosterone on muscle size and strength in normal men (NEJM 1996)", "url": "https://doi.org/10.1056/NEJM199607043350101"},
+        {"title": "Rasmussen JJ, et al., Former Abusers of Anabolic Androgenic Steroids Exhibit Decreased Testosterone Levels and Hypogonadal Symptoms Years after Cessation (PLoS One 2016)", "url": "https://doi.org/10.1371/journal.pone.0161208"}
+      ]
+    },
+    {
+      "slug": "health-risks",
+      "title": "Anabolic steroid health risks: heart, blood, liver, hormones and mind",
+      "summary": "Long-term steroid use is linked to a weaker heart, faster artery damage, thick blood, high blood pressure, poor cholesterol, liver strain from oral steroids, infertility and mood problems. Many of these cause no symptoms until damage is done.",
+      "sections": [
+        {"heading": "Heart and arteries", "paragraphs": [
+          "This is the biggest long-term risk.",
+          "A 2017 study in the journal Circulation compared 86 weightlifters who used steroids with 54 who didn't. Users' hearts pumped more weakly and relaxed less well. Users also had more plaque in the arteries that feed the heart.",
+          "71% of users who were on steroids at the time had low pumping strength. Heart relaxation was also worse in people who had stopped, which suggests some damage may last.",
+          "Steroids also raise blood pressure and lower HDL, the \"good\" cholesterol."]},
+        {"heading": "Blood", "paragraphs": [
+          "Testosterone tells the body to make more red blood cells. Too many makes the blood thick. Doctors measure this as hematocrit.",
+          "Thick blood raises the risk of clots, which can cause a stroke or heart attack. Endocrine Society guidelines tell doctors to act if hematocrit rises above 54% during testosterone treatment."]},
+        {"heading": "Liver", "paragraphs": [
+          "Many oral steroids are chemically changed (17-alpha-alkylated) so the liver doesn't break them down too fast. This change makes them harder on the liver.",
+          "They are linked to liver injury, blocked bile flow and, rarely, liver tumors."]},
+        {"heading": "Hormones and fertility", "paragraphs": [
+          "Steroids shut down your own testosterone and sperm production. This can cause infertility while using and after stopping.",
+          "Some testosterone turns into estrogen. This can cause breast tissue growth in men (gynecomastia).",
+          "Acne and faster hair loss are common, especially in people prone to them."]},
+        {"heading": "Mind and mood", "paragraphs": [
+          "Some users become more irritable or aggressive while using. Depression is common after stopping, when hormone levels crash.",
+          "Dependence is real. The Endocrine Society estimates that nearly a third of users develop steroid dependence: they keep using despite problems, or feel unable to stop."]}
+      ],
+      "faq": [
+        {"q": "Can steroid heart damage be reversed?", "a": "Not always. In the 2017 Circulation study, heart relaxation was still impaired in people who had stopped using. Early checks with a doctor give the best chance of catching problems."},
+        {"q": "Do steroid side effects show symptoms?", "a": "Often not. High blood pressure, thick blood, poor cholesterol and early heart changes usually cause no symptoms. Blood tests and blood pressure checks are the only way to know."}
+      ],
+      "sources": [
+        {"title": "Baggish AL, et al., Cardiovascular Toxicity of Illicit Anabolic-Androgenic Steroid Use (Circulation 2017)", "url": "https://doi.org/10.1161/CIRCULATIONAHA.116.026945"},
+        {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"},
+        {"title": "Bhasin S, et al., Testosterone Therapy in Men With Hypogonadism: An Endocrine Society Clinical Practice Guideline (JCEM 2018)", "url": "https://doi.org/10.1210/jc.2018-00229"},
+        {"title": "NHS: Anabolic steroid misuse", "url": "https://www.nhs.uk/conditions/anabolic-steroid-misuse/"}
+      ]
+    },
+    {
+      "slug": "blood-tests-and-monitoring",
+      "title": "Blood tests and health checks for steroid users",
+      "summary": "Most steroid harm is silent, so regular checks matter. The key ones are blood pressure, a full blood count (hematocrit), cholesterol, liver and kidney tests, and hormone levels, ideally reviewed by a doctor you are honest with.",
+      "sections": [
+        {"heading": "Why checks matter", "paragraphs": [
+          "High blood pressure, thick blood and bad cholesterol usually feel like nothing. By the time there are symptoms, damage may already be done.",
+          "Checks don't make steroid use safe. They help you and a doctor spot problems early and decide when to stop."]},
+        {"heading": "What to check", "paragraphs": [
+          "Blood pressure: easy to check at a pharmacy or at home. Steroids often raise it.",
+          "Full blood count (CBC): shows hematocrit and hemoglobin. High values mean thick blood and a higher clot risk.",
+          "Lipid profile: total cholesterol, LDL, HDL and triglycerides. Steroids often drop HDL and raise LDL.",
+          "Liver function tests (LFT): ALT, AST and bilirubin. Especially important with oral steroids. Note that hard training alone can raise AST and ALT.",
+          "Kidney function: creatinine and eGFR. Heavy muscle mass can raise creatinine, so tell the doctor you lift.",
+          "Hormones: testosterone, LH, FSH and estradiol. These show how suppressed your own system is, and whether it recovers after stopping.",
+          "Heart: if you have used for a long time, ask a doctor about an ECG and an echocardiogram (heart ultrasound)."]},
+        {"heading": "When to check", "paragraphs": [
+          "Before starting anything: a baseline shows what is normal for you.",
+          "While using: regular checks catch rising blood pressure, hematocrit or liver values.",
+          "After stopping: hormone tests show whether your own testosterone is coming back."]},
+        {"heading": "Talking to a doctor in Nepal", "paragraphs": [
+          "Tell the doctor the truth about what you use. They can't read your results correctly without it.",
+          "Most diagnostic labs in Kathmandu and other cities offer these tests. A general physician can order them, and an endocrinologist (hormone specialist) can help with hormone problems."]}
+      ],
+      "faq": [
+        {"q": "What blood tests should steroid users get?", "a": "Blood pressure, a full blood count (hematocrit), lipid profile, liver and kidney tests, and hormones (testosterone, LH, FSH, estradiol). Long-term users should ask about heart tests too."},
+        {"q": "Should I tell my doctor I use steroids?", "a": "Yes. Steroids change many test results. Without knowing, a doctor may miss a problem or misread a normal finding."}
+      ],
+      "sources": [
+        {"title": "Bhasin S, et al., Testosterone Therapy in Men With Hypogonadism: An Endocrine Society Clinical Practice Guideline (JCEM 2018)", "url": "https://doi.org/10.1210/jc.2018-00229"},
+        {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"},
+        {"title": "NHS: Anabolic steroid misuse", "url": "https://www.nhs.uk/conditions/anabolic-steroid-misuse/"}
+      ]
+    },
+    {
+      "slug": "fake-and-contaminated-steroids",
+      "title": "Fake and contaminated steroids: what lab tests found",
+      "summary": "Black-market steroids are often not what the label says. A 2022 review of 19 studies covering 5,413 samples estimated that on average 36% were counterfeit. Others had the wrong dose.",
+      "sections": [
+        {"heading": "What the research found", "paragraphs": [
+          "A 2022 systematic review in BMC Public Health pooled 19 lab studies covering 5,413 black-market steroid samples, mostly seized by authorities in Europe and the Americas.",
+          "On average, 36% were counterfeit: a different drug, an added drug, or no active drug at all.",
+          "Many others were substandard: more or less of the drug than the label said.",
+          "Results varied widely between places, so no market can be assumed safe."]},
+        {"heading": "Why this matters", "paragraphs": [
+          "A wrong drug or wrong amount changes the risks. A higher dose than labeled raises side effects. A different drug can cause effects you didn't expect.",
+          "Products made outside licensed factories may not be sterile. Injecting a contaminated oil can cause abscesses and serious infections.",
+          "Labels, holograms and scratch codes can be copied. They don't prove what is inside."]},
+        {"heading": "What reduces the risk", "paragraphs": [
+          "Only licensed medicines made under pharmacy rules have checked quality.",
+          "Independent lab testing of a specific batch tells you more than packaging does.",
+          "Unexpected effects, pain or swelling after an injection are reasons to stop and see a doctor."]}
+      ],
+      "faq": [
+        {"q": "How common are fake steroids?", "a": "A 2022 review of 5,413 black-market samples estimated an average of 36% were counterfeit, and many more had the wrong dose. Rates varied widely by region."},
+        {"q": "Does a hologram or scratch code prove a steroid is real?", "a": "No. Packaging can be copied. Only lab testing shows what is actually inside."}
+      ],
+      "sources": [
+        {"title": "Magnolini R, et al., Fake anabolic androgenic steroids on the black market: a systematic review and meta-analysis (BMC Public Health 2022)", "url": "https://doi.org/10.1186/s12889-022-13734-4"}
+      ]
+    },
+    {
+      "slug": "safer-injecting",
+      "title": "Safer injecting: avoiding infections and blood-borne viruses",
+      "summary": "Sharing needles or vials can spread HIV, hepatitis B and hepatitis C. Dirty technique can cause abscesses. Using new sterile equipment every time and knowing the warning signs of infection prevent most of this harm.",
+      "sections": [
+        {"heading": "The main risks", "paragraphs": [
+          "Blood-borne viruses: HIV, hepatitis B and hepatitis C spread through shared needles, syringes and multi-use vials.",
+          "Infections: bacteria on the skin or in the product can cause abscesses (pockets of pus) and, rarely, blood infections.",
+          "Nerve and blood vessel damage from injecting in the wrong place."]},
+        {"heading": "Basic hygiene", "paragraphs": [
+          "Use a new sterile needle and syringe every time. Never share them, even with a friend or partner.",
+          "Never put a used needle back into a shared vial.",
+          "Wash your hands, and clean the skin and the vial top with an alcohol swab first.",
+          "Throw used needles into a hard sharps container, not loose in the bin."]},
+        {"heading": "Warning signs: see a doctor", "paragraphs": [
+          "Redness, heat, swelling or pain that gets worse after a day or two.",
+          "A lump that fills with pus, or red streaks spreading from the site.",
+          "Fever, chills or feeling generally unwell.",
+          "Infections can get serious fast. Early treatment is simple; late treatment may need surgery."]},
+        {"heading": "Testing and vaccination", "paragraphs": [
+          "Anyone who has ever shared equipment should get tested for HIV, hepatitis B and hepatitis C.",
+          "There is a vaccine for hepatitis B. Ask a doctor about it."]}
+      ],
+      "faq": [
+        {"q": "Can you get HIV or hepatitis from steroid injections?", "a": "Yes, if needles, syringes or vials are shared. Using new sterile equipment every time and never sharing prevents this."},
+        {"q": "What are the signs of an infected injection site?", "a": "Worsening redness, heat, swelling or pain, a pus-filled lump, red streaks or fever. See a doctor quickly."}
+      ],
+      "sources": [
+        {"title": "NHS: Anabolic steroid misuse", "url": "https://www.nhs.uk/conditions/anabolic-steroid-misuse/"},
+        {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"}
+      ]
+    },
+    {
+      "slug": "coming-off-and-getting-help",
+      "title": "Coming off steroids and getting help",
+      "summary": "After stopping, your own testosterone can take months to recover, and in some people it stays low for years. Low mood, tiredness and low sex drive are common. A doctor can test your hormones and help, and dependence can be treated.",
+      "sections": [
+        {"heading": "What happens after stopping", "paragraphs": [
+          "While using, your brain stopped telling your testes to work. After stopping, it has to restart that signal.",
+          "Until it does, testosterone is low. People often feel tired, low or depressed, lose sex drive and lose some muscle.",
+          "A Danish study found that men who had stopped steroids years earlier still had lower testosterone and more symptoms of low testosterone than men who never used."]},
+        {"heading": "Mood and dependence", "paragraphs": [
+          "The mood drop after stopping can be serious. Some people feel hopeless. If you have thoughts of harming yourself, get help right away from a doctor, a hospital or someone you trust.",
+          "Nearly a third of users develop dependence. Signs include using longer than planned, starting again to escape low mood, or feeling you can't stop. This is a known condition, not a weakness, and it can be treated."]},
+        {"heading": "How a doctor can help", "paragraphs": [
+          "A doctor can check your hormones, heart, blood and liver, and track your recovery.",
+          "An endocrinologist can treat hormone problems after stopping.",
+          "A psychiatrist or counselor can help with low mood and dependence. Being honest about steroid use helps them help you."]}
+      ],
+      "faq": [
+        {"q": "How long does testosterone take to recover after steroids?", "a": "It varies. For many people it takes months. A study of former users found some still had low testosterone years after stopping. Hormone tests show where you are."},
+        {"q": "Is steroid dependence real?", "a": "Yes. The Endocrine Society estimates that nearly a third of steroid users develop dependence. It can be treated with medical and psychological support."}
+      ],
+      "sources": [
+        {"title": "Rasmussen JJ, et al., Former Abusers of Anabolic Androgenic Steroids Exhibit Decreased Testosterone Levels and Hypogonadal Symptoms Years after Cessation (PLoS One 2016)", "url": "https://doi.org/10.1371/journal.pone.0161208"},
+        {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"},
+        {"title": "NHS: Anabolic steroid misuse", "url": "https://www.nhs.uk/conditions/anabolic-steroid-misuse/"}
+      ]
+    }
+  ],
+  "sport": {
+    "heading": "Steroids and drug testing in sport",
+    "paragraphs": [
+      "All anabolic agents are banned by the World Anti-Doping Agency (WADA) at all times, in and out of competition, under section S1 of the Prohibited List.",
+      "This applies to athletes in tested sport, including national competitions run under anti-doping rules. Some physique federations also test.",
+      "Some steroids can be detected for months after the last use."
+    ],
+    "sources": [
+      {"title": "WADA: The Prohibited List", "url": "https://www.wada-ama.org/en/prohibited-list"}
+    ]
+  },
+  "hubSources": [
+    {"title": "Sagoe D, et al., The global epidemiology of anabolic-androgenic steroid use: a meta-analysis and meta-regression analysis (Ann Epidemiol 2014)", "url": "https://doi.org/10.1016/j.annepidem.2014.01.009"},
+    {"title": "Pope HG Jr, et al., Adverse Health Consequences of Performance-Enhancing Drugs: An Endocrine Society Scientific Statement (Endocr Rev 2014)", "url": "https://doi.org/10.1210/er.2013-1058"}
+  ]
+}

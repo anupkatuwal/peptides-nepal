@@ -25,6 +25,7 @@ const IG = "https://www.instagram.com/peptidesnepal/";
 const ORG_ID = `${SITE}/#org`;
 
 const { guides, quiz } = JSON.parse(readFileSync(join(root, "src/data/education.json"), "utf8"));
+const AAS = JSON.parse(readFileSync(join(root, "src/data/steroids.json"), "utf8"));
 const posts = JSON.parse(readFileSync(join(root, "data/posts.json"), "utf8"))
   .slice()
   .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -143,7 +144,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:14px;color
 
 const nav = (active) => `<header class="top"><div class="wrap">
 <a class="brand" href="/guides/">Peptides Nepal</a>
-<nav aria-label="Main">${[["/guides/", "Guides"], ["/posts/", "Posts"], ["/myth-or-fact/", "Myth or fact"], ["/about/", "About"]].map(([h, t]) => `<a href="${h}"${active === h ? ' aria-current="page"' : ""}>${t}</a>`).join("")}<a href="${IG}" rel="me noopener">Instagram</a></nav>
+<nav aria-label="Main">${[["/guides/", "Guides"], ["/steroids/", "Steroid safety"], ["/posts/", "Posts"], ["/myth-or-fact/", "Myth or fact"], ["/about/", "About"]].map(([h, t]) => `<a href="${h}"${active === h ? ' aria-current="page"' : ""}>${t}</a>`).join("")}<a href="${IG}" rel="me noopener">Instagram</a></nav>
 </div></header>`;
 
 const page = ({ path, title, description, image, type = "website", active, body, schema, extraHead = "", canonical }) => {
@@ -183,7 +184,7 @@ ${body}
 </div></main>
 <footer><div class="wrap">
 <p><strong>Education only. Not medical advice.</strong> Talk to a doctor before using any medicine.</p>
-<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
+<p>Peptides Nepal · <a href="${IG}" rel="me noopener">@peptidesnepal on Instagram</a> · <a href="/guides/">Guides</a> · <a href="/steroids/">Steroid safety</a> · <a href="/posts/">Posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
 </div></footer>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -487,6 +488,91 @@ ${guides.map(guideCard).join("\n")}`;
   urls.push([path]);
 }
 
+// ── /steroids/ and /steroids/<topic>/ (harm reduction, src/data/steroids.json) ──
+// Education and harm reduction only: no doses, cycles, stacks or sources, and
+// no links to the shop.
+{
+  const R = AAS.reviewed;
+  const hubPath = "/steroids/";
+  const aasCard = (x) => `<a class="card" href="${hubPath}${x.slug}/"><h3>${esc(x.title)}</h3><p>${esc(clip(x.summary, 160))}</p></a>`;
+  const aasNote = `<p class="note"><strong>Harm reduction, not encouragement.</strong> This page doesn't recommend using steroids and gives no doses, cycles or sources. If you use them, a doctor you are honest with is your best protection.</p>`;
+  for (const x of AAS.pages) {
+    const path = `${hubPath}${x.slug}/`;
+    const bc = crumbs([["Steroid safety", hubPath], [x.title, path]]);
+    const faq = x.faq || [];
+    const body = `${bc.html}
+<article>
+<h1>${esc(x.title)}</h1>
+${byline(R, "Last reviewed")}
+<p class="lede">${esc(x.summary)}</p>
+${aasNote}
+<nav class="note" aria-label="On this page"><strong>On this page:</strong> ${[...x.sections.map((t) => t.heading), ...(faq.length ? ["Questions people ask"] : []), "Sources"].map((h) => `<a href="#${slugify(h)}">${esc(h)}</a>`).join(" · ")}</nav>
+${x.sections.map((t) => `<h2 id="${slugify(t.heading)}">${esc(t.heading)}</h2>\n${t.paragraphs.map((q) => `<p>${esc(q)}</p>`).join("\n")}`).join("\n")}
+${faq.length ? `<h2 id="questions-people-ask">Questions people ask</h2>\n${faq.map((f) => `<details class="faq" open><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n")}` : ""}
+<h2 id="sources">Sources</h2>
+<ul class="sources">${x.sources.map((q) => `<li><a href="${esc(q.url)}" rel="noopener">${esc(q.title)}</a></li>`).join("")}</ul>
+</article>
+<h2>More on steroid safety</h2>
+${AAS.pages.filter((y) => y !== x).map(aasCard).join("\n")}`;
+    write(path, page({
+      path, title: x.title.length <= 46 ? `${x.title} | Peptides Nepal` : clip(x.title, 70), description: summary(x.summary, 158), type: "article", active: hubPath, body,
+      schema: [
+        {
+          "@context": "https://schema.org",
+          "@type": ["Article", "MedicalWebPage"],
+          "@id": `${SITE}${path}#article`,
+          headline: x.title,
+          description: summary(x.summary, 158),
+          url: `${SITE}${path}`,
+          mainEntityOfPage: `${SITE}${path}`,
+          inLanguage: "en",
+          image: `${SITE}/og-image.png`,
+          about: { "@type": "Drug", name: "Anabolic-androgenic steroids", alternateName: ["AAS", "anabolic steroids"] },
+          audience: { "@type": "PeopleAudience", suggestedMinAge: 18, geographicArea: { "@type": "Country", name: "Nepal" } },
+          citation: x.sources.map((q) => ({ "@type": "CreativeWork", name: q.title, url: q.url })),
+          dateModified: R,
+          lastReviewed: R,
+          author: FOUNDER,
+          publisher: ORG,
+          isPartOf: { "@id": `${SITE}${hubPath}` },
+        },
+        bc.schema,
+        ...(faq.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", "@id": `${SITE}${path}#faq`, mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }] : []),
+      ],
+    }));
+    urls.push([path, R]);
+  }
+  const h = AAS.hub;
+  const body = `<h1>${esc(h.title)}</h1>
+${byline(R, "Last reviewed")}
+<p class="lede">${esc(h.summary)}</p>
+${h.intro.map((q) => `<p>${esc(q)}</p>`).join("\n")}
+${aasNote}
+<h2>Read the guides</h2>
+${AAS.pages.map(aasCard).join("\n")}
+<h2 id="${slugify(AAS.sport.heading)}">${esc(AAS.sport.heading)}</h2>
+${AAS.sport.paragraphs.map((q) => `<p>${esc(q)}</p>`).join("\n")}
+<h2>Sources</h2>
+<ul class="sources">${[...AAS.hubSources, ...AAS.sport.sources].map((q) => `<li><a href="${esc(q.url)}" rel="noopener">${esc(q.title)}</a></li>`).join("")}</ul>`;
+  write(hubPath, page({
+    path: hubPath, title: "Anabolic steroids: a harm reduction guide for Nepal | Peptides Nepal", description: summary(h.summary, 158), active: hubPath, body,
+    schema: [{
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${SITE}${hubPath}`,
+      name: h.title,
+      description: summary(h.summary, 158),
+      url: `${SITE}${hubPath}`,
+      inLanguage: "en",
+      dateModified: R,
+      author: FOUNDER,
+      publisher: ORG,
+      mainEntity: { "@type": "ItemList", itemListElement: AAS.pages.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}${hubPath}${x.slug}/`, name: x.title })) },
+    }],
+  }));
+  urls.push([hubPath, R]);
+}
+
 // ── /privacy/ and /terms/ (static, so platform reviewers and crawlers can read them without JavaScript) ──
 {
   const UPDATED = "23 October 2026";
@@ -645,6 +731,8 @@ writeFileSync(join(out, ".home-root.html"), `<div id="root"><main style="max-wid
 <p>Plain-language guides to the peptides people in Nepal ask about most: what they are, how they work in the body, what the research really shows, and their anti-doping and approval status. Every claim links to its source. Education only, not medical advice.</p>
 <h2>Peptide guides</h2>
 <ul>${guides.map((g) => `<li><a href="/guides/${guideSlug(g)}/">${esc(g.name)}: what the research says</a></li>`).join("")}</ul>
+<h2>Steroid safety (harm reduction)</h2>
+<ul><li><a href="/steroids/">Anabolic steroids: a harm reduction guide</a></li>${AAS.pages.map((x) => `<li><a href="/steroids/${x.slug}/">${esc(x.title)}</a></li>`).join("")}</ul>
 <h2>Latest posts</h2>
 <ul>${P.filter((p) => !DUPLICATE_OF[p.slug]).slice(0, 8).map((p) => `<li><a href="/posts/${p.slug}/">${esc(p.title)}</a></li>`).join("")}</ul>
 <p><a href="/posts/">All posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About and fact-checking</a></p>
@@ -665,6 +753,10 @@ writeFileSync(join(out, "llms.txt"), `# Peptides Nepal
 
 ## Guides
 ${guides.map((g) => `- [${g.name}](${SITE}/guides/${guideSlug(g)}/): ${clip(g.facts[0]?.text || g.aka, 140)}`).join("\n")}
+
+## Steroid safety (harm reduction)
+- [Anabolic steroids: a harm reduction guide](${SITE}/steroids/): ${AAS.hub.summary}
+${AAS.pages.map((x) => `- [${x.title}](${SITE}/steroids/${x.slug}/): ${clip(x.summary, 140)}`).join("\n")}
 
 ## About
 - [About Peptides Nepal](${SITE}/about/): who runs the site and how facts are checked.
