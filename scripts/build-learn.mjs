@@ -47,6 +47,14 @@ const clip = (s, n) => {
   s = s.replace(/\s+/g, " ").trim();
   return s.length <= n ? s : s.slice(0, n - 1).replace(/\s+\S*$/, "").replace(/[,;:.\s]+$/, "") + "…";
 };
+// A description that ends on a full sentence when one fits, instead of "…" mid-thought.
+const summary = (s, n) => {
+  s = String(s).replace(/\s+/g, " ").trim();
+  if (s.length <= n) return s;
+  const cut = s.slice(0, n);
+  const end = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("? "), cut.lastIndexOf("! "));
+  return end >= 70 ? cut.slice(0, end + 1) : clip(s, n);
+};
 const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Kathmandu" });
 const isVideo = (u) => /\.(mp4|mov|webm)(\?|$)/i.test(u);
 const ld = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>`;
@@ -126,6 +134,9 @@ time{color:var(--soft);font-size:14px}
 .note{background:var(--mist);border-radius:8px;padding:12px 16px;font-size:15px}
 .sources li{margin:.3em 0}
 .answer{font-weight:700}.answer.myth{color:var(--red)}.answer.fact{color:var(--green)}
+.byline{font-size:14px;color:var(--soft);margin:.2em 0 1em}.byline a{color:var(--soft)}
+.transcript{border-left:3px solid var(--line);padding-left:14px}
+details.faq{border-bottom:1px solid var(--line);padding:12px 0}details.faq summary{font-weight:700;cursor:pointer}details.faq p{margin:.5em 0 0}
 .pager{display:flex;justify-content:space-between;gap:12px;margin-top:2em;font-size:15px}
 footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:14px;color:var(--soft)}
 `;
@@ -135,8 +146,9 @@ const nav = (active) => `<header class="top"><div class="wrap">
 <nav aria-label="Main">${[["/guides/", "Guides"], ["/posts/", "Posts"], ["/myth-or-fact/", "Myth or fact"], ["/about/", "About"]].map(([h, t]) => `<a href="${h}"${active === h ? ' aria-current="page"' : ""}>${t}</a>`).join("")}<a href="${IG}" rel="me noopener">Instagram</a></nav>
 </div></header>`;
 
-const page = ({ path, title, description, image, type = "website", active, body, schema, extraHead = "" }) => {
+const page = ({ path, title, description, image, type = "website", active, body, schema, extraHead = "", canonical }) => {
   const url = `${SITE}${path}`;
+  const canon = canonical ? `${SITE}${canonical}` : url;
   const img = image || `${SITE}/og-image.png`;
   return `<!doctype html>
 <html lang="en">
@@ -145,7 +157,7 @@ const page = ({ path, title, description, image, type = "website", active, body,
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${url}">
+<link rel="canonical" href="${canon}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0E2A23">
 <meta property="og:type" content="${type}">
@@ -190,8 +202,29 @@ const crumbs = (items) => ({
     itemListElement: items.map(([name, p], i) => ({ "@type": "ListItem", position: i + 1, name, item: `${SITE}${p}` })),
   },
 });
-const FOUNDER = { "@type": "Person", name: "Anup Katuwal", url: "https://anup-katuwal.com.np/" };
-const ORG = { "@type": "Organization", "@id": ORG_ID, name: "Peptides Nepal", url: `${SITE}/`, logo: `${SITE}/favicon.svg`, sameAs: [IG], founder: FOUNDER, email: "contact@anup-katuwal.com.np" };
+const AUTHOR_ID = `${SITE}/about/#anup-katuwal`;
+const FOUNDER = {
+  "@type": "Person",
+  "@id": AUTHOR_ID,
+  name: "Anup Katuwal",
+  url: `${SITE}/about/`,
+  jobTitle: "Founder and editor, Peptides Nepal",
+  homeLocation: { "@type": "Place", name: "Kathmandu, Nepal" },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Pokhara University (NCIT)" },
+    { "@type": "CollegeOrUniversity", name: "Columbia College, Denver" },
+  ],
+  sameAs: ["https://anup-katuwal.com.np/", "https://www.linkedin.com/in/anupkatuwal89", "https://github.com/anupkatuwal"],
+};
+// When the guides were last re-checked against their sources. Update after each review.
+const GUIDES_REVIEWED = "2026-11-28";
+const byline = (dateIso, label = "Published") => `<p class="byline">By <a href="/about/" rel="author">Anup Katuwal</a> · ${label} <time datetime="${esc(dateIso)}">${fmtDate(dateIso)}</time> · Fact-checked against the sources below</p>`;
+// Old posts that cover the same thing as a newer, fuller post point search engines at the newer one.
+const DUPLICATE_OF = {
+  "how-to-read-a-study-in-60-seconds": "how-to-read-a-peptide-study-in-60-seconds",
+  "what-are-peptides": "what-is-a-peptide-really",
+};
+const ORG = { "@type": "Organization", "@id": ORG_ID, name: "Peptides Nepal", url: `${SITE}/`, logo: `${SITE}/favicon.svg`, sameAs: [IG], founder: { "@id": AUTHOR_ID }, email: "contact@anup-katuwal.com.np" };
 const chip = (g) => `<span class="chip ${g.status === "Approved" ? "approved" : g.status === "In trials" ? "trials" : "not"}">${esc(g.badge || g.status)}</span>`;
 const STATUS_TEXT = { Approved: "a licensed medicine in at least one country, prescribed by a doctor", "In trials": "being tested in people and not approved as a medicine", "Not approved": "studied mostly in animals or the lab and not approved as a medicine" };
 
@@ -208,18 +241,27 @@ for (const g of guides) {
   const akaShort = g.aka.split(",").slice(0, 2).map((s) => s.trim()).join(", ");
   const core = `${g.name}: research, WADA status and sources`;
   const title = core.length <= 46 ? `${core} | Peptides Nepal` : core;
-  const description = clip(`${g.name} (${akaShort}) in plain language: ${g.facts[0]?.text || ""} Evidence status, anti-doping status and the studies to read.`, 158);
+  const description = g.summary
+    ? summary(g.summary, 158)
+    : clip(`${g.name} (${akaShort}) in plain language: ${g.facts[0]?.text || ""} Evidence status, anti-doping status and the studies to read.`, 158);
+  const sections = g.sections || [];
+  const faq = g.faq || [];
   const bc = crumbs([["Guides", "/guides/"], [g.name, path]]);
   const body = `${bc.html}
 <article>
 <h1>${esc(g.name)}: what the research says</h1>
+${byline(GUIDES_REVIEWED, "Last reviewed")}
 <p class="lede">Also known as ${esc(g.aka)}.</p>
 <p>${chip(g)} ${esc(g.name)} is ${STATUS_TEXT[g.status] || esc(g.status)}.</p>
-<h2>Key facts</h2>
+${g.summary ? `<p><strong>In short:</strong> ${esc(g.summary)}</p>` : ""}
+${sections.length ? `<nav class="note" aria-label="On this page"><strong>On this page:</strong> ${[...sections.map((x) => x.heading), "Key facts", ...(faq.length ? ["Questions people ask"] : []), "Sources"].map((h) => `<a href="#${slugify(h)}">${esc(h)}</a>`).join(" · ")}</nav>` : ""}
+${sections.map((x) => `<h2 id="${slugify(x.heading)}">${esc(x.heading)}</h2>\n${x.paragraphs.map((t) => `<p>${esc(t)}</p>`).join("\n")}`).join("\n")}
+<h2 id="key-facts">Key facts</h2>
 <dl class="facts">${g.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.text)}</dd></div>`).join("")}</dl>
 ${g.dopingStatus ? `<h2>Anti-doping (WADA) status</h2>\n<p>${esc(g.dopingStatus)}</p>` : ""}
 ${g.nepalRegulatoryStatus ? `<h2>Status in Nepal</h2>\n<p>${esc(g.nepalRegulatoryStatus)}</p>` : ""}
-<h2>Sources</h2>
+${faq.length ? `<h2 id="questions-people-ask">Questions people ask</h2>\n${faq.map((f) => `<details class="faq" open><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n")}` : ""}
+<h2 id="sources">Sources</h2>
 <ul class="sources">${g.sources.map((s) => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></li>`).join("")}</ul>
 <p class="note">This page explains research. It is not a recommendation to use ${esc(g.name)}. Talk to a doctor before using any medicine.</p>
 </article>
@@ -241,14 +283,22 @@ ${guides.filter((x) => x !== g).map(guideCard).join("\n")}`;
         image: `${SITE}/og-image.png`,
         about: { "@type": "Thing", name: g.name, alternateName: g.aka.split(",").map((s) => s.trim()) },
         citation: g.sources.map((s) => ({ "@type": "CreativeWork", name: s.title, url: s.url })),
-        author: ORG,
+        dateModified: GUIDES_REVIEWED,
+        lastReviewed: GUIDES_REVIEWED,
+        author: FOUNDER,
         publisher: ORG,
         isPartOf: { "@type": "CollectionPage", "@id": `${SITE}/guides/`, name: "Peptide guides" },
       },
       bc.schema,
+      ...(faq.length ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${SITE}${path}#faq`,
+        mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      }] : []),
     ],
   }));
-  urls.push([path]);
+  urls.push([path, GUIDES_REVIEWED]);
 }
 
 // ── /guides/ ───────────────────────────────────────────────────────────────
@@ -294,22 +344,36 @@ P.forEach((p, i) => {
     ? `<figure><video controls preload="none" playsinline${p.poster ? ` poster="${esc(p.poster)}"` : ""} src="${esc(u)}" aria-label="${esc(alt(k))}"></video></figure>`
     : `<figure><img src="${esc(u)}" alt="${esc(alt(k))}" width="1080" height="1350" ${k === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></figure>`).join("");
   const bc = crumbs([["Posts", "/posts/"], [clip(p.title, 60), path]]);
-  const description = p.excerpt || clip(p.title, 155);
+  const description = summary(noEmoji(p.body.split("\n").filter((l) => l.trim()).join(" ")), 155) || p.excerpt || clip(p.title, 155);
+  // The words on each slide (from the alt text), so readers and search engines get the full post.
+  const slideText = p.alts ? p.images.map((_, k) => p.alts[k]).filter((t) => t && t.trim().length > 20) : [];
+  // Related: posts that share a guide topic or the most hashtags, excluding the pager neighbours.
+  const topics = new Set(relatedGuides.map((g) => g.name));
+  const related = P.filter((q) => q !== p && q !== newer && q !== older && !DUPLICATE_OF[q.slug])
+    .map((q) => ({ q, score: guides.filter((g) => topics.has(g.name) && mentions(q.caption, g)).length * 3 + q.tags.filter((t) => p.tags.includes(t)).length }))
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || new Date(b.q.date) - new Date(a.q.date))
+    .slice(0, 3).map((x) => x.q);
+  const dupOf = DUPLICATE_OF[p.slug] && P.find((q) => q.slug === DUPLICATE_OF[p.slug]);
   const body = `${bc.html}
 <article>
-<time datetime="${esc(p.date)}">${fmtDate(p.date)}</time>
 <h1>${esc(p.title)}</h1>
+${byline(p.date)}
+${dupOf ? `<p class="note">There is a newer, fuller version of this post: <a href="/posts/${dupOf.slug}/">${esc(dupOf.title)}</a>.</p>` : ""}
 ${p.images.length ? `<div class="slides" tabindex="0" aria-label="${p.images.length} slide${p.images.length === 1 ? "" : "s"}">${slides}</div>` : ""}
 ${paragraphs(p.body)}
+${slideText.length ? `<h2>What the slides say</h2>\n<ol class="transcript">${slideText.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>` : ""}
 ${p.firstComment ? `<h2>Sources</h2>\n${paragraphs(p.firstComment)}` : ""}
 <p><a href="${esc(p.url)}" rel="noopener">View this post on Instagram →</a></p>
 </article>
 ${relatedGuides.length ? `<h2>Related guides</h2>\n${relatedGuides.map(guideCard).join("\n")}` : ""}
+${related.length ? `<h2>Related posts</h2>\n${related.map(postCard).join("\n")}` : ""}
 <nav class="pager" aria-label="More posts"><span>${newer ? `<a href="/posts/${newer.slug}/">← ${esc(clip(newer.title, 50))}</a>` : ""}</span><span>${older ? `<a href="/posts/${older.slug}/">${esc(clip(older.title, 50))} →</a>` : ""}</span></nav>`;
   const images = p.images.filter((u) => !isVideo(u));
   const video = p.images.find(isVideo);
   write(path, page({
     path, title: p.title.length <= 46 ? `${p.title} | Peptides Nepal` : clip(p.title, 65), description, image: p.cover, type: "article", active: "/posts/", body,
+    canonical: dupOf ? `/posts/${dupOf.slug}/` : undefined,
     extraHead: `<meta property="article:published_time" content="${esc(p.date)}">\n`,
     schema: [
       {
@@ -326,13 +390,15 @@ ${relatedGuides.length ? `<h2>Related guides</h2>\n${relatedGuides.map(guideCard
         ...(video ? { video: { "@type": "VideoObject", name: p.title, description, contentUrl: video, uploadDate: p.date, thumbnailUrl: p.poster || `${SITE}/og-image.png` } } : {}),
         keywords: p.tags.join(", "),
         isBasedOn: p.url,
-        author: ORG,
+        dateModified: p.date,
+        ...(slideText.length || p.body ? { wordCount: `${p.body} ${slideText.join(" ")}`.split(/\s+/).filter(Boolean).length } : {}),
+        author: FOUNDER,
         publisher: ORG,
       },
       bc.schema,
     ],
   }));
-  urls.push([path, p.date.slice(0, 10)]);
+  if (!dupOf) urls.push([path, p.date.slice(0, 10)]);
 });
 
 // ── /posts/ ────────────────────────────────────────────────────────────────
@@ -380,7 +446,7 @@ ${guides.map(guideCard).join("\n")}`;
   const body = `<h1>About Peptides Nepal</h1>
 <p class="lede">Peptides Nepal explains peptide science in plain language for people in Nepal, with the source for every claim. It started on Instagram as <a href="${IG}" rel="me noopener">@peptidesnepal</a> in September 2026.</p>
 
-<h2>Who runs it</h2>
+<h2 id="anup-katuwal">Who runs it</h2>
 <p>Peptides Nepal is run by <a href="https://anup-katuwal.com.np/" rel="author">Anup Katuwal</a>, based in Kathmandu. Anup has a background in computer information systems and data analysis (MCIS, NCIT, Pokhara University; BSc, Columbia College, Denver) and competes in men's physique.</p>
 <p><strong>Anup is not a doctor or a pharmacist.</strong> The guides summarize published research and official rules. They are not medical advice.</p>
 
@@ -416,7 +482,7 @@ ${guides.map(guideCard).join("\n")}`;
       url: `${SITE}${path}`,
       inLanguage: "en",
       mainEntity: ORG,
-    }],
+    }, { "@context": "https://schema.org", ...FOUNDER, worksFor: { "@id": ORG_ID } }],
   }));
   urls.push([path]);
 }
@@ -568,6 +634,21 @@ ${guides.map(guideCard).join("\n")}`;
     urls.push([path]);
   }
 }
+
+// ── Home page text for crawlers ─────────────────────────────────────────────
+// The home page is the shop app, which starts with an empty #root. This plain
+// HTML goes inside #root (build-products.mjs puts it there last), so search
+// engines and AI tools that don't run JavaScript still find the guides and
+// posts. In a browser, the app replaces it as soon as it starts.
+writeFileSync(join(out, ".home-root.html"), `<div id="root"><main style="max-width:760px;margin:0 auto;padding:24px 16px;font-family:system-ui,sans-serif;color:#0E2A23">
+<h1>Peptides Nepal: peptide science in plain language, with sources</h1>
+<p>Plain-language guides to the peptides people in Nepal ask about most: what they are, how they work in the body, what the research really shows, and their anti-doping and approval status. Every claim links to its source. Education only, not medical advice.</p>
+<h2>Peptide guides</h2>
+<ul>${guides.map((g) => `<li><a href="/guides/${guideSlug(g)}/">${esc(g.name)}: what the research says</a></li>`).join("")}</ul>
+<h2>Latest posts</h2>
+<ul>${P.filter((p) => !DUPLICATE_OF[p.slug]).slice(0, 8).map((p) => `<li><a href="/posts/${p.slug}/">${esc(p.title)}</a></li>`).join("")}</ul>
+<p><a href="/posts/">All posts</a> · <a href="/myth-or-fact/">Myth or fact</a> · <a href="/about/">About and fact-checking</a></p>
+</main></div>`);
 
 // ── /sitemap.xml ───────────────────────────────────────────────────────────
 const all = [["/"], ...urls];

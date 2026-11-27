@@ -123,7 +123,6 @@ export const ContactPage: React.FC = () => {
                     onChange={(e) => setSubject(e.target.value)}
                     className="w-full p-3 bg-[#F2F5F3] border border-[#CBD5CF] rounded-xl text-[#0E2A23] font-medium focus:outline-none focus:border-[#0E2A23]"
                   >
-                    <option value="Specialty Sourcing: Anabolics, SERMs, SARMs, HCG, AIs">Specialty Sourcing: Anabolics, SERMs, SARMs, HCG, AIs</option>
                     <option value="Product / Cold-Chain Inquiry">Cold-Chain &amp; Delivery Inquiry</option>
                     <option value="Batch COA Verification">Batch HPLC Certificate Question</option>
                     <option value="Order Tracking">Order Tracking &amp; Dispatch</option>

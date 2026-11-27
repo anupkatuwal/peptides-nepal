@@ -11,7 +11,6 @@ import {
   Search, 
   SlidersHorizontal, 
   ShieldCheck, 
-  Sparkles, 
   Filter, 
   Truck, 
   Tag, 
@@ -335,21 +334,6 @@ export const ShopPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Specialized sourcing note: Anabolics, SERMs, SARMs, HCG, AIs */}
-        <div className="bg-white rounded-xl p-3 border border-[#CBD5CF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#0E2A23]">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-700 shrink-0" />
-            <span>
-              <strong>Specialty Direct Sourcing:</strong> Anabolics, SERMs, SARMs, HCG, and Aromatase Inhibitors (AIs) all available directly through our Delhi partner. If interested, contact our team directly for complete private rate lists.
-            </span>
-          </div>
-          <button
-            onClick={() => navigateTo('contact')}
-            className="px-4 py-1.5 rounded-lg bg-[#0E2A23] hover:bg-[#0A1F19] text-white font-bold text-xs whitespace-nowrap self-start sm:self-center transition-all shadow-xs"
-          >
-            Inquire with Partner →
-          </button>
-        </div>
       </div>
 
       {/* Results Count Strip */}

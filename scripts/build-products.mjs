@@ -10,7 +10,7 @@
 // The catalogue comes from src/data/initialData.ts (loaded through Vite, so
 // the TypeScript and image imports resolve the same way as in the app).
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { createServer } from "vite";
@@ -35,10 +35,12 @@ const npr = (p) => p.priceNpr || Math.round(p.priceInr * NPR_PER_INR);
 
 const vite = await createServer({ root, logLevel: "silent", server: { middlewareMode: true }, appType: "custom" });
 let products;
+let isPrescriptionOnly, rxNotice;
 try {
   const { INITIAL_PRODUCTS } = await vite.ssrLoadModule("/src/data/initialData.ts");
   const { withProductPhoto } = await vite.ssrLoadModule("/src/assets/productImages.ts");
   const { applyCatalogueFixes } = await vite.ssrLoadModule("/src/data/catalogueFixes.ts");
+  ({ isPrescriptionOnly, rxNotice } = await vite.ssrLoadModule("/src/lib/prescription.ts"));
   products = applyCatalogueFixes(INITIAL_PRODUCTS).map(withProductPhoto);
 } finally {
   await vite.close();
@@ -112,6 +114,7 @@ for (const p of products) {
     <main style="max-width:720px;margin:0 auto;padding:24px 16px;font-family:system-ui,sans-serif;color:#10241E">
       <p><a href="/">Peptides Nepal</a> › <a href="/#shop">Shop</a> › ${esc(p.categoryLabel)}</p>
       <h1>${esc(p.name)}</h1>
+      ${isPrescriptionOnly(p) ? `<p role="note" style="border:1px solid #C2362B;background:#FDF0EE;color:#7A1F17;padding:10px 12px;border-radius:8px"><strong>℞ </strong>${esc(rxNotice(p))}</p>` : ""}
       ${image.endsWith("/og-image.png") ? "" : `<img src="${esc(p.image)}" alt="${esc(p.name)}" width="480" style="max-width:100%;height:auto" />`}
       <p><strong>रू ${price.toLocaleString("en-IN")}</strong> (₹${p.priceInr.toLocaleString("en-IN")} INR) · ${p.inStock ? "In stock" : "Out of stock"}</p>
       ${p.brand ? `<p>Brand: ${esc(p.brand)}</p>` : ""}
@@ -144,6 +147,16 @@ const llmsPath = join(out, "llms.txt");
 if (existsSync(llmsPath)) {
   const list = products.map((p) => `- [${p.name}](${SITE}/products/${p.slug}/): रू ${npr(p).toLocaleString("en-IN")}, ${p.categoryLabel}`).join("\n");
   writeFileSync(llmsPath, `${readFileSync(llmsPath, "utf8").trimEnd()}\n\n## Products\n\n${list}\n`);
+}
+
+// Last step: put the crawlable home-page text (written by build-learn.mjs) into
+// the home page's empty #root. Done after the product pages, which use the
+// empty #root as their template.
+const homeRootPath = join(out, ".home-root.html");
+if (existsSync(homeRootPath)) {
+  const homePath = join(out, "index.html");
+  writeFileSync(homePath, readFileSync(homePath, "utf8").replace(/<div id="root"><\/div>/, readFileSync(homeRootPath, "utf8")));
+  unlinkSync(homeRootPath);
 }
 
 console.log(`products: ${urls.length} product pages, added to sitemap and llms.txt → ${out}`);

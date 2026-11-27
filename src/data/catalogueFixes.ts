@@ -13,6 +13,14 @@ export const RETIRED_PRODUCTS: Record<string, { replacedBySlug: string; slug: st
   'prod-denik-bpc157-vial': { slug: 'denik-bpc-157-lyophilized-vial', replacedBySlug: 'denik-bpc' },
 };
 
+// Listings taken off the shop entirely (no replacement). Firestore and cached
+// copies are filtered out too.
+export const REMOVED_PRODUCTS: Record<string, string> = {
+  // Anabolics, SARMs, SERMs, HCG & aromatase inhibitors are no longer offered.
+  'prod-specialty-anabolics-sarms-serms-hcg-ais': 'specialty-sourcing-anabolics-sarms-serms-hcg-ais',
+};
+const REMOVED_SLUGS = new Set(Object.values(REMOVED_PRODUCTS));
+
 // Name fixes. Applied only while the stored name is still the old one, so a
 // later edit in the admin dashboard wins.
 const RENAMED: Record<string, { from: string; to: string }> = {
@@ -28,7 +36,7 @@ export const resolveProductSlug = (slug: string): string => RETIRED_SLUGS[slug] 
 
 export const applyCatalogueFixes = <T extends Pick<Product, 'id' | 'name'>>(products: T[]): T[] =>
   products
-    .filter(p => !RETIRED_PRODUCTS[p.id])
+    .filter(p => !RETIRED_PRODUCTS[p.id] && !REMOVED_PRODUCTS[p.id] && !REMOVED_SLUGS.has((p as { slug?: string }).slug ?? ''))
     .map(p => {
       const fix = RENAMED[p.id];
       return fix && p.name === fix.from ? { ...p, name: fix.to } : p;

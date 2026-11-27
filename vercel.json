@@ -34,6 +34,8 @@
     { "source": "/products/denik-somatropin-hgh-100iu-kit/", "destination": "/products/denik-pharma-ototropin-100iu/", "permanent": true },
     { "source": "/products/denik-bpc-157-lyophilized-vial", "destination": "/products/denik-bpc/", "permanent": true },
     { "source": "/products/denik-bpc-157-lyophilized-vial/", "destination": "/products/denik-bpc/", "permanent": true },
+    { "source": "/products/specialty-sourcing-anabolics-sarms-serms-hcg-ais", "destination": "/", "permanent": true },
+    { "source": "/products/specialty-sourcing-anabolics-sarms-serms-hcg-ais/", "destination": "/", "permanent": true },
     {
       "source": "/:path*",
       "has": [

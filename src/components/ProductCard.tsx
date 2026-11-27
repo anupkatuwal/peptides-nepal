@@ -3,6 +3,7 @@ import { Product } from '../types';
 import { useStore } from '../context/StoreContext';
 import { getBrandImage } from '../assets/productImages';
 import { ShoppingBag, Check } from 'lucide-react';
+import { isPrescriptionOnly, RX_SHORT } from '../lib/prescription';
 
 interface ProductCardProps {
   product: Product;
@@ -76,6 +77,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </a>
         </h3>
+        {isPrescriptionOnly(product) && (
+          <p className="mt-2 inline-flex self-start items-center gap-1 px-2 py-0.5 rounded-md border border-[#C2362B] text-[#C2362B] text-xs font-bold">
+            ℞ {RX_SHORT}
+          </p>
+        )}
         <p className="mt-2 text-sm text-[#3F574D] line-clamp-2">{product.shortDesc}</p>
 
         <p className="mt-3 text-[13px] text-[#3F574D]">

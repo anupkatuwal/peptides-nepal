@@ -4,6 +4,7 @@ import { NEPAL_DISTRICTS } from '../data/initialData';
 import { PaymentMethod } from '../types';
 import { WalletPaymentCard, WALLETS, isWallet } from '../components/WalletPaymentCard';
 import { makeOrderNumber } from '../lib/orderNumber';
+import { isPrescriptionOnly } from '../lib/prescription';
 import { 
   ShieldCheck, 
   ArrowLeft, 
@@ -43,6 +44,8 @@ export const CheckoutPage: React.FC = () => {
   // Made once per checkout visit so the customer can write it in the wallet remarks
   // before the order is saved. placeOrder saves the order under this same number.
   const [orderNumber] = useState(makeOrderNumber);
+  // Prescription medicines in the cart (growth hormone, GLP-1 family) need the buyer's confirmation.
+  const [rxConfirmed, setRxConfirmed] = useState(false);
 
   // Sign-in finishes after the page opens: fill in saved details the customer has not typed over.
   useEffect(() => {
@@ -75,8 +78,11 @@ export const CheckoutPage: React.FC = () => {
     );
   }
 
+  const rxItems = cart.filter(item => isPrescriptionOnly(item.product));
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (rxItems.length > 0 && !rxConfirmed) return;
 
     // There is no live eSewa/Khalti integration on this site, so every method works the
     // same way: the order is saved as unpaid and the admin confirms the payment by hand.
@@ -89,7 +95,9 @@ export const CheckoutPage: React.FC = () => {
       address,
       city,
       district,
-      deliveryNotes,
+      deliveryNotes: rxItems.length > 0
+        ? `[Prescription required: customer confirmed a valid prescription for ${rxItems.map(i => i.product.name).join(', ')}. Collect it before dispatch.]${deliveryNotes ? ` ${deliveryNotes}` : ''}`
+        : deliveryNotes,
       paymentMethod,
       transactionRef: transactionRef.trim() || undefined,
       orderNumber
@@ -492,6 +500,27 @@ export const CheckoutPage: React.FC = () => {
               Prices shown are approximate. Please confirm the current price and any running offers before making payment.
             </p>
           </div>
+
+          {rxItems.length > 0 && (
+            <div className="rounded-2xl border border-[#C2362B] bg-red-50 p-4 text-sm text-[#7A1F17] space-y-2">
+              <p className="font-bold">℞ Valid prescription required</p>
+              <p>
+                {rxItems.map(i => i.product.name).join(', ')} {rxItems.length === 1 ? 'is a prescription medicine' : 'are prescription medicines'}.
+                Your order is dispatched only after we receive a valid prescription from a registered doctor.
+                Send it on WhatsApp or by email after placing the order.
+              </p>
+              <label className="flex items-start gap-2 font-semibold cursor-pointer">
+                <input
+                  type="checkbox"
+                  required
+                  checked={rxConfirmed}
+                  onChange={e => setRxConfirmed(e.target.checked)}
+                  className="mt-1"
+                />
+                <span>I have a valid prescription for {rxItems.length === 1 ? 'this medicine' : 'these medicines'} and will share it before dispatch.</span>
+              </label>
+            </div>
+          )}
 
           {/* Place Order CTA Button */}
           <button
