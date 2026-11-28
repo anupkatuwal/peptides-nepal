@@ -1,0 +1,40 @@
+{
+ "topic": "Peptides your body makes: motilin, the gut's own fasting timer and hunger signal. Motilin is a 22-amino-acid peptide made by endocrine cells in the mucosa of the upper small intestine, identified in the 1970s from pig upper intestine (Kitazawa & Kaiya, Front Endocrinol 2021); discovery dated 1972 (Deloose et al., Nat Rev Endocrinol 2019). In fasting humans plasma motilin rises in cycles about every 100 minutes (Kitazawa & Kaiya 2021). The migrating motor complex (MMC) is a cyclic motility pattern of the stomach and small bowel during fasting, interrupted by feeding; phase III is the most active burst of contractions, starting in the antrum or duodenum and migrating distally; motilin can induce antral-origin phase III (Deloose et al., Nat Rev Gastroenterol Hepatol 2012). Tack et al., Gut 2016: hunger ratings during gastric phase III (62.5) were higher than in phase I (27.4); motilin induced premature gastric phase III and a rise in hunger; 'motilin-induced gastric phase III is a hunger signal from GIT in man'. Motilin and its receptor exist only as pseudogenes in rodents (Deloose et al. 2019).",
+ "style": "Soft pastel cards: warm cream #FFF4EA page with faint dotted texture, big rounded cards in mint #CDEFDC and peach #FFD6BF with 4 px ink #24312C outline and soft offset shadow, Fredoka 700 rounded headlines, Nunito 500/800 body, coral #EE6E4E pill tags and number accents, CSS ring 'timer' with a coral wedge on the hook card, numbered step rows",
+ "transition": "slideleft",
+ "music": {
+  "mood": "bright",
+  "seed": 482917
+ },
+ "css": "@font-face{font-family:'Fred';font-weight:700;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-700-normal.woff2)} @font-face{font-family:'Fred';font-weight:600;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-600-normal.woff2)} @font-face{font-family:'Nun';font-weight:500;src:url(node_modules/@fontsource/nunito/files/nunito-latin-500-normal.woff2)} @font-face{font-family:'Nun';font-weight:800;src:url(node_modules/@fontsource/nunito/files/nunito-latin-800-normal.woff2)} .card{background-color:#FFF4EA;background-image:radial-gradient(#E9D6C4 2.5px,transparent 2.5px);background-size:44px 44px;color:#24312C;font-family:'Nun';} .safe{display:flex;flex-direction:column;justify-content:center;} .box{background:#CDEFDC;border:4px solid #24312C;border-radius:56px;padding:64px 60px;box-shadow:14px 14px 0 rgba(36,49,44,.18);} .peach{background:#FFD6BF;} .white{background:#FFFFFF;} .tag{display:inline-block;align-self:flex-start;background:#EE6E4E;color:#fff;font:800 40px 'Nun';padding:12px 30px;border-radius:999px;margin-bottom:40px;} h1{font-family:'Fred';font-weight:700;font-size:128px;line-height:1.0;letter-spacing:-1px;margin:0;} h2{font-family:'Fred';font-weight:700;font-size:124px;line-height:1.02;margin:0 0 30px;} p{font:500 56px/1.28 'Nun';margin:26px 0 0;} b{font-weight:800;} .hl{background:#FFFFFF;border-radius:14px;padding:0 12px;} .coral{color:#D9502F;} .big{font-family:'Fred';font-weight:700;font-size:250px;line-height:.9;color:#D9502F;margin:0;} .unit{font:800 56px 'Nun';margin:6px 0 0;} .row{display:flex;align-items:center;gap:34px;background:#fff;border:4px solid #24312C;border-radius:40px;padding:30px 36px;margin-top:28px;} .row .n{flex:0 0 96px;height:96px;border-radius:50%;background:#EE6E4E;color:#fff;font:700 60px 'Fred';display:flex;align-items:center;justify-content:center;} .row span{font:500 52px/1.25 'Nun';} .ring{width:380px;height:380px;border-radius:50%;border:30px solid #CDEFDC;outline:4px solid #24312C;outline-offset:0;position:relative;margin:0 0 70px;background:#FFFFFF;box-sizing:border-box;} .ring:before{content:'';position:absolute;inset:-30px;border-radius:50%;border:30px solid transparent;border-top-color:#EE6E4E;border-right-color:#EE6E4E;transform:rotate(20deg);} .ring:after{content:'100';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 110px 'Fred';color:#24312C;} .min{font:800 40px 'Nun';color:#D9502F;margin:0 0 20px;letter-spacing:2px;} .vs{display:flex;gap:30px;margin-top:20px;} .vs div{flex:1;background:#fff;border:4px solid #24312C;border-radius:40px;padding:34px 30px;text-align:center;} .vs div.hot{background:#FFD6BF;} .vs b{display:block;font:700 150px/1 'Fred';color:#D9502F;} .vs span{display:block;font:800 44px/1.2 'Nun';margin-top:14px;} .small{font:500 46px/1.3 'Nun';} .end h1{font-size:118px;} .handle{font:800 56px 'Nun';margin-top:50px;color:#D9502F;}",
+ "cards": [
+  {
+   "html": "<div class='safe'><p class='min'>PEPTIDES YOUR BODY MAKES</p><div class='ring'></div><h1>Your empty gut squeezes on a <span class='coral'>100-minute</span> timer.</h1></div>",
+   "hold": 0.5
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>Meet motilin</span><div class='box'><h2 class='step'>Motilin</h2><p class='step'>A <b>22-amino-acid</b> peptide hormone.</p><p class='step'>Made in your <b>upper small intestine</b>. Found in 1972.</p></div></div>",
+   "hold": 0.15
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>Between meals</span><p class='big step'>~100</p><p class='unit step'>minutes</p><p class='step'>Motilin in your blood <b>rises in waves</b>.</p></div>",
+   "hold": 0.15
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>Each wave</span><div class='row step'><div class='n'>1</div><span>Motilin peaks.</span></div><div class='row step'><div class='n'>2</div><span>A <b>strong squeeze</b> starts in the stomach.</span></div><div class='row step'><div class='n'>3</div><span>It sweeps down the gut. <b>Eating stops it.</b></span></div></div>",
+   "hold": 0.15
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>Gut, 2016</span><h2 class='step'>It feels like hunger.</h2><div class='vs step'><div><b>27</b><span>hunger score, calm phase</span></div><div class='hot'><b>62</b><span>hunger score, squeeze phase</span></div></div></div>",
+   "hold": 0.15
+  },
+  {
+   "html": "<div class='safe'><span class='tag'>Odd fact</span><div class='box peach'><h2 class='step'>Mice and rats don't have it.</h2><p class='step'>Their motilin genes are <b>broken</b>.</p></div></div>",
+   "hold": 0.15
+  },
+  {
+   "html": "<div class='safe end'><div class='box white'><h1>Save this for physiology class.</h1><p class='handle'>Follow @peptidesnepal</p></div></div>",
+   "hold": 0.8
+  }
+ ]
+}
