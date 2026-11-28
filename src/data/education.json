@@ -43,6 +43,62 @@
         {
           "title": "USADA: BPC-157 added to the 2022 WADA Prohibited List under S0",
           "url": "https://www.usada.org/athlete-advisory/key-changes-2022-prohibited-list/"
+        },
+        {
+          "title": "Vasireddi N, et al., Emerging Use of BPC-157 in Orthopaedic Sports Medicine: A Systematic Review (HSS Journal 2025)",
+          "url": "https://doi.org/10.1177/15563316251355551"
+        },
+        {
+          "title": "Hsieh MJ, et al., Therapeutic potential of pro-angiogenic BPC157 is associated with VEGFR2 activation and up-regulation (J Mol Med 2017)",
+          "url": "https://doi.org/10.1007/s00109-016-1488-y"
+        }
+      ],
+      "summary": "BPC-157 is a lab-made chain of 15 amino acids. Rat and cell studies suggest it may help blood vessels grow and tendons heal. It has not been proven in people, it is not an approved medicine anywhere, and WADA bans it in sport.",
+      "sections": [
+        {
+          "heading": "What BPC-157 is",
+          "paragraphs": [
+            "BPC-157 stands for Body Protection Compound-157. It is a chain of 15 amino acids. It is based on part of a protein first described in human stomach juice.",
+            "It is made in a lab. It is not a vitamin, a food or a hormone your body is known to release on its own in this form.",
+            "Its research names include PL 14736, PL-10 and Bepecin. Most of the research comes from one group in Croatia, led by Predrag Sikiric."
+          ]
+        },
+        {
+          "heading": "How it is thought to work in the body",
+          "paragraphs": [
+            "The ideas below come from rat and cell experiments, not from people.",
+            "Blood vessel growth: in lab and rat studies, BPC-157 increased the activity of VEGFR2. This receptor tells cells lining blood vessels to grow new vessels. More blood flow can help a damaged area heal.",
+            "Cell movement: in tendon cells grown in a dish, BPC-157 switched on the FAK-paxillin pathway. This pathway helps cells crawl and spread, which is how repair cells move into an injury.",
+            "Nitric oxide: review papers from the main research group describe effects on the nitric oxide system, which controls how wide blood vessels are.",
+            "Short life in the blood: like most natural-style peptides, it is broken down quickly. Reports put its half-life at under 30 minutes in animals."
+          ]
+        },
+        {
+          "heading": "What the research actually shows",
+          "paragraphs": [
+            "A 2025 systematic review of BPC-157 in sports medicine found 36 studies. Thirty-five were preclinical (animals or cells). Only one was a clinical study in people.",
+            "Results in rats with cut or torn tendons, muscle injuries and gut damage were often positive. But rat results often fail to carry over to people.",
+            "Human data is very limited: one small ulcerative colitis trial reported only as a conference abstract, and a few tiny pilot studies. No large, controlled human trial has shown that it works or that it is safe.",
+            "So the honest summary is: an interesting lead, not a proven treatment."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is BPC-157 an approved medicine?",
+          "a": "No. No regulator, including the US FDA, has approved BPC-157 as a medicine. A 2026 FDA advisory panel vote on compounding is not an approval."
+        },
+        {
+          "q": "Is BPC-157 banned in sport?",
+          "a": "Yes. WADA has prohibited it at all times, in and out of competition, since 2022 under section S0 (non-approved substances)."
+        },
+        {
+          "q": "Does BPC-157 work in humans?",
+          "a": "We don't know. Almost all of the evidence comes from rats and cells. Only one clinical study was found in a 2025 systematic review of 36 studies."
+        },
+        {
+          "q": "Is BPC-157 registered in Nepal?",
+          "a": "It is not approved as a medicine anywhere, so it is not expected to be registered with Nepal's Department of Drug Administration."
         }
       ]
     },
@@ -90,6 +146,48 @@
           "title": "USADA: 2018 Prohibited List, thymosin beta-4 and TB-500 added under S2",
           "url": "https://www.usada.org/athlete-advisory/2018-prohibited-list-summary-of-major-changes/"
         }
+      ],
+      "summary": "TB-500 is a 7-amino-acid lab-made piece of thymosin beta-4, a natural protein that helps cells move. Animal and lab studies of the full protein look interesting, but there are no human studies of TB-500 itself, and WADA bans it.",
+      "sections": [
+        {
+          "heading": "What TB-500 is",
+          "paragraphs": [
+            "Thymosin beta-4 is a natural protein of 43 amino acids. It is found in almost every cell of the body.",
+            "TB-500 is not the full protein. It is a short synthetic piece, Ac-LKKTETQ. This is the stretch of thymosin beta-4 that grabs onto actin.",
+            "Because it is only a piece, results from studies of the full protein do not automatically apply to TB-500."
+          ]
+        },
+        {
+          "heading": "How it is thought to work in the body",
+          "paragraphs": [
+            "Actin is a building block inside cells. Cells join actin units into long fibers to change shape and move.",
+            "Thymosin beta-4 holds onto single actin units. It keeps a ready supply on hand, so the cell can build fibers fast when it needs to move.",
+            "In lab and animal studies, this helped cells travel into wounds. The actin-binding part of the protein also helped new blood vessels form in lab tests.",
+            "Faster cell movement and new blood vessels are two key steps in healing. That is why the protein is studied for repair."
+          ]
+        },
+        {
+          "heading": "What the research actually shows",
+          "paragraphs": [
+            "The FDA found no human studies of TB-500.",
+            "The full thymosin beta-4 protein has been tested in people, for example as eye drops. That is a different product from TB-500.",
+            "Some people combine TB-500 with BPC-157. No human or controlled study has tested this combination, so any extra benefit is unproven."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is TB-500 the same as thymosin beta-4?",
+          "a": "No. Thymosin beta-4 is a 43-amino-acid natural protein. TB-500 is a 7-amino-acid synthetic piece of it (Ac-LKKTETQ)."
+        },
+        {
+          "q": "Is TB-500 banned in sport?",
+          "a": "Yes. WADA has prohibited thymosin beta-4 and its derivatives, such as TB-500, at all times since 2018 under section S2. It is also prohibited in horse racing."
+        },
+        {
+          "q": "Has TB-500 been tested in humans?",
+          "a": "The FDA found no human studies of TB-500. Human trials have used the full thymosin beta-4 protein, which is a different product."
+        }
       ]
     },
     {
@@ -131,6 +229,60 @@
         {
           "title": "EMA: Wegovy EPAR",
           "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/wegovy"
+        },
+        {
+          "title": "Lau J, et al., Discovery of the Once-Weekly Glucagon-Like Peptide-1 (GLP-1) Analogue Semaglutide (J Med Chem 2015)",
+          "url": "https://doi.org/10.1021/acs.jmedchem.5b00726"
+        },
+        {
+          "title": "Aronne LJ, et al., Tirzepatide as Compared with Semaglutide for the Treatment of Obesity (SURMOUNT-5, NEJM 2025)",
+          "url": "https://doi.org/10.1056/NEJMoa2416394"
+        }
+      ],
+      "summary": "Semaglutide is an approved prescription medicine that copies the gut hormone GLP-1 but lasts about a week instead of minutes. It raises insulin when blood sugar is high, lowers glucagon, slows the stomach and reduces appetite. In the STEP 1 trial it cut body weight by about 14.9% on average.",
+      "sections": [
+        {
+          "heading": "What semaglutide is",
+          "paragraphs": [
+            "Semaglutide is a peptide medicine made to act like GLP-1 (glucagon-like peptide-1). GLP-1 is a hormone your gut releases after you eat.",
+            "It is sold as Ozempic (weekly injection for type 2 diabetes), Wegovy (weekly injection for weight management) and Rybelsus (daily tablet for type 2 diabetes)."
+          ]
+        },
+        {
+          "heading": "How it works in the body",
+          "paragraphs": [
+            "Natural GLP-1 lasts only about 2 minutes in the blood. An enzyme called DPP-4 cuts it apart, and the kidneys clear it fast.",
+            "Semaglutide fixes this in two ways. One amino acid is swapped so DPP-4 can't cut it. A fatty-acid side chain is added so it sticks to albumin, the main protein in blood. This slows its removal, so it lasts about a week. That is why it is taken once a week.",
+            "Pancreas: it helps the pancreas release insulin, but only when blood sugar is high. It also lowers glucagon, a hormone that raises blood sugar.",
+            "Stomach: it slows how fast food leaves the stomach, so you feel full for longer.",
+            "Brain: it acts on appetite areas in the brain. People feel less hungry and eat less. This is the main driver of weight loss."
+          ]
+        },
+        {
+          "heading": "What the research shows",
+          "paragraphs": [
+            "In STEP 1, adults with obesity but without diabetes took 2.4 mg weekly for 68 weeks, alongside diet and exercise. They lost about 14.9% of body weight on average. The placebo group lost 2.4%.",
+            "In the SURMOUNT-5 head-to-head trial, tirzepatide led to more weight loss than semaglutide: 20.2% vs 13.7% at 72 weeks.",
+            "Averages hide wide individual differences. Some people lose much more, others much less."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How does semaglutide cause weight loss?",
+          "a": "Mainly by acting on appetite areas in the brain, so people feel less hungry and eat less. Slower stomach emptying also helps people feel full."
+        },
+        {
+          "q": "Why is semaglutide taken only once a week?",
+          "a": "One amino acid change protects it from the enzyme DPP-4, and a fatty-acid chain makes it bind to albumin in the blood. Together these stretch its life from minutes to about a week."
+        },
+        {
+          "q": "Is semaglutide banned in sport?",
+          "a": "No. It is not on WADA's 2026 Prohibited List, but WADA monitors it. Athletes should check current rules with their anti-doping body."
+        },
+        {
+          "q": "Is semaglutide a prescription medicine?",
+          "a": "Yes. It is approved in the US and EU as a prescription medicine and should be used only under a doctor's care."
         }
       ]
     },
@@ -169,6 +321,51 @@
         {
           "title": "FDA: approval of Zepbound for chronic weight management (Nov 2023)",
           "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-new-medication-chronic-weight-management"
+        },
+        {
+          "title": "Coskun T, et al., LY3298176, a novel dual GIP and GLP-1 receptor agonist for the treatment of type 2 diabetes mellitus (Mol Metab 2018)",
+          "url": "https://doi.org/10.1016/j.molmet.2018.09.009"
+        }
+      ],
+      "summary": "Tirzepatide is an approved prescription medicine that acts on two gut-hormone receptors, GIP and GLP-1. It improves blood sugar control and reduces appetite. In SURMOUNT-1 the highest dose cut body weight by 20.9% on average at 72 weeks.",
+      "sections": [
+        {
+          "heading": "What tirzepatide is",
+          "paragraphs": [
+            "Tirzepatide is a peptide medicine of 39 amino acids. It is sold as Mounjaro for type 2 diabetes and Zepbound for weight management. It is a once-weekly injection.",
+            "Its research code was LY3298176. Eli Lilly makes it."
+          ]
+        },
+        {
+          "heading": "How it works in the body",
+          "paragraphs": [
+            "Your gut releases two main hormones after a meal that tell the pancreas to release insulin: GLP-1 and GIP. These are called incretins.",
+            "Tirzepatide is one molecule that switches on both receptors. In lab studies it acts more strongly on the GIP receptor than on the GLP-1 receptor.",
+            "The GLP-1 side works like semaglutide: more insulin when sugar is high, less glucagon, slower stomach emptying and less appetite.",
+            "The GIP side adds to the insulin effect and improves insulin sensitivity. Researchers are still working out exactly how GIP adds to weight loss.",
+            "A fatty-acid side chain binds it to albumin in the blood. This gives it a half-life of about 5 days, so it can be taken weekly."
+          ]
+        },
+        {
+          "heading": "What the research shows",
+          "paragraphs": [
+            "In SURMOUNT-1, adults with obesity lost 15.0%, 19.5% and 20.9% of body weight on the 5, 10 and 15 mg doses over 72 weeks. The placebo group lost 3.1%.",
+            "In SURMOUNT-5, which compared it directly with semaglutide in 751 adults with obesity, tirzepatide gave 20.2% weight loss vs 13.7% for semaglutide. The trial was open-label and funded by tirzepatide's maker."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How is tirzepatide different from semaglutide?",
+          "a": "Semaglutide acts on one receptor, GLP-1. Tirzepatide acts on two, GLP-1 and GIP. In the SURMOUNT-5 trial, tirzepatide led to more average weight loss (20.2% vs 13.7%)."
+        },
+        {
+          "q": "Is tirzepatide approved?",
+          "a": "Yes. The FDA approved it as Mounjaro for type 2 diabetes and as Zepbound for chronic weight management (November 2023). It is a prescription medicine."
+        },
+        {
+          "q": "Is tirzepatide banned in sport?",
+          "a": "No. It is not on the WADA Prohibited List, but it is covered by WADA monitoring."
         }
       ]
     },
@@ -211,6 +408,48 @@
         {
           "title": "Coskun et al., LY3437943, a novel triple agonist (Cell Metabolism 2022, preclinical)",
           "url": "https://www.sciencedirect.com/science/article/pii/S1550413122003126"
+        }
+      ],
+      "summary": "Retatrutide is an experimental drug that acts on three hormone receptors: GLP-1, GIP and glucagon. In a 2023 Phase 2 trial, people lost up to 24.2% of body weight in 48 weeks. It is still being tested and is not approved anywhere.",
+      "sections": [
+        {
+          "heading": "What retatrutide is",
+          "paragraphs": [
+            "Retatrutide (research code LY3437943) is a single peptide molecule made by Eli Lilly. It is often called a \"triple G\" agonist because it switches on three receptors.",
+            "It is an investigational drug. It is being tested in clinical trials and has not been approved by any regulator."
+          ]
+        },
+        {
+          "heading": "How it works in the body",
+          "paragraphs": [
+            "GLP-1 receptor: helps insulin release when sugar is high, slows the stomach and reduces appetite in the brain.",
+            "GIP receptor: adds to the insulin effect, as with tirzepatide.",
+            "Glucagon receptor: this is the new part. Glucagon acts mainly on the liver. In animals, switching on this receptor raised energy use and helped burn fat.",
+            "In people, studies show large drops in liver fat. Whether energy use rises in humans is still being studied.",
+            "The idea is that appetite reduction (GLP-1 and GIP) plus extra fat use in the liver (glucagon) gives more weight loss than one or two receptors alone."
+          ]
+        },
+        {
+          "heading": "What the research shows",
+          "paragraphs": [
+            "In a 2023 Phase 2 trial in adults with obesity, the highest dose gave 24.2% average weight loss at 48 weeks. The placebo group lost 2.1%.",
+            "Eli Lilly reported results from Phase 3 (TRIUMPH) trials in 2026 and plans to apply to the FDA in 2027.",
+            "Until a regulator reviews the full data and approves it, retatrutide remains an experimental medicine."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is retatrutide approved?",
+          "a": "No. It is still in clinical trials and is not approved anywhere. Eli Lilly plans to apply to the FDA in 2027."
+        },
+        {
+          "q": "What makes retatrutide different from tirzepatide?",
+          "a": "Tirzepatide acts on two receptors (GLP-1 and GIP). Retatrutide adds a third, the glucagon receptor, which acts mainly on the liver."
+        },
+        {
+          "q": "Is retatrutide banned in sport?",
+          "a": "Yes. Unapproved drugs fall under WADA's S0 non-approved substances rule and are prohibited at all times."
         }
       ]
     },
@@ -257,6 +496,49 @@
         {
           "title": "USADA: Peptides and growth hormones in cosmetics",
           "url": "https://www.usada.org/spirit-of-sport/peptides-growth-hormones-cosmetics/"
+        }
+      ],
+      "summary": "GHK-Cu is a tiny three-amino-acid peptide bound to copper that is found naturally in blood. Lab and animal studies link it to collagen production and wound healing. Human evidence is mostly small skin-cream studies, and injectable forms are not approved.",
+      "sections": [
+        {
+          "heading": "What GHK-Cu is",
+          "paragraphs": [
+            "GHK is three amino acids: glycine, histidine and lysine. It holds tightly onto a copper ion, which gives GHK-Cu.",
+            "It is found naturally in human blood, saliva and urine. Dr Loren Pickart first described it in 1973.",
+            "Pickart's work reports that blood levels fall with age, from about 200 ng/mL at age 20 to about 80 ng/mL at 60.",
+            "It is widely used in skin creams, where it may be listed as copper tripeptide-1."
+          ]
+        },
+        {
+          "heading": "How it is thought to work in the body",
+          "paragraphs": [
+            "Copper carrier: GHK grabs copper and can deliver it to cells. Several repair enzymes need copper to work, including one that links collagen fibers together.",
+            "Collagen and skin: in lab studies on skin cells, GHK-Cu increased the production of collagen and other parts of the skin's support structure.",
+            "Wound healing: in animal studies, it helped wounds close and attracted repair cells to the area.",
+            "Gene activity: a computer reanalysis of lab data found GHK changed the activity of many genes in human cancer cells. This was done by its discoverer, whose company sells GHK products, and it does not show the same effects in people."
+          ]
+        },
+        {
+          "heading": "What the research actually shows",
+          "paragraphs": [
+            "Most evidence comes from lab and animal studies.",
+            "In people, there are a few small 12-week skin-cream studies in women. Evidence for hair growth in people is weak.",
+            "The FDA notes limited human data for injectable GHK-Cu and has flagged it as a bulk substance that may present safety risks in compounding."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What does GHK-Cu do?",
+          "a": "In lab and animal studies, it carried copper to cells, increased collagen production and helped wounds heal. Human evidence is mostly small skin-cream studies."
+        },
+        {
+          "q": "Is GHK-Cu natural?",
+          "a": "Yes. GHK is found naturally in human blood. Levels fall with age, from about 200 ng/mL at 20 to about 80 ng/mL at 60, according to its discoverer's research."
+        },
+        {
+          "q": "Is GHK-Cu banned in sport?",
+          "a": "It is not named on the WADA list, and USADA lists GHK in cosmetics as not prohibited. Injected GHK-Cu is not approved anywhere, so it may fall under WADA's S0 rule."
         }
       ]
     }

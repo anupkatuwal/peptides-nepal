@@ -1928,50 +1928,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: BRAND_IMAGES.peptideSciences
   },
 
-  // ── SPECIALTY DIRECT SOURCING: ANABOLICS, SERMS, SARMS, HCG & AROMATASE INHIBITORS ──
-  {
-    id: 'prod-specialty-anabolics-sarms-serms-hcg-ais',
-    slug: 'specialty-sourcing-anabolics-sarms-serms-hcg-ais',
-    name: 'Anabolics, SARMs, SERMs, HCG & Aromatase Inhibitors (Custom Inquiry)',
-    brand: 'Delhi Peptides Partner',
-    format: 'Direct Partner Sourcing',
-    scientificName: 'Specialized Endocrine & Anabolic Research Inventory (Delhi Partner Company)',
-    category: 'secretagogues',
-    categoryLabel: 'Specialty & Custom Sourcing',
-    priceInr: 4500,
-    originalPriceInr: 5000,
-    priceNpr: 7200,
-    originalPriceNpr: 8000,
-    vialOptions: [
-      { mg: 1, label: 'Confidential Inquiry & Direct Order Deposit', priceInr: 4500, priceNpr: 7200 }
-    ],
-    defaultVialMg: 1,
-    inStock: true,
-    stockCount: 99,
-    purityPercent: 99.5,
-    batchNumber: 'DEL-SPECIALTY-2026',
-    shortDesc: 'All Anabolics, SERMs, SARMs, HCG, and Aromatase Inhibitors available through our Delhi partner company. Contact us directly for confidential orders. Strictly 100% upfront payment, no COD.',
-    description: 'Our Delhi partner network carries comprehensive inventories of specialized research compounds: Anabolics (injectables & orals), SERMs (Tamoxifen/Nolvadex, Clomiphene/Clomid, Enclomiphene, Raloxifene), SARMs (RAD-140, LGD-4033, MK-677, Ostarine, Cardarine, YK-11), HCG (5,000 IU / 10,000 IU), and Aromatase Inhibitors (Anastrozole/Arimidex, Exemestane/Aromasin, Letrozole/Femara). Contact us on WhatsApp or phone to receive the private catalog and place your order. Strict policy: 100% upfront payment, no Cash on Delivery (COD). Flat ₹4,500 shipping & handling applies.',
-    highlights: [
-      'Comprehensive Delhi inventory: Anabolics, SERMs, SARMs, HCG, AIs',
-      'Direct confidential procurement from our verified Delhi partner company',
-      'Flat ₹4,500 INR shipping & handling (cold-chain, 10–14 days across Nepal)',
-      'Strictly 100% complete upfront payment · Absolutely NO COD'
-    ],
-    reconstitutionWaterMl: 0,
-    storageInstructions: 'Follow specific storage guidelines on product label.',
-    reconstitutionInstructions: 'Follow packaged clinical handling guidelines.',
-    dosageExample: 'Contact our consultation team for compound documentation.',
-    coaUrl: '/lab-results?batch=DEL-SPECIALTY-2026',
-    rating: 5.0,
-    reviewsCount: 50,
-    isPopular: true,
-    isFeatured: true,
-    deliveryTimeline: '10–14 days',
-    sourcePartner: 'Delhi Peptides Partner Company',
-    activeOffer: 'Available on Direct Request',
-    image: BRAND_IMAGES.denik
-  },
   {
     id: 'prod-sun-pharma-noveltreat-semaglutide',
     slug: 'sun-pharma-noveltreat-semaglutide',

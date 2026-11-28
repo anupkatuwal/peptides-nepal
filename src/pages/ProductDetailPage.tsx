@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { COAModal } from '../components/COAModal';
+import { isPrescriptionOnly, rxNotice } from '../lib/prescription';
 import { BatchCOA } from '../types';
 import { getBrandImage, getProductGallery, ProductGalleryItem } from '../assets/productImages';
 import { 
@@ -321,6 +322,11 @@ export const ProductDetailPage: React.FC = () => {
             <p className="text-xs text-[#4B635A] font-medium mt-1">
               {product.scientificName}
             </p>
+            {isPrescriptionOnly(product) && (
+              <p role="note" className="mt-3 text-sm text-[#7A1F17] bg-red-50 border border-[#C2362B] rounded-xl p-3">
+                <strong>℞ </strong>{rxNotice(product)}
+              </p>
+            )}
           </div>
 
           {/* Pricing in NPR, with the INR price it is fixed from */}

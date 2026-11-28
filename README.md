@@ -30,6 +30,9 @@ If that fails (for example the Hobby plan's 5,000 transformations a month are us
 - `/guides/` and `/guides/<peptide>/` from `src/data/education.json` (the same guide cards the app shows)
 - `/posts/` and `/posts/<title>/` from `data/posts.json` (full caption, every slide, the sources from the first comment)
 - `/myth-or-fact/` from the Myth-or-fact cards in `src/data/education.json`
+- `/steroids/` and `/steroids/<topic>/` from `src/data/steroids.json`: anabolic steroid harm reduction (how they work, risks, blood tests, fake products, safer injecting, coming off). Education only: no doses, cycles, stacks or sources, and no shop links
+- Guides can carry `summary`, `sections` and `faq` in `src/data/education.json`; FAQ entries also become FAQPage schema
+- The home page's empty `#root` gets plain links to the guides, steroid pages and posts (build-products.mjs adds it last), so crawlers that don't run JavaScript find them
 - `/sitemap.xml` and `/llms.txt`
 
 Then `scripts/build-products.mjs` writes `/products/<slug>/` for every product in `src/data/initialData.ts`: the app's page with the product's title, description, canonical link, Open Graph tags, Product JSON-LD (price in NPR) and the product details as plain HTML, and adds them to the sitemap and `llms.txt`. In a browser the app opens the same product; clicking a product in the shop moves to its `/products/` URL.
@@ -47,6 +50,10 @@ Each page has its own title, description, canonical link, Open Graph tags and JS
 The site lives at **https://peptides.anup-katuwal.com.np** (a subdomain of anup-katuwal.com.np, whose DNS is on Vercel). `vercel.json` permanently redirects the old `peptides-nepal.vercel.app` address there; preview deployments are unaffected.
 
 To move to another domain later, replace `https://peptides.anup-katuwal.com.np` in `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `privacy.html`, `support.html`, `robots.txt`, `sitemap.xml`, the redirect in `vercel.json`, and `SITE_URL` in the app's `src/lib/config.ts`.
+
+## Prescription notices
+
+`src/lib/prescription.ts` decides which products need a valid prescription (growth hormone and the GLP-1 family). The product card, product page, static `/products/` page and checkout read it; checkout asks the buyer to confirm and writes that into the order notes.
 
 ## The mobile app
 

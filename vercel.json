@@ -16,6 +16,10 @@
     { "source": "/myth-or-fact/", "destination": "/myth-or-fact/index.html" },
     { "source": "/products/:slug", "destination": "/products/:slug/index.html" },
     { "source": "/products/:slug/", "destination": "/products/:slug/index.html" },
+    { "source": "/steroids", "destination": "/steroids/index.html" },
+    { "source": "/steroids/", "destination": "/steroids/index.html" },
+    { "source": "/steroids/:slug", "destination": "/steroids/:slug/index.html" },
+    { "source": "/steroids/:slug/", "destination": "/steroids/:slug/index.html" },
     { "source": "/about", "destination": "/about/index.html" },
     { "source": "/about/", "destination": "/about/index.html" },
     { "source": "/privacy", "destination": "/privacy/index.html" },
@@ -25,7 +29,7 @@
     { "source": "/auth/tiktok/callback", "destination": "/auth/tiktok/callback/index.html" },
     { "source": "/auth/tiktok/callback/", "destination": "/auth/tiktok/callback/index.html" },
     {
-      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|about/|privacy/|terms/|auth/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|tiktokwzNKFVmpXKYaVea8PxUsOmoVIXUcaa0G\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
+      "source": "/((?!assets/|fonts/|qr/|data/|guides/|posts/|products/|myth-or-fact/|steroids/|about/|privacy/|terms/|auth/|favicon\\.svg|og-image\\.png|googlebe5c6877a9634ad2\\.html|ac2bc0a7d86395eca9eff18b691bd343\\.txt|tiktokwzNKFVmpXKYaVea8PxUsOmoVIXUcaa0G\\.txt|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "destination": "/index.html"
     }
   ],
@@ -34,6 +38,8 @@
     { "source": "/products/denik-somatropin-hgh-100iu-kit/", "destination": "/products/denik-pharma-ototropin-100iu/", "permanent": true },
     { "source": "/products/denik-bpc-157-lyophilized-vial", "destination": "/products/denik-bpc/", "permanent": true },
     { "source": "/products/denik-bpc-157-lyophilized-vial/", "destination": "/products/denik-bpc/", "permanent": true },
+    { "source": "/products/specialty-sourcing-anabolics-sarms-serms-hcg-ais", "destination": "/", "permanent": true },
+    { "source": "/products/specialty-sourcing-anabolics-sarms-serms-hcg-ais/", "destination": "/", "permanent": true },
     {
       "source": "/:path*",
       "has": [
