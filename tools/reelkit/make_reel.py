@@ -12,7 +12,7 @@ Spec (JSON):
                                 each card is one 1080x1920 screen. Elements with class "step"
                                 appear one by one, in page order. "hold" = extra seconds on the
                                 finished card (optional).
-  "music": {"mood": "lofi" | "bright" | "ambient", "seed": 123},
+  "music": {"mood": "rock" | "hiphop" | "lofi" | "bright" | "ambient", "seed": 123},
   "transition": "slideleft"     ffmpeg xfade name used between cards (optional)
 }
 Built-in fonts: "Kit Display" (Bricolage Grotesque 800) and "Kit Sans" (DM Sans 400/700).

@@ -17,7 +17,7 @@ See `examples/example-spec.json` for the spec format, and the docstring in `make
 - Built-in fonts: "Kit Display" (Bricolage Grotesque 800) and "Kit Sans" (DM Sans).
 - Elements with class `step` appear one at a time.
 - Keep text inside `.safe` (Instagram covers the top 220 px, the bottom 440 px and the right 140 px).
-- Music moods: `lofi`, `bright`, `ambient`. Change `seed` every reel so no two sound the same.
+- Music moods: `rock` and `hiphop` (default choice since 2026-11-28), plus older `lofi`, `bright`, `ambient`. Change `seed` every reel so no two sound the same.
 
 Published reels are hosted on the education site: copy `reel.mp4` and `cover.jpg` to
 `edu/static/r/<YYYY-MM-DD-slug>/`, push to main, and they are served at
